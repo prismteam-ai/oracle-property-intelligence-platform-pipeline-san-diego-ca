@@ -5,6 +5,13 @@ import { ARTIFACTS } from '../publish/exportArtifacts.js';
 
 export type Param = string | number | boolean | null;
 
+export class QueryTimeoutError extends Error {
+  constructor(timeoutMs: number) {
+    super(`Query stopped after ${timeoutMs / 1000} seconds. Narrow it with a WHERE clause or a LIMIT.`);
+    this.name = 'QueryTimeoutError';
+  }
+}
+
 const sqlPath = (p: string): string => `'${p.replace(/\\/g, '/').replace(/'/g, "''")}'`;
 
 /** Relations the serving layer exposes. Names are the public query contract for agents. */
@@ -39,6 +46,9 @@ export class Store {
     }
     // After the views exist, lock the engine down: no file access beyond what is already bound,
     // no extension loading, no further configuration changes. Agent SQL runs under these limits.
+    // Bound what one query can cost: a runaway join is cut off instead of taking the function down.
+    await connection.run(`SET memory_limit = '2GB'`);
+    await connection.run(`SET threads = 2`);
     await connection.run(`SET enable_external_access = false`);
     await connection.run(`SET lock_configuration = true`);
     return new Store(instance, connection, artifactDir);
@@ -58,8 +68,29 @@ export class Store {
     return reader.getRowObjectsJson().map((row) => schema.parse(row));
   }
 
-  async raw(sql: string): Promise<{ columns: string[]; rows: Record<string, unknown>[] }> {
-    const reader = await this.connection.runAndReadAll(sql);
+  /**
+   * Runs caller-supplied SQL with a wall-clock limit. On timeout the statement is interrupted and
+   * the caller gets a plain error; the connection stays usable for the next request.
+   */
+  async raw(
+    sql: string,
+    timeoutMs = 15_000,
+  ): Promise<{ columns: string[]; rows: Record<string, unknown>[] }> {
+    // Held in an object so the type checker sees the assignment made inside the timer callback.
+    const state = { timedOut: false };
+    const timer = setTimeout(() => {
+      state.timedOut = true;
+      this.connection.interrupt();
+    }, timeoutMs);
+    let reader;
+    try {
+      reader = await this.connection.runAndReadAll(sql);
+    } catch (e) {
+      if (state.timedOut) throw new QueryTimeoutError(timeoutMs);
+      throw e;
+    } finally {
+      clearTimeout(timer);
+    }
     return {
       columns: reader.columnNames(),
       rows: reader.getRowObjectsJson(),

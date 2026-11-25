@@ -101,6 +101,7 @@ export function systemPrompt(schema: string, today: string, ask: AgentAsk): stri
     '- To resolve a city, community or ZIP to coordinates, call locatePlace first. Do not guess coordinates.',
     '- For "within N miles" questions use findRoofingLeads. Use queryData only for questions that tool cannot answer (ownership, counts, contractors).',
     `- Defaults, and say so when you use them: roof age threshold ${DEFAULT_ROOF_AGE} years; "many years" or "long-open" means open ${LONG_OPEN_YEARS}+ years; radius 5 miles if none is given; maximum radius ${MAX_RADIUS_MILES} miles.`,
+    '- Ownership: for "has not changed owner in N years" pass minYearsSinceTransfer to findRoofingLeads. For out-of-area or absentee owners pass ownerOccupied="no" and say it is a proxy (the parcel is not flagged owner-occupied); owner names and mailing addresses are not in the public data.',
     '- Roof age is a proxy: the last completed roofing permit when one exists, otherwise the year built. Say which basis applies.',
     '- If a field is missing (BBB rating, contractor, owner name), say it is not available in the source data. Do not fill it in.',
     '- If a tool result carries coverageNote, repeat its substance: part of the area has no permit data.',
@@ -153,6 +154,8 @@ function buildTools(store: Store, trace: Trace, today: string) {
         minRoofAgeYears: z.number().int().min(0).max(150).default(DEFAULT_ROOF_AGE),
         minOpenYears: z.number().min(0).max(60).default(0),
         signal: z.enum(['any', 'aged_roof', 'open_permit', 'both']),
+        minYearsSinceTransfer: z.number().min(0).max(120).optional(),
+        ownerOccupied: z.enum(['any', 'yes', 'no']).default('any'),
         sort: z.enum(['score', 'distance', 'roof_age', 'open_days']).default('score'),
       }),
       execute: async (args) => {
@@ -164,6 +167,10 @@ function buildTools(store: Store, trace: Trace, today: string) {
             minRoofAgeYears: args.minRoofAgeYears,
             minOpenYears: args.minOpenYears,
             signal: args.signal,
+            ownerOccupied: args.ownerOccupied,
+            ...(args.minYearsSinceTransfer === undefined
+              ? {}
+              : { minYearsSinceTransfer: args.minYearsSinceTransfer }),
             sort: args.sort,
             limit: ROWS_TO_CLIENT,
           },

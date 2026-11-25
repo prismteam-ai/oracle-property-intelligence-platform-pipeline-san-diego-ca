@@ -21,6 +21,10 @@ export const leadSearchInput = z.object({
   minOpenYears: z.number().min(0).max(60).default(0),
   signal: z.enum(['any', 'aged_roof', 'open_permit', 'both']).default('any'),
   permitStatus: z.enum(['any', 'open', 'closed']).default('any'),
+  /** Only parcels whose last recorded ownership document is at least this many years old. */
+  minYearsSinceTransfer: z.number().min(0).max(120).optional(),
+  /** `no` is the available proxy for an out-of-area owner (see `out_of_area_basis`). */
+  ownerOccupied: z.enum(['any', 'yes', 'no']).default('any'),
   sort: z.enum(['score', 'distance', 'roof_age', 'open_days']).default('score'),
   limit: z.number().int().min(1).max(500).default(200),
   offset: z.number().int().min(0).default(0),
@@ -179,7 +183,11 @@ function candidatesCte(): string {
     flagged AS (
       SELECT *,
         coalesce(roof_age_years >= $minAge, FALSE) AS aged,
-        (open_roof_permits > 0 AND coalesce(longest_open_days, 0) >= $minOpenDays) AS has_open
+        (open_roof_permits > 0 AND coalesce(longest_open_days, 0) >= $minOpenDays) AS has_open,
+        -- Dates whose century had to be guessed never count, so "10+ years" is not an artefact.
+        ($minTransferDays < 0 OR (last_transfer_date IS NOT NULL
+          AND NOT coalesce(last_transfer_ambiguous, FALSE)
+          AND date_diff('day', last_transfer_date, $today::DATE) >= $minTransferDays)) AS transfer_ok
       FROM near
     ),
     scored AS (
@@ -212,7 +220,17 @@ export async function findRoofingLeads(
     minAge: input.minRoofAgeYears,
     minOpenDays: Math.round(input.minOpenYears * 365.25),
   };
-  const where = `${SIGNAL_SQL[input.signal]} AND ${STATUS_SQL[input.permitStatus]}`;
+  const ownership: string[] = [];
+  // Always bound (a statement must use every named parameter): -1 switches the filter off.
+  named['minTransferDays'] =
+    input.minYearsSinceTransfer === undefined ? -1 : Math.round(input.minYearsSinceTransfer * 365.25);
+  if (input.minYearsSinceTransfer !== undefined) ownership.push('transfer_ok');
+  if (input.ownerOccupied === 'yes') ownership.push('owner_occupied IS TRUE');
+  if (input.ownerOccupied === 'no') ownership.push('owner_occupied IS NOT TRUE');
+  // An ownership filter is a signal in its own right: with one set, `any` no longer also
+  // requires an aged roof or an open permit.
+  const signal = ownership.length > 0 && input.signal === 'any' ? 'TRUE' : SIGNAL_SQL[input.signal];
+  const where = [signal, STATUS_SQL[input.permitStatus], ...ownership].join(' AND ');
 
   const totals = await store.queryNamed(
     z.object({ total: num, aged: num, open: num }),
@@ -242,7 +260,7 @@ export async function findRoofingLeads(
   const inRadius = await store.queryNamed(
     z.object({ code: z.string().nullable(), parcels: num }),
     `${candidatesCte()}
-     SELECT jurisdiction AS code, count(*) AS parcels FROM near GROUP BY 1 ORDER BY parcels DESC`,
+     SELECT jurisdiction AS code, count(*) AS parcels FROM scored GROUP BY 1 ORDER BY parcels DESC`,
     named,
   );
   const coverage: JurisdictionCoverage[] = inRadius

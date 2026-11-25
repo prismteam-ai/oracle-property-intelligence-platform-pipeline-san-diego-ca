@@ -13,7 +13,7 @@ import {
   queryAtlas,
 } from './queries.js';
 import { MAX_QUERY_ROWS, QueryRejectedError } from './sqlGuard.js';
-import type { Store } from './store.js';
+import { QueryTimeoutError, type Store } from './store.js';
 
 export const SERVER_INFO = { name: 'oracle-property-intelligence-san-diego', version: '1.0.0' } as const;
 
@@ -55,7 +55,8 @@ export function buildMcpServer(store: Store, today: () => string): McpServer {
       title: 'Find roofing leads in a radius',
       description:
         'Properties within a radius of a point that have a roof at or above an age threshold and/or ' +
-        'open roofing permits. Returns totals and rows with roof-age basis, open duration and coordinates.',
+        'open roofing permits. Optional ownership filters: minYearsSinceTransfer (ownership unchanged for N+ years) ' +
+        'and ownerOccupied=no (the proxy for out-of-area owners). Returns totals, a permit-coverage note and rows.',
       inputSchema: {
         center: z.object({ lat: z.number(), lon: z.number() }),
         radiusMiles: z.number().positive().max(MAX_RADIUS_MILES).optional(),
@@ -63,6 +64,8 @@ export function buildMcpServer(store: Store, today: () => string): McpServer {
         minOpenYears: z.number().min(0).max(60).optional(),
         signal: z.enum(['any', 'aged_roof', 'open_permit', 'both']).optional(),
         permitStatus: z.enum(['any', 'open', 'closed']).optional(),
+        minYearsSinceTransfer: z.number().min(0).max(120).optional(),
+        ownerOccupied: z.enum(['any', 'yes', 'no']).optional(),
         sort: z.enum(['score', 'distance', 'roof_age', 'open_days']).optional(),
         limit: z.number().int().min(1).max(500).optional(),
         offset: z.number().int().min(0).optional(),
@@ -132,6 +135,7 @@ export function buildMcpServer(store: Store, today: () => string): McpServer {
         return ok(await queryAtlas(store, sql));
       } catch (e) {
         if (e instanceof QueryRejectedError) return fail(`Query rejected: ${e.message}`);
+        if (e instanceof QueryTimeoutError) return fail(e.message);
         return fail(`Query failed: ${e instanceof Error ? e.message.split('\n')[0] : 'unknown error'}`);
       }
     },

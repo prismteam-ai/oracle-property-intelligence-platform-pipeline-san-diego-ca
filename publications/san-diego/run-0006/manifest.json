@@ -1,0 +1,111 @@
+{
+  "schema": "oracle-artifact-manifest/1",
+  "county": "San Diego County, CA",
+  "countySlug": "san-diego",
+  "runId": 6,
+  "createdAt": "2026-11-25T17:39:55.679Z",
+  "rootCid": "bafybeih5vicdja4prbknofmxzln67pu5vg2saifog4qonlknv43nmwxsea",
+  "previousRootCid": "bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy",
+  "objects": [
+    {
+      "name": "",
+      "cid": "bafybeih5vicdja4prbknofmxzln67pu5vg2saifog4qonlknv43nmwxsea",
+      "size": 172379311,
+      "codec": "directory",
+      "sha256": null
+    },
+    {
+      "name": "query-table.parquet",
+      "cid": "bafybeic2vjtum745pouui6tfjorp5tkp6txx3gkoglrr6566ixlvsmk3le",
+      "size": 29400677,
+      "sha256": "84dfcd4f9d6d88013459334ddddb479dd91f88ef061e6759771d8fdefdc8b242",
+      "codec": "file"
+    },
+    {
+      "name": "permits.parquet",
+      "cid": "bafybeihxdt3nhrnrrnuxamggy66vkhvp55s2pwygwmb7bu5gurqfaend64",
+      "size": 129328965,
+      "sha256": "789853b2aefac184ac769fb38d69fc13a391b7907f33c03f3dc6bd0d7ef18caf",
+      "codec": "file"
+    },
+    {
+      "name": "contractors.parquet",
+      "cid": "bafybeicuxdubvjngaccfe6lgtllojetwld47mglkkppbflihrxwycrdwqu",
+      "size": 10194246,
+      "sha256": "63ee0688883cc2478286fa7c5afd4886547b172d512d25f3be5e59d076b3156a",
+      "codec": "file"
+    },
+    {
+      "name": "businesses.parquet",
+      "cid": "bafybeicehxt45sddxym76ma3aw56lj6zbgf6nv5g2niz5sx5si6a53dvea",
+      "size": 3151865,
+      "sha256": "6cefffe8a4b5258afde1150a49898bc7cac04777c9ee7794890fca786d894812",
+      "codec": "file"
+    },
+    {
+      "name": "places.parquet",
+      "cid": "bafkreieu3ruqmovshmtwsnav3neigzia7dcrxppf66jm3j3tsxsyytdkdi",
+      "size": 4258,
+      "sha256": "94dc69063ab23b27693415db48836500f8c51bbde5f792cda77395e58c4c6a1a",
+      "codec": "file"
+    },
+    {
+      "name": "run-history.json",
+      "cid": "bafkreidlkw26ogw54sex4eflp2r46wmsozt7umtpbbjzurhire34z2pffi",
+      "size": 30305,
+      "sha256": "6b55b5e71adde4897e10ab7ea3cf59927667fa326f08539a44e88937cce9e52a",
+      "codec": "file"
+    },
+    {
+      "name": "sources.json",
+      "cid": "bafkreie7r3k7aniqlympikqaji3datgngxwy4z6p3ihgbzbqbnsavsekyy",
+      "size": 5926,
+      "sha256": "9f8ed5f035105e18f42a004a36304ccd35ed8e67cfda0e60e4300b640ac88ac6",
+      "codec": "file"
+    },
+    {
+      "name": "coverage.json",
+      "cid": "bafkreia2c3jzzcwip3xoedzzlnwxl3b7malufggv6bmkc3hbufhu6rn6gu",
+      "size": 3252,
+      "sha256": "1a16d39c8ac87eeee20f395b6d75ec3f60174298d5f058a16ce1a14f4f45be35",
+      "codec": "file"
+    },
+    {
+      "name": "samples/long-open-roofing-permits.csv",
+      "cid": "bafkreiebpvsmf2nij3tthmrpfuh3euikrikw2xcyxlzjxuqwun7rlbsjci",
+      "size": 135324,
+      "sha256": "817d64c2e9a84ee733b22f2d0fb2510a8a156d5c58baf29bd216a37f15864912",
+      "codec": "file"
+    },
+    {
+      "name": "samples/aged-roofs-sample.csv",
+      "cid": "bafkreibtcpykflb4b5kby4cwotpf43h2jyin2ha6fpf55o7m4om3err52q",
+      "size": 124493,
+      "sha256": "3313f0a2ac3c0f541c705674de5e6cfa4e10dd1c1e2bcbdebbece399b2463dd4",
+      "codec": "file"
+    }
+  ],
+  "car": {
+    "name": "run-0006.car",
+    "size": 172439513,
+    "sha256": "8c841e727623f812046bfd4404679f688a4ea80008e9584826936a73d0f99375",
+    "rootCid": "bafybeih5vicdja4prbknofmxzln67pu5vg2saifog4qonlknv43nmwxsea"
+  },
+  "ipns": null,
+  "origins": [],
+  "pins": [
+    {
+      "provider": "filebase",
+      "cid": "bafybeih5vicdja4prbknofmxzln67pu5vg2saifog4qonlknv43nmwxsea",
+      "ok": true,
+      "detail": "imported CAR as san-diego/run-0006-3nmwxsea.car in bucket oracle-open-data-san-diego-rv"
+    },
+    {
+      "provider": "pinata",
+      "cid": null,
+      "ok": true,
+      "detail": "pinned 10 files individually; every CID equals the manifest"
+    }
+  ],
+  "gatewayPattern": "https://<gateway>/ipfs/<cid>  (directory members: /ipfs/<rootCid>/<name>)"
+}

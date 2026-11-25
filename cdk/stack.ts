@@ -1,5 +1,6 @@
 import path from 'node:path';
 import * as cdk from 'aws-cdk-lib';
+import * as amplify from 'aws-cdk-lib/aws-amplify';
 import * as apigwv2 from 'aws-cdk-lib/aws-apigatewayv2';
 import * as integrations from 'aws-cdk-lib/aws-apigatewayv2-integrations';
 import * as cloudwatch from 'aws-cdk-lib/aws-cloudwatch';
@@ -112,6 +113,21 @@ export class OraclePipelineStack extends cdk.Stack {
     });
     errors.addAlarmAction(new cwActions.SnsAction(alarmTopic));
     errors.addOkAction(new cwActions.SnsAction(alarmTopic));
+
+    // Explorer UI: static bundle on Amplify, manual-deploy branch (no GitHub token stored).
+    const explorer = new amplify.CfnApp(this, 'ExplorerApp', {
+      name: `${props.projectName}-explorer`,
+      platform: 'WEB',
+    });
+    const explorerBranch = new amplify.CfnBranch(this, 'ExplorerMain', {
+      appId: explorer.attrAppId,
+      branchName: 'main',
+      stage: 'PRODUCTION',
+    });
+    new cdk.CfnOutput(this, 'ExplorerAppId', { value: explorer.attrAppId });
+    new cdk.CfnOutput(this, 'ExplorerUrl', {
+      value: `https://${explorerBranch.branchName}.${explorer.attrDefaultDomain}`,
+    });
 
     new cdk.CfnOutput(this, 'McpUrl', { value: `${httpApi.apiEndpoint}/mcp` });
     new cdk.CfnOutput(this, 'ApiUrl', { value: httpApi.apiEndpoint });

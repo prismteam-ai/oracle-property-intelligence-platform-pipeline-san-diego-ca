@@ -196,10 +196,15 @@ const AGED_ROOF_SAMPLE_SQL = `
 export const LIMITATIONS: readonly string[] = [
   'Owner name and mailing address are not in any public San Diego source; out-of-area owner is a proxy (parcel not flagged owner-occupied) and over-counts.',
   'BBB ratings are not collected: there is no bulk source and BBB terms limit copying. Each contractor row carries the reason.',
-  'Permits cover the City of San Diego and the unincorporated county. The other 17 cities publish no bulk permit feed that was found.',
   'Roof age is a proxy: the last completed roofing permit where one exists (high confidence), otherwise the assessor effective year (medium, or low where a two-digit year is ambiguous).',
   'Roofing class comes from text rules over permit descriptions; roof-mounted solar is classed separately and excluded.',
 ];
+
+/** States which jurisdictions have permit data in this run, from the rows themselves. */
+export function permitCoverageLimitation(sources: { jurisdiction: string; permits: number }[]): string {
+  const listed = sources.map((s) => `${s.jurisdiction} (${s.permits.toLocaleString('en-US')})`).join('; ');
+  return `Permit data in this run covers: ${listed}. Cities not listed publish no bulk permit feed that the pipeline could use (see SOURCES.md), so open-permit results there are empty.`;
+}
 
 async function tableCount(db: Db, table: string): Promise<number> {
   return (await db.one(countRow, `SELECT count(*) AS n FROM ${table}`)).n;
@@ -213,7 +218,7 @@ export async function exportArtifacts(db: Db, publishRoot: string, asOf: string)
   const runId = (
     await db.one(
       z.object({ run_id: z.coerce.number() }),
-      `SELECT max(run_id) AS run_id FROM pipeline_run WHERE status = 'succeeded' OR status = 'ok' OR finished_at IS NOT NULL`,
+      `SELECT max(run_id) AS run_id FROM pipeline_run WHERE status = 'ok' AND finished_at IS NOT NULL`,
     )
   ).run_id;
   const dir = path.join(publishRoot, COUNTY_SLUG, `run-${String(runId).padStart(4, '0')}`);
@@ -298,6 +303,11 @@ export async function exportArtifacts(db: Db, publishRoot: string, asOf: string)
      GROUP BY ALL ORDER BY rows DESC LIMIT 40`,
   );
 
+  const permitSources = await db.query(
+    z.object({ jurisdiction: z.string(), permits: z.coerce.number() }),
+    `SELECT jurisdiction, count(*) AS permits FROM permit GROUP BY 1 ORDER BY permits DESC`,
+  );
+
   const coverage: Coverage = {
     county: 'San Diego County, CA',
     countySlug: COUNTY_SLUG,
@@ -315,7 +325,7 @@ export async function exportArtifacts(db: Db, publishRoot: string, asOf: string)
       parcelsRoofFromPermit: roofYears.from_permit,
     },
     rejects,
-    limitations: [...LIMITATIONS],
+    limitations: [permitCoverageLimitation(permitSources), ...LIMITATIONS],
   };
 
   await writeFile(at(ARTIFACTS.runHistory), JSON.stringify({ runs, stats: runHistory }, null, 2));
