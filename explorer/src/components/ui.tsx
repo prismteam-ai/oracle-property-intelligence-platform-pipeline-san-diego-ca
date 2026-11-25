@@ -187,7 +187,12 @@ export function DataTable({
                 const value = row[c];
                 const textValue = fmtCell(value);
                 return (
-                  <td key={c} className={isNumeric(value) ? 'num' : undefined}>
+                  <td
+                    key={c}
+                    className={
+                      isNumeric(value) ? 'num' : textValue.length > 36 ? 'wrap' : undefined
+                    }
+                  >
                     {value === null || value === undefined ? (
                       <span className="null">null</span>
                     ) : /^https?:\/\//.test(textValue) ? (

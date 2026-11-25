@@ -315,13 +315,15 @@ async function walk(viewport: (typeof VIEWPORTS)[number], dark: boolean): Promis
   );
   check(overflow <= 0, `[${tag}] no horizontal page overflow (${overflow}px)`);
 
-  const real = consoleErrors.filter((e) => !/429|ERR_FAILED|CORS|net::|404/.test(e));
+  const real = consoleErrors.filter(
+    (e) => !/429|ERR_FAILED|CORS|net::|404|status of 5\d\d/.test(e),
+  );
   check(
     real.length === 0,
     `[${tag}] no unexpected console errors${real.length ? `: ${real.slice(0, 3).join(' | ')}` : ''}`,
   );
   notes.push(
-    `[${tag}] expected network console errors (gateway 429 / agent 404): ${consoleErrors.length - real.length}`,
+    `[${tag}] network console errors from gateways or a missing endpoint: ${consoleErrors.length - real.length}`,
   );
   await browser.close();
 }

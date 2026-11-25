@@ -138,7 +138,7 @@ export async function checkGateway(
           outcome: 'cors_blocked',
           ms: elapsed(),
           detail:
-            'Blocked by CORS: the gateway answered, but without CORS headers, so the browser will not let this page read the bytes.',
+            'Blocked by CORS: the gateway answered, but without CORS headers, so the browser will not let this page read the bytes. Gateway timeout pages are often sent this way when content has not reached the gateway yet.',
         };
       } catch {
         return {
@@ -151,6 +151,17 @@ export async function checkGateway(
       }
     }
     if (!response.ok) {
+      // Gateways explain themselves in the body ("no providers found"), so show a short excerpt.
+      let said = '';
+      try {
+        said = (await response.text())
+          .replace(/<[^>]*>/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim();
+      } catch {
+        said = '';
+      }
+      const excerpt = said === '' ? '' : ` The gateway said: “${said.slice(0, 180)}”`;
       return {
         ...base,
         outcome: 'http_error',
@@ -159,7 +170,7 @@ export async function checkGateway(
         detail:
           response.status === 429
             ? 'HTTP 429: this gateway refuses scripted requests.'
-            : `HTTP ${response.status}.`,
+            : `HTTP ${response.status}.${excerpt}`,
       };
     }
     let bytes: Uint8Array;

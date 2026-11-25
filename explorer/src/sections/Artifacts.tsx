@@ -697,6 +697,33 @@ export default function Artifacts() {
                 </button>
               </div>
             </div>
+          ) : isMissing(history.state.error, 'tool_error') ? (
+            <div className="stack-tight" data-testid="publication-history-none">
+              <p className="empty-line">{history.state.error.message}</p>
+              {served ? (
+                <>
+                  <p className="small muted">
+                    The served manifest exists, so its own chain is shown instead.
+                  </p>
+                  <PublicationHistory
+                    manifest={served}
+                    publications={[
+                      {
+                        runId: served.runId,
+                        createdAt: served.createdAt,
+                        rootCid: served.rootCid,
+                        previousRootCid: served.previousRootCid ?? null,
+                      },
+                    ]}
+                  />
+                </>
+              ) : null}
+              <div>
+                <button type="button" className="btn btn-small" onClick={history.reload}>
+                  Check again
+                </button>
+              </div>
+            </div>
           ) : (
             <ErrorNotice
               error={history.state.error}

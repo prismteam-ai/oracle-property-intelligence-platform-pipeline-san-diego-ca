@@ -125,7 +125,9 @@ function SourceTable({ info, runs }: { info: DatasetInfo; runs: PipelineRuns | n
             <th scope="col" className="num">
               Rows fetched
             </th>
-            <th scope="col">Collected at</th>
+            <th scope="col" className="col-time">
+              Collected at
+            </th>
             <th scope="col">Provenance</th>
             <th scope="col">Licence</th>
           </tr>
@@ -137,13 +139,16 @@ function SourceTable({ info, runs }: { info: DatasetInfo; runs: PipelineRuns | n
               <td className="num">{fmtInt(s.rows)}</td>
               <td>
                 {s.fetchedAt ? (
-                  fmtTimestamp(s.fetchedAt)
+                  <>
+                    {s.fetchedAt.slice(0, 19)}
+                    <span className="muted small"> (loader clock; no time zone recorded)</span>
+                  </>
                 ) : lastRun ? (
                   <>
                     {fmtTimestamp(lastRun.finished_at)}
                     <span className="muted small">
                       {' '}
-                      (end of run {lastRun.run_id}; this source keeps a cursor, not a fetch time)
+                      (end of run {lastRun.run_id}; no per-source time recorded)
                     </span>
                   </>
                 ) : (

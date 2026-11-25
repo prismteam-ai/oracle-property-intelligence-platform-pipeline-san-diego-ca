@@ -270,7 +270,7 @@ export default function AgentPanel({
           <textarea
             id={`${ids}-question`}
             rows={3}
-            maxLength={1000}
+            maxLength={600}
             data-testid="agent-question"
             placeholder="e.g. Which roofing contractors hold the most open permits near La Jolla?"
             value={question}

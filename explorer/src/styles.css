@@ -883,8 +883,18 @@ tfoot td {
 }
 
 .data-table td {
-  max-width: 340px;
+  white-space: nowrap;
+}
+
+.data-table td.wrap {
+  min-width: 260px;
+  max-width: 420px;
+  white-space: normal;
   overflow-wrap: anywhere;
+}
+
+.col-time {
+  min-width: 190px;
 }
 
 .data-table thead th {
