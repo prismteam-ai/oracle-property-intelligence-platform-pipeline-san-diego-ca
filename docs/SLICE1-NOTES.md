@@ -6,6 +6,88 @@ slices and are not started.
 
 All numbers below are from the database built on 25 November 2026 (UTC). Run logs are in `docs/run-logs/`.
 
+## Update: runs 4 to 6 (25 November 2026, later the same day)
+
+This section is current. The sections after it describe the database as it stood after run 3 and are kept
+for the record; where a number differs, this section wins.
+
+### What changed
+
+1. **Carlsbad permits added** (`carlsbad_permits`). Of the eleven largest cities after San Diego, Carlsbad is
+   the only one with a public permit feed. `SOURCES.md` lists what each city has.
+2. **A permit with a coordinate outside the county is kept.** The coordinate is nulled and the discarded
+   value is recorded in `permit.coord_note`. This recovered 2,105 permits (2,073 county, 32 city) that were
+   rejected before; 846 of them still land on the map through their parcel.
+3. **Roofing class is decided by approval type first.** Agreements, encroachment and right-of-way approvals,
+   and construction-change or deferred-submittal records are never roofing work. The rule: such a record
+   describes a project or revises another permit, so its roof text belongs to the parent permit, which is
+   already in the data. 1,576 permits changed class; 1,070 stopped being roofing permits (961 of them were
+   roof-structure mentions on revision records).
+4. **A partial reroof is a repair, not a reroof.** "Picture frame" and "under array" reroofs done for solar
+   no longer reset roof age.
+5. **Status groups mean one thing each.** A new group, `pending`, holds everything applied for but not
+   issued. `is_open` is true only for an issued permit that is not finalled. 141,190 permits changed group:
+   139,423 from `other` to `pending`, and 1,767 county permits from `open` to `pending` (county "Open" and
+   "PC About to Expire" are applications, not issued permits). The full status table is in `SOURCES.md`.
+6. **Raw files are reused only to resume an interrupted fetch.** Before, a second run on the same day could
+   silently reuse the first run's download.
+
+### Permits by jurisdiction (after run 6)
+
+| Jurisdiction                                 |       Permits | Roofing permits | of which reroof | Open roofing permits | Open 2 years or more | Pending roofing |
+| -------------------------------------------- | ------------: | --------------: | --------------: | -------------------: | -------------------: | --------------: |
+| City of San Diego                            |     1,272,442 |           7,885 |           5,714 |                  371 |                  180 |             621 |
+| County, unincorporated                       |       474,565 |          21,365 |          20,285 |                  772 |                  310 |              50 |
+| City of Carlsbad (applied 2022 to 2023 only) |         9,877 |             522 |             421 |                  328 |                    4 |               8 |
+| **Total**                                    | **1,756,884** |      **29,772** |      **26,420** |            **1,471** |              **494** |         **679** |
+
+Open five years or more: 403. The open counts fell from the run 3 figures (2,135 open, 1,237 at five years)
+because construction-change records and county applications are no longer counted as open roofing permits.
+
+**Carlsbad's open permits are open as of 14 January 2024,** the date its snapshot was last edited. Some will
+have been finalled since. `permit.status_as_of` carries that date and `days_open` is measured up to it, which
+is why only 4 show as open for two years.
+
+Carlsbad publishes no APN. 8,709 of its 9,877 permits (88%) are tied to a parcel because their address
+equals exactly one Carlsbad situs address; the same rule linked 9,106 city and 626 county permits that
+arrived without an APN. 147 Carlsbad parcels now take their roof year from a completed reroof permit.
+
+### Table counts (after run 6)
+
+`permit` 1,756,884; `permit_contractor` 430,559; `permit_apn_link` 18,441 (new); `rejects` 6,705 (a per-run
+log: 1,142 rows per full read now, down from 3,247); `pipeline_run` 6; `run_source_stats` 51; `source` 9.
+`property`, `ownership`, `permit_status_history`, `permit_contractor_record`, `cslb_license`, `contractor`
+and `business` are unchanged from the table below. Roof age: 15,670 parcels on a permit basis, 761,230
+medium, 249,421 low, 61,141 none.
+
+### Run history, continued
+
+| Run | What it was                                                               | Deltas                                                                                                                                                                                                            |
+| --- | ------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 4   | Full re-read, Carlsbad added, coordinate change                           | Carlsbad 9,877 inserted. County permits 2,073 inserted, 314 updated. City permits 32 inserted, 22 updated. Everything else unchanged.                                                                             |
+| 5   | Fresh download of the three county sources                                | 0 inserted, 0 updated. Run 4 had reused county files downloaded earlier that day; this confirmed nothing had been missed.                                                                                         |
+| 6   | Full re-read with the type and status rules; city file freshly downloaded | City permits 143,422 updated, county 1,805, Carlsbad 400. No inserts. Almost all are the status regrouping and the 1,576 class changes; the city figure also includes rows the city changed in its daily refresh. |
+
+Wall time: 2 min 41 s, 3 min 55 s, 6 min 47 s. Summaries are in `docs/run-logs/2026-11-25-runs-4-to-6.txt`.
+
+### New or changed columns
+
+- `permit.coord_note`, `permit.status_as_of` (new). They enter the row hash only when set, so adding them
+  did not make every existing row look updated.
+- `permit.status_group` gains the value `pending`.
+- `permit_enriched`: `apn` is now the source APN or, failing that, the address-matched one, with `apn_basis`
+  saying which; new `days_pending` and `open_as_of`; `open_since` and `days_open` are null for pending rows.
+
+### Open issues added
+
+- Ten of the eleven target cities have no public permit feed. Closing that gap needs public-records requests
+  or agreements, not engineering.
+- Carlsbad's feed is two years stale and frozen.
+- Electrical, mechanical and plumbing permits filed under a project titled as a reroof are still classed by
+  that title (several hundred city rows). They indicate a roofing project but are not the roofing permit.
+- Two city parcel layers expose owner names and mailing addresses publicly (see `SOURCES.md`). Not loaded;
+  needs a decision.
+
 ## How to run
 
 Needs Node 24. No account, key or payment is needed for any source.

@@ -1,0 +1,63 @@
+
+run 4: ok
+source                       entity                    fetched  rejected  dupes  inserted  updated  unchanged  MB   sec 
+---------------------------  ------------------------  -------  --------  -----  --------  -------  ---------  ---  ----
+sandag_parcels               property                  1088570  1103      5      0         0        1087462    0.0  28.1
+sandag_parcels               ownership                 1087467  0         5      0         0        1087462    0.0  0.0 
+sdcounty_permit_status       permit_status             1128036  0         0      0         0        1128036    0.0  10.5
+sdcounty_permits             permit                    475198   1         632    2073      314      472178     0.0  21.1
+sdcounty_permit_contractors  permit_contractor_record  310350   20        16     0         0        310314     0.0  5.7 
+sdcity_permits               permit                    1272476  14        20     32        22       1272388    0.0  68.3
+carlsbad_permits             permit                    9886     0         9      9877      0        0          6.1  2.7 
+sdcity_businesses            business                  60265    4         0      0         0        60261      0.0  3.5 
+cslb_license_master          cslb_license              246104   0         0      0         0        246104     0.0  13.5
+reconciled                   contractor                256944   0         0      0         0        256944     0.0  4.4 
+  sandag_parcels/property: resumed: reused 545 of 545 page files already on disk; fetch 0.3s, validate 25.7s
+  sandag_parcels/ownership: resumed: reused 545 of 545 page files already on disk; fetch 0.3s, validate 25.7s
+  sdcounty_permit_status/permit_status: reused 23 page file(s) from an earlier attempt today; fetch 1.7s, validate 6.9s
+  sdcounty_permits/permit: reused 10 page file(s) from an earlier attempt today; fetch 4.1s, validate 11.9s
+  sdcounty_permit_contractors/permit_contractor_record: reused 7 page file(s) from an earlier attempt today; fetch 1.0s, validate 3.3s
+  sdcity_permits/permit: reused approvals_active_datasd.csv from an earlier attempt today; reused approvals_closed_datasd.csv from an earlier attempt today; fetch 0.3s, validate 61.1s
+  carlsbad_permits/permit: fetch 1.3s, validate 0.7s; 4.61 MB/s
+  sdcity_businesses/business: reused sd_businesses_active_datasd.csv from an earlier attempt today; fetch 0.3s, validate 2.6s
+  cslb_license_master/cslb_license: reused MasterLicenseData.csv from an earlier attempt today; fetch 0.2s, validate 12.1s
+  reconciled/contractor: built in SQL from cslb_license and permit_contractor_record
+exit 0
+
+run 5: ok
+source                       entity                    fetched  rejected  dupes  inserted  updated  unchanged  MB     sec  
+---------------------------  ------------------------  -------  --------  -----  --------  -------  ---------  -----  -----
+sdcounty_permit_status       permit_status             1128036  0         0      0         0        1128036    176.6  83.2 
+sdcounty_permits             permit                    475198   1         632    0         0        474565     478.3  128.6
+sdcounty_permit_contractors  permit_contractor_record  310350   20        16     0         0        310314     134.9  19.2 
+reconciled                   contractor                256944   0         0      0         0        256944     0.0    2.9  
+  sdcounty_permit_status/permit_status: fetch 76.0s, validate 6.1s; 2.32 MB/s
+  sdcounty_permits/permit: fetch 108.6s, validate 16.8s; 4.40 MB/s
+  sdcounty_permit_contractors/permit_contractor_record: fetch 14.7s, validate 3.5s; 9.20 MB/s
+  reconciled/contractor: built in SQL from cslb_license and permit_contractor_record
+exit 0
+
+run 6: ok
+source                       entity                    fetched  rejected  dupes  inserted  updated  unchanged  MB     sec  
+---------------------------  ------------------------  -------  --------  -----  --------  -------  ---------  -----  -----
+sandag_parcels               property                  1088570  1103      5      0         0        1087462    0.0    27.0 
+sandag_parcels               ownership                 1087467  0         5      0         0        1087462    0.0    0.0  
+sdcounty_permit_status       permit_status             1128036  0         0      0         0        1128036    176.6  64.2 
+sdcounty_permits             permit                    475198   1         632    0         1805     472760     478.3  129.7
+sdcounty_permit_contractors  permit_contractor_record  310350   20        16     0         0        310314     134.9  31.6 
+sdcity_permits               permit                    1272476  14        20     0         143422   1129020    679.7  129.2
+carlsbad_permits             permit                    9886     0         9      0         400      9477       0.0    0.9  
+sdcity_businesses            business                  60265    4         0      0         0        60261      19.1   4.3  
+cslb_license_master          cslb_license              246104   0         0      0         0        246104     0.0    11.3 
+reconciled                   contractor                256944   0         0      0         0        256944     0.0    4.6  
+  sandag_parcels/property: resumed: reused 545 of 545 page files already on disk; fetch 0.3s, validate 24.5s
+  sandag_parcels/ownership: resumed: reused 545 of 545 page files already on disk; fetch 0.3s, validate 24.5s
+  sdcounty_permit_status/permit_status: fetch 54.6s, validate 7.7s; 3.24 MB/s
+  sdcounty_permits/permit: fetch 112.1s, validate 13.8s; 4.27 MB/s
+  sdcounty_permit_contractors/permit_contractor_record: fetch 26.0s, validate 4.0s; 5.19 MB/s
+  sdcity_permits/permit: fetch 61.4s, validate 57.4s; 11.07 MB/s
+  carlsbad_permits/permit: resumed: reused 5 of 5 page files already on disk; fetch 0.5s, validate 0.2s; 0.02 MB/s
+  sdcity_businesses/business: fetch 2.4s, validate 1.6s; 8.11 MB/s
+  cslb_license_master/cslb_license: reused MasterLicenseData.csv (same published version, already on disk); fetch 0.2s, validate 10.0s
+  reconciled/contractor: built in SQL from cslb_license and permit_contractor_record
+exit 0
