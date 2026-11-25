@@ -60,7 +60,7 @@ const CONTRACTOR_STAGE = `
              AND length(pc.name_norm) >= ${MIN_NAME_KEY}
              AND pc.name_norm IN (SELECT name_norm FROM licensed_names))`;
 
-const DERIVED: readonly string[] = [
+export const DERIVED: readonly string[] = [
   `CREATE OR REPLACE TABLE permit_status_summary AS
    SELECT permit_uid,
           max(status_date) FILTER (WHERE mapped_status = 'Permit Finaled' OR upper(status) IN ('COMPLETED', 'DONE')) AS completed_date,
@@ -133,26 +133,42 @@ const DERIVED: readonly string[] = [
                                                     WHEN 'sdcounty_permits' THEN 'CN' END
    WHERE p.apn IS NULL AND p.address IS NOT NULL`,
 
-  // The City of San Diego lists some permits twice: once under the legacy number N and once as PMT-N
-  // after its move to Accela. They are one permit when the number matches and so does the applied date
-  // or the APN. The record further along (finalled, cancelled or expired, then issued, then pending) is
-  // kept as canonical, PMT-N on a tie; the other becomes its alias and is hidden from permit_enriched.
+  // Two sources list some permits twice.
+  //  - City of San Diego: once under the legacy number N and once as PMT-N after its move to Accela.
+  //  - County: legacy (pre-2012) permits appear as <base>1 and again as <base>999; the 999 copy is
+  //    often left at "Issued" while the other moved on to Completed or Expired.
+  // A pair is one permit when the ids match by that pattern and so does the applied date or the APN.
+  // The record further along (finalled, cancelled or expired, then issued, then pending) is canonical;
+  // on a tie the current-system record wins (PMT-N, and <base>1). The other becomes its alias and is
+  // left out of permit_enriched, so the same job cannot appear twice in a lead list.
   `CREATE OR REPLACE TABLE permit_alias AS
-   WITH pairs AS (
-     SELECT a.permit_uid AS legacy_uid, b.permit_uid AS accela_uid,
-            a.source_permit_id AS legacy_id, b.source_permit_id AS accela_id,
-            CASE WHEN a.status_group IN ('completed', 'cancelled', 'expired') THEN 3
-                 WHEN a.status_group = 'open' THEN 2 ELSE 1 END AS legacy_stage,
-            CASE WHEN b.status_group IN ('completed', 'cancelled', 'expired') THEN 3
-                 WHEN b.status_group = 'open' THEN 2 ELSE 1 END AS accela_stage
-     FROM permit a
-     JOIN permit b ON b.source_id = a.source_id AND b.source_permit_id = 'PMT-' || a.source_permit_id
-     WHERE a.source_id = 'sdcity_permits' AND (a.applied_date = b.applied_date OR a.apn = b.apn))
-   SELECT CASE WHEN legacy_stage > accela_stage THEN accela_uid ELSE legacy_uid END AS alias_uid,
-          CASE WHEN legacy_stage > accela_stage THEN legacy_uid ELSE accela_uid END AS canonical_uid,
-          CASE WHEN legacy_stage > accela_stage THEN accela_id ELSE legacy_id END AS alias_source_permit_id,
-          CASE WHEN legacy_stage > accela_stage THEN legacy_id ELSE accela_id END AS canonical_source_permit_id,
-          'same number with and without the PMT- prefix, and same applied date or APN' AS rule
+   WITH staged AS (
+     SELECT permit_uid, source_id, source_permit_id, applied_date, apn,
+            CASE WHEN status_group IN ('completed', 'cancelled', 'expired') THEN 3
+                 WHEN status_group = 'open' THEN 2 ELSE 1 END AS stage
+     FROM permit),
+   pairs AS (
+     -- "other" loses a tie, "preferred" wins it.
+     SELECT o.permit_uid AS other_uid, p.permit_uid AS preferred_uid,
+            o.source_permit_id AS other_id, p.source_permit_id AS preferred_id,
+            o.stage AS other_stage, p.stage AS preferred_stage,
+            'city: same number with and without the PMT- prefix, and same applied date or APN' AS rule
+     FROM staged o
+     JOIN staged p ON p.source_id = o.source_id AND p.source_permit_id = 'PMT-' || o.source_permit_id
+     WHERE o.source_id = 'sdcity_permits' AND (o.applied_date = p.applied_date OR o.apn = p.apn)
+     UNION ALL
+     SELECT o.permit_uid, p.permit_uid, o.source_permit_id, p.source_permit_id, o.stage, p.stage,
+            'county: same legacy number ending 999 and ending 1, and same applied date or APN'
+     FROM staged o
+     JOIN staged p ON p.source_id = o.source_id
+                  AND p.source_permit_id = left(o.source_permit_id, length(o.source_permit_id) - 3) || '1'
+     WHERE o.source_id = 'sdcounty_permits' AND o.source_permit_id LIKE '%999'
+       AND (o.applied_date = p.applied_date OR o.apn = p.apn))
+   SELECT CASE WHEN other_stage > preferred_stage THEN preferred_uid ELSE other_uid END AS alias_uid,
+          CASE WHEN other_stage > preferred_stage THEN other_uid ELSE preferred_uid END AS canonical_uid,
+          CASE WHEN other_stage > preferred_stage THEN preferred_id ELSE other_id END AS alias_source_permit_id,
+          CASE WHEN other_stage > preferred_stage THEN other_id ELSE preferred_id END AS canonical_source_permit_id,
+          rule
    FROM pairs`,
 
   // Cross-check for ambiguous two-digit years: is there a permit on the parcel just before the assumed year?

@@ -6,7 +6,98 @@ slices and are not started.
 
 All numbers below are from the database built on 25 November 2026 (UTC). Run logs are in `docs/run-logs/`.
 
-## Update: runs 4 to 6 (25 November 2026, later the same day)
+## Update: run 7 (25 November 2026, 19:01 UTC)
+
+This section is current. Where a number differs from a later section, this one wins.
+
+### What changed
+
+1. **`is_roofing` needs two things.** The approval type must be building or construction work, and the
+   text must be about the roof itself.
+   - Refused by type: planning and discretionary approvals (a "Substantial Conformance Review" was first in
+     the long-open list), agreements, single-trade permits (electrical, mechanical, plumbing, fire), solar
+     permits, and any type the loader does not recognise. A blank type is accepted.
+   - Roof-structure work counts only when the structure is the object of a replace, repair, reframe or
+     reinforce verb, or is a new roof structure over an existing building. "An integrated roof structure"
+     on a new restaurant shell and "new roof framing" on an addition no longer count.
+   - A reroof inside a solar job counts only when the text says the whole roof was redone ("FULL REROOF FOR
+     PV"). "Uninstall and reinstall solar modules after reroofing" is a solar permit.
+   - Under the county's new-building categories, a real reroof is kept but roof-structure and roof-repair
+     phrases are treated as part of the new building.
+2. **A permit listed twice is shown once.** The city lists 5,000 permits as both `N` and `PMT-N`; the county
+   lists 25,757 legacy permits as both `<base>1` and `<base>999`. A pair is one permit when the ids match by
+   that pattern and the applied date or APN agrees (15 city number matches failed that test and were left
+   alone). The record further along is kept; on a tie, `PMT-N` and `<base>1`. `permit_alias` holds the pairs,
+   `permit_enriched` leaves the alias row out and carries the other id in `alias_permit_id`. Both source rows
+   stay in `permit`. The county `999` copies were often stuck at "Issued" while their twin was completed,
+   so this also removed false long-open permits.
+3. **Last-transfer dates are graded** in `ownership.last_transfer_confidence`, with the rule in
+   `last_transfer_rule`:
+
+   | Outcome   | Rule                                    | Parcels |          Held 10+ years |
+   | --------- | --------------------------------------- | ------: | ----------------------: |
+   | certain   | `yy_gt_current_19xx`                    |  93,286 |                  93,286 |
+   | resolved  | `owner_occupied_exemption_20xx`         | 443,713 |                 170,797 |
+   | resolved  | `typed_document_on_taxable_parcel_20xx` | 540,378 |                 192,762 |
+   | ambiguous | `yy_le_current_no_corroboration`        |   7,494 | (5,088 if read as 20yy) |
+   | no date   | `unparseable`                           |   2,591 |                         |
+
+   "Ownership unchanged for 10+ years" can now use 456,845 parcels instead of 93,286. The document number
+   was checked and does not help: it is a six-digit sequence with no year in it. The evidence for the second
+   rule is the distribution of the certain dates: last documents dated 1927 to 1939 number 58 in thirteen
+   years, against 11,000 to 85,000 a year for yy 00 to 26, and most pre-1960 documents carry no type code.
+   The parcels left ambiguous are tax-exempt (public agencies, churches, utilities), which really can hold
+   land for a century.
+
+4. **Fetch times are UTC with a zone** and every source has one. See "Fetch times" in `SOURCES.md`.
+
+### Roofing permits by class (all permit rows, before and after)
+
+| Class                       | Before run 7 | After run 7 |
+| --------------------------- | -----------: | ----------: |
+| reroof                      |       26,420 |      25,712 |
+| roof repair                 |        1,025 |         842 |
+| roof structural             |        2,327 |         823 |
+| solar-on-roof (not roofing) |      197,844 |     198,858 |
+
+2,926 permits changed class; 2,399 stopped being roofing permits and 4 became one.
+
+### Permits by jurisdiction (`permit_enriched`, one row per permit)
+
+| Jurisdiction                                                      |       Permits |    Roofing | of which reroof | Open roofing | Open 2+ years | Open 5+ years |
+| ----------------------------------------------------------------- | ------------: | ---------: | --------------: | -----------: | ------------: | ------------: |
+| City of San Diego                                                 |     1,267,442 |      6,188 |           5,211 |          248 |           126 |            96 |
+| County, unincorporated                                            |       448,808 |     18,560 |          17,992 |          643 |           184 |           155 |
+| City of Carlsbad (applied 2022 to 2023, status as of 14 Jan 2024) |         9,877 |        456 |             413 |          279 |             4 |             0 |
+| **Total**                                                         | **1,726,127** | **25,204** |      **23,616** |    **1,170** |       **314** |       **251** |
+
+Open roofing permits were 1,471 before run 7. Of the 1,170 that remain, 1,069 are reroofs, 74 roof repairs
+and 27 roof-structure permits. 61 still contain the letters "solar" or "PV": they are full reroofs done
+ahead of a solar installation, or county reroof forms naming the "Landmark Solaris" shingle.
+
+The longest-open roofing permits are now all county reroofs from 1990 to 1992 that the county's record
+still shows as "Issued". That is what the source says; whether the work was done and never finalled cannot
+be told from the data.
+
+### Run 7 deltas
+
+Ownership 1,084,871 updated (the transfer grading). City permits 7,803 updated, county permits 650,
+Carlsbad 66 (classification). No inserts. Parcels, status history, contractors, businesses and licences
+unchanged. Wall time 7 min 11 s. After the run, the alias rule was extended to the county pairs and the
+derived tables were rebuilt in place with `scripts/rebuild-derived.ts`; that does not create a run.
+
+Roof age after run 7: 15,394 parcels on a completed reroof permit, 761,493 medium, 249,432 low, 61,143 none.
+
+### Open issues added
+
+- "Solar job" versus "reroof" rests on the word FULL. A reroof done with solar but not described as full is
+  classed with the solar job, which will miss some real reroofs.
+- Unrecognised approval types are refused. A new building-work type the city introduces would be missed
+  until the list in `src/roofing.ts` is extended.
+- The two resolved transfer-date rules are inference, not record. Each row carries the rule so a consumer
+  can use certain dates only.
+
+## Update: runs 4 to 6 (25 November 2026, superseded where run 7 differs)
 
 This section is current. The sections after it describe the database as it stood after run 3 and are kept
 for the record; where a number differs, this section wins.

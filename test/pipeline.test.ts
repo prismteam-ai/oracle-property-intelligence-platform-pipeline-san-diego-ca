@@ -492,7 +492,7 @@ describe('full load, then idempotent re-run', () => {
       });
       const aliases = await db.query(
         Alias,
-        'SELECT alias_source_permit_id, canonical_source_permit_id, rule FROM permit_alias ORDER BY canonical_source_permit_id',
+        "SELECT alias_source_permit_id, canonical_source_permit_id, rule FROM permit_alias WHERE rule LIKE 'city:%' ORDER BY canonical_source_permit_id",
       );
       // Real pairs: for 2163994 both records are "Issued", so the PMT- record is kept; for 2350547 the
       // legacy record is "Completed" and the PMT- record is a stale "Inspection Followup", so the
@@ -519,7 +519,29 @@ describe('full load, then idempotent re-run', () => {
       expect(n).toBe(4);
       const { n: enriched } = await db.one(N, 'SELECT count(*) AS n FROM permit_enriched');
       const { n: all } = await db.one(N, 'SELECT count(*) AS n FROM permit');
-      expect(enriched).toBe(all - aliases.length);
+      const { n: aliasCount } = await db.one(N, 'SELECT count(*) AS n FROM permit_alias');
+      expect(enriched).toBe(all - aliasCount);
+
+      // County legacy permits are listed as <base>1 and <base>999 (real pair in the fixture).
+      const county = await db.query(
+        Alias,
+        "SELECT alias_source_permit_id, canonical_source_permit_id, rule FROM permit_alias WHERE rule LIKE 'county:%'",
+      );
+      expect(county.length).toBeGreaterThan(0);
+      for (const pair of county) {
+        const base = (id: string): string => id.replace(/(999|1)$/, '');
+        expect(base(pair.alias_source_permit_id)).toBe(base(pair.canonical_source_permit_id));
+        expect(pair.alias_source_permit_id).not.toBe(pair.canonical_source_permit_id);
+      }
+      const { n: twice } = await db.one(
+        N,
+        `SELECT count(*) AS n FROM (
+           SELECT regexp_replace(source_permit_id, '(999|1)$', '') AS base FROM permit_enriched
+           WHERE source_id = 'sdcounty_permits' AND source_permit_id IN (
+             SELECT alias_source_permit_id FROM permit_alias UNION ALL SELECT canonical_source_permit_id FROM permit_alias)
+           GROUP BY 1 HAVING count(*) > 1)`,
+      );
+      expect(twice).toBe(0);
       // The restaurant shell is not a roofing permit under either id.
       const { n: shell } = await db.one(
         N,
