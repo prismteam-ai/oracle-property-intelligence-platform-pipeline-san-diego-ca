@@ -24,16 +24,18 @@ interface Rule {
 
 const NOT_EQUIPMENT =
   '(?!\\s*-?\\s*(?:MOUNT|TOP|TRUSS|FRAM|STRUCT|RAFTER|EQUIP|HVAC|A\\/?C\\b|UNIT|PACKAGE|EXHAUST|DRAIN|SOLAR|PV\\b|DECK|ACCESS|HATCH|SIGN|LADDER|VENT|FAN))';
-const SOLAR = '\\b(?:PHOTOVOLTAICS?|PV|SOLAR)\\b';
+// Real spellings include "photo voltaic", "Photovoltec" and "PVS".
+const SOLAR = '\\b(?:PHOTO ?VOLT\\w*|PVS?|SOLAR)\\b';
 const REROOF_WORD = '\\bRE-?\\s?ROOF(?:ING|ED|S)?\\b';
 
 export const ROOFING_RULES: readonly Rule[] = [
   {
-    // "NO REROOF", "DOES NOT INCLUDE RE-ROOF", "REROOF UNDER SEPARATE PERMIT"
+    // "NO REROOF", "DOES NOT INCLUDE RE-ROOF", "REROOF UNDER SEPARATE PERMIT".
+    // Deliberately narrow: "NO PLAN PERMIT FOR RE-ROOF" is a real reroof and must not match.
     name: 'reroof_negated',
     roofingClass: 'other',
     pattern: new RegExp(
-      `\\b(?:NO|NOT|W\\/O|WITHOUT|EXCLUD\\w*)\\b[^.;:]{0,25}${REROOF_WORD}|${REROOF_WORD}[^.;:]{0,30}\\b(?:SEPARATE PERMIT|NOT INCLUDED|NOT A PART|BY OTHERS)\\b`,
+      `\\bNO (?:NEW |ANY )?${REROOF_WORD}|\\b(?:NOT|W\\/O|WITHOUT|EXCLUD\\w*)(?: (?:TO|A|ANY|THE|INCLUDE|INCLUDES|INCLUDING))* ${REROOF_WORD}|${REROOF_WORD}[^.;:]{0,30}\\b(?:SEPARATE PERMIT|NOT INCLUDED|NOT A PART|BY OTHERS)\\b`,
     ),
   },
   { name: 'reroof_explicit', roofingClass: 'reroof', pattern: new RegExp(REROOF_WORD) },
@@ -47,7 +49,8 @@ export const ROOFING_RULES: readonly Rule[] = [
   {
     name: 'roof_tear_off_or_overlay',
     roofingClass: 'reroof',
-    pattern: /\bTEAR[- ]?OFF\b|\bROOF(?:ING)? (?:OVERLAY|RECOVER)\b|\bNEW ROOF(?:ING)? (?:COVERING|MATERIALS?|SHINGLES?|TILES?|MEMBRANE)\b/,
+    pattern:
+      /\bTEAR[- ]?OFF\b|\bROOF(?:ING)? (?:OVERLAY|RECOVER)\b|\bNEW ROOF(?:ING)? (?:COVERING|MATERIALS?|SHINGLES?|TILES?|MEMBRANE)\b|\bNEW ROOFING\b/,
   },
   {
     // Checked before the repair/structural rules: "ROOF MOUNTED PV, REPAIR ROOF RAFTERS" is a solar permit.
@@ -84,7 +87,11 @@ export const ROOFING_RULES: readonly Rule[] = [
   { name: 'roof_mention_unclassified', roofingClass: 'other', pattern: /ROOF/ },
 ];
 
-const ROOFING_CLASSES: ReadonlySet<RoofingClass> = new Set<RoofingClass>(['reroof', 'roof repair', 'roof structural']);
+const ROOFING_CLASSES: ReadonlySet<RoofingClass> = new Set<RoofingClass>([
+  'reroof',
+  'roof repair',
+  'roof structural',
+]);
 
 export function classifyRoofing(...parts: readonly (string | null | undefined)[]): RoofingResult {
   const text = parts
@@ -95,7 +102,11 @@ export function classifyRoofing(...parts: readonly (string | null | undefined)[]
   if (!text.includes('ROOF')) return { roofingClass: 'other', isRoofing: false, rule: null };
   for (const rule of ROOFING_RULES) {
     if (rule.pattern.test(text)) {
-      return { roofingClass: rule.roofingClass, isRoofing: ROOFING_CLASSES.has(rule.roofingClass), rule: rule.name };
+      return {
+        roofingClass: rule.roofingClass,
+        isRoofing: ROOFING_CLASSES.has(rule.roofingClass),
+        rule: rule.name,
+      };
     }
   }
   return { roofingClass: 'other', isRoofing: false, rule: null };

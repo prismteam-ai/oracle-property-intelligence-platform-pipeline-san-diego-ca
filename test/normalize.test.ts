@@ -1,0 +1,167 @@
+import { describe, expect, it } from 'vitest';
+import { normalizeClassifications } from '../src/adapters/cslbLicenses.js';
+import { cityStatusGroup } from '../src/adapters/cityPermits.js';
+import { countyStatusGroup } from '../src/adapters/countySocrata.js';
+import {
+  coordinate,
+  isoDatePart,
+  normalizeApn,
+  normalizeLicense,
+  normalizeName,
+  resolveMmddyy,
+  resolveTwoDigitYear,
+  usDate,
+  zip5,
+} from '../src/normalize.js';
+
+describe('normalizeApn', () => {
+  it('reduces the dashed, spaced and plain forms to the same 10 digits', () => {
+    expect(normalizeApn('498-320-16-00')).toBe('4983201600');
+    expect(normalizeApn('498 320 16 00')).toBe('4983201600');
+    expect(normalizeApn('4983201600')).toBe('4983201600');
+  });
+  it('refuses anything that is not 10 digits', () => {
+    expect(normalizeApn('498-320-16')).toBeNull();
+    expect(normalizeApn('N/A')).toBeNull();
+    expect(normalizeApn('  ')).toBeNull();
+    expect(normalizeApn(null)).toBeNull();
+  });
+});
+
+describe('normalizeName', () => {
+  it('gives one key to the spellings of one contractor', () => {
+    expect(normalizeName('Cal Roof, Inc.')).toBe('CAL ROOF');
+    expect(normalizeName('CAL ROOF INC')).toBe('CAL ROOF');
+    expect(normalizeName('WALTER ANDERSON PLUMBING LLC')).toBe('WALTER ANDERSON PLUMBING');
+    expect(normalizeName('Walter Anderson Plumbing, L.L.C.')).toBe('WALTER ANDERSON PLUMBING');
+    expect(normalizeName('A & B Roofing Co.')).toBe('A AND B ROOFING');
+  });
+  it('keeps a name that is only a suffix word and returns null for blanks', () => {
+    expect(normalizeName('COMPANY')).toBe('COMPANY');
+    expect(normalizeName(' , ')).toBeNull();
+  });
+});
+
+describe('normalizeLicense', () => {
+  it('accepts CSLB numbers and drops leading zeros', () => {
+    expect(normalizeLicense('1066575')).toBe('1066575');
+    expect(normalizeLicense('0359625')).toBe('359625');
+    expect(normalizeLicense('# 359625')).toBe('359625');
+  });
+  it('refuses non-licence text recorded in the licence field', () => {
+    expect(normalizeLicense('22-PEOP-00023')).toBeNull();
+    expect(normalizeLicense('OWNER')).toBeNull();
+    expect(normalizeLicense('0')).toBeNull();
+  });
+});
+
+describe('two-digit assessor years (reference year 2026)', () => {
+  it('reads yy above the current yy as 19yy, with certainty', () => {
+    expect(resolveTwoDigitYear('48', 2026)).toEqual({
+      year: 1948,
+      ambiguous: false,
+      rule: 'yy_gt_current_19xx',
+    });
+    expect(resolveTwoDigitYear('27', 2026)).toEqual({
+      year: 1927,
+      ambiguous: false,
+      rule: 'yy_gt_current_19xx',
+    });
+  });
+  it('reads yy at or below the current yy as 20yy and flags it', () => {
+    expect(resolveTwoDigitYear('13', 2026)).toEqual({
+      year: 2013,
+      ambiguous: true,
+      rule: 'yy_le_current_assumed_20xx',
+    });
+    expect(resolveTwoDigitYear('26', 2026)).toEqual({
+      year: 2026,
+      ambiguous: true,
+      rule: 'yy_le_current_assumed_20xx',
+    });
+    expect(resolveTwoDigitYear('00', 2026)).toEqual({
+      year: 2000,
+      ambiguous: true,
+      rule: 'yy_00_assumed_2000',
+    });
+  });
+  it('never invents a year', () => {
+    expect(resolveTwoDigitYear('  ', 2026).year).toBeNull();
+    expect(resolveTwoDigitYear('1948', 2026)).toEqual({ year: null, ambiguous: false, rule: 'unparseable' });
+  });
+});
+
+describe('MMDDYY recorder dates (today 2026-11-25)', () => {
+  const today = '2026-11-25';
+  it('resolves the century and flags the ambiguous case', () => {
+    expect(resolveMmddyy('013196', today)).toEqual({
+      date: '1996-01-31',
+      ambiguous: false,
+      rule: 'yy_gt_current_19xx',
+    });
+    expect(resolveMmddyy('081713', today)).toEqual({
+      date: '2013-08-17',
+      ambiguous: true,
+      rule: 'yy_le_current_assumed_20xx',
+    });
+  });
+  it('will not place a transfer in the future', () => {
+    expect(resolveMmddyy('122026', today)).toEqual({
+      date: '1926-12-20',
+      ambiguous: false,
+      rule: 'future_as_20xx_so_19xx',
+    });
+  });
+  it('rejects impossible dates instead of rolling them over', () => {
+    expect(resolveMmddyy('023099', today).rule).toBe('unparseable');
+    expect(resolveMmddyy('000000', today).rule).toBe('unparseable');
+    expect(resolveMmddyy(null, today).rule).toBe('blank');
+  });
+});
+
+describe('dates, coordinates and zips', () => {
+  it('parses the date formats the sources use', () => {
+    expect(isoDatePart('2025-11-20T00:00:00.000')).toBe('2025-11-20');
+    expect(isoDatePart('1974-07-01 12:00:00')).toBe('1974-07-01');
+    expect(isoDatePart('2025-02-30')).toBeNull();
+    expect(usDate('01/10/2015')).toBe('2015-01-10');
+    expect(usDate('13/10/2015')).toBeNull();
+  });
+  it('treats zero coordinates as missing', () => {
+    expect(coordinate('0')).toBeNull();
+    expect(coordinate('32.80628294')).toBeCloseTo(32.80628294);
+    expect(coordinate('')).toBeNull();
+  });
+  it('keeps the 5-digit zip', () => {
+    expect(zip5('92020-8306')).toBe('92020');
+    expect(zip5('920208306')).toBe('92020');
+    expect(zip5('CA')).toBeNull();
+  });
+});
+
+describe('status groups', () => {
+  it('groups county statuses', () => {
+    expect(countyStatusGroup('Completed')).toBe('completed');
+    expect(countyStatusGroup('Issued')).toBe('open');
+    expect(countyStatusGroup('Issued About to Expire')).toBe('open');
+    expect(countyStatusGroup('Issued Invalid Expired')).toBe('expired');
+    expect(countyStatusGroup('PC Expired')).toBe('expired');
+    expect(countyStatusGroup('Withdrawn')).toBe('cancelled');
+    expect(countyStatusGroup(null)).toBe('other');
+  });
+  it('groups city statuses', () => {
+    expect(cityStatusGroup('Closed')).toBe('completed');
+    expect(cityStatusGroup('Final Closed')).toBe('completed');
+    expect(cityStatusGroup('Issued')).toBe('open');
+    expect(cityStatusGroup('Inspection Followup')).toBe('open');
+    expect(cityStatusGroup('Cancelled')).toBe('cancelled');
+  });
+});
+
+describe('CSLB classifications', () => {
+  it('normalises spellings and finds C-39', () => {
+    expect(normalizeClassifications('C-39')).toBe('C39');
+    expect(normalizeClassifications('C39| B')).toBe('B|C39');
+    expect(normalizeClassifications('')).toBeNull();
+  });
+});

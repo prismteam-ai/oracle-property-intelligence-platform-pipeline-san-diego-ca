@@ -186,7 +186,15 @@ const BBB_NOTE_DEFAULT =
 export async function migrate(db: Db): Promise<void> {
   const e = makeEntities('2000-01-01');
   for (const sql of CONTROL_TABLES) await db.exec(sql);
-  for (const spec of [e.property, e.ownership, e.permit, e.permitStatus, e.permitContractorRecord, e.cslbLicense, e.business]) {
+  for (const spec of [
+    e.property,
+    e.ownership,
+    e.permit,
+    e.permitStatus,
+    e.permitContractorRecord,
+    e.cslbLicense,
+    e.business,
+  ]) {
     await db.exec(dataTable(spec));
   }
   // BBB columns live outside the merged column set, so a contractor refresh never overwrites them.

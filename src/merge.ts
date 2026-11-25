@@ -79,7 +79,11 @@ export interface MergeCounts {
 }
 
 const Count = z.object({ n: z.coerce.number() });
-const Delta = z.object({ inserted: z.coerce.number(), updated: z.coerce.number(), unchanged: z.coerce.number() });
+const Delta = z.object({
+  inserted: z.coerce.number(),
+  updated: z.coerce.number(),
+  unchanged: z.coerce.number(),
+});
 
 /**
  * Idempotent upsert of a stage relation into its table, keyed on the entity's natural key.
@@ -91,7 +95,12 @@ const Delta = z.object({ inserted: z.coerce.number(), updated: z.coerce.number()
  *
  * Running the same input twice therefore inserts nothing and reports everything as unchanged.
  */
-export async function mergeStage(db: Db, runId: number, spec: EntitySpec, stageSql: string): Promise<MergeCounts> {
+export async function mergeStage(
+  db: Db,
+  runId: number,
+  spec: EntitySpec,
+  stageSql: string,
+): Promise<MergeCounts> {
   const columns = Object.keys(spec.columns);
   const dataColumns = columns.filter((c) => !spec.key.includes(c));
   const keyOrder = spec.key.join(', ');
@@ -117,7 +126,14 @@ export async function mergeStage(db: Db, runId: number, spec: EntitySpec, stageS
 
   await db.transaction(async () => {
     if (delta.updated > 0) {
-      const assignments = [...dataColumns, 'source_id', 'source_record_id', 'source_url', 'fetched_at', 'row_hash']
+      const assignments = [
+        ...dataColumns,
+        'source_id',
+        'source_record_id',
+        'source_url',
+        'fetched_at',
+        'row_hash',
+      ]
         .map((c) => `${c} = s.${c}`)
         .join(', ');
       await db.exec(
@@ -141,5 +157,11 @@ export async function mergeStage(db: Db, runId: number, spec: EntitySpec, stageS
   });
   await db.exec('DROP TABLE IF EXISTS _stage_raw');
   await db.exec('DROP TABLE IF EXISTS _stage');
-  return { staged, duplicates: staged - distinct, inserted: delta.inserted, updated: delta.updated, unchanged: delta.unchanged };
+  return {
+    staged,
+    duplicates: staged - distinct,
+    inserted: delta.inserted,
+    updated: delta.updated,
+    unchanged: delta.unchanged,
+  };
 }

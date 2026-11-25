@@ -1,6 +1,13 @@
 import { blankToNull, coordinate, isoDatePart, normalizeName, zip5 } from '../normalize.js';
 import { fetchSnapshotFiles, readCsv } from './shared.js';
-import type { FetchContext, FetchResult, ParseContext, RawFile, SourceAdapter, StagedRecord } from './types.js';
+import type {
+  FetchContext,
+  FetchResult,
+  ParseContext,
+  RawFile,
+  SourceAdapter,
+  StagedRecord,
+} from './types.js';
 import { reject, validate } from './types.js';
 
 const URL_ACTIVE = 'https://seshat.datasd.org/business_tax_certificates/sd_businesses_active_datasd.csv';
@@ -10,14 +17,18 @@ export const cityBusinesses: SourceAdapter = {
     id: 'sdcity_businesses',
     name: 'City of San Diego active business tax certificates',
     url: 'https://data.sandiego.gov/datasets/business-listings/',
-    licence: 'City of San Diego Open Data Portal, published under the Open Data Commons Public Domain Dedication and Licence (PDDL) per the portal.',
-    limits: 'One whole-file CSV (about 19 MB); ETag is the change token. Businesses registered with the City of San Diego only; inactive files not loaded.',
+    licence:
+      'City of San Diego Open Data Portal, published under the Open Data Commons Public Domain Dedication and Licence (PDDL) per the portal.',
+    limits:
+      'One whole-file CSV (about 19 MB); ETag is the change token. Businesses registered with the City of San Diego only; inactive files not loaded.',
     changeDetection: 'snapshot',
   },
   entities: ['business'],
 
   fetch: (ctx: FetchContext): Promise<FetchResult> =>
-    fetchSnapshotFiles(ctx, 'sdcity_businesses', [{ name: 'sd_businesses_active_datasd.csv', url: URL_ACTIVE }]),
+    fetchSnapshotFiles(ctx, 'sdcity_businesses', [
+      { name: 'sd_businesses_active_datasd.csv', url: URL_ACTIVE },
+    ]),
 
   async *rows(files: readonly RawFile[], ctx: ParseContext): AsyncGenerator<StagedRecord> {
     for (const file of files) {
@@ -35,13 +46,19 @@ export const cityBusinesses: SourceAdapter = {
         const dba = blankToNull(record['dba_name']);
         const owner = blankToNull(record['business_owner_name']);
         const street = [
-          record['address_no'], record['address_no_fraction'], record['address_pd'], record['address_road'], record['address_sfx'],
+          record['address_no'],
+          record['address_no_fraction'],
+          record['address_pd'],
+          record['address_road'],
+          record['address_sfx'],
         ]
           .map((p) => blankToNull(p))
           .filter((p): p is string => p !== null)
           .join(' ');
         const suite = blankToNull(record['address_suite']);
-        const address = blankToNull(suite === null ? street : `${street} STE ${suite}`) ?? blankToNull(record['address_po_box']);
+        const address =
+          blankToNull(suite === null ? street : `${street} STE ${suite}`) ??
+          blankToNull(record['address_po_box']);
         yield validate(
           ctx.entities,
           'business',

@@ -1,8 +1,23 @@
-import { blankToNull, coordinate, isoDatePart, normalizeApn, normalizeName, toNumber, truncate } from '../normalize.js';
+import {
+  blankToNull,
+  coordinate,
+  isoDatePart,
+  normalizeApn,
+  normalizeName,
+  toNumber,
+  truncate,
+} from '../normalize.js';
 import { classifyRoofing } from '../roofing.js';
 import type { StatusGroup } from './countySocrata.js';
 import { fetchSnapshotFiles, readCsv } from './shared.js';
-import type { FetchContext, FetchResult, ParseContext, RawFile, SourceAdapter, StagedRecord } from './types.js';
+import type {
+  FetchContext,
+  FetchResult,
+  ParseContext,
+  RawFile,
+  SourceAdapter,
+  StagedRecord,
+} from './types.js';
 import { reject, validate } from './types.js';
 
 const BASE = 'https://seshat.datasd.org/development_permits';
@@ -19,12 +34,16 @@ export function cityStatusGroup(status: string | null): StatusGroup {
   if (s === '') return 'other';
   if (/CANCEL|WITHDRAW|DENIED|VOID|REVOKED|REJECT/.test(s)) return 'cancelled';
   if (s.includes('EXPIRED')) return 'expired';
-  if (/CLOSED|COMPLETE|FINAL/.test(s)) return 'completed';
-  if (/^ISSUED|INSPECT|^ACTIVE|^APPROVED/.test(s)) return 'open';
+  // "Approved Upon Final Payment" and "Review Phase Complete" are pre-issuance steps, not completion.
+  if (/^(?:COMPLETED|CLOSED|FINAL CLOSED|FINALED)$/.test(s)) return 'completed';
+  if (/^ISSUED|^INSPECT/.test(s)) return 'open';
   return 'other';
 }
 
-function dateField(record: Readonly<Record<string, string>>, key: string): { value: string | null; bad: boolean } {
+function dateField(
+  record: Readonly<Record<string, string>>,
+  key: string,
+): { value: string | null; bad: boolean } {
   const raw = blankToNull(record[key]);
   const value = isoDatePart(raw);
   return { value, bad: raw !== null && value === null };
@@ -35,8 +54,10 @@ export const cityPermits: SourceAdapter = {
     id: 'sdcity_permits',
     name: 'City of San Diego development permit approvals (active and closed)',
     url: 'https://data.sandiego.gov/datasets/development-permits-set2/',
-    licence: 'City of San Diego Open Data Portal, published under the Open Data Commons Public Domain Dedication and Licence (PDDL) per the portal.',
-    limits: 'Two whole-file CSVs (about 270 MB and 410 MB), refreshed daily; no row-level change feed, so the HTTP ETag is the change token and row hashes find the changed rows. City limits only.',
+    licence:
+      'City of San Diego Open Data Portal, published under the Open Data Commons Public Domain Dedication and Licence (PDDL) per the portal.',
+    limits:
+      'Two whole-file CSVs (about 270 MB and 410 MB), refreshed daily; no row-level change feed, so the HTTP ETag is the change token and row hashes find the changed rows. City limits only.',
     changeDetection: 'snapshot',
   },
   entities: ['permit'],
@@ -59,9 +80,12 @@ export const cityPermits: SourceAdapter = {
         const issued = dateField(record, 'APPROVAL_ISSUE_DATE');
         const closed = dateField(record, 'APPROVAL_CLOSE_DATE');
         const expire = dateField(record, 'APPROVAL_EXPIRE_DATE');
-        const badDate = Object.entries({ applied_date: applied, issued_date: issued, closed_date: closed, expire_date: expire }).find(
-          ([, d]) => d.bad,
-        );
+        const badDate = Object.entries({
+          applied_date: applied,
+          issued_date: issued,
+          closed_date: closed,
+          expire_date: expire,
+        }).find(([, d]) => d.bad);
         if (badDate !== undefined) {
           yield reject('permit', id, `${badDate[0]}:bad_date_format`, record);
           continue;

@@ -1,8 +1,25 @@
 import { z } from 'zod';
-import { blankToNull, coordinate, isoDatePart, normalizeApn, normalizeLicense, normalizeName, toNumber, truncate, zip5 } from '../normalize.js';
+import {
+  blankToNull,
+  coordinate,
+  isoDatePart,
+  normalizeApn,
+  normalizeLicense,
+  normalizeName,
+  toNumber,
+  truncate,
+  zip5,
+} from '../normalize.js';
 import { classifyRoofing } from '../roofing.js';
 import { fetchSocrata, readSocrataPages, str } from './shared.js';
-import type { FetchContext, FetchResult, ParseContext, RawFile, SourceAdapter, StagedRecord } from './types.js';
+import type {
+  FetchContext,
+  FetchResult,
+  ParseContext,
+  RawFile,
+  SourceAdapter,
+  StagedRecord,
+} from './types.js';
 import { reject, validate } from './types.js';
 
 const BASE = 'https://data.sandiegocounty.gov/resource';
@@ -30,11 +47,16 @@ const Point = z.object({ type: z.literal('Point'), coordinates: z.tuple([z.numbe
 
 function timestamp(raw: string | null): string | null {
   const value = blankToNull(raw);
-  return value !== null && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(value) ? value.slice(0, 19).replace('T', ' ') : null;
+  return value !== null && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(value)
+    ? value.slice(0, 19).replace('T', ' ')
+    : null;
 }
 
 /** A date that is present but unreadable is a reject; an absent date is simply null. */
-function dateField(record: Readonly<Record<string, unknown>>, key: string): { value: string | null; bad: boolean } {
+function dateField(
+  record: Readonly<Record<string, unknown>>,
+  key: string,
+): { value: string | null; bad: boolean } {
   const raw = blankToNull(str(record, key));
   const value = isoDatePart(raw);
   return { value, bad: raw !== null && value === null };
@@ -62,7 +84,12 @@ function socrataAdapter(
     },
     entities: [spec.entity],
     fetch: (ctx: FetchContext): Promise<FetchResult> =>
-      fetchSocrata(ctx, { sourceId: spec.id, resourceUrl, changeColumn: spec.changeColumn, pageSize: 50_000 }),
+      fetchSocrata(ctx, {
+        sourceId: spec.id,
+        resourceUrl,
+        changeColumn: spec.changeColumn,
+        pageSize: 50_000,
+      }),
     async *rows(files: readonly RawFile[], ctx: ParseContext): AsyncGenerator<StagedRecord> {
       for await (const { record, file } of readSocrataPages(files)) yield toRecords(record, file, ctx);
     },
@@ -70,13 +97,25 @@ function socrataAdapter(
 }
 
 export const countyPermits: SourceAdapter = socrataAdapter(
-  { id: 'sdcounty_permits', name: 'County of San Diego building permits (unincorporated)', resource: 'red2-qccu', changeColumn: 'last_updated', entity: 'permit' },
+  {
+    id: 'sdcounty_permits',
+    name: 'County of San Diego building permits (unincorporated)',
+    resource: 'red2-qccu',
+    changeColumn: 'last_updated',
+    entity: 'permit',
+  },
   (record, file, ctx) => {
     const id = blankToNull(str(record, 'record_id'));
     if (id === null) return reject('permit', null, 'source_permit_id:missing', record);
     const applied = dateField(record, 'open_date');
     const issued = dateField(record, 'issued_date');
-    if (applied.bad || issued.bad) return reject('permit', id, applied.bad ? 'applied_date:bad_date_format' : 'issued_date:bad_date_format', record);
+    if (applied.bad || issued.bad)
+      return reject(
+        'permit',
+        id,
+        applied.bad ? 'applied_date:bad_date_format' : 'issued_date:bad_date_format',
+        record,
+      );
     const point = Point.safeParse(record['geo_reference']);
     const description = blankToNull(str(record, 'use'));
     const scope = blankToNull(str(record, 'primary_scope_code'));
@@ -119,19 +158,30 @@ export const countyPermits: SourceAdapter = socrataAdapter(
         lon: point.success ? coordinate(point.data.coordinates[0]) : null,
         source_updated_at: timestamp(str(record, 'last_updated')),
       },
-      { sourceRecordId: id, sourceUrl: `${BASE}/red2-qccu.json?record_id=${encodeURIComponent(id)}`, fetchedAt: file.fetchedAt },
+      {
+        sourceRecordId: id,
+        sourceUrl: `${BASE}/red2-qccu.json?record_id=${encodeURIComponent(id)}`,
+        fetchedAt: file.fetchedAt,
+      },
       record,
     );
   },
 );
 
 export const countyPermitStatus: SourceAdapter = socrataAdapter(
-  { id: 'sdcounty_permit_status', name: 'County of San Diego building permits: status history', resource: 'beua-23q8', changeColumn: 'status_date', entity: 'permitStatus' },
+  {
+    id: 'sdcounty_permit_status',
+    name: 'County of San Diego building permits: status history',
+    resource: 'beua-23q8',
+    changeColumn: 'status_date',
+    entity: 'permitStatus',
+  },
   (record, file, ctx) => {
     const permit = blankToNull(str(record, 'permit_number'));
     const statusId = blankToNull(str(record, 'status_id'));
     const recordId = permit !== null && statusId !== null ? `${permit}#${statusId}` : null;
-    if (permit === null || statusId === null) return reject('permitStatus', recordId, 'permit_uid:missing_key', record);
+    if (permit === null || statusId === null)
+      return reject('permitStatus', recordId, 'permit_uid:missing_key', record);
     const date = dateField(record, 'status_date');
     if (date.bad) return reject('permitStatus', recordId, 'status_date:bad_date_format', record);
     return validate(
@@ -144,14 +194,24 @@ export const countyPermitStatus: SourceAdapter = socrataAdapter(
         mapped_status: blankToNull(str(record, 'mapped_status')),
         status_date: date.value,
       },
-      { sourceRecordId: `${permit}#${statusId}`, sourceUrl: `${BASE}/beua-23q8.json?status_id=${encodeURIComponent(statusId)}`, fetchedAt: file.fetchedAt },
+      {
+        sourceRecordId: `${permit}#${statusId}`,
+        sourceUrl: `${BASE}/beua-23q8.json?status_id=${encodeURIComponent(statusId)}`,
+        fetchedAt: file.fetchedAt,
+      },
       record,
     );
   },
 );
 
 export const countyPermitContractors: SourceAdapter = socrataAdapter(
-  { id: 'sdcounty_permit_contractors', name: 'County of San Diego building permits: contractors', resource: '4ju2-mf55', changeColumn: 'last_updated', entity: 'permitContractorRecord' },
+  {
+    id: 'sdcounty_permit_contractors',
+    name: 'County of San Diego building permits: contractors',
+    resource: '4ju2-mf55',
+    changeColumn: 'last_updated',
+    entity: 'permitContractorRecord',
+  },
   (record, file, ctx) => {
     const permit = blankToNull(str(record, 'permit_number'));
     if (permit === null) return reject('permitContractorRecord', null, 'permit_uid:missing_key', record);
@@ -162,12 +222,19 @@ export const countyPermitContractors: SourceAdapter = socrataAdapter(
     const licenseState = blankToNull(str(record, 'contractor_license_state'));
     const trade = blankToNull(str(record, 'contractor_trade'));
     // Only a CSLB licence identifies a California contractor; other trades (engineers, architects) key on name.
-    const license = trade === 'CSLB Contractor' && (licenseState === null || licenseState === 'CA') ? normalizeLicense(licenseRaw) : null;
+    const license =
+      trade === 'CSLB Contractor' && (licenseState === null || licenseState === 'CA')
+        ? normalizeLicense(licenseRaw)
+        : null;
     const nameNorm = normalizeName(company ?? person);
     const contractorId = license !== null ? `CSLB:${license}` : nameNorm !== null ? `NAME:${nameNorm}` : null;
     const recordId = `${permit}#${licenseRaw ?? company ?? ''}`;
-    if (contractorId === null) return reject('permitContractorRecord', recordId, 'contractor_id:no_license_and_no_name', record);
-    const address = [blankToNull(str(record, 'contractor_address_1')), blankToNull(str(record, 'contractor_address_2'))]
+    if (contractorId === null)
+      return reject('permitContractorRecord', recordId, 'contractor_id:no_license_and_no_name', record);
+    const address = [
+      blankToNull(str(record, 'contractor_address_1')),
+      blankToNull(str(record, 'contractor_address_2')),
+    ]
       .filter((p): p is string => p !== null)
       .join(', ');
     return validate(
@@ -190,7 +257,11 @@ export const countyPermitContractors: SourceAdapter = socrataAdapter(
         zip: zip5(str(record, 'contractor_zip_code')),
         source_updated_at: timestamp(str(record, 'last_updated')),
       },
-      { sourceRecordId: recordId, sourceUrl: `${BASE}/4ju2-mf55.json?permit_number=${encodeURIComponent(permit)}`, fetchedAt: file.fetchedAt },
+      {
+        sourceRecordId: recordId,
+        sourceUrl: `${BASE}/4ju2-mf55.json?permit_number=${encodeURIComponent(permit)}`,
+        fetchedAt: file.fetchedAt,
+      },
       record,
     );
   },

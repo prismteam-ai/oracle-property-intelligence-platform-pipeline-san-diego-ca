@@ -1,0 +1,3541 @@
+[
+ {
+  "record_id": "PDS1987-A-8700328999",
+  "open_date": "1987-12-02T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: BARCELONA S.V.\nDESCRIPTION OF WORK: RE-ROOF STRUCTURAL",
+  "street_address": "2810 HIGHLANDS BLVD",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "2810 HIGHLANDS BLVD, SPRING VALLEY, CA 91977",
+  "parcel_number": "504-250-08-00",
+  "valuation": "17052.5",
+  "floor_area": "1795",
+  "contractor_name": "SPRATLEY ROOFING",
+  "contractor_address": "9029  OLIVEDR, SPRING VALLEY, CA 9207-7",
+  "contractor_phone": "6194621120",
+  "created_online": false,
+  "last_updated": "2012-11-18T20:39:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.98671,
+    32.73629
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1987-C-87010971",
+  "open_date": "1987-05-05T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: S. GRANADA\nDESCRIPTION OF WORK: RE-ROOF - COMPOSITION SHINGLES - 2100 SQ FT",
+  "street_address": "10041 DEL RIO RD",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "10041 DEL RIO RD, SPRING VALLEY, CA 91977",
+  "parcel_number": "505-044-06-00",
+  "valuation": "1680",
+  "floor_area": "2100",
+  "contractor_name": "C & F REMODEL & CONSTRUCTION",
+  "contractor_address": "3358  KURTZST, SAN DIEGO, CA 92110-",
+  "created_online": false,
+  "last_updated": "2012-11-18T20:39:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.97751,
+    32.74292
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1987-C-8701097999",
+  "open_date": "1987-05-05T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: S. GRANADA\nDESCRIPTION OF WORK: RE-ROOF - COMPOSITION SHINGLES - 2100 SQ FT",
+  "street_address": "10041 DEL RIO RD",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "10041 DEL RIO RD, SPRING VALLEY, CA 91977",
+  "parcel_number": "505-044-06-00",
+  "valuation": "1680",
+  "floor_area": "2100",
+  "contractor_name": "C & F REMODEL & CONSTRUCTION",
+  "contractor_address": "3358  KURTZST, SAN DIEGO, CA 92110-",
+  "created_online": false,
+  "last_updated": "2012-11-18T20:39:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.97751,
+    32.74292
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1987-C-87025321",
+  "open_date": "1987-09-02T00:00:00.000",
+  "record_status": "Expired",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "New Residential Acc Structure",
+  "primary_scope_code": "3291 - ACC - Decks (All)",
+  "use": "CROSS STREET: \nDESCRIPTION OF WORK: REROOF SFD",
+  "street_address": "10317 ELMDALE DR",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "10317 ELMDALE DR, SPRING VALLEY, CA 91977",
+  "parcel_number": "580-123-05-00",
+  "valuation": "2460",
+  "floor_area": "3000",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:23:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.97671,
+    32.71827
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1987-C-8702532999",
+  "open_date": "1987-09-02T00:00:00.000",
+  "record_status": "Expired",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "New Residential Acc Structure",
+  "primary_scope_code": "3291 - ACC - Decks (All)",
+  "use": "CROSS STREET: \nDESCRIPTION OF WORK: REROOF SFD",
+  "street_address": "10317 ELMDALE DR",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "10317 ELMDALE DR, SPRING VALLEY, CA 91977",
+  "parcel_number": "580-123-05-00",
+  "valuation": "2460",
+  "floor_area": "3000",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:23:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.97671,
+    32.71827
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1987-C-87026031",
+  "open_date": "1987-09-09T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: \nDESCRIPTION OF WORK: REROOF SFD WITH DECRA TILW OVER SHAKE ICBO#3409",
+  "street_address": "4317 AVNDA GREGORY",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "4317 AVNDA GREGORY, SPRING VALLEY, CA 91977",
+  "parcel_number": "496-400-17-00",
+  "valuation": "8204",
+  "floor_area": "2800",
+  "contractor_name": "CAL PAC ROOFING",
+  "contractor_address": "15707 ROCKFIELD #250, IRVINE, CA 92718",
+  "created_online": false,
+  "last_updated": "2012-11-18T20:39:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.98812,
+    32.75931
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1987-C-8702603999",
+  "open_date": "1987-09-09T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: \nDESCRIPTION OF WORK: REROOF SFD WITH DECRA TILW OVER SHAKE ICBO#3409",
+  "street_address": "4317 AVNDA GREGORY",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "4317 AVNDA GREGORY, SPRING VALLEY, CA 91977",
+  "parcel_number": "496-400-17-00",
+  "valuation": "8204",
+  "floor_area": "2800",
+  "contractor_name": "CAL PAC ROOFING",
+  "contractor_address": "15707 ROCKFIELD #250, IRVINE, CA 92718",
+  "created_online": false,
+  "last_updated": "2012-11-18T20:39:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.98812,
+    32.75931
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1987-C-87028791",
+  "open_date": "1987-10-28T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: CAMPO RD\nDESCRIPTION OF WORK: RES. RE-ROOF (ALUMINUM SHAKES)",
+  "street_address": "3027 S BONITA ST",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "3027 S BONITA ST, SPRING VALLEY, CA 91977",
+  "parcel_number": "504-160-19-00",
+  "valuation": "9083",
+  "floor_area": "3100",
+  "contractor_name": "CAL PAC ROOFING",
+  "contractor_address": "15707 ROCKFIELD #250, IRVINE, CA 92718",
+  "created_online": false,
+  "last_updated": "2012-11-18T20:39:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.98466,
+    32.73746
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1987-C-8702879999",
+  "open_date": "1987-10-28T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: CAMPO RD\nDESCRIPTION OF WORK: RES. RE-ROOF (ALUMINUM SHAKES)",
+  "street_address": "3027 S BONITA ST",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "3027 S BONITA ST, SPRING VALLEY, CA 91977",
+  "parcel_number": "504-160-19-00",
+  "valuation": "9083",
+  "floor_area": "3100",
+  "contractor_name": "CAL PAC ROOFING",
+  "contractor_address": "15707 ROCKFIELD #250, IRVINE, CA 92718",
+  "created_online": false,
+  "last_updated": "2012-11-18T20:39:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.98466,
+    32.73746
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1987-C-87033571",
+  "open_date": "1987-11-23T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: PIEDMONT\nDESCRIPTION OF WORK: RE-ROOF APT BUILDING",
+  "street_address": "829 GRAND AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "829 GRAND AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-330-09-00",
+  "valuation": "2288",
+  "floor_area": "2600",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:23:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.99739,
+    32.71234
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1987-C-8703357999",
+  "open_date": "1987-11-23T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: PIEDMONT\nDESCRIPTION OF WORK: RE-ROOF APT BUILDING",
+  "street_address": "829 GRAND AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "829 GRAND AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-330-09-00",
+  "valuation": "2288",
+  "floor_area": "2600",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:23:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.99739,
+    32.71234
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1988-A-8802209999",
+  "open_date": "1988-08-08T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Commercial Alteration-Addn",
+  "primary_scope_code": "4370 - COM - Addn/Alt Hotel, Motel, Comml Bldgs",
+  "use": "CROSS STREET: SAN CARLOS S.V.\nDESCRIPTION OF WORK: REROOF - REPLACE GRAVEL WITH GRAVEL",
+  "street_address": "325 KEMPTON ST",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "325 KEMPTON ST, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-190-30-00",
+  "valuation": "10680",
+  "floor_area": "12000",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:24:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.00174,
+    32.70351
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1988-C-88000991",
+  "open_date": "1988-01-12T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: BARCELONA S.V.\nDESCRIPTION OF WORK: RE-ROOF STRUCTURAL",
+  "street_address": "2810 HIGHLANDS BLVD",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "2810 HIGHLANDS BLVD, SPRING VALLEY, CA 91977",
+  "parcel_number": "504-250-08-00",
+  "valuation": "17052.5",
+  "floor_area": "1795",
+  "contractor_name": "SPRATLEY ROOFING",
+  "contractor_address": "9029  OLIVEDR, SPRING VALLEY, CA 9207-7",
+  "contractor_phone": "6194621120",
+  "created_online": false,
+  "last_updated": "2012-11-18T20:40:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.98671,
+    32.73629
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1988-C-88004511",
+  "open_date": "1988-02-12T00:00:00.000",
+  "record_status": "Expired",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: OSAGE ST\nDESCRIPTION OF WORK: REROOF - COMP. SHINGLES",
+  "street_address": "721 BROADVIEW ST",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "721 BROADVIEW ST, SPRING VALLEY, CA 91977",
+  "parcel_number": "583-553-09-00",
+  "valuation": "1886",
+  "floor_area": "2300",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:23:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.0128,
+    32.70838
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1988-C-8800451999",
+  "open_date": "1988-02-12T00:00:00.000",
+  "record_status": "Expired",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: OSAGE ST\nDESCRIPTION OF WORK: REROOF - COMP. SHINGLES",
+  "street_address": "721 BROADVIEW ST",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "721 BROADVIEW ST, SPRING VALLEY, CA 91977",
+  "parcel_number": "583-553-09-00",
+  "valuation": "1886",
+  "floor_area": "2300",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:25:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.0128,
+    32.70838
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1988-C-88005991",
+  "open_date": "1988-02-26T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: ESTRELLA DR\nDESCRIPTION OF WORK: STRL. RE-ROOF FOR EXISTING SFD",
+  "street_address": "4238 N CORDOBA AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "4238 N CORDOBA AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "501-091-13-00",
+  "valuation": "10925",
+  "floor_area": "1150",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:24:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.98017,
+    32.7541
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1988-C-8800599999",
+  "open_date": "1988-02-26T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: ESTRELLA DR\nDESCRIPTION OF WORK: STRL. RE-ROOF FOR EXISTING SFD",
+  "street_address": "4238 N CORDOBA AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "4238 N CORDOBA AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "501-091-13-00",
+  "valuation": "10925",
+  "floor_area": "1150",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:24:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.98017,
+    32.7541
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1988-C-88013731",
+  "open_date": "1988-04-05T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Commercial Alteration-Addn",
+  "primary_scope_code": "4370 - COM - Addn/Alt Hotel, Motel, Comml Bldgs",
+  "use": "CROSS STREET: CANYON TOP S.V.\nDESCRIPTION OF WORK: RE-ROOF EXISTING SFD  DECA-TILE ICBO # 3409 OVER WOOD SHAKE",
+  "street_address": "10025 ANOEL CT",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "10025 ANOEL CT, SPRING VALLEY, CA 91977",
+  "parcel_number": "505-240-46-00",
+  "valuation": "8790",
+  "floor_area": "3000",
+  "contractor_name": "CAL PAC ROOFING",
+  "contractor_address": "15707 ROCKFIELD #250, IRVINE, CA 92718",
+  "created_online": false,
+  "last_updated": "2012-11-18T20:40:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.97778,
+    32.73732
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1988-C-8801373999",
+  "open_date": "1988-04-05T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Commercial Alteration-Addn",
+  "primary_scope_code": "4370 - COM - Addn/Alt Hotel, Motel, Comml Bldgs",
+  "use": "CROSS STREET: CANYON TOP S.V.\nDESCRIPTION OF WORK: RE-ROOF EXISTING SFD  DECA-TILE ICBO # 3409 OVER WOOD SHAKE",
+  "street_address": "10025 ANOEL CT",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "10025 ANOEL CT, SPRING VALLEY, CA 91977",
+  "parcel_number": "505-240-46-00",
+  "valuation": "8790",
+  "floor_area": "3000",
+  "contractor_name": "CAL PAC ROOFING",
+  "contractor_address": "15707 ROCKFIELD #250, IRVINE, CA 92718",
+  "created_online": false,
+  "last_updated": "2012-11-18T20:40:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.97778,
+    32.73732
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1988-C-88016391",
+  "open_date": "1988-04-18T00:00:00.000",
+  "record_status": "Expired",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: SAN CARLOS\nDESCRIPTION OF WORK: RE-ROOF FOR EXISTING SFD",
+  "street_address": "423 PARAISO AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "423 PARAISO AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-490-28-00",
+  "valuation": "1230",
+  "floor_area": "1500",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:24:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.99631,
+    32.70491
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1988-C-8801639999",
+  "open_date": "1988-04-18T00:00:00.000",
+  "record_status": "Expired",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: SAN CARLOS\nDESCRIPTION OF WORK: RE-ROOF FOR EXISTING SFD",
+  "street_address": "423 PARAISO AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "423 PARAISO AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-490-28-00",
+  "valuation": "1230",
+  "floor_area": "1500",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:24:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.99631,
+    32.70491
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1988-C-88017561",
+  "open_date": "1988-04-25T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: CRISTOBAL\nDESCRIPTION OF WORK: RES. RE-ROOF, ALUMINUM SHAKES",
+  "street_address": "10009 ANOEL CT",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "10009 ANOEL CT, SPRING VALLEY, CA 91977",
+  "parcel_number": "505-240-44-00",
+  "valuation": "7325",
+  "floor_area": "2500",
+  "contractor_name": "CAL PAC ROOFING",
+  "contractor_address": "15707 ROCKFIELD #250, IRVINE, CA 92718",
+  "created_online": false,
+  "last_updated": "2012-11-18T20:40:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.97792,
+    32.73737
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1988-C-8801756999",
+  "open_date": "1988-04-25T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: CRISTOBAL\nDESCRIPTION OF WORK: RES. RE-ROOF, ALUMINUM SHAKES",
+  "street_address": "10009 ANOEL CT",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "10009 ANOEL CT, SPRING VALLEY, CA 91977",
+  "parcel_number": "505-240-44-00",
+  "valuation": "7325",
+  "floor_area": "2500",
+  "contractor_name": "CAL PAC ROOFING",
+  "contractor_address": "15707 ROCKFIELD #250, IRVINE, CA 92718",
+  "created_online": false,
+  "last_updated": "2012-11-18T20:40:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.97792,
+    32.73737
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1988-C-88020341",
+  "open_date": "1988-05-09T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: GRANADA AV (SV)\nDESCRIPTION OF WORK: REROOF - ALUMINUM SHAKE - ICBO 3409",
+  "street_address": "10043 VIEW CREST CT",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "10043 VIEW CREST CT, SPRING VALLEY, CA 91977",
+  "parcel_number": "505-240-21-00",
+  "valuation": "5274",
+  "floor_area": "1800",
+  "contractor_name": "CAL PAC ROOFING",
+  "contractor_address": "15707 ROCKFIELD #250, IRVINE, CA 92718",
+  "created_online": false,
+  "last_updated": "2012-11-18T20:40:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.97738,
+    32.73828
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1988-C-8802034999",
+  "open_date": "1988-05-09T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: GRANADA AV (SV)\nDESCRIPTION OF WORK: REROOF - ALUMINUM SHAKE - ICBO 3409",
+  "street_address": "10043 VIEW CREST CT",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "10043 VIEW CREST CT, SPRING VALLEY, CA 91977",
+  "parcel_number": "505-240-21-00",
+  "valuation": "5274",
+  "floor_area": "1800",
+  "contractor_name": "CAL PAC ROOFING",
+  "contractor_address": "15707 ROCKFIELD #250, IRVINE, CA 92718",
+  "created_online": false,
+  "last_updated": "2012-11-18T20:40:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.97738,
+    32.73828
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1988-C-88024841",
+  "open_date": "1988-06-02T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: VALENCIA\nDESCRIPTION OF WORK: RE-ROOF (COMPOSITION SHINGLES)",
+  "street_address": "2722 CENTRAL AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "2722 CENTRAL AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "503-280-42-00",
+  "valuation": "482.16",
+  "floor_area": "588",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:24:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.01023,
+    32.73516
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1988-C-8802484999",
+  "open_date": "1988-06-02T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: VALENCIA\nDESCRIPTION OF WORK: RE-ROOF (COMPOSITION SHINGLES)",
+  "street_address": "2722 CENTRAL AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "2722 CENTRAL AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "503-280-42-00",
+  "valuation": "482.16",
+  "floor_area": "588",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:24:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.01023,
+    32.73516
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1988-C-88027061",
+  "open_date": "1988-06-13T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Commercial Alteration-Addn",
+  "primary_scope_code": "4341 - COM - Addition/Alteration To 4+ Units",
+  "use": "CROSS STREET: AQUA DULCE\nDESCRIPTION OF WORK: RE-ROOF FOR APT BUILDING",
+  "street_address": "10235 MADRID WAY",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "10235 MADRID WAY, SPRING VALLEY, CA 91977",
+  "parcel_number": "501-264-30-00",
+  "valuation": "4224",
+  "floor_area": "4800",
+  "contractor_name": "J. B. G. ROOFING CO",
+  "contractor_address": "9120  BRIERRD, LA MESA, CA 92042-",
+  "contractor_phone": "6195614246",
+  "created_online": false,
+  "last_updated": "2012-11-18T20:40:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.97269,
+    32.74591
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1988-C-8802706999",
+  "open_date": "1988-06-13T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Commercial Alteration-Addn",
+  "primary_scope_code": "4341 - COM - Addition/Alteration To 4+ Units",
+  "use": "CROSS STREET: AQUA DULCE\nDESCRIPTION OF WORK: RE-ROOF FOR APT BUILDING",
+  "street_address": "10235 MADRID WAY",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "10235 MADRID WAY, SPRING VALLEY, CA 91977",
+  "parcel_number": "501-264-30-00",
+  "valuation": "4224",
+  "floor_area": "4800",
+  "contractor_name": "J. B. G. ROOFING CO",
+  "contractor_address": "9120  BRIERRD, LA MESA, CA 92042-",
+  "contractor_phone": "6195614246",
+  "created_online": false,
+  "last_updated": "2012-11-18T20:40:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.97269,
+    32.74591
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1988-C-88035321",
+  "open_date": "1988-07-20T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: APPLE ST\nDESCRIPTION OF WORK: RE-ROOF (ASPHALT SHINGLES)",
+  "street_address": "1021 LA PRESA AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "1021 LA PRESA AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "579-386-09-00",
+  "valuation": "1203.5",
+  "floor_area": "1450",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:25:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.9923,
+    32.71541
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1988-C-8803532999",
+  "open_date": "1988-07-20T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: APPLE ST\nDESCRIPTION OF WORK: RE-ROOF (ASPHALT SHINGLES)",
+  "street_address": "1021 LA PRESA AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "1021 LA PRESA AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "579-386-09-00",
+  "valuation": "1203.5",
+  "floor_area": "1450",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:25:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.9923,
+    32.71541
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1988-C-880427825",
+  "open_date": "1988-08-08T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Commercial Alteration-Addn",
+  "primary_scope_code": "4370 - COM - Addn/Alt Hotel, Motel, Comml Bldgs",
+  "use": "CROSS STREET: SAN CARLOS S.V.\nDESCRIPTION OF WORK: REROOF - REPLACE GRAVEL WITH GRAVEL",
+  "street_address": "325 KEMPTON ST",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "325 KEMPTON ST, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-190-30-00",
+  "valuation": "10680",
+  "floor_area": "12000",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:25:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.00174,
+    32.70351
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1988-C-880427976",
+  "open_date": "1988-08-08T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Commercial Alteration-Addn",
+  "primary_scope_code": "4370 - COM - Addn/Alt Hotel, Motel, Comml Bldgs",
+  "use": "CROSS STREET: SAN CARLOS S.V.\nDESCRIPTION OF WORK: REROOF - REPLACE GRAVEL WITH GRAVEL",
+  "street_address": "325 KEMPTON ST",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "325 KEMPTON ST, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-190-30-00",
+  "valuation": "10680",
+  "floor_area": "12000",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:25:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.00174,
+    32.70351
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1988-C-88043371",
+  "open_date": "1988-08-10T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: BARCELONA S.V.\nDESCRIPTION OF WORK: SFD ADDN, RE-ROOF ALL SFD AND GAR\nNO AC",
+  "street_address": "2806 HIGHLANDS BLVD",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "2806 HIGHLANDS BLVD, SPRING VALLEY, CA 91977",
+  "parcel_number": "504-250-09-00",
+  "valuation": "19754.35",
+  "floor_area": "2979",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:24:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.98678,
+    32.73627
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1988-C-8804337999",
+  "open_date": "1988-08-10T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: BARCELONA S.V.\nDESCRIPTION OF WORK: SFD ADDN, RE-ROOF ALL SFD AND GAR\nNO AC",
+  "street_address": "2806 HIGHLANDS BLVD",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "2806 HIGHLANDS BLVD, SPRING VALLEY, CA 91977",
+  "parcel_number": "504-250-09-00",
+  "valuation": "19754.35",
+  "floor_area": "2979",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:24:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.98678,
+    32.73627
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1988-C-88066731",
+  "open_date": "1988-10-31T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Commercial Alteration-Addn",
+  "use": "CROSS STREET: SAN DIEGO ST\nDESCRIPTION OF WORK: REROOF APT BLDG AND CARPORT",
+  "street_address": "437 GRAND AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "437 GRAND AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-490-60-00",
+  "valuation": "7120",
+  "floor_area": "8000",
+  "contractor_name": "URBACH ROOFING",
+  "contractor_address": "2834  LA MIRADAST, VISTA, CA 92083-",
+  "contractor_phone": "6199408212",
+  "created_online": false,
+  "last_updated": "2012-11-18T20:40:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.99731,
+    32.70517
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1988-C-8806673999",
+  "open_date": "1988-10-31T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Commercial Alteration-Addn",
+  "use": "CROSS STREET: SAN DIEGO ST\nDESCRIPTION OF WORK: REROOF APT BLDG AND CARPORT",
+  "street_address": "437 GRAND AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "437 GRAND AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-490-60-00",
+  "valuation": "7120",
+  "floor_area": "8000",
+  "contractor_name": "URBACH ROOFING",
+  "contractor_address": "2834  LA MIRADAST, VISTA, CA 92083-",
+  "contractor_phone": "6199408212",
+  "created_online": false,
+  "last_updated": "2012-11-18T20:40:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.99731,
+    32.70517
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1988-C-88076171",
+  "open_date": "1988-11-17T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: GRANADA\nDESCRIPTION OF WORK: RE-ROOF   ***DECRA TILE OVER SHAKE*** ICBO #3409",
+  "street_address": "10044 CASA NUEVA ST",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "10044 CASA NUEVA ST, SPRING VALLEY, CA 91977",
+  "parcel_number": "505-200-21-00",
+  "valuation": "7375",
+  "floor_area": "2500",
+  "contractor_name": "CAL PAC ROOFING",
+  "contractor_address": "15707 ROCKFIELD #250, IRVINE, CA 92718",
+  "created_online": false,
+  "last_updated": "2012-11-18T20:40:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.97714,
+    32.73914
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1988-C-8807617999",
+  "open_date": "1988-11-17T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: GRANADA\nDESCRIPTION OF WORK: RE-ROOF   ***DECRA TILE OVER SHAKE*** ICBO #3409",
+  "street_address": "10044 CASA NUEVA ST",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "10044 CASA NUEVA ST, SPRING VALLEY, CA 91977",
+  "parcel_number": "505-200-21-00",
+  "valuation": "7375",
+  "floor_area": "2500",
+  "contractor_name": "CAL PAC ROOFING",
+  "contractor_address": "15707 ROCKFIELD #250, IRVINE, CA 92718",
+  "created_online": false,
+  "last_updated": "2012-11-18T20:40:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.97714,
+    32.73914
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1988-C-88077101",
+  "open_date": "1988-11-22T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: SAN DIEGO ST\nDESCRIPTION OF WORK: REPLACE FIBERGLASS- COMP RE-ROOF FOR EXISTING SFD",
+  "street_address": "542 PARAISO AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "542 PARAISO AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-440-19-00",
+  "valuation": "2905",
+  "floor_area": "3500",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:25:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.99625,
+    32.70715
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1988-C-8807710999",
+  "open_date": "1988-11-22T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: SAN DIEGO ST\nDESCRIPTION OF WORK: REPLACE FIBERGLASS- COMP RE-ROOF FOR EXISTING SFD",
+  "street_address": "542 PARAISO AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "542 PARAISO AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-440-19-00",
+  "valuation": "2905",
+  "floor_area": "3500",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:23:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.99625,
+    32.70715
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1989-C-89009291",
+  "open_date": "1989-02-22T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: PARADISE VALLEY RD\nDESCRIPTION OF WORK: REROOF AND MISC ELECT 2 GFI IN BATHROOM IN EXISTNG SFD\nREROOF WITH COMP SHINGLE",
+  "street_address": "752 CONCEPCION AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "752 CONCEPCION AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-380-32-00",
+  "valuation": "1245",
+  "floor_area": "1500",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:27:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.99993,
+    32.71126
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1989-C-8900929999",
+  "open_date": "1989-02-22T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: PARADISE VALLEY RD\nDESCRIPTION OF WORK: REROOF AND MISC ELECT 2 GFI IN BATHROOM IN EXISTNG SFD\nREROOF WITH COMP SHINGLE",
+  "street_address": "752 CONCEPCION AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "752 CONCEPCION AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-380-32-00",
+  "valuation": "1245",
+  "floor_area": "1500",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:27:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.99993,
+    32.71126
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1989-C-89010541",
+  "open_date": "1989-02-28T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: \nDESCRIPTION OF WORK: RE-ROOF EXISTING SFD",
+  "street_address": "2244 CASA ALTA",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "2244 CASA ALTA, SPRING VALLEY, CA 91977",
+  "parcel_number": "505-540-83-00",
+  "valuation": "7965",
+  "floor_area": "2700",
+  "contractor_name": "CAL PAC ROOFING",
+  "contractor_address": "15707 ROCKFIELD #250, IRVINE, CA 92718",
+  "created_online": false,
+  "last_updated": "2012-11-18T20:40:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.98107,
+    32.72946
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1989-C-8901054999",
+  "open_date": "1989-02-28T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: \nDESCRIPTION OF WORK: RE-ROOF EXISTING SFD",
+  "street_address": "2244 CASA ALTA",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "2244 CASA ALTA, SPRING VALLEY, CA 91977",
+  "parcel_number": "505-540-83-00",
+  "valuation": "7965",
+  "floor_area": "2700",
+  "contractor_name": "CAL PAC ROOFING",
+  "contractor_address": "15707 ROCKFIELD #250, IRVINE, CA 92718",
+  "created_online": false,
+  "last_updated": "2012-11-18T20:41:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.98107,
+    32.72946
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1989-C-89022141",
+  "open_date": "1989-04-14T00:00:00.000",
+  "record_status": "Expired",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: VALENCIA\nDESCRIPTION OF WORK: REROOF WITH SHINGLES AND MISC ELECT IN EXISTING SFD",
+  "street_address": "2430 CENTRAL WAYSIDE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "2430 CENTRAL WAYSIDE, SPRING VALLEY, CA 91977",
+  "parcel_number": "503-392-22-00",
+  "valuation": "1245",
+  "floor_area": "1500",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:25:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.0116,
+    32.73264
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1989-C-8902214999",
+  "open_date": "1989-04-14T00:00:00.000",
+  "record_status": "Expired",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: VALENCIA\nDESCRIPTION OF WORK: REROOF WITH SHINGLES AND MISC ELECT IN EXISTING SFD",
+  "street_address": "2430 CENTRAL WAYSIDE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "2430 CENTRAL WAYSIDE, SPRING VALLEY, CA 91977",
+  "parcel_number": "503-392-22-00",
+  "valuation": "1245",
+  "floor_area": "1500",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:26:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.0116,
+    32.73264
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1989-C-89024741",
+  "open_date": "1989-04-26T00:00:00.000",
+  "record_status": "Expired",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: JAMACHA RD\nDESCRIPTION OF WORK: REROOF AND RESTUCCO EXISTING SFD\ncourtesy renwal for 2 months kas all homeowner relief.  till 12-1-03",
+  "street_address": "923 CONCEPCION AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "923 CONCEPCION AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-290-04-00",
+  "valuation": "2389",
+  "floor_area": "2540",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:25:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.99984,
+    32.71417
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1989-C-8902474999",
+  "open_date": "1989-04-26T00:00:00.000",
+  "record_status": "Expired",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: JAMACHA RD\nDESCRIPTION OF WORK: REROOF AND RESTUCCO EXISTING SFD",
+  "street_address": "923 CONCEPCION AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "923 CONCEPCION AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-290-04-00",
+  "valuation": "2389",
+  "floor_area": "2540",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:25:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.99984,
+    32.71417
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1989-C-89026601",
+  "open_date": "1989-05-02T00:00:00.000",
+  "record_status": "Expired",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: RUXTON ST\nDESCRIPTION OF WORK: INTERIOR PARTITITON,REROOF, ADD SLIDING WINDOW AND GARDEN WINDOW\nTO EXISTING SFD",
+  "street_address": "9003 JOAN ST",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "9003 JOAN ST, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-104-01-00",
+  "valuation": "2565.96",
+  "floor_area": "2060",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:26:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.0056,
+    32.70638
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1989-C-8902660999",
+  "open_date": "1989-05-02T00:00:00.000",
+  "record_status": "Expired",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: RUXTON ST\nDESCRIPTION OF WORK: INTERIOR PARTITITON,REROOF, ADD SLIDING WINDOW AND GARDEN WINDOW\nTO EXISTING SFD",
+  "street_address": "9003 JOAN ST",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "9003 JOAN ST, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-104-01-00",
+  "valuation": "2565.96",
+  "floor_area": "2060",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:26:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.0056,
+    32.70638
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1989-C-89034481",
+  "open_date": "1989-06-07T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: JAMACHA\nDESCRIPTION OF WORK: REROOF SFD W SHINGLES",
+  "street_address": "412 GRAND AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "412 GRAND AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-480-49-00",
+  "valuation": "2490",
+  "floor_area": "3000",
+  "contractor_name": "ROMERO ROOFING SERVICES, INC.",
+  "contractor_address": "1827  CLEVELAND AVE., NATIONAL CITY, CA 92950-",
+  "contractor_phone": "6194746016",
+  "created_online": false,
+  "last_updated": "2012-11-18T20:41:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.99757,
+    32.7045
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1989-C-8903448999",
+  "open_date": "1989-06-07T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: JAMACHA\nDESCRIPTION OF WORK: REROOF SFD W SHINGLES",
+  "street_address": "412 GRAND AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "412 GRAND AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-480-49-00",
+  "valuation": "2490",
+  "floor_area": "3000",
+  "contractor_name": "ROMERO ROOFING SERVICES, INC.",
+  "contractor_address": "1827  CLEVELAND AVE., NATIONAL CITY, CA 92950-",
+  "contractor_phone": "6194746016",
+  "created_online": false,
+  "last_updated": "2012-11-18T20:41:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.99757,
+    32.7045
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1989-C-89034601",
+  "open_date": "1989-06-07T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: RAMONA AVE\nDESCRIPTION OF WORK: RE-ROOF AND DRIVEWAY PERMIT",
+  "street_address": "9508 ST GEORGE ST",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "9508 ST GEORGE ST, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-340-38-00",
+  "valuation": "2059.2",
+  "floor_area": "1056",
+  "contractor_name": "ALL AMERICAN BUILDING AND REMODELING",
+  "contractor_address": "7808  LONGDALE DRIVE, LEMON GROVE, CA 91945-",
+  "contractor_phone": "619-589-1587",
+  "created_online": false,
+  "last_updated": "2012-11-18T20:40:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.99463,
+    32.71157
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1989-C-8903460999",
+  "open_date": "1989-06-07T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: RAMONA AVE\nDESCRIPTION OF WORK: RE-ROOF AND DRIVEWAY PERMIT",
+  "street_address": "9508 ST GEORGE ST",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "9508 ST GEORGE ST, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-340-38-00",
+  "valuation": "2059.2",
+  "floor_area": "1056",
+  "contractor_name": "ALL AMERICAN BUILDING AND REMODELING",
+  "contractor_address": "7808  LONGDALE DRIVE, LEMON GROVE, CA 91945-",
+  "contractor_phone": "619-589-1587",
+  "created_online": false,
+  "last_updated": "2012-11-18T20:41:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.99463,
+    32.71157
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1989-C-89038661",
+  "open_date": "1989-06-23T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: \nDESCRIPTION OF WORK: RE-ROOF(BUILT-UP)* DRIVEWAY* MISC. ELEC",
+  "street_address": "9109 BARNEVELD ST",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "9109 BARNEVELD ST, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-222-02-00",
+  "valuation": "2403",
+  "floor_area": "2700",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:25:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.00368,
+    32.70364
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1989-C-8903866999",
+  "open_date": "1989-06-23T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: \nDESCRIPTION OF WORK: RE-ROOF(BUILT-UP)* DRIVEWAY* MISC. ELEC",
+  "street_address": "9109 BARNEVELD ST",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "9109 BARNEVELD ST, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-222-02-00",
+  "valuation": "2403",
+  "floor_area": "2700",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:26:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.00368,
+    32.70364
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1989-C-89040191",
+  "open_date": "1989-06-30T00:00:00.000",
+  "record_status": "Expired",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: SAN DIEGO ST\nDESCRIPTION OF WORK: FOUNDATION REPAIR, RE-ROOF, AND MISC ELECT",
+  "street_address": "438 PARAISO AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "438 PARAISO AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-490-16-00",
+  "valuation": "9160",
+  "floor_area": "2000",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:25:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.99631,
+    32.70513
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1989-C-8904019999",
+  "open_date": "1989-06-30T00:00:00.000",
+  "record_status": "Expired",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: SAN DIEGO ST\nDESCRIPTION OF WORK: FOUNDATION REPAIR, RE-ROOF, AND MISC ELECT",
+  "street_address": "438 PARAISO AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "438 PARAISO AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-490-16-00",
+  "valuation": "9160",
+  "floor_area": "2000",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:25:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.99631,
+    32.70513
+   ]
+  }
+ },
+ {
+  "record_id": "PDS1989-C-89050121",
+  "open_date": "1989-08-09T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "CROSS STREET: AUSTIN\nDESCRIPTION OF WORK: RE-ROOF - SAME WEIGHT SHAKE SHINGLES",
+  "street_address": "2633 MOUNDTOP LN",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "2633 MOUNDTOP LN, SPRING VALLEY, CA 91977",
+  "parcel_number": "505-390-05-00",
+  "valuation": "3654",
+  "floor_area": "1800",
+  "created_online": false,
+  "last_updated": "2012-11-18T11:27:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.98357,
+    32.73373
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-008470",
+  "open_date": "2026-11-19T00:00:00.000",
+  "issued_date": "2026-11-19T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8002 - REN - Solar Photovoltaic Roof Mount Residential - Online",
+  "use": "CROSS STREET: 728 Sacramento Avenue \n\nDescription of Work: HRA (Online Permit) ROOF MOUNT RESIDENTIAL SOLAR PV WITH ADVANCED ENERGY STORAGE SYSTEM FOR EXISTING PERMITTED STRUCTURES (No Meter Upgrade).\n \nThis Permit does not exempt any existing structures from compliance with applicable building code and zoning ordinance requirements.\n \nPer Section 4620 (i) of the zoning ordinance, roof mounted photovoltaic systems shall not extend more than 5 ft. above the highest point of the existing roof.",
+  "homeowner_biz_owner_relief": true,
+  "street_address": "728 SACRAMENTO AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "728 SACRAMENTO AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-372-28-00",
+  "created_online": true,
+  "last_updated": "2026-11-19T10:00:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.9987,
+    32.7105
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-008461",
+  "open_date": "2026-11-18T00:00:00.000",
+  "issued_date": "2026-11-19T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8002 - REN - Solar Photovoltaic Roof Mount Residential - Online",
+  "use": "CROSS STREET: Date St \n\nDescription of Work: HRA (Online Permit) ROOF MOUNT RESIDENTIAL SOLAR PV WITH ADVANCED ENERGY STORAGE SYSTEM FOR EXISTING PERMITTED STRUCTURES (No Meter Upgrade).\n \nThis Permit does not exempt any existing structures from compliance with applicable building code and zoning ordinance requirements.\n \nPer Section 4620 (i) of the zoning ordinance, roof mounted photovoltaic systems shall not extend more than 5 ft. above the highest point of the existing roof.",
+  "homeowner_biz_owner_relief": true,
+  "street_address": "1640 LA MESA AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "1640 LA MESA AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "579-392-12-00",
+  "contractor_name": "N R G CLEAN POWER INC",
+  "contractor_address": "7012 OWENSMOUTH AVE, CANOGA PARK, CA 91303",
+  "contractor_phone": "8886504750",
+  "created_online": true,
+  "last_updated": "2026-11-19T09:36:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.98731,
+    32.72125
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-008393",
+  "open_date": "2026-11-17T00:00:00.000",
+  "issued_date": "2026-11-18T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8002 - REN - Solar Photovoltaic Roof Mount Residential - Online",
+  "use": "CROSS STREET: CHESTNUT ST \n\nDescription of Work: HRA (Online Permit) ROOF MOUNT RESIDENTIAL SOLAR PV WITH ADVANCED ENERGY STORAGE SYSTEM FOR EXISTING PERMITTED STRUCTURES (No Meter Upgrade).\n \nThis Permit does not exempt any existing structures from compliance with applicable building code and zoning ordinance requirements.\n \nPer Section 4620 (i) of the zoning ordinance, roof mounted photovoltaic systems shall not extend more than 5 ft. above the highest point of the existing roof.",
+  "homeowner_biz_owner_relief": true,
+  "street_address": "1518 CUYAMACA AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "1518 CUYAMACA AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "579-398-28-00",
+  "contractor_name": "STELLAR SOLAR ELECTRIC",
+  "contractor_address": "265 VIA DEL MONTE, OCEANSIDE, CA 92058",
+  "contractor_phone": "7606038500",
+  "created_online": true,
+  "last_updated": "2026-11-18T10:36:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.98531,
+    32.71956
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-008383",
+  "open_date": "2026-11-17T00:00:00.000",
+  "issued_date": "2026-11-18T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8002 - REN - Solar Photovoltaic Roof Mount Residential - Online",
+  "use": "CROSS STREET: Kempton St.  \n\nDescription of Work: HRA (Online Permit) ROOF MOUNT RESIDENTIAL SOLAR PV WITH ADVANCED ENERGY STORAGE SYSTEM FOR EXISTING PERMITTED STRUCTURES (No Meter Upgrade).\n \nThis Permit does not exempt any existing structures from compliance with applicable building code and zoning ordinance requirements.\n \nPer Section 4620 (i) of the zoning ordinance, roof mounted photovoltaic systems shall not extend more than 5 ft. above the highest point of the existing roof.",
+  "homeowner_biz_owner_relief": true,
+  "street_address": "9140 CAMBON ST",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "9140 CAMBON ST, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-222-10-00",
+  "contractor_name": "LGCY ELECTRIC",
+  "contractor_address": "3333 N DIGITAL DR STE 600, LEHI, UT 84043",
+  "contractor_phone": "8553534899",
+  "created_online": true,
+  "last_updated": "2026-11-18T10:13:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.00222,
+    32.70291
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-008341",
+  "open_date": "2026-11-16T00:00:00.000",
+  "issued_date": "2026-11-17T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8002 - REN - Solar Photovoltaic Roof Mount Residential - Online",
+  "use": "CROSS STREET: Fieldlane Pl \n\nDescription of Work: HRA (Online Permit) ROOF MOUNT RESIDENTIAL SOLAR PV WITH ADVANCED ENERGY STORAGE SYSTEM FOR EXISTING PERMITTED STRUCTURES (No Meter Upgrade).\n \nThis Permit does not exempt any existing structures from compliance with applicable building code and zoning ordinance requirements.\n \nPer Section 4620 (i) of the zoning ordinance, roof mounted photovoltaic systems shall not extend more than 5 ft. above the highest point of the existing roof.",
+  "homeowner_biz_owner_relief": true,
+  "street_address": "9930 CRESTLANE CT",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "9930 CRESTLANE CT, SPRING VALLEY, CA 91977",
+  "parcel_number": "505-520-30-00",
+  "contractor_name": "SUNRUN",
+  "contractor_address": "1800 W ASHTON BLVD, LEHI, UT 84043",
+  "contractor_phone": "4155806857",
+  "created_online": true,
+  "last_updated": "2026-11-17T07:55:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.98209,
+    32.73008
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-008330",
+  "open_date": "2026-11-16T00:00:00.000",
+  "issued_date": "2026-11-17T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8002 - REN - Solar Photovoltaic Roof Mount Residential - Online",
+  "use": "CROSS STREET: SPRING VALLEY \n\nDescription of Work: HRA (Online Permit) ROOF MOUNT RESIDENTIAL SOLAR PV WITH ADVANCED ENERGY STORAGE SYSTEM FOR EXISTING PERMITTED STRUCTURES (No Meter Upgrade).\n \nThis Permit does not exempt any existing structures from compliance with applicable building code and zoning ordinance requirements.\n \nPer Section 4620 (i) of the zoning ordinance, roof mounted photovoltaic systems shall not extend more than 5 ft. above the highest point of the existing roof.",
+  "homeowner_biz_owner_relief": true,
+  "street_address": "9111 CIRCULO MARGEN",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "9111 CIRCULO MARGEN, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-571-37-00",
+  "contractor_name": "QCELLS FOR NEW HOMES",
+  "contractor_address": "300 SPECTRUM CENTER DR #500, IRVINE, CA 92618",
+  "contractor_phone": "7605787215",
+  "created_online": true,
+  "last_updated": "2026-11-17T08:45:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.00235,
+    32.69831
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-008325",
+  "open_date": "2026-11-16T00:00:00.000",
+  "issued_date": "2026-11-17T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8002 - REN - Solar Photovoltaic Roof Mount Residential - Online",
+  "use": "CROSS STREET: Gremlin Way \n\nDescription of Work: HRA (Online Permit) ROOF MOUNT RESIDENTIAL SOLAR PV WITH ADVANCED ENERGY STORAGE SYSTEM WITH 50A OUTLET FOR EV CHARGER FOR EXISTING PERMITTED STRUCTURES (No Meter Upgrade).\n \nThis Permit does not exempt any existing structures from compliance with applicable building code and zoning ordinance requirements.\n \nPer Section 4620 (i) of the zoning ordinance, roof mounted photovoltaic systems shall not extend more than 5 ft. above the highest point of the existing roof.\n\nSCOPE UPDATE TO ADD THE EV CHARGER OUTLET TO MATCH PLANS. SSH",
+  "homeowner_biz_owner_relief": true,
+  "street_address": "10004 JACOBY RD",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "10004 JACOBY RD, SPRING VALLEY, CA 91977",
+  "parcel_number": "580-161-13-00",
+  "contractor_name": "SOLAR TECH ENERGY SYSTEMS INC",
+  "contractor_address": "9410 BOND AVE, EL CAJON, CA 92021",
+  "contractor_phone": "6197439193",
+  "created_online": true,
+  "last_updated": "2026-11-17T10:01:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.98189,
+    32.71909
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-008323",
+  "open_date": "2026-11-16T00:00:00.000",
+  "issued_date": "2026-11-17T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8002 - REN - Solar Photovoltaic Roof Mount Residential - Online",
+  "use": "CROSS STREET: Valencia St \n\nDescription of Work: HRA (Online Permit) ROOF MOUNT RESIDENTIAL SOLAR PV WITH ADVANCED ENERGY STORAGE SYSTEM FOR EXISTING PERMITTED STRUCTURES (No Meter Upgrade).\n \nThis Permit does not exempt any existing structures from compliance with applicable building code and zoning ordinance requirements.\n \nPer Section 4620 (i) of the zoning ordinance, roof mounted photovoltaic systems shall not extend more than 5 ft. above the highest point of the existing roof.",
+  "homeowner_biz_owner_relief": true,
+  "street_address": "2537 CENTRAL AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "2537 CENTRAL AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "503-400-43-00",
+  "contractor_name": "SUNRUN",
+  "contractor_address": "1800 W ASHTON BLVD, LEHI, UT 84043",
+  "contractor_phone": "4155806857",
+  "created_online": true,
+  "last_updated": "2026-11-17T10:19:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.01002,
+    32.7332
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-008319",
+  "open_date": "2026-11-16T00:00:00.000",
+  "issued_date": "2026-11-17T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8002 - REN - Solar Photovoltaic Roof Mount Residential - Online",
+  "use": "CROSS STREET: Camino Lago VIsta/Circulo Margen \n\nDescription of Work: HRA (Online Permit) ROOF MOUNT RESIDENTIAL SOLAR PV WITH ADVANCED ENERGY STORAGE SYSTEM FOR EXISTING PERMITTED STRUCTURES (No Meter Upgrade).\n \nThis Permit does not exempt any existing structures from compliance with applicable building code and zoning ordinance requirements.\n \nPer Section 4620 (i) of the zoning ordinance, roof mounted photovoltaic systems shall not extend more than 5 ft. above the highest point of the existing roof.",
+  "homeowner_biz_owner_relief": true,
+  "street_address": "9111 CIRCULO MARGEN",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "9111 CIRCULO MARGEN, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-571-37-00",
+  "created_online": true,
+  "last_updated": "2026-11-17T11:00:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.00235,
+    32.69831
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-008302",
+  "open_date": "2026-11-16T00:00:00.000",
+  "issued_date": "2026-11-16T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8002 - REN - Solar Photovoltaic Roof Mount Residential - Online",
+  "use": "CROSS STREET: Avenida Angulia \n \n_____________DO_NOT_EDIT_BELOW_THIS_LINE_____________\nDescription of Work: ROOF MOUNT RESIDENTIAL SOLAR PV WITH ADVANCED ENERGY STORAGE SYSTEM FOR EXISTING PERMITTED STRUCTURES WITH EXISTING RESIDENTIAL MAIN ELECTRICAL SERVICE UPGRADE - 225A - (ONLINE PERMIT) \n \n*The scope of work is limited to upgrades of the existing main service panel, relocation of the existing loads, new sub-panels to accomodate solar loads, and relocation of existing panels in compliance with all zoning ordinances only, does not include additional new main service panels.\n \n This permit does not exempt any existing structures from compliance with applicable building code and zoning ordinance requirements.\n \nPer Section 4620 (i) of the zoning ordinance, roof mounted photovoltaic systems shall not extend more than 5 ft. above the highest point of the existing roof.",
+  "homeowner_biz_owner_relief": true,
+  "street_address": "8512 LAKE BLUFF CIR",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "8512 LAKE BLUFF CIR, SPRING VALLEY, CA 91977",
+  "parcel_number": "586-330-03-00",
+  "contractor_name": "SUNRUN",
+  "contractor_address": "1800 W ASHTON BLVD, LEHI, UT 84043",
+  "contractor_phone": "4155806857",
+  "created_online": true,
+  "last_updated": "2026-11-16T15:24:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.01526,
+    32.69739
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-008259",
+  "open_date": "2026-11-13T00:00:00.000",
+  "issued_date": "2026-11-16T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8002 - REN - Solar Photovoltaic Roof Mount Residential - Online",
+  "use": "CROSS STREET: Avenida Angulia \n\nDescription of Work: HRA (Online Permit) ROOF MOUNT RESIDENTIAL SOLAR PV WITH ADVANCED ENERGY STORAGE SYSTEM FOR EXISTING PERMITTED STRUCTURES (No Meter Upgrade).\n \nThis Permit does not exempt any existing structures from compliance with applicable building code and zoning ordinance requirements.\n \nPer Section 4620 (i) of the zoning ordinance, roof mounted photovoltaic systems shall not extend more than 5 ft. above the highest point of the existing roof.",
+  "homeowner_biz_owner_relief": true,
+  "street_address": "174 LINAZA LN",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "174 LINAZA LN, SPRING VALLEY, CA 91977",
+  "parcel_number": "586-321-35-00",
+  "contractor_name": "SUNRUN",
+  "contractor_address": "1800 W ASHTON BLVD, LEHI, UT 84043",
+  "contractor_phone": "4155806857",
+  "created_online": true,
+  "last_updated": "2026-11-16T10:29:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.0166,
+    32.69641
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-008242",
+  "open_date": "2026-11-12T00:00:00.000",
+  "issued_date": "2026-11-12T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8002 - REN - Solar Photovoltaic Roof Mount Residential - Online",
+  "use": "CROSS STREET: Cliffside Ave \n\nDescription of Work: HRA (Online Permit) ROOF MOUNT RESIDENTIAL SOLAR PV WITH ADVANCED ENERGY STORAGE SYSTEM FOR EXISTING PERMITTED STRUCTURES (No Meter Upgrade).\n \nThis Permit does not exempt any existing structures from compliance with applicable building code and zoning ordinance requirements.\n \nPer Section 4620 (i) of the zoning ordinance, roof mounted photovoltaic systems shall not extend more than 5 ft. above the highest point of the existing roof.",
+  "homeowner_biz_owner_relief": true,
+  "street_address": "10051 CANYONVIEW CT",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "10051 CANYONVIEW CT, SPRING VALLEY, CA 91977",
+  "parcel_number": "505-480-24-00",
+  "contractor_name": "STELLAR SOLAR ELECTRIC",
+  "contractor_address": "265 VIA DEL MONTE, OCEANSIDE, CA 92058",
+  "contractor_phone": "7606038500",
+  "created_online": true,
+  "last_updated": "2026-11-12T13:33:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.97694,
+    32.73589
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-008209",
+  "open_date": "2026-11-12T00:00:00.000",
+  "issued_date": "2026-11-12T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8002 - REN - Solar Photovoltaic Roof Mount Residential - Online",
+  "use": "CROSS STREET: Quarry Rd \n\nDescription of Work: HRA (Online Permit) ROOF MOUNT RESIDENTIAL SOLAR PV WITH ADVANCED ENERGY STORAGE SYSTEM FOR EXISTING PERMITTED STRUCTURES (No Meter Upgrade).\n \nThis Permit does not exempt any existing structures from compliance with applicable building code and zoning ordinance requirements.\n \nPer Section 4620 (i) of the zoning ordinance, roof mounted photovoltaic systems shall not extend more than 5 ft. above the highest point of the existing roof.",
+  "homeowner_biz_owner_relief": true,
+  "street_address": "168 LAKEVIEW AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "168 LAKEVIEW AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-572-35-00",
+  "contractor_name": "SUNRUN",
+  "contractor_address": "1800 W ASHTON BLVD, LEHI, UT 84043",
+  "contractor_phone": "4155806857",
+  "created_online": true,
+  "last_updated": "2026-11-12T10:45:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.00564,
+    32.69873
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-008205",
+  "open_date": "2026-11-12T00:00:00.000",
+  "issued_date": "2026-11-12T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8002 - REN - Solar Photovoltaic Roof Mount Residential - Online",
+  "use": "CROSS STREET: Avenida Augulia \n \n_____________DO_NOT_EDIT_BELOW_THIS_LINE_____________\nDescription of Work: ROOF MOUNT RESIDENTIAL SOLAR PV WITH ADVANCED ENERGY STORAGE SYSTEM FOR EXISTING PERMITTED STRUCTURES WITH EXISTING RESIDENTIAL MAIN ELECTRICAL SERVICE UPGRADE - 125A - (ONLINE PERMIT) \n \n*The scope of work is limited to upgrades of the existing main service panel, relocation of the existing loads, new sub-panels to accomodate solar loads, and relocation of existing panels in compliance with all zoning ordinances only, does not include additional new main service panels.\n \n This permit does not exempt any existing structures from compliance with applicable building code and zoning ordinance requirements.\n \nPer Section 4620 (i) of the zoning ordinance, roof mounted photovoltaic systems shall not extend more than 5 ft. above the highest point of the existing roof.",
+  "homeowner_biz_owner_relief": true,
+  "street_address": "8516 LAKE BLUFF CIR",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "8516 LAKE BLUFF CIR, SPRING VALLEY, CA 91977",
+  "parcel_number": "586-330-04-00",
+  "contractor_name": "BLALOCK ELECTRIC SOLAR",
+  "contractor_address": "36942 AVENIDA LA CRESTA #114-216, MURRIETA, CA 92562",
+  "contractor_phone": "9514400583",
+  "created_online": true,
+  "last_updated": "2026-11-12T11:48:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.01517,
+    32.69742
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-008115",
+  "open_date": "2026-11-09T00:00:00.000",
+  "record_status": "Open",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8002 - REN - Solar Photovoltaic Roof Mount Residential - Online",
+  "use": "CROSS STREET: Orville St. \n \n_____________DO_NOT_EDIT_BELOW_THIS_LINE_____________\nDescription of Work: ROOF MOUNT RESIDENTIAL SOLAR PV WITH ADVANCED ENERGY STORAGE SYSTEM FOR EXISTING PERMITTED STRUCTURES WITH EXISTING RESIDENTIAL MAIN ELECTRICAL SERVICE UPGRADE - 225A - (ONLINE PERMIT) \n \n*The scope of work is limited to upgrades of the existing main service panel, relocation of the existing loads, new sub-panels to accomodate solar loads, and relocation of existing panels in compliance with all zoning ordinances only, does not include additional new main service panels.\n \n This permit does not exempt any existing structures from compliance with applicable building code and zoning ordinance requirements.\n \nPer Section 4620 (i) of the zoning ordinance, roof mounted photovoltaic systems shall not extend more than 5 ft. above the highest point of the existing roof.",
+  "homeowner_biz_owner_relief": true,
+  "street_address": "743 THAYER DR",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "743 THAYER DR, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-074-06-00",
+  "contractor_name": "EXO ENERGY INC",
+  "contractor_address": "1358 LA MIRADA DR, SAN MARCOS, CA 92078",
+  "contractor_phone": "6198817394",
+  "created_online": true,
+  "last_updated": "2026-11-09T09:04:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.00434,
+    32.7103
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-007977",
+  "open_date": "2026-11-04T00:00:00.000",
+  "issued_date": "2026-11-04T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8002 - REN - Solar Photovoltaic Roof Mount Residential - Online",
+  "use": "CROSS STREET: Helix St \n\nDescription of Work: HRA (Online Permit) ROOF MOUNT RESIDENTIAL SOLAR PV WITH ADVANCED ENERGY STORAGE SYSTEM FOR EXISTING PERMITTED STRUCTURES (No Meter Upgrade).\n \nThis Permit does not exempt any existing structures from compliance with applicable building code and zoning ordinance requirements.\n \nPer Section 4620 (i) of the zoning ordinance, roof mounted photovoltaic systems shall not extend more than 5 ft. above the highest point of the existing roof.",
+  "homeowner_biz_owner_relief": true,
+  "street_address": "9392 LORI MAR CT",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "9392 LORI MAR CT, SPRING VALLEY, CA 91977",
+  "parcel_number": "504-023-39-00",
+  "contractor_name": "SUNRUN",
+  "contractor_address": "1800 W ASHTON BLVD, LEHI, UT 84043",
+  "contractor_phone": "4155806857",
+  "created_online": true,
+  "last_updated": "2026-11-04T16:19:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.99763,
+    32.74261
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-007962",
+  "open_date": "2026-11-03T00:00:00.000",
+  "issued_date": "2026-11-04T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8002 - REN - Solar Photovoltaic Roof Mount Residential - Online",
+  "use": "CROSS STREET: Piedmont St \n\nDescription of Work: HRA (Online Permit) ROOF MOUNT RESIDENTIAL SOLAR PV WITH ADVANCED ENERGY STORAGE SYSTEM FOR EXISTING PERMITTED STRUCTURES (No Meter Upgrade).\n \nThis Permit does not exempt any existing structures from compliance with applicable building code and zoning ordinance requirements.\n \nPer Section 4620 (i) of the zoning ordinance, roof mounted photovoltaic systems shall not extend more than 5 ft. above the highest point of the existing roof.",
+  "homeowner_biz_owner_relief": true,
+  "street_address": "842 LA PRESA AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "842 LA PRESA AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-340-47-00",
+  "contractor_name": "SUNRUN",
+  "contractor_address": "1800 W ASHTON BLVD, LEHI, UT 84043",
+  "contractor_phone": "4155806857",
+  "created_online": true,
+  "last_updated": "2026-11-04T13:32:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.99311,
+    32.7127
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-007855",
+  "open_date": "2026-10-29T00:00:00.000",
+  "issued_date": "2026-11-02T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8002 - REN - Solar Photovoltaic Roof Mount Residential - Online",
+  "use": "CROSS STREET: Greenleaf Road \n\nDescription of Work: HRA (Online Permit) ROOF MOUNT RESIDENTIAL SOLAR PV WITH ADVANCED ENERGY STORAGE SYSTEM FOR EXISTING PERMITTED STRUCTURES (No Meter Upgrade).\n \nThis Permit does not exempt any existing structures from compliance with applicable building code and zoning ordinance requirements.\n \nPer Section 4620 (i) of the zoning ordinance, roof mounted photovoltaic systems shall not extend more than 5 ft. above the highest point of the existing roof.",
+  "homeowner_biz_owner_relief": true,
+  "street_address": "10268 GREENLEAF RD",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "10268 GREENLEAF RD, SPRING VALLEY, CA 91977",
+  "parcel_number": "580-200-66-00",
+  "contractor_name": "SEMPER SOLARIS",
+  "contractor_address": "1805 JOHN TOWERS AVENUE, EL CAJON, CA 92020",
+  "contractor_phone": "6197154054",
+  "created_online": true,
+  "last_updated": "2026-11-02T07:47:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.97898,
+    32.71724
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-007828",
+  "open_date": "2026-10-29T00:00:00.000",
+  "issued_date": "2026-10-30T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8002 - REN - Solar Photovoltaic Roof Mount Residential - Online",
+  "use": "CROSS STREET: innsdale Ln \n \n_____________DO_NOT_EDIT_BELOW_THIS_LINE_____________\nDescription of Work: ROOF MOUNT RESIDENTIAL SOLAR PV WITH ADVANCED ENERGY STORAGE SYSTEM FOR EXISTING PERMITTED STRUCTURES WITH EXISTING RESIDENTIAL MAIN ELECTRICAL SERVICE UPGRADE - 225A - (ONLINE PERMIT) \n \n*The scope of work is limited to upgrades of the existing main service panel, relocation of the existing loads, new sub-panels to accomodate solar loads, and relocation of existing panels in compliance with all zoning ordinances only, does not include additional new main service panels.\n \n This permit does not exempt any existing structures from compliance with applicable building code and zoning ordinance requirements.\n \nPer Section 4620 (i) of the zoning ordinance, roof mounted photovoltaic systems shall not extend more than 5 ft. above the highest point of the existing roof.",
+  "homeowner_biz_owner_relief": true,
+  "street_address": "750 WORTHINGTON ST",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "750 WORTHINGTON ST, SPRING VALLEY, CA 91977",
+  "parcel_number": "583-661-02-00",
+  "contractor_name": "CALIFORNIA ENERGY EFFICIENT CONSTRUCTION INC",
+  "contractor_address": "960 W 7TH ST,2901, LOS ANGELES, CA 90017",
+  "contractor_phone": "4244697579",
+  "created_online": true,
+  "last_updated": "2026-10-30T11:42:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.01999,
+    32.70732
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-007824",
+  "open_date": "2026-10-29T00:00:00.000",
+  "issued_date": "2026-10-29T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8002 - REN - Solar Photovoltaic Roof Mount Residential - Online",
+  "use": "CROSS STREET: St George St \n\nDescription of Work: HRA (Online Permit) ROOF MOUNT RESIDENTIAL SOLAR PV WITH ADVANCED ENERGY STORAGE SYSTEM FOR EXISTING PERMITTED STRUCTURES (No Meter Upgrade).\n \nThis Permit does not exempt any existing structures from compliance with applicable building code and zoning ordinance requirements.\n \nPer Section 4620 (i) of the zoning ordinance, roof mounted photovoltaic systems shall not extend more than 5 ft. above the highest point of the existing roof.",
+  "homeowner_biz_owner_relief": true,
+  "street_address": "807 KEMPTON ST",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "807 KEMPTON ST, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-310-44-00",
+  "contractor_name": "SUNRUN",
+  "contractor_address": "1800 W ASHTON BLVD, LEHI, UT 84043",
+  "contractor_phone": "4155806857",
+  "created_online": true,
+  "last_updated": "2026-10-29T15:55:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.00171,
+    32.71182
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-007822",
+  "open_date": "2026-10-29T00:00:00.000",
+  "issued_date": "2026-10-29T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8002 - REN - Solar Photovoltaic Roof Mount Residential - Online",
+  "use": "CROSS STREET: Piedmont St \n \n_____________DO_NOT_EDIT_BELOW_THIS_LINE_____________\nDescription of Work: ROOF MOUNT RESIDENTIAL SOLAR PV WITH ADVANCED ENERGY STORAGE SYSTEM FOR EXISTING PERMITTED STRUCTURES WITH EXISTING RESIDENTIAL MAIN ELECTRICAL SERVICE UPGRADE - 225A - (ONLINE PERMIT) \n \n*The scope of work is limited to upgrades of the existing main service panel, relocation of the existing loads, new sub-panels to accomodate solar loads, and relocation of existing panels in compliance with all zoning ordinances only, does not include additional new main service panels.\n \n This permit does not exempt any existing structures from compliance with applicable building code and zoning ordinance requirements.\n \nPer Section 4620 (i) of the zoning ordinance, roof mounted photovoltaic systems shall not extend more than 5 ft. above the highest point of the existing roof.",
+  "homeowner_biz_owner_relief": true,
+  "street_address": "840 FELICITA AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "840 FELICITA AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-310-13-00",
+  "contractor_name": "SUNRUN",
+  "contractor_address": "1800 W ASHTON BLVD, LEHI, UT 84043",
+  "contractor_phone": "4155806857",
+  "created_online": true,
+  "last_updated": "2026-10-29T15:53:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.0008,
+    32.71271
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-007781",
+  "open_date": "2026-10-27T00:00:00.000",
+  "issued_date": "2026-10-28T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8002 - REN - Solar Photovoltaic Roof Mount Residential - Online",
+  "use": "CROSS STREET: NA \n\nDescription of Work: HRA (Online Permit) ROOF MOUNT RESIDENTIAL SOLAR PV WITH ADVANCED ENERGY STORAGE SYSTEM FOR EXISTING PERMITTED STRUCTURES (No Meter Upgrade).\n \nThis Permit does not exempt any existing structures from compliance with applicable building code and zoning ordinance requirements.\n \nPer Section 4620 (i) of the zoning ordinance, roof mounted photovoltaic systems shall not extend more than 5 ft. above the highest point of the existing roof.",
+  "homeowner_biz_owner_relief": true,
+  "street_address": "8806 OLIVE DR",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "8806 OLIVE DR, SPRING VALLEY, CA 91977",
+  "parcel_number": "503-191-18-00",
+  "contractor_name": "CALIFORNIA ENERGY EFFICIENT CONSTRUCTION INC",
+  "contractor_address": "960 W 7TH ST,2901, LOS ANGELES, CA 90017",
+  "contractor_phone": "4244697579",
+  "created_online": true,
+  "last_updated": "2026-10-28T13:56:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.00776,
+    32.74193
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-007774",
+  "open_date": "2026-10-27T00:00:00.000",
+  "issued_date": "2026-10-28T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8002 - REN - Solar Photovoltaic Roof Mount Residential - Online",
+  "use": "CROSS STREET: Glenside Pl \n \n_____________DO_NOT_EDIT_BELOW_THIS_LINE_____________\nDescription of Work: ROOF MOUNT RESIDENTIAL SOLAR PV WITH ADVANCED ENERGY STORAGE SYSTEM FOR EXISTING PERMITTED STRUCTURES WITH EXISTING RESIDENTIAL MAIN ELECTRICAL SERVICE UPGRADE - 225A - (ONLINE PERMIT) \n \n*The scope of work is limited to upgrades of the existing main service panel, relocation of the existing loads, new sub-panels to accomodate solar loads, and relocation of existing panels in compliance with all zoning ordinances only, does not include additional new main service panels.\n \n This permit does not exempt any existing structures from compliance with applicable building code and zoning ordinance requirements.\n \nPer Section 4620 (i) of the zoning ordinance, roof mounted photovoltaic systems shall not extend more than 5 ft. above the highest point of the existing roof.",
+  "homeowner_biz_owner_relief": true,
+  "street_address": "2703 RIDGESIDE PL",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "2703 RIDGESIDE PL, SPRING VALLEY, CA 91977",
+  "parcel_number": "505-341-18-00",
+  "contractor_name": "LGCY ELECTRIC",
+  "contractor_address": "3333 N DIGITAL DR STE 600, LEHI, UT 84043",
+  "contractor_phone": "8553534899",
+  "created_online": true,
+  "last_updated": "2026-10-28T13:58:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.98076,
+    32.73367
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-007772",
+  "open_date": "2026-10-27T00:00:00.000",
+  "issued_date": "2026-10-27T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8002 - REN - Solar Photovoltaic Roof Mount Residential - Online",
+  "use": "CROSS STREET: eucalyptus st \n\nDescription of Work: HRA (Online Permit) ROOF MOUNT RESIDENTIAL SOLAR PV FOR EXISTING PERMITTED STRUCTURES (No Meter Upgrade).\n \nThis Permit does not exempt any existing structures from compliance with applicable building code and zoning ordinance requirements.\n \nPerSection 4620 (i) of the zoning ordinance, roof mounted photovoltaic systems shall not extend more than 5 ft. above the highest point of the existing roof.",
+  "homeowner_biz_owner_relief": true,
+  "street_address": "1635 SAN BERNARDINO AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "1635 SAN BERNARDINO AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "579-394-07-00",
+  "created_online": true,
+  "last_updated": "2026-10-27T16:11:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.98628,
+    32.72108
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-007745",
+  "open_date": "2026-10-26T00:00:00.000",
+  "issued_date": "2026-10-26T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8001 - REN - Solar Photovoltaic Roof Mount Residential - In Person",
+  "use": "Cross Street: SWEETWATER LANE\n\nDescription of Work: ROOF MOUNT RESIDENTIAL SOLAR PV FOR EXISTING PERMITTED STRUCTURES.\n\nThis permit does not exempt any existing structures from compliance with applicable building code and zoning ordinance requirements.  \n\nPer Section 4620 (i) of the zoning ordinance, roof mounted photovoltaic systems shall not extend more than 5' above the highest point of the existing roof.",
+  "homeowner_biz_owner_relief": true,
+  "street_address": "8986 HARNESS ST ADU #2",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "8986 HARNESS ST ADU #2, SPRING VALLEY, CA 91977",
+  "parcel_number": "578-142-34-00",
+  "contractor_name": "KAPONO CORPORATION",
+  "contractor_address": "29550 COLE GRADE RD, VALLEY CENTER, CA 92082",
+  "contractor_phone": "7609087041",
+  "created_online": false,
+  "last_updated": "2026-10-26T15:55:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.00591,
+    32.71897
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESPRI-000216",
+  "open_date": "2026-11-03T00:00:00.000",
+  "record_status": "Open",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "New Primary Residential SFD-MH",
+  "primary_scope_code": "1140 - RES - M.H. On Permanent Fnd. (Private Lot)",
+  "use": "Cross street: SWEETWATER RD\n\nDescription of Work: 1333 SQFT MH (SPA #20-11F) ON A PRIVATE LOT, 200 AMP MAIN SERVICE",
+  "homeowner_biz_owner_relief": false,
+  "street_address": "9013 ILDICA ST",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "9013 ILDICA ST, SPRING VALLEY, CA 91977",
+  "parcel_number": "578-041-60-00",
+  "valuation": "135312.83",
+  "floor_area": "1333",
+  "created_online": false,
+  "last_updated": "2026-11-03T14:03:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.00545,
+    32.72773
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESPRI-000199",
+  "open_date": "2026-10-06T00:00:00.000",
+  "record_status": "Open",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "New Primary Residential SFD-MH",
+  "primary_scope_code": "1140 - RES - M.H. On Permanent Fnd. (Private Lot)",
+  "use": "Cross street: OLIVE DR. \n\nDescription of Work:  1056 SQFT MH AS SFD (SPA#112-1F)",
+  "homeowner_biz_owner_relief": false,
+  "street_address": "3246 HELIX ST",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "3246 HELIX ST, SPRING VALLEY, CA 91977",
+  "parcel_number": "504-022-12-00",
+  "valuation": "107194.56",
+  "floor_area": "1056",
+  "created_online": false,
+  "last_updated": "2026-10-06T15:06:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.99872,
+    32.74148
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESPRI-000130",
+  "open_date": "2026-07-20T00:00:00.000",
+  "record_status": "Open",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "New Primary Residential SFD-MH",
+  "primary_scope_code": "1010 - RES - New Primary Residential Structure",
+  "use": "Cross street: HELIX STREET          \n\nFoundation: SLAB         \n\nDescription of Work: 1000 SQFT SECOND FLOOR SFD WITH 1000 SQFT ATTACHED FIRST FLOOR GARAGE, 1200 SQFT DETACHED SECOND FLOOR ADU WITH 1200 SQFT ATTACHED FIRST FLOOR GARAGE, NEW DOUBLE ELECTRIC METER PANEL (2 -100AMP), TEMPORARY RV STORAGE TO BE REMOVED PRIOR TO FINAL INSPECTION.\n\nNotice to Permittee: Temp power shall be inspected prior to framing inspection\n\n\nADU ADDRESS: 9316 KENWOOD DRIVE",
+  "homeowner_biz_owner_relief": false,
+  "street_address": "9314 KENWOOD DR SFD",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "9314 KENWOOD DR SFD, SPRING VALLEY, CA 91977",
+  "parcel_number": "504-030-66-00",
+  "valuation": "383680",
+  "floor_area": "4400",
+  "created_online": false,
+  "last_updated": "2026-07-20T11:01:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.99815,
+    32.74454
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESPRI-000125",
+  "open_date": "2026-07-09T00:00:00.000",
+  "record_status": "Open",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "New Primary Residential SFD-MH",
+  "primary_scope_code": "1010 - RES - New Primary Residential Structure",
+  "use": "Cross street: APPLE ST                     \n\nFoundation: SLAB        \n\nDescription of Work: 2693 SQFT TWO-STORY SFD, 453 SQFT ATTACHED GARAGE, 75 SQFT ATTACHED BALCONY, 200 AMP SERVICE, TEMP CONSTRUCTION POWER.\n\nNotice to Permittee: Temp power shall be inspected prior to framing inspection",
+  "homeowner_biz_owner_relief": false,
+  "street_address": "1528 SAN BERNARDINO AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "1528 SAN BERNARDINO AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "579-397-07-00",
+  "valuation": "384414.8",
+  "floor_area": "3221",
+  "created_online": false,
+  "last_updated": "2026-07-09T08:00:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.9863,
+    32.71942
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESPRI-000093",
+  "open_date": "2026-05-29T00:00:00.000",
+  "record_status": "Open",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "New Primary Residential SFD-MH",
+  "primary_scope_code": "1010 - RES - New Primary Residential Structure",
+  "use": "Cross street: BANCROFT                   \n\nFoundation: SLAB    \n\nDescription of Work: **SB-9** 790 SQFT SFD, 790 SQFT DETACHED ADU. \n\nEXISTING SFD ADDRESS = 8825 KENWOOD DR\nSB-9 SFD ADDRESS = 8827 KENWOOD DR\nADU ADDRESS = 8829 KENWOOD DR.",
+  "homeowner_biz_owner_relief": false,
+  "street_address": "8827 KENWOOD DR SFD",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "8827 KENWOOD DR SFD, SPRING VALLEY, CA 91977",
+  "parcel_number": "503-090-03-00",
+  "valuation": "213837.2",
+  "floor_area": "1580",
+  "created_online": false,
+  "last_updated": "2026-06-01T14:26:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.00523,
+    32.74446
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESPRI-000056",
+  "open_date": "2026-04-06T00:00:00.000",
+  "record_status": "Open",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "New Primary Residential SFD-MH",
+  "primary_scope_code": "1030 - RES - Duplex",
+  "use": "Cross street: APPLE ST\n\nFoundation: STEPPED\n\nDescription of Work: *SB9* DUPLEX, UNIT 1 - 2349 SQFT SFD (FIRST FLOOR SFD CONVERSION), UNIT 2 - 2124 SQFT SFD (SECOND FLOOR SFD CONVERSION), 650 SQFT ATTACHED ADU (THIRD FLOOR GARAGE CONVERSION), TEMP POWER\n\nUNIT 1 SFD ADDRESS: 1217 SANGAMON AVE\nUNIT 2 SFD ADDRESS: 1219 SANGAMON AVE\n\nNotice to Permittee: Temp power shall be inspected prior to framing inspection",
+  "homeowner_biz_owner_relief": false,
+  "street_address": "1217 SANGAMON AVE DUPLEX",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "1217 SANGAMON AVE DUPLEX, SPRING VALLEY, CA 91977",
+  "parcel_number": "580-171-50-00",
+  "valuation": "693346.82",
+  "floor_area": "5123",
+  "created_online": false,
+  "last_updated": "2026-08-11T08:39:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.98434,
+    32.71641
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESPRI-000053",
+  "open_date": "2026-04-03T00:00:00.000",
+  "record_status": "Open",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "New Primary Residential SFD-MH",
+  "primary_scope_code": "1010 - RES - New Primary Residential Structure",
+  "use": "Cross street: ST GEORGE ST\n\nFoundation: SLAB\n\nDescription of Work: *SB9* 1750 SQFT 2-STORY SFD, AS-BUILT 560 SQFT DETACHED ADU (360 SQFT AS-BUILT GARAGE CONVERSION, 200 SQFT AS-BUILT ADDITION), 500 SQFT DETACHED ADU WITH 500 SQFT DETACHED GARAGE BELOW, FOR EXISTING SFD\n\nSFD ADDRESS: 825 MARIA AVE\nADU #1 ADDRESS: 819 MARIA AVE\nADU #2 ADDRESS: 823 MARIA AVE\n\nNotice to Permittee: Temp power shall be inspected prior to framing inspection",
+  "homeowner_biz_owner_relief": false,
+  "street_address": "825 MARIA AVE SFD",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "825 MARIA AVE SFD, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-340-33-00",
+  "valuation": "399835.4",
+  "floor_area": "3310",
+  "created_online": false,
+  "last_updated": "2026-04-03T11:25:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.99398,
+    32.71215
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESPRI-000048",
+  "open_date": "2026-04-01T00:00:00.000",
+  "issued_date": "2026-09-22T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "New Primary Residential SFD-MH",
+  "primary_scope_code": "1010 - RES - New Primary Residential Structure",
+  "use": "Cross street: APPLE ST                   \n\nFoundation: SLAB/RAISED          \n\nDescription of Work:  ***BURN OUT*** 2601 SQFT 2-STORY SFD, 414 SQFT ATTACHED GARAGE, 248 SQFT ATTACHED DECK, 81 SQFT BALCONY,  80 SQFT (20 LF X 4FT MAX HEIGHT) COUNTY STANDARD RETAINING WALL WITH LEVEL BACKFILL, 200 AMP MAIN SERVICE, TEMP CONSTRUCTION POWER,  ORIGINAL SQFT = 1996 SQFT SFD, 441 SQFT ATTACHED GARAGE\n\n\nNotice to Permittee: Temp power shall be inspected prior to framing inspection\n\n9/22/2026: PLAN CHANGE SEE COA. PG \n\n4/17/26: UPDATED PLAN CHANGE AND TIF COMMENTS. KP",
+  "homeowner_biz_owner_relief": false,
+  "street_address": "1635 SAN BERNARDINO AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "1635 SAN BERNARDINO AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "579-394-07-00",
+  "valuation": "381020.18",
+  "floor_area": "3424",
+  "created_online": false,
+  "last_updated": "2026-09-22T09:44:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.98628,
+    32.72108
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESPRI-000020",
+  "open_date": "2026-02-25T00:00:00.000",
+  "record_status": "Open",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "New Primary Residential SFD-MH",
+  "primary_scope_code": "1010 - RES - New Primary Residential Structure",
+  "use": "Cross street: CAMINO PAZ\n\nFoundation: SLAB\n\nDescription of Work: ***SB9*** 2786 SQFT 2-STORY SFD WITH 471 SQFT ATTACHED GARAGE AND 200 AMP MSP, 1184 SQFT 2-STORY DETACHED ADU WITH 200 AMP MSP\n\nADU ADDRESS: 9206 1/2 BROOKSIDE DR\n\nNotice to Permittee: Temp power shall be inspected prior to framing inspection",
+  "homeowner_biz_owner_relief": false,
+  "street_address": "9206 BROOKSIDE CIR SFD",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "9206 BROOKSIDE CIR SFD, SPRING VALLEY, CA 91977",
+  "parcel_number": "500-101-03-00",
+  "valuation": "555697.06",
+  "floor_area": "4441",
+  "created_online": false,
+  "last_updated": "2026-02-25T17:42:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.99862,
+    32.75343
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESPRI-000016",
+  "open_date": "2026-02-23T00:00:00.000",
+  "record_status": "Open",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "New Primary Residential SFD-MH",
+  "primary_scope_code": "1010 - RES - New Primary Residential Structure",
+  "use": "Cross street:                    Foundation: SLAB  \n\nDescription of Work: 1964 SQFT 2-STORY SFD W/ 554 SQFT ATTACHED GARAGE, 154 SQFT ATT BALCONY, 200 AMP MSP, 1116 SQFT DETACHED ADU\n\nNotice to Permittee: Temp power shall be inspected prior to framing inspection\n\nMAIN SFD ADDRESS - 2204 HELIX ST\nADU ADDRESS - 2202 HELIX ST",
+  "homeowner_biz_owner_relief": false,
+  "street_address": "2204 HELIX ST MAIN",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "2204 HELIX ST MAIN, SPRING VALLEY, CA 91977",
+  "parcel_number": "578-081-06-00",
+  "valuation": "443106.44",
+  "floor_area": "3788",
+  "created_online": false,
+  "last_updated": "2026-02-23T10:14:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.00322,
+    32.72505
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-008523",
+  "open_date": "2026-11-20T00:00:00.000",
+  "issued_date": "2026-11-20T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8070 - ACC - (Online) Electrical - Existing Main Svc Upgrade (Max 400A)",
+  "use": "CROSS STREET: Piedmont St \n\nDescription of Work: Existing Residential Main Electrical Service Upgrade - 200A - (Online Permit)\n\n*The scope of work is limited to upgrade of the existing main service panel.  No new sub-panels or relocation permitted.",
+  "homeowner_biz_owner_relief": false,
+  "street_address": "840 FELICITA AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "840 FELICITA AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-310-13-00",
+  "contractor_name": "SMITH ELECTRICAL CONTRACTORS INC",
+  "contractor_address": "206 GREENFIELD DR STE G, EL CAJON, CA 92020",
+  "contractor_phone": "6197589829",
+  "created_online": true,
+  "last_updated": "2026-11-20T14:25:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.0008,
+    32.71271
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-008521",
+  "open_date": "2026-11-20T00:00:00.000",
+  "issued_date": "2026-11-20T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8010 - ACC - Plumbing Only",
+  "use": "Cross street: SAN CARLOS ST\n\nDescription of Work: WHOLE HOUSE REPIPE, MISC PLUMBING FOR EXISTING SFD",
+  "homeowner_biz_owner_relief": false,
+  "street_address": "329 SACRAMENTO AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "329 SACRAMENTO AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-581-13-00",
+  "contractor_name": "REPIPE &AMP; WATER HEATERS 4 LESS INC",
+  "contractor_address": "14773 OAKLINE RD UNIT 237, POWAY, CA 92064",
+  "contractor_phone": "8588489215",
+  "created_online": false,
+  "last_updated": "2026-11-20T13:04:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.99889,
+    32.70305
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-008507",
+  "open_date": "2026-11-20T00:00:00.000",
+  "record_status": "Open",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8080 - ACC - Advanced Energy Storage System - Online",
+  "use": "CROSS STREET: Fabled Waters Dr \n\nDescription of Work: ADVANCED ENERGY STORAGE SYSTEM FOR EXISTING SFD (No Meter Upgrade) - (ONLINE PERMIT)\n \nThis Permit does not exempt any existing structures from compliance with applicable building code and zoning ordinance requirement.",
+  "homeowner_biz_owner_relief": false,
+  "street_address": "10148 CALIFORNIA WATERS DR",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "10148 CALIFORNIA WATERS DR, SPRING VALLEY, CA 91977",
+  "parcel_number": "505-710-11-00",
+  "contractor_name": "SUNRUN",
+  "contractor_address": "1800 W ASHTON BLVD, LEHI, UT 84043",
+  "contractor_phone": "4155806857",
+  "created_online": true,
+  "last_updated": "2026-11-20T07:13:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.97593,
+    32.72809
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-008505",
+  "open_date": "2026-11-19T00:00:00.000",
+  "issued_date": "2026-11-19T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8023 - ACC - (Online) Mechanical - HVAC Change Out",
+  "use": "CROSS STREET: ILDICA \n\nDescription of Work: HVAC Change Out - Split System - (Online Permit)\n\n*This project must comply with the current Building Energy Efficiency Standards.  Registered Title 24 forms must be provided to the inspector in the field.",
+  "homeowner_biz_owner_relief": false,
+  "street_address": "2047 SWEETWATER RD B",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "2047 SWEETWATER RD B, SPRING VALLEY, CA 91977",
+  "parcel_number": "578-012-39-07",
+  "contractor_name": "SEARS HEATING &AMP; COOLING",
+  "contractor_address": "5407 TRILLIUM BOULEVARD,SUITE B120, HOFFMAN ESTATES, IL 60192",
+  "contractor_phone": "8472862500",
+  "created_online": true,
+  "last_updated": "2026-11-19T16:45:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.0141,
+    32.72633
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-008468",
+  "open_date": "2026-11-19T00:00:00.000",
+  "record_status": "Open",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "1015 - RES - Accessory Dwelling Unit",
+  "use": "Cross street: CHRISTIANA ST                   \n\nDescription of Work: 482 SQFT AS-BUILT ATTACHED 2ND STORY ADU (CONVERSION OF PORTION OF EXISTING SFD), 70 SQFT AS-BUILT ATTACHED EXTERIOR STAIRS, MISC ELECTRICAL FOR 200 AMP MSP UPGRADE FOR EXISTING SFD TO INCLUDE DUAL SERVICE OF 100 AMP EACH FOR SFD AND ADU.\n\nMAIN SFD ADDRESS - 532 RUXTON AVE",
+  "homeowner_biz_owner_relief": false,
+  "street_address": "534 RUXTON AVE ADU",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "534 RUXTON AVE ADU, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-101-02-00",
+  "valuation": "67333.88",
+  "floor_area": "552",
+  "created_online": false,
+  "last_updated": "2026-11-19T09:12:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.00578,
+    32.70732
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-008452",
+  "open_date": "2026-11-18T00:00:00.000",
+  "record_status": "Open",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "1015 - RES - Accessory Dwelling Unit",
+  "use": "Cross street:  ELKELTON BLVD                  \n\nFoundation: SLAB          \n\nDescription of Work: 389 SQFT ATTACHED GARAGE CONVERSION TO ADU FOR EXISTING SFD\n\nMAIN SFD ADDRESS: 8439 STANSBURY ST.",
+  "homeowner_biz_owner_relief": false,
+  "street_address": "8441 STANSBURY ST ADU",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "8441 STANSBURY ST ADU, SPRING VALLEY, CA 91977",
+  "parcel_number": "577-423-01-00",
+  "valuation": "52647.26",
+  "floor_area": "389",
+  "created_online": false,
+  "last_updated": "2026-11-18T16:21:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.0158,
+    32.71915
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-008426",
+  "open_date": "2026-11-18T00:00:00.000",
+  "issued_date": "2026-11-18T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "3310 - RES - Misc. (Antennas, Tennis Cts, Gazebo)",
+  "use": "Cross street: OSAGE DRIVE\n\nDescription of Work: 1450 SQFT FIBER CEMENT SIDING REPLACEMENT FOR EXISTING SFD",
+  "homeowner_biz_owner_relief": false,
+  "street_address": "1533 TARLETON ST SFD",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "1533 TARLETON ST SFD, SPRING VALLEY, CA 91977",
+  "parcel_number": "577-542-06-00",
+  "valuation": "18850",
+  "floor_area": "1450",
+  "created_online": false,
+  "last_updated": "2026-11-18T11:24:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.0219,
+    32.72097
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-008344",
+  "open_date": "2026-11-16T00:00:00.000",
+  "issued_date": "2026-11-16T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8015 - ACC - (Online) Plumbing - HRA Water Heater R&R",
+  "use": "CROSS STREET: TYLER ST \n \nDescription of Work: HRA (Online Permit) WATER HEATER REPLACEMENT, NO MODIFICATIONS OR ALTERNATIONS TO EXISTING SYSTEM",
+  "homeowner_biz_owner_relief": false,
+  "street_address": "2295 KINGS VIEW CIR",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "2295 KINGS VIEW CIR, SPRING VALLEY, CA 91977",
+  "parcel_number": "503-491-04-16",
+  "contractor_name": "WALTER ANDERSON PLUMBING LLC",
+  "contractor_address": "1830 JOHN TOWERS AVE, EL CAJON, CA 92020",
+  "contractor_phone": "6194493852",
+  "created_online": true,
+  "last_updated": "2026-11-16T15:44:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.00808,
+    32.73121
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-008322",
+  "open_date": "2026-11-16T00:00:00.000",
+  "issued_date": "2026-11-16T00:00:00.000",
+  "record_status": "Completed",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8013 - ACC - Electric Vehicle Charging Station - Online",
+  "use": "CROSS STREET: Eucalyptus St \n\nDescription of Work: (Online Permit) RESIDENTIAL ELECTRIC VEHICLE CHARGING STATION(S) (TOTAL OF 1 STATIONS) FOR EXISTING SFD",
+  "homeowner_biz_owner_relief": false,
+  "street_address": "1630 CUYAMACA AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "1630 CUYAMACA AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "579-394-17-00",
+  "contractor_name": "ALVARADO ELECTRIC",
+  "contractor_address": "3657 CACTUSVIEW DRIVE, SAN DIEGO, CA 92105",
+  "contractor_phone": "6197080390",
+  "created_online": true,
+  "last_updated": "2026-11-18T13:10:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.98528,
+    32.72093
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-008215",
+  "open_date": "2026-11-12T00:00:00.000",
+  "issued_date": "2026-11-12T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8023 - ACC - (Online) Mechanical - HVAC Change Out",
+  "use": "CROSS STREET: Mesa View Way \n\nDescription of Work: HVAC Change Out - Split System - (Online Permit)\n\n*This project must comply with the current Building Energy Efficiency Standards.  Registered Title 24 forms must be provided to the inspector in the field.",
+  "homeowner_biz_owner_relief": false,
+  "street_address": "8338 AQUA VIEW CT",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "8338 AQUA VIEW CT, SPRING VALLEY, CA 91977",
+  "parcel_number": "586-285-49-00",
+  "contractor_name": "GREEN FUTURE USA INC",
+  "contractor_address": "15260 VENTURA BLVD,STE 1200 PMB 8007, SHERMAN OAKS, CA 91403",
+  "contractor_phone": "8185101845",
+  "created_online": true,
+  "last_updated": "2026-11-12T07:48:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.01806,
+    32.69343
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-008180",
+  "open_date": "2026-11-11T00:00:00.000",
+  "issued_date": "2026-11-11T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8015 - ACC - (Online) Plumbing - HRA Water Heater R&R",
+  "use": "CROSS STREET: Eucalyptus St \n \nDescription of Work: HRA (Online Permit) WATER HEATER REPLACEMENT, NO MODIFICATIONS OR ALTERNATIONS TO EXISTING SYSTEM",
+  "homeowner_biz_owner_relief": false,
+  "street_address": "1640 CUYAMACA AVE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "1640 CUYAMACA AVE, SPRING VALLEY, CA 91977",
+  "parcel_number": "579-394-15-00",
+  "contractor_name": "GREENCAT INC",
+  "contractor_address": "1577 N LINDER RD MB 323, KUNA, ID 83634",
+  "contractor_phone": "2083603011",
+  "created_online": true,
+  "last_updated": "2026-11-11T07:54:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.98527,
+    32.72121
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-008159",
+  "open_date": "2026-11-10T00:00:00.000",
+  "issued_date": "2026-11-10T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8023 - ACC - (Online) Mechanical - HVAC Change Out",
+  "use": "CROSS STREET: Glenside Place \n\nDescription of Work: HVAC Change Out - Split System - (Online Permit)\n\n*This project must comply with the current Building Energy Efficiency Standards.  Registered Title 24 forms must be provided to the inspector in the field.",
+  "homeowner_biz_owner_relief": false,
+  "street_address": "2811 LEDGETOP PL",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "2811 LEDGETOP PL, SPRING VALLEY, CA 91977",
+  "parcel_number": "505-341-08-00",
+  "contractor_name": "THE WHITE GLOVE GUYS, PLUMBING DRAINS HEATING AIR CONDITIONING",
+  "contractor_address": "4870 VIEWRIDGE AVE, SAN DIEGO, CA 92123",
+  "contractor_phone": "7072432250",
+  "created_online": true,
+  "last_updated": "2026-11-10T13:16:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.9799,
+    32.73439
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-008154",
+  "open_date": "2026-11-10T00:00:00.000",
+  "issued_date": "2026-11-10T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8023 - ACC - (Online) Mechanical - HVAC Change Out",
+  "use": "CROSS STREET: R/R DUCTED MINI SPLIT \n\nDescription of Work: HVAC Change Out - Split System - (Online Permit)\n\n*This project must comply with the current Building Energy Efficiency Standards.  Registered Title 24 forms must be provided to the inspector in the field.",
+  "homeowner_biz_owner_relief": false,
+  "street_address": "9127 CAMBON ST",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "9127 CAMBON ST, SPRING VALLEY, CA 91977",
+  "parcel_number": "584-223-02-00",
+  "contractor_name": "POINT LOMA ELECTRIC, PLUMBING, HEATING &AMP; AIR",
+  "contractor_address": "4990 VIEWRIDGE AVE SUITE 100, SAN DIEGO, CA 92123",
+  "contractor_phone": "6192240672",
+  "created_online": true,
+  "last_updated": "2026-11-10T11:08:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.00293,
+    32.70273
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-008138",
+  "open_date": "2026-11-09T00:00:00.000",
+  "issued_date": "2026-11-09T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8023 - ACC - (Online) Mechanical - HVAC Change Out",
+  "use": "CROSS STREET: INSTALL DUCTED MINI SPLIT (GAS TO ELECTRIC CONVERSION); R/R DUCTS \n\nDescription of Work: HVAC Change Out - Split System - (Online Permit)\n\n*This project must comply with the current Building Energy Efficiency Standards.  Registered Title 24 forms must be provided to the inspector in the field.",
+  "homeowner_biz_owner_relief": false,
+  "street_address": "9623 SAN DIEGO ST",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "9623 SAN DIEGO ST, SPRING VALLEY, CA 91977",
+  "parcel_number": "579-322-14-00",
+  "contractor_name": "POINT LOMA ELECTRIC, PLUMBING, HEATING &AMP; AIR",
+  "contractor_address": "4990 VIEWRIDGE AVE SUITE 100, SAN DIEGO, CA 92123",
+  "contractor_phone": "6192240672",
+  "created_online": true,
+  "last_updated": "2026-11-09T15:20:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.9911,
+    32.70531
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2026-RESALT-008104",
+  "open_date": "2026-11-08T00:00:00.000",
+  "issued_date": "2026-11-08T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "8023 - ACC - (Online) Mechanical - HVAC Change Out",
+  "use": "CROSS STREET: Agua Dulce Blvd \n\nDescription of Work: HVAC Change Out - Split System - (Online Permit)\n\n*This project must comply with the current Building Energy Efficiency Standards.  Registered Title 24 forms must be provided to the inspector in the field.",
+  "homeowner_biz_owner_relief": false,
+  "street_address": "10231 TOLEDO RD",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91977",
+  "full_address": "10231 TOLEDO RD, SPRING VALLEY, CA 91977",
+  "parcel_number": "501-304-04-00",
+  "contractor_name": "BAKER HOME ENERGY",
+  "contractor_address": "2060 WINRERIDGE PL STE A, ESCONDIDO, CA 92029",
+  "contractor_phone": "7605466000",
+  "created_online": true,
+  "last_updated": "2026-11-08T09:39:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.97274,
+    32.74959
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2000-1005-20000910",
+  "open_date": "2000-09-25T13:01:00.000",
+  "issued_date": "2000-09-25T00:00:00.000",
+  "record_status": "Issued About to Expire",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "3310 - RES - Misc. (Antennas, Tennis Cts, Gazebo)",
+  "use": "Cross street:  VILLA BONITA   TB 1271 (F-7)\n\nActivity Code:42RP14/42RP14\n\nDescription of Work:1700 SF RE-ROOF PER ENGINEER'S REPORT & ICBO #3748",
+  "street_address": "3022 VILLA ADOLEE",
+  "city": "SPRING VALLEY",
+  "state": "CA",
+  "zip_code": "91978",
+  "full_address": "3022 VILLA ADOLEE, SPRING VALLEY, CA 91978",
+  "parcel_number": "505-601-15-00",
+  "valuation": "4131",
+  "floor_area": "1700",
+  "contractor_name": "PROFESSIONAL ROOFING SERVICES",
+  "contractor_address": "P.O. BOX  369, EL CAJON, CA 92022",
+  "contractor_phone": "619-588-4909 - SAME",
+  "created_online": false,
+  "last_updated": "2012-11-18T20:27:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.96555,
+    32.73472
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2005-1004-20050853",
+  "open_date": "2005-12-14T13:31:00.000",
+  "issued_date": "2005-12-21T00:00:00.000",
+  "record_status": "Issued About to Expire",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "Cross street: DEHESA RD\n\nDescription of Work: 179 SQ FT ADDITION ON OF PANTRY W/ AC AND 63 SQ FT COVERED PORCH ... REPLACEMENT OF ALL  WINDOWS AND EXTERIOR RE-STUCCO MISC ELECTRICAL FOR UPGRADE TO 200 AMP AND REWIRE OF EXISTING SFD. RE-ROOF OF EXISTING 2489 SQFT (HRA). TOP.\n\n2/17/2026: PERMIT RENEWED AT 25% OF CURRENT PERMIT FEES, MUST HAVE VALID INSPECTION WITHIN 180 DAYS 08/16/2026 NL\n\n10/26/06: PLAN CHANGE SEE CONDITIONS OF APPROVAL VAM\n\n9/22/06: PLAN CHANGE SEE CONDITIONS OF APPROVAL...AMC \n\n4-14-06 PLAN CHANGE SEE CONDITIONS OF APPROVAL VAM",
+  "homeowner_biz_owner_relief": false,
+  "street_address": "840 VISTA GRANDE RD",
+  "city": "EL CAJON",
+  "state": "CA",
+  "zip_code": "92019",
+  "full_address": "840 VISTA GRANDE RD, EL CAJON, CA 92019",
+  "parcel_number": "515-030-22-00",
+  "valuation": "24475.74",
+  "floor_area": "2731",
+  "created_online": false,
+  "last_updated": "2012-11-18T10:41:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.90618,
+    32.78368
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2017-RESALT-009058",
+  "open_date": "2017-10-30T00:00:00.000",
+  "issued_date": "2017-10-30T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "3310 - RES - Misc. (Antennas, Tennis Cts, Gazebo)",
+  "use": "Cross street: SILVER FOX LN\n\nDescription of Work: 2900 SF RE-ROOF (HRA)\n\nIf a re-roof project is proposed, the following specifications apply.\nExisting roofing material: ASPHALT SHINGLES\nProposed roofing material: ASPHALT SHINGLES\nManufacturer: GAF\nBrand and model: TIMBERLINE\nColor (if cool roof required): GOLDEN AMBER 0676-0098\nBuilt-up roofing assembly system number per attached listing report (if applicable): NA\nSpecific exemption from cool roof requirements (if applicable): \nRequired building inspector field verification* (if applicable): \n\n*Note: Self-certification by a licensed contractor is acceptable if a signed letter on company letterhead is provided to the building inspector.",
+  "homeowner_biz_owner_relief": true,
+  "street_address": "34680 HY 79",
+  "city": "WARNER SPRINGS",
+  "state": "CA",
+  "zip_code": "92086",
+  "full_address": "34680 HY 79, WARNER SPRINGS, CA 92086",
+  "parcel_number": "136-030-15-00",
+  "valuation": "17197",
+  "floor_area": "2900",
+  "contractor_name": "HOME DEPOT U S A INC",
+  "contractor_address": "2455 PACES FERRY RD C-11 HSC, ATLANTA, GA 30339",
+  "contractor_phone": "770 433-8211",
+  "created_online": false,
+  "last_updated": "2017-10-30T10:13:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.7273,
+    33.34427
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2019-RESALT-010033",
+  "open_date": "2019-09-20T00:00:00.000",
+  "issued_date": "2019-09-26T00:00:00.000",
+  "record_status": "Issued About to Expire",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "3310 - RES - Misc. (Antennas, Tennis Cts, Gazebo)",
+  "use": "Cross street: JULIAN AVE\n\nDescription of Work: 665 SQFT ATTACHED PATIO COVERS AND 1050 SQFT RE-ROOF FOR EXISTING SFD\n\nExisting roofing material: ASPHALT SHINGLES\nProposed roofing material: ASPHALT SHINGLES\nManufacturer: GAF\nBrand and model: TIMBERLINE HD\nColor (if cool roof required): STONE GRAY\n\n02/09/2026 - PERMIT RENEWED VIA SCRIPT BY CRISTINA DUMITRU AT 25% OF CURRENT PERMIT FEES. MUST HAVE A VALID INSPECTION BY 8/8/2026\n\n1-22-2020 REFUND REQUEST RECEIVED AND PROCESSED. SEE C OF A AW",
+  "homeowner_biz_owner_relief": false,
+  "street_address": "9622 CYPRESS ST",
+  "city": "LAKESIDE",
+  "state": "CA",
+  "zip_code": "92040",
+  "full_address": "9622 CYPRESS ST, LAKESIDE, CA 92040",
+  "parcel_number": "394-330-52-00",
+  "valuation": "29011.5",
+  "floor_area": "2135",
+  "created_online": false,
+  "last_updated": "2019-09-26T12:40:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.91299,
+    32.85436
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2020-COMALT-000337",
+  "open_date": "2020-08-27T00:00:00.000",
+  "issued_date": "2020-08-27T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Commercial Alteration-Addn",
+  "primary_scope_code": "3311 - COM - Misc. (Antennas, Canopy, Racks)",
+  "use": "Cross street: SAM HILLS RD. \n\nDescription of Work: RE-ROOF AND RETRO-FIT WINDOWS FOR \"TERRAZA HILLS APARTMENT HOMES\"\n\nIf a re-roof project is proposed, the following specifications apply.\nExisting roofing material: BUILT UP ROOF/TAR AND GRAVEL\nProposed roofing material: THREE LAYER TORCH DOWN\nManufacturer: APPEX\nBrand and model: \nColor (if cool roof required): TAN\nBuilt-up roofing assembly system number per attached listing report (if applicable): \nSpecific exemption from cool roof requirements (if applicable): \nRequired building inspector field verification* (if applicable): YES\n\n*Note: Self-certification by a licensed contractor is acceptable if a signed letter on company letterhead is provided to the building inspector.\n\nBLDG A: 18000 SQFT RE-ROOF AND 2700 SQFT WINDOW REPLACEMENT\n\n6-17-24: PERMIT RENEWECD AT 25% OF CURRENT PERMIT FEE; MUST HAVE VALID INSPECTION WITHIN 180 DAYS TO REMAIN ACTIVE--ALM\n\n06/21/21: COURTESY PERMIT RENEWAL GRANTED DUE TO RELATED ISSUES THAT COVID HAS CAUSED WHICH SLOWED DOWN ALL REVIEW PROCESSES INTERNAL AND EXTERNAL TO THE COUNTY. MUST HAVE A VALID INSPECTION EVERY 180 DAYS FOR PERMIT TO REMAIN ACTIVE. AMC",
+  "homeowner_biz_owner_relief": true,
+  "street_address": "425 E BRADLEY AVE",
+  "city": "EL CAJON",
+  "state": "CA",
+  "zip_code": "92021",
+  "full_address": "425 E BRADLEY AVE, EL CAJON, CA 92021",
+  "parcel_number": "387-142-38-00",
+  "valuation": "193140",
+  "floor_area": "20700",
+  "contractor_name": "PADILLA'S CONSTRUCTION",
+  "contractor_address": "31899 VIOLET DRIVE, WINCHESTER, CA 92596",
+  "contractor_phone": "619 733-6745",
+  "created_online": false,
+  "last_updated": "2020-08-27T21:11:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.95444,
+    32.81883
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2023-RESALT-007126",
+  "open_date": "2023-05-03T00:00:00.000",
+  "issued_date": "2023-05-05T00:00:00.000",
+  "record_status": "Issued About to Expire",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "3310 - RES - Misc. (Antennas, Tennis Cts, Gazebo)",
+  "use": "Cross street: MARIPOSA\n\nDescription of Work: 6700 SQFT RE-ROOF FOR EXISTING SFD\n\nIf a re-roof project is proposed, the following specifications apply.\nExisting roofing material: CONCRETE TILE\nProposed roofing material: CONCRETE TILE\nManufacturer: EAGLE, POLYGLASS\nBrand and model: BEL AIR SS, POLYFRESKO G\nColor (if cool roof required): BROWN GRAY RANGE - 287, BIRGHT WHITE\nBuilt-up roofing assembly system number per attached listing report (if applicable): YES\nSpecific exemption from cool roof requirements (if applicable): N/A\nRequired building inspector field verification* (if applicable): YES\n\n2/4/2026 : PERMIT RENEWED BY CRISTINA DUMITRU AT 25% OF CURRENT PERMIT FEES. MUST HAVE A VALID INSPECTION BY 8/4/2026. - CD",
+  "homeowner_biz_owner_relief": false,
+  "street_address": "5516 AVNDA MARAVILLAS",
+  "city": "RANCHO SANTA FE",
+  "state": "CA",
+  "zip_code": "92067",
+  "full_address": "5516 AVNDA MARAVILLAS, RANCHO SANTA FE, CA 92067",
+  "parcel_number": "266-140-26-00",
+  "valuation": "39731",
+  "floor_area": "6700",
+  "contractor_name": "SEMPER SOLARIS",
+  "contractor_address": "1805 JOHN TOWERS AVENUE, EL CAJON, CA 92020",
+  "contractor_phone": "6197154054",
+  "created_online": false,
+  "last_updated": "2023-05-05T13:41:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.21576,
+    33.02058
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2023-RESALT-009894",
+  "open_date": "2023-06-21T00:00:00.000",
+  "issued_date": "2023-06-21T00:00:00.000",
+  "record_status": "Issued About to Expire",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "3310 - RES - Misc. (Antennas, Tennis Cts, Gazebo)",
+  "use": "Cross street: JAMACHA RD\n\nDescription of Work: 5600 SQFT RE-ROOF FOR EXISTING SFD\n\nIf a re-roof project is proposed, the following specifications apply.\nExisting roofing material: ASPHALT SHINGLES\nProposed roofing material: METAL \nManufacturer: TAYLOR METAL\nBrand and model: STANDING SEAM\nColor (if cool roof required): ZINC GREY \nBuilt-up roofing assembly system number per attached listing report (if applicable):N/A \nSpecific exemption from cool roof requirements (if applicable): NO\nRequired building inspector field verification* (if applicable): YES\n\n*Note: Self-certification by a licensed contractor is acceptable if a signed letter on company letterhead is provided to the building inspector.\n\n06/18/2026 - Permit Renewed via script by Gwendolyn McDonald. MUST HAVE A VALID INSPECTION WITHIN 180 DAYS. EXPIRES ON 12/15/2026.\n\n08/04/2025 - Permit Renewed via script. MUST HAVE VALID INSPECTION/FINAL INSPECTION BY 01/31/2026. EP\n\n2/4/2025: PERMIT HAS BEEN RENEWED. MUST HAVE A VALID INSPECTION WITHIN 180 DAYS. (8/3/2025) - AD\n\n04/10/2024 - Permit Renewed via script by Maria Leon. PERMIT HAS BEEN RENEWED. MUST HAVE A VALID INSPECTION EVERY 180 DAYS 10/7/2024 (ML)",
+  "homeowner_biz_owner_relief": true,
+  "street_address": "1770 PLANTATION WAY",
+  "city": "EL CAJON",
+  "state": "CA",
+  "zip_code": "92019",
+  "full_address": "1770 PLANTATION WAY, EL CAJON, CA 92019",
+  "parcel_number": "514-331-11-00",
+  "valuation": "33208",
+  "floor_area": "5600",
+  "contractor_name": "HOWARD &AMP; SONS INC",
+  "contractor_address": "1814 COMMERCENTER W UNIT G, SAN BERNARDINO, CA 92408",
+  "contractor_phone": "9517776633",
+  "created_online": false,
+  "last_updated": "2026-11-15T02:50:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.92395,
+    32.77581
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2022-RESALT-005958",
+  "open_date": "2022-05-17T00:00:00.000",
+  "issued_date": "2023-09-05T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4360 - RES - Garages For SFD/Duplex",
+  "use": "Cross street:  ALISO CANYON RD                  Foundation: SLAB   \n\nDescription of Work: 2086 SQFT SFD ADDITION, 292 SQFT LOWER CASITA ADDITION AND INT REMODEL, W/ 969 SQFT DET GARAGE, UPPER CASITA INT REMODEL TO INCLUDE 50 LF INT PARTITIONS ADDED/REMOVED, POOL HOUSE REMODEL TO INCLUDE 164 SQFT ATT STORAGE, 2056 SQFT STRUCTURAL REROOF AND 94 SQFT ADDITION AND 65 LF NEW/REMOVED PARTITIONS W/ OUTDOOR KITCHEN FOR EXISTING POOL HOUSE, MINOR INT POOL PAVILION REMODEL, MISC ELECTRIC & PLUMBING.\n\n06/11/2025 - PERMIT RENEWED AT 50% OF CURRENT PERMIT FEES, MUST HAVE VALID INSPECTION WITHIN 180 DAYS 12/8/2025 NL \n\n12/18/24 CERT COPY REQUEST INITIATED, RESEARCH FEE CHARGED ALA --- CANCELLED 12/18/24 ALA\n\n12/10/2024 - Permit Renewed via script. MUST HAVE VALID INSPECTION BY 6/8/2025. EP\n\n05/22/2024 - Permit Renewed via script, VALID INSPECTION DUE WITHIN 180 DAYS 11/18/2024 JW\n\n05/18/2023 - Plan check extended via script by Andrew La Mar\n4/17/23: SCOPE REVISION SEE COA FOR DETAILS--A.L.\n4/5/23: PLAN CHANGE SEE COA FOR DETAILS--A.L.",
+  "homeowner_biz_owner_relief": false,
+  "street_address": "6682 LAS ARBOLEDAS",
+  "city": "RANCHO SANTA FE",
+  "state": "CA",
+  "zip_code": "92067",
+  "full_address": "6682 LAS ARBOLEDAS, RANCHO SANTA FE, CA 92067",
+  "parcel_number": "265-433-18-00",
+  "valuation": "436459.5",
+  "floor_area": "5567",
+  "created_online": false,
+  "last_updated": "2023-09-05T08:43:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -117.18882,
+    33.04955
+   ]
+  }
+ },
+ {
+  "record_id": "PDS2023-RESALT-000337",
+  "open_date": "2023-01-10T00:00:00.000",
+  "issued_date": "2023-10-18T00:00:00.000",
+  "record_status": "Issued",
+  "record_group": "LUEG-PDS",
+  "record_type": "Building",
+  "record_subtype": "PC-Permit",
+  "record_category": "Residential Alteration-Addn",
+  "primary_scope_code": "4340 - RES - Addition/Alter To SFD/Duplex",
+  "use": "Cross street: WOODSIDE AVE\n\nDescription of Work: FIRE DAMAGE REPAIR TO INCLUDE 2249 STRUCTURAL RE-ROOF, 380 WINDOW/DOOR REPLACEMENT, 88 SQFT INFILL, 32 LF INT WALL PARTITIONS, 432 ATT DECK , STUCCO REPAIR AS NEEDED, W/ MISC EPM AND 200 AMP MSP FOR EXISTING SFD\n\n09/20/2024 - Permit Renewed via script by Sharon Wexler\nMUST HAVE A VALID INSPECTION WITHIN 180 DAYS - 3/19/2025\n\n10/20/2026 - Permit Renewed via script by Perla Garcia. RENEWAL AT 25%. MUST HAVE A VALID INSPECTION WITHIN 180 DAYS 4/18/2027. PG",
+  "homeowner_biz_owner_relief": false,
+  "street_address": "9717 EMERALD HILL LN",
+  "city": "LAKESIDE",
+  "state": "CA",
+  "zip_code": "92040",
+  "full_address": "9717 EMERALD HILL LN, LAKESIDE, CA 92040",
+  "parcel_number": "394-510-18-00",
+  "valuation": "100743",
+  "floor_area": "3149",
+  "created_online": false,
+  "last_updated": "2026-10-20T15:20:00.000",
+  "geo_reference": {
+   "type": "Point",
+   "coordinates": [
+    -116.92788,
+    32.85496
+   ]
+  }
+ }
+]

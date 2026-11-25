@@ -25,18 +25,40 @@ function parseWindow(value: string | undefined): Window {
   if (parts.length !== 2) throw new Error(`--window must look like <from>..<to>, got "${value}"`);
   const [from, to] = parts.map((p) => (p === '' ? null : p));
   for (const bound of [from, to]) {
-    if (bound !== null && bound !== undefined && !DATE.test(bound)) throw new Error(`bad date in --window: "${bound}"`);
+    if (bound !== null && bound !== undefined && !DATE.test(bound))
+      throw new Error(`bad date in --window: "${bound}"`);
   }
   if (from != null && to != null && from >= to) throw new Error('--window: <from> must be before <to>');
   return { from: from ?? null, to: to ?? null };
 }
 
 function table(stats: readonly SourceStat[]): string {
-  const header = ['source', 'entity', 'fetched', 'rejected', 'dupes', 'inserted', 'updated', 'unchanged', 'MB', 'sec'];
-  const rows = stats.map((s) => [
-    s.sourceId, s.entity, s.fetched, s.rejected, s.duplicates, s.inserted, s.updated, s.unchanged,
-    (s.bytes / 1e6).toFixed(1), s.seconds.toFixed(1),
-  ].map(String));
+  const header = [
+    'source',
+    'entity',
+    'fetched',
+    'rejected',
+    'dupes',
+    'inserted',
+    'updated',
+    'unchanged',
+    'MB',
+    'sec',
+  ];
+  const rows = stats.map((s) =>
+    [
+      s.sourceId,
+      s.entity,
+      s.fetched,
+      s.rejected,
+      s.duplicates,
+      s.inserted,
+      s.updated,
+      s.unchanged,
+      (s.bytes / 1e6).toFixed(1),
+      s.seconds.toFixed(1),
+    ].map(String),
+  );
   const widths = header.map((h, i) => Math.max(h.length, ...rows.map((r) => r[i]?.length ?? 0)));
   const line = (cells: readonly string[]): string => cells.map((c, i) => c.padEnd(widths[i] ?? 0)).join('  ');
   return [line(header), line(widths.map((w) => '-'.repeat(w))), ...rows.map(line)].join('\n');
@@ -59,7 +81,8 @@ async function main(): Promise<number> {
     return 0;
   }
   const wanted = values.sources?.split(',').map((s) => s.trim());
-  const adapters = wanted === undefined ? ALL_ADAPTERS : ALL_ADAPTERS.filter((a) => wanted.includes(a.info.id));
+  const adapters =
+    wanted === undefined ? ALL_ADAPTERS : ALL_ADAPTERS.filter((a) => wanted.includes(a.info.id));
   const unknown = (wanted ?? []).filter((id) => !ALL_ADAPTERS.some((a) => a.info.id === id));
   if (unknown.length > 0) throw new Error(`unknown source id(s): ${unknown.join(', ')}`);
 
@@ -74,7 +97,8 @@ async function main(): Promise<number> {
     keepStage: values['keep-stage'],
   });
   process.stdout.write(`\nrun ${summary.runId}: ${summary.status}\n${table(summary.stats)}\n`);
-  for (const s of summary.stats.filter((x) => x.notes !== '')) process.stdout.write(`  ${s.sourceId}/${s.entity}: ${s.notes}\n`);
+  for (const s of summary.stats.filter((x) => x.notes !== ''))
+    process.stdout.write(`  ${s.sourceId}/${s.entity}: ${s.notes}\n`);
   return summary.status === 'ok' ? 0 : 1;
 }
 

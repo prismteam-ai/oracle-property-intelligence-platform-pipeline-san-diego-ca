@@ -48,10 +48,18 @@ export async function fetchSnapshotFiles(
       return { etag: null, lastModified: null, contentLength: null };
     }
   });
-  const stateToken = heads.map((h, i) => `${files[i]?.name ?? ''}=${h.etag ?? h.lastModified ?? 'none'}`).join(';');
+  const stateToken = heads
+    .map((h, i) => `${files[i]?.name ?? ''}=${h.etag ?? h.lastModified ?? 'none'}`)
+    .join(';');
   const hasToken = heads.every((h) => h.etag !== null || h.lastModified !== null);
   if (!ctx.force && hasToken && ctx.previousStateToken === stateToken) {
-    return { files: [], bytes: 0, skipped: 'not modified since last load (same ETag)', stateToken, notes: [] };
+    return {
+      files: [],
+      bytes: 0,
+      skipped: 'not modified since last load (same ETag)',
+      stateToken,
+      notes: [],
+    };
   }
   const dir = sourceDir(ctx, sourceId);
   let bytes = 0;
@@ -66,7 +74,12 @@ export async function fetchSnapshotFiles(
     const started = Date.now();
     const size = await ctx.http.download(f.url, dest);
     bytes += size;
-    ctx.log.info('downloaded', { source: sourceId, file: f.name, bytes: size, seconds: (Date.now() - started) / 1000 });
+    ctx.log.info('downloaded', {
+      source: sourceId,
+      file: f.name,
+      bytes: size,
+      seconds: (Date.now() - started) / 1000,
+    });
     return { path: dest, url: f.url, fetchedAt: new Date().toISOString(), bytes: size };
   });
   return { files: raw, bytes, skipped: null, stateToken, notes };
@@ -154,7 +167,14 @@ export async function* readCsv(
   onMalformed: (line: number, message: string) => void,
 ): AsyncGenerator<CsvRecord> {
   const parser = createReadStream(file.path, { encoding }).pipe(
-    parse({ columns: true, bom: true, skip_empty_lines: true, relax_quotes: true, skip_records_with_error: true, info: true }),
+    parse({
+      columns: true,
+      bom: true,
+      skip_empty_lines: true,
+      relax_quotes: true,
+      skip_records_with_error: true,
+      info: true,
+    }),
   );
   parser.on('skip', (err: { message: string; lines?: number }) => {
     onMalformed(err.lines ?? 0, err.message);

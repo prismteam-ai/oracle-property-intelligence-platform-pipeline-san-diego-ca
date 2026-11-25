@@ -62,7 +62,8 @@ export function normalizeLicense(raw: string | null | undefined): string | null 
   return stripped === '' ? null : stripped;
 }
 
-export type YearRule = 'blank' | 'unparseable' | 'yy_gt_current_19xx' | 'yy_00_assumed_2000' | 'yy_le_current_assumed_20xx';
+export type YearRule =
+  'blank' | 'unparseable' | 'yy_gt_current_19xx' | 'yy_00_assumed_2000' | 'yy_le_current_assumed_20xx';
 
 export interface ResolvedYear {
   readonly year: number | null;
@@ -87,7 +88,8 @@ export function resolveTwoDigitYear(raw: string | null | undefined, currentYear:
   return { year: 2000 + yy, ambiguous: true, rule: 'yy_le_current_assumed_20xx' };
 }
 
-export type DateRule = 'blank' | 'unparseable' | 'yy_gt_current_19xx' | 'yy_le_current_assumed_20xx' | 'future_as_20xx_so_19xx';
+export type DateRule =
+  'blank' | 'unparseable' | 'yy_gt_current_19xx' | 'yy_le_current_assumed_20xx' | 'future_as_20xx_so_19xx';
 
 export interface ResolvedDate {
   readonly date: string | null;
@@ -108,19 +110,25 @@ function validYmd(year: number, month: number, day: number): string | null {
 export function resolveMmddyy(raw: string | null | undefined, today: string): ResolvedDate {
   const value = blankToNull(raw);
   if (value === null) return { date: null, ambiguous: false, rule: 'blank' };
-  if (!/^\d{6}$/.test(value) || value === '000000') return { date: null, ambiguous: false, rule: 'unparseable' };
+  if (!/^\d{6}$/.test(value) || value === '000000')
+    return { date: null, ambiguous: false, rule: 'unparseable' };
   const month = Number(value.slice(0, 2));
   const day = Number(value.slice(2, 4));
   const yy = Number(value.slice(4, 6));
   const currentYear = Number(today.slice(0, 4));
   if (yy > currentYear % 100) {
     const date = validYmd(1900 + yy, month, day);
-    return date === null ? { date: null, ambiguous: false, rule: 'unparseable' } : { date, ambiguous: false, rule: 'yy_gt_current_19xx' };
+    return date === null
+      ? { date: null, ambiguous: false, rule: 'unparseable' }
+      : { date, ambiguous: false, rule: 'yy_gt_current_19xx' };
   }
   const recent = validYmd(2000 + yy, month, day);
-  if (recent !== null && recent <= today) return { date: recent, ambiguous: true, rule: 'yy_le_current_assumed_20xx' };
+  if (recent !== null && recent <= today)
+    return { date: recent, ambiguous: true, rule: 'yy_le_current_assumed_20xx' };
   const old = validYmd(1900 + yy, month, day);
-  return old === null ? { date: null, ambiguous: false, rule: 'unparseable' } : { date: old, ambiguous: false, rule: 'future_as_20xx_so_19xx' };
+  return old === null
+    ? { date: null, ambiguous: false, rule: 'unparseable' }
+    : { date: old, ambiguous: false, rule: 'future_as_20xx_so_19xx' };
 }
 
 /** Accepts `2001-08-21`, `2025-11-20T00:00:00.000`, `2026-07-01 12:00:00`. Returns YYYY-MM-DD or null. */

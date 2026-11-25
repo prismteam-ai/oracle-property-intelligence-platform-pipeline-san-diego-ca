@@ -107,7 +107,13 @@ export function validate<K extends EntityKey>(
 ): StagedRecord {
   const parsed = entities[entity].schema.safeParse(candidate);
   if (!parsed.success) {
-    return { ok: false, entity, sourceRecordId: provenance.sourceRecordId, reason: reasonOf(parsed.error), raw };
+    return {
+      ok: false,
+      entity,
+      sourceRecordId: provenance.sourceRecordId,
+      reason: reasonOf(parsed.error),
+      raw,
+    };
   }
   return {
     ok: true,
@@ -120,6 +126,11 @@ export function validate<K extends EntityKey>(
   };
 }
 
-export function reject(entity: EntityKey, sourceRecordId: string | null, reason: string, raw: unknown): StagedRecord {
+export function reject(
+  entity: EntityKey,
+  sourceRecordId: string | null,
+  reason: string,
+  raw: unknown,
+): StagedRecord {
   return { ok: false, entity, sourceRecordId, reason, raw };
 }

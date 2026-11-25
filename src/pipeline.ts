@@ -65,16 +65,33 @@ const MaxRun = z.object({ run_id: z.coerce.number() });
 const StateRow = z.object({ state_token: z.string().nullable() });
 
 async function recordStat(db: Db, runId: number, s: SourceStat): Promise<void> {
-  await db.exec(
-    `INSERT INTO run_source_stats VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-    [runId, s.sourceId, s.entity, s.fetched, s.rejected, s.duplicates, s.inserted, s.updated, s.unchanged, s.bytes, s.seconds, s.notes],
-  );
+  await db.exec(`INSERT INTO run_source_stats VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [
+    runId,
+    s.sourceId,
+    s.entity,
+    s.fetched,
+    s.rejected,
+    s.duplicates,
+    s.inserted,
+    s.updated,
+    s.unchanged,
+    s.bytes,
+    s.seconds,
+    s.notes,
+  ]);
 }
 
 async function registerSource(db: Db, adapter: SourceAdapter): Promise<void> {
   const i = adapter.info;
   await db.exec('DELETE FROM source WHERE source_id = ?', [i.id]);
-  await db.exec('INSERT INTO source VALUES (?, ?, ?, ?, ?, ?)', [i.id, i.name, i.url, i.licence, i.limits, i.changeDetection]);
+  await db.exec('INSERT INTO source VALUES (?, ?, ?, ?, ?, ?)', [
+    i.id,
+    i.name,
+    i.url,
+    i.licence,
+    i.limits,
+    i.changeDetection,
+  ]);
 }
 
 async function runAdapter(
@@ -88,7 +105,9 @@ async function runAdapter(
   const { log, paths } = options;
   const started = Date.now();
   const sourceId = adapter.info.id;
-  const previous = await db.query(StateRow, 'SELECT state_token FROM source_state WHERE source_id = ?', [sourceId]);
+  const previous = await db.query(StateRow, 'SELECT state_token FROM source_state WHERE source_id = ?', [
+    sourceId,
+  ]);
 
   const fetched = await adapter.fetch({
     runDate: today,
@@ -103,8 +122,17 @@ async function runAdapter(
   if (fetched.skipped !== null) {
     log.info('source skipped', { source: sourceId, reason: fetched.skipped });
     return adapter.entities.map((entity) => ({
-      sourceId, entity: entities[entity].name, fetched: 0, rejected: 0, duplicates: 0, inserted: 0, updated: 0,
-      unchanged: 0, bytes: 0, seconds: fetchSeconds, notes: `skipped: ${fetched.skipped ?? ''}`,
+      sourceId,
+      entity: entities[entity].name,
+      fetched: 0,
+      rejected: 0,
+      duplicates: 0,
+      inserted: 0,
+      updated: 0,
+      unchanged: 0,
+      bytes: 0,
+      seconds: fetchSeconds,
+      notes: `skipped: ${fetched.skipped ?? ''}`,
     }));
   }
 
@@ -112,7 +140,10 @@ async function runAdapter(
   const stageDir = path.join(paths.stageDir, String(runId));
   const writers = new Map<EntityKey, NdjsonWriter>();
   for (const entity of adapter.entities) {
-    writers.set(entity, await NdjsonWriter.create(path.join(stageDir, `${sourceId}.${entities[entity].name}.ndjson`)));
+    writers.set(
+      entity,
+      await NdjsonWriter.create(path.join(stageDir, `${sourceId}.${entities[entity].name}.ndjson`)),
+    );
   }
   const rejectWriter = await NdjsonWriter.create(path.join(stageDir, `${sourceId}.rejects.ndjson`));
   const rejectedBy = new Map<EntityKey, number>();
@@ -122,13 +153,20 @@ async function runAdapter(
       const writer = writers.get(record.entity);
       if (writer === undefined) throw new Error(`${sourceId} produced undeclared entity ${record.entity}`);
       await writer.write({
-        ...record.row, source_id: sourceId, source_record_id: record.sourceRecordId, source_url: record.sourceUrl,
-        fetched_at: record.fetchedAt, _rank: record.rank, _seq: seq++,
+        ...record.row,
+        source_id: sourceId,
+        source_record_id: record.sourceRecordId,
+        source_url: record.sourceUrl,
+        fetched_at: record.fetchedAt,
+        _rank: record.rank,
+        _seq: seq++,
       });
     } else {
       rejectedBy.set(record.entity, (rejectedBy.get(record.entity) ?? 0) + 1);
       await rejectWriter.write({
-        entity: entities[record.entity].name, source_record_id: record.sourceRecordId, reason: record.reason,
+        entity: entities[record.entity].name,
+        source_record_id: record.sourceRecordId,
+        reason: record.reason,
         raw_record: JSON.stringify(record.raw).slice(0, 4000),
       });
     }
@@ -159,20 +197,34 @@ async function runAdapter(
     const notes = [
       ...fetched.notes,
       `fetch ${fetchSeconds.toFixed(1)}s, validate ${parseSeconds.toFixed(1)}s`,
-      ...(fetched.bytes > 0 && fetchSeconds > 0 ? [`${(fetched.bytes / fetchSeconds / 1e6).toFixed(2)} MB/s`] : []),
+      ...(fetched.bytes > 0 && fetchSeconds > 0
+        ? [`${(fetched.bytes / fetchSeconds / 1e6).toFixed(2)} MB/s`]
+        : []),
     ].join('; ');
     stats.push({
-      sourceId, entity: spec.name, fetched: counts.staged + rejected, rejected, duplicates: counts.duplicates,
-      inserted: counts.inserted, updated: counts.updated, unchanged: counts.unchanged,
+      sourceId,
+      entity: spec.name,
+      fetched: counts.staged + rejected,
+      rejected,
+      duplicates: counts.duplicates,
+      inserted: counts.inserted,
+      updated: counts.updated,
+      unchanged: counts.unchanged,
       // Bytes and seconds describe the source as a whole, so they sit on its first entity only.
-      bytes: index === 0 ? fetched.bytes : 0, seconds: index === 0 ? seconds : 0, notes,
+      bytes: index === 0 ? fetched.bytes : 0,
+      seconds: index === 0 ? seconds : 0,
+      notes,
     });
     log.info('merged', { source: sourceId, entity: spec.name, ...counts, rejected });
   }
 
   if (fetched.stateToken !== null) {
     await db.exec('DELETE FROM source_state WHERE source_id = ?', [sourceId]);
-    await db.exec('INSERT INTO source_state VALUES (?, ?, ?, now()::TIMESTAMP)', [sourceId, fetched.stateToken, runId]);
+    await db.exec('INSERT INTO source_state VALUES (?, ?, ?, now()::TIMESTAMP)', [
+      sourceId,
+      fetched.stateToken,
+      runId,
+    ]);
   }
   if (options.keepStage !== true) await rm(stageDir, { recursive: true, force: true });
   return stats;
@@ -190,11 +242,19 @@ export async function runPipeline(options: RunOptions): Promise<RunSummary> {
   const db = await Db.open(options.paths.dbPath);
   try {
     await migrate(db);
-    const runId = (await db.one(MaxRun, 'SELECT coalesce(max(run_id), 0) + 1 AS run_id FROM pipeline_run')).run_id;
-    await db.exec(`INSERT INTO pipeline_run VALUES (?, ?::TIMESTAMP, NULL, ?::DATE, ?::DATE, 'running', ?, ?, NULL)`, [
-      runId, startedAt.toISOString(), options.window.from, options.window.to,
-      options.adapters.map((a) => a.info.id).join(','), options.force,
-    ]);
+    const runId = (await db.one(MaxRun, 'SELECT coalesce(max(run_id), 0) + 1 AS run_id FROM pipeline_run'))
+      .run_id;
+    await db.exec(
+      `INSERT INTO pipeline_run VALUES (?, ?::TIMESTAMP, NULL, ?::DATE, ?::DATE, 'running', ?, ?, NULL)`,
+      [
+        runId,
+        startedAt.toISOString(),
+        options.window.from,
+        options.window.to,
+        options.adapters.map((a) => a.info.id).join(','),
+        options.force,
+      ],
+    );
     log.info('run started', { runId, windowFrom: options.window.from, windowTo: options.window.to });
 
     const stats: SourceStat[] = [];
@@ -213,8 +273,17 @@ export async function runPipeline(options: RunOptions): Promise<RunSummary> {
         failures.push(`${adapter.info.id}: ${message}`);
         log.error('source failed', { source: adapter.info.id, error: message });
         const failed: SourceStat = {
-          sourceId: adapter.info.id, entity: adapter.entities.join('+'), fetched: 0, rejected: 0, duplicates: 0,
-          inserted: 0, updated: 0, unchanged: 0, bytes: 0, seconds: 0, notes: `FAILED: ${message.slice(0, 500)}`,
+          sourceId: adapter.info.id,
+          entity: adapter.entities.join('+'),
+          fetched: 0,
+          rejected: 0,
+          duplicates: 0,
+          inserted: 0,
+          updated: 0,
+          unchanged: 0,
+          bytes: 0,
+          seconds: 0,
+          notes: `FAILED: ${message.slice(0, 500)}`,
         };
         await recordStat(db, runId, failed);
         stats.push(failed);
@@ -223,25 +292,48 @@ export async function runPipeline(options: RunOptions): Promise<RunSummary> {
 
     await db.exec('DELETE FROM source WHERE source_id = ?', [RECONCILED_SOURCE_ID]);
     await db.exec('INSERT INTO source VALUES (?, ?, ?, ?, ?, ?)', [
-      RECONCILED_SOURCE_ID, 'Reconciliation step (contractor identities built from CSLB master and county permit contractors)',
-      'local', 'derived', 'Derived from the sources above; each contractor row names the source record it came from.', 'derived',
+      RECONCILED_SOURCE_ID,
+      'Reconciliation step (contractor identities built from CSLB master and county permit contractors)',
+      'local',
+      'derived',
+      'Derived from the sources above; each contractor row names the source record it came from.',
+      'derived',
     ]);
     const reconcileStarted = Date.now();
     const c = await reconcile(db, runId, entities);
     const reconciled: SourceStat = {
-      sourceId: RECONCILED_SOURCE_ID, entity: 'contractor', fetched: c.staged, rejected: 0, duplicates: c.duplicates,
-      inserted: c.inserted, updated: c.updated, unchanged: c.unchanged, bytes: 0,
-      seconds: (Date.now() - reconcileStarted) / 1000, notes: 'built in SQL from cslb_license and permit_contractor_record',
+      sourceId: RECONCILED_SOURCE_ID,
+      entity: 'contractor',
+      fetched: c.staged,
+      rejected: 0,
+      duplicates: c.duplicates,
+      inserted: c.inserted,
+      updated: c.updated,
+      unchanged: c.unchanged,
+      bytes: 0,
+      seconds: (Date.now() - reconcileStarted) / 1000,
+      notes: 'built in SQL from cslb_license and permit_contractor_record',
     };
     await recordStat(db, runId, reconciled);
     stats.push(reconciled);
 
     const duplicates = await duplicateKeyReport(db, entities);
     failures.push(...duplicates);
-    const status = failures.length === 0 ? 'ok' : stats.some((s) => s.inserted + s.updated + s.unchanged > 0) ? 'partial' : 'failed';
-    await db.exec(`UPDATE pipeline_run SET finished_at = ?::TIMESTAMP, status = ?, notes = ? WHERE run_id = ?`, [
-      options.now().toISOString(), status, failures.length === 0 ? null : failures.join(' | ').slice(0, 2000), runId,
-    ]);
+    const status =
+      failures.length === 0
+        ? 'ok'
+        : stats.some((s) => s.inserted + s.updated + s.unchanged > 0)
+          ? 'partial'
+          : 'failed';
+    await db.exec(
+      `UPDATE pipeline_run SET finished_at = ?::TIMESTAMP, status = ?, notes = ? WHERE run_id = ?`,
+      [
+        options.now().toISOString(),
+        status,
+        failures.length === 0 ? null : failures.join(' | ').slice(0, 2000),
+        runId,
+      ],
+    );
     log.info('run finished', { runId, status });
     return { runId, status, stats };
   } finally {

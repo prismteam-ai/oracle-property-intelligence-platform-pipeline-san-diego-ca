@@ -21,9 +21,11 @@ The pipeline must demonstrate that data is ingested on an ongoing basis (not a o
 ## Acceptance Criteria
 
 ### Geography & coverage
+
 - Target **San Diego County, CA** as the default and primary county for ingestion and demos.
 
 ### Data loading
+
 - Run the Oracle pipeline until all available county data is uploaded.
 - Load available property records into the database.
 - Load available permit records into the database, with emphasis on **roofing-related permits**.
@@ -42,6 +44,7 @@ The pipeline must demonstrate that data is ingested on an ongoing basis (not a o
   - Demonstrate that data continues to be ingested and published over time (multiple runs or simulated ongoing updates).
 
 ### Infrastructure & access
+
 - Optimize pipeline performance where feasible.
 - Identify slow source sites or constrained data sources.
 - Document pipeline speed limitations and source constraints.
@@ -53,6 +56,7 @@ The pipeline must demonstrate that data is ingested on an ongoing basis (not a o
 - Provide a UI for exploring the uploaded data.
 
 ### IPFS publication
+
 - Treat IPFS **CIDs** as the durable identity of published artifacts. Do not treat a vendor-specific HTTP URL as the source of truth.
 - Prefer **CIDv1** (base32) for every published object.
 - Keep published bytes **retrievable from the public IPFS network**, not only from a private node, authenticated gateway, vendor dashboard, or laptop that is running during the demo.
@@ -70,6 +74,7 @@ The pipeline must demonstrate that data is ingested on an ongoing basis (not a o
 - Include the artifact manifest (and CARs, if any) in the repository or demo packet so a third party can fetch the dataset by CID after the candidate environment is gone.
 
 ### Roofing CRM–supporting queries
+
 - Support radius-based property identification using coordinates (around a GPS point or map pin).
 - Support questions about properties with roofs older than 15 years (or a configurable age threshold).
 - Support questions about properties with **open roofing permits**, including those that have remained open for many years.
@@ -79,6 +84,7 @@ The pipeline must demonstrate that data is ingested on an ongoing basis (not a o
 - Return source-backed answers where source data is available.
 
 ### Demonstration
+
 - Demonstrate the uploaded dataset through the UI.
 - Demonstrate the uploaded dataset through an agent query aligned to roofing lead discovery.
 - Demonstrate that Oracle can operate without carrying the infrastructure cost.
@@ -87,6 +93,7 @@ The pipeline must demonstrate that data is ingested on an ongoing basis (not a o
 - Pass the demo using real uploaded San Diego County records.
 
 ## Demo Transcript
+
 - Presenter: “I will demonstrate that the Oracle pipeline has loaded the available dataset for San Diego County, California, that the data is queryable through DuckDB, that eligible artifacts are stored on IPFS as content-addressed snapshots, and that both the UI and agent can answer property intelligence questions that support roofing lead generation.”
 - Presenter: “First, I am opening the pipeline run summary.”
   - Expected Result: The system displays the completed pipeline run, source list, county coverage, record counts, timestamps, and any documented source limitations.
@@ -113,10 +120,12 @@ The pipeline must demonstrate that data is ingested on an ongoing basis (not a o
   - Expected Result: The system demonstrates an MCP-ready interface or documented MCP-compatible query structure that agents and the roofing CRM can use without changing the data model.
 
 ## Out of Scope
+
 - Roofing CRM UI, map pin/GPS interaction design, and lead outreach workflows (covered in [roofing-crm](https://github.com/prismteam-ai/roofing-crm)).
 - Live outbound messaging to property owners.
 
 ## Reference
+
 - [Roofing CRM & Lead Identification UI](https://github.com/prismteam-ai/roofing-crm)
 - [Soofi XYZ Team Kit](https://github.com/soofi-xyz/soofi-xyz-team-kit)
 - [Elephant Oracle Skills](https://github.com/elephant-xyz/skills)

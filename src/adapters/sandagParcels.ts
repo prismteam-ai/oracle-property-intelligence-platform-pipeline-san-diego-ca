@@ -2,9 +2,23 @@ import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { z } from 'zod';
 import { mapLimit } from '../http.js';
-import { blankToNull, normalizeApn, resolveMmddyy, resolveTwoDigitYear, toNumber, zip5 } from '../normalize.js';
+import {
+  blankToNull,
+  normalizeApn,
+  resolveMmddyy,
+  resolveTwoDigitYear,
+  toNumber,
+  zip5,
+} from '../normalize.js';
 import { fileIfExists, sourceDir } from './shared.js';
-import type { FetchContext, FetchResult, ParseContext, RawFile, SourceAdapter, StagedRecord } from './types.js';
+import type {
+  FetchContext,
+  FetchResult,
+  ParseContext,
+  RawFile,
+  SourceAdapter,
+  StagedRecord,
+} from './types.js';
 import { reject, validate } from './types.js';
 
 const LAYER = 'https://geo.sandag.org/server/rest/services/Hosted/Parcels/FeatureServer/0';
@@ -12,10 +26,37 @@ const PAGE = 2000;
 const CONCURRENCY = 4;
 
 const OUT_FIELDS = [
-  'objectid', 'apn', 'apn_8', 'situs_juris', 'situs_street', 'situs_suffix', 'situs_post_dir', 'situs_pre_dir',
-  'situs_address', 'situs_fraction', 'situs_suite', 'situs_community', 'situs_zip', 'year_effective', 'docdate',
-  'doctype', 'docnmbr', 'ownerocc', 'asr_land', 'asr_impr', 'asr_total', 'acreage', 'nucleus_use_cd',
-  'asr_landuse', 'nucleus_zone_cd', 'unitqty', 'total_lvg_area', 'bedrooms', 'baths', 'pool', 'taxstat',
+  'objectid',
+  'apn',
+  'apn_8',
+  'situs_juris',
+  'situs_street',
+  'situs_suffix',
+  'situs_post_dir',
+  'situs_pre_dir',
+  'situs_address',
+  'situs_fraction',
+  'situs_suite',
+  'situs_community',
+  'situs_zip',
+  'year_effective',
+  'docdate',
+  'doctype',
+  'docnmbr',
+  'ownerocc',
+  'asr_land',
+  'asr_impr',
+  'asr_total',
+  'acreage',
+  'nucleus_use_cd',
+  'asr_landuse',
+  'nucleus_zone_cd',
+  'unitqty',
+  'total_lvg_area',
+  'bedrooms',
+  'baths',
+  'pool',
+  'taxstat',
   'SHAPE__Area',
 ] as const;
 
@@ -26,21 +67,45 @@ const nullableNumber = z.number().nullable().optional();
 const Feature = z.object({
   attributes: z.object({
     objectid: z.number(),
-    apn: nullableText, apn_8: nullableText, situs_juris: nullableText, situs_street: nullableText,
-    situs_suffix: nullableText, situs_post_dir: nullableText, situs_pre_dir: nullableText,
-    situs_address: nullableNumber, situs_fraction: nullableText, situs_suite: nullableText,
-    situs_community: nullableText, situs_zip: nullableText, year_effective: nullableText, docdate: nullableText,
-    doctype: nullableText, docnmbr: nullableText, ownerocc: nullableText, asr_land: nullableNumber,
-    asr_impr: nullableNumber, asr_total: nullableNumber, acreage: nullableNumber, nucleus_use_cd: nullableText,
-    asr_landuse: nullableNumber, nucleus_zone_cd: nullableText, unitqty: nullableNumber,
-    total_lvg_area: nullableNumber, bedrooms: nullableText, baths: nullableText, pool: nullableText,
-    taxstat: nullableText, SHAPE__Area: nullableNumber,
+    apn: nullableText,
+    apn_8: nullableText,
+    situs_juris: nullableText,
+    situs_street: nullableText,
+    situs_suffix: nullableText,
+    situs_post_dir: nullableText,
+    situs_pre_dir: nullableText,
+    situs_address: nullableNumber,
+    situs_fraction: nullableText,
+    situs_suite: nullableText,
+    situs_community: nullableText,
+    situs_zip: nullableText,
+    year_effective: nullableText,
+    docdate: nullableText,
+    doctype: nullableText,
+    docnmbr: nullableText,
+    ownerocc: nullableText,
+    asr_land: nullableNumber,
+    asr_impr: nullableNumber,
+    asr_total: nullableNumber,
+    acreage: nullableNumber,
+    nucleus_use_cd: nullableText,
+    asr_landuse: nullableNumber,
+    nucleus_zone_cd: nullableText,
+    unitqty: nullableNumber,
+    total_lvg_area: nullableNumber,
+    bedrooms: nullableText,
+    baths: nullableText,
+    pool: nullableText,
+    taxstat: nullableText,
+    SHAPE__Area: nullableNumber,
   }),
   centroid: z.object({ x: z.number(), y: z.number() }).nullable().optional(),
 });
 const Page = z.object({ features: z.array(z.unknown()) });
 const LayerInfo = z.object({ editingInfo: z.object({ lastEditDate: z.number() }).optional() });
-const MaxStat = z.object({ features: z.array(z.object({ attributes: z.object({ mx: z.number() }) })).min(1) });
+const MaxStat = z.object({
+  features: z.array(z.object({ attributes: z.object({ mx: z.number() }) })).min(1),
+});
 
 const OWNER_FIELDS_NOTE =
   'owner name and mailing address are not published in the public SANDAG/SanGIS parcel layer';
@@ -75,8 +140,12 @@ function situsAddress(a: z.infer<typeof Feature>['attributes']): string | null {
   const street = blankToNull(a.situs_street);
   if (number <= 0 || street === null) return null;
   const parts = [
-    String(number), blankToNull(a.situs_fraction), blankToNull(a.situs_pre_dir), street,
-    blankToNull(a.situs_suffix), blankToNull(a.situs_post_dir),
+    String(number),
+    blankToNull(a.situs_fraction),
+    blankToNull(a.situs_pre_dir),
+    street,
+    blankToNull(a.situs_suffix),
+    blankToNull(a.situs_post_dir),
   ].filter((p): p is string => p !== null);
   return parts.join(' ');
 }
@@ -86,7 +155,8 @@ export const sandagParcels: SourceAdapter = {
     id: 'sandag_parcels',
     name: 'SANDAG / SanGIS Parcels (assessor attributes, parcel centroids)',
     url: LAYER,
-    licence: 'Public ArcGIS feature service, no login. Attribution: SanGIS using legal recorded data from the County Recorder and Assessor.',
+    licence:
+      'Public ArcGIS feature service, no login. Attribution: SanGIS using legal recorded data from the County Recorder and Assessor.',
     limits: `maxRecordCount ${PAGE} per query; fetched as objectid ranges, ${CONCURRENCY} in flight. No per-row change date; the layer lastEditDate is the change token. No owner name or mailing address.`,
     changeDetection: 'snapshot',
   },
@@ -96,11 +166,19 @@ export const sandagParcels: SourceAdapter = {
     const info = LayerInfo.parse(JSON.parse(await ctx.http.getText(`${LAYER}?f=json`)));
     const stateToken = `lastEditDate=${info.editingInfo?.lastEditDate ?? 'unknown'}`;
     if (!ctx.force && ctx.previousStateToken !== null && ctx.previousStateToken === stateToken) {
-      return { files: [], bytes: 0, skipped: 'layer not edited since last load (same lastEditDate)', stateToken, notes: [] };
+      return {
+        files: [],
+        bytes: 0,
+        skipped: 'layer not edited since last load (same lastEditDate)',
+        stateToken,
+        notes: [],
+      };
     }
     const statsUrl = `${LAYER}/query?${new URLSearchParams({
       where: '1=1',
-      outStatistics: JSON.stringify([{ statisticType: 'max', onStatisticField: 'objectid', outStatisticFieldName: 'mx' }]),
+      outStatistics: JSON.stringify([
+        { statisticType: 'max', onStatisticField: 'objectid', outStatisticFieldName: 'mx' },
+      ]),
       f: 'json',
     }).toString()}`;
     const maxId = MaxStat.parse(JSON.parse(await ctx.http.getText(statsUrl))).features[0]?.attributes.mx ?? 0;
@@ -152,14 +230,24 @@ export const sandagParcels: SourceAdapter = {
         const apn = normalizeApn(a.apn);
         const recordId = apn ?? `objectid:${a.objectid}`;
         if (apn === null) {
-          yield reject('property', recordId, blankToNull(a.apn) === null ? 'apn:missing' : 'apn:apn_not_10_digits', rawFeature);
+          yield reject(
+            'property',
+            recordId,
+            blankToNull(a.apn) === null ? 'apn:missing' : 'apn:apn_not_10_digits',
+            rawFeature,
+          );
           continue;
         }
         if (parsed.data.centroid === null || parsed.data.centroid === undefined) {
           yield reject('property', recordId, 'lat:missing_centroid', rawFeature);
           continue;
         }
-        const provenance = { sourceRecordId: apn, sourceUrl: recordUrl(apn), fetchedAt: file.fetchedAt, rank: a.SHAPE__Area ?? 0 };
+        const provenance = {
+          sourceRecordId: apn,
+          sourceUrl: recordUrl(apn),
+          fetchedAt: file.fetchedAt,
+          rank: a.SHAPE__Area ?? 0,
+        };
         const year = resolveTwoDigitYear(a.year_effective, currentYear);
         const baths = paddedInt(a.baths);
         const property = validate(
@@ -169,7 +257,10 @@ export const sandagParcels: SourceAdapter = {
             apn,
             apn_8: blankToNull(a.apn_8),
             situs_address: situsAddress(a),
-            situs_number: a.situs_address !== null && a.situs_address !== undefined && a.situs_address > 0 ? a.situs_address : null,
+            situs_number:
+              a.situs_address !== null && a.situs_address !== undefined && a.situs_address > 0
+                ? a.situs_address
+                : null,
             situs_street: blankToNull(a.situs_street),
             situs_unit: blankToNull(a.situs_suite),
             situs_city: blankToNull(a.situs_community),

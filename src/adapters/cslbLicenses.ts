@@ -1,9 +1,17 @@
 import { blankToNull, normalizeLicense, normalizeName, usDate, zip5 } from '../normalize.js';
 import { fetchSnapshotFiles, readCsv } from './shared.js';
-import type { FetchContext, FetchResult, ParseContext, RawFile, SourceAdapter, StagedRecord } from './types.js';
+import type {
+  FetchContext,
+  FetchResult,
+  ParseContext,
+  RawFile,
+  SourceAdapter,
+  StagedRecord,
+} from './types.js';
 import { reject, validate } from './types.js';
 
-const URL_MASTER = 'https://www.cslb.ca.gov/onlineservices/dataportal/DownLoadFile.ashx?fName=MasterLicenseData&type=C';
+const URL_MASTER =
+  'https://www.cslb.ca.gov/onlineservices/dataportal/DownLoadFile.ashx?fName=MasterLicenseData&type=C';
 
 /** "C-39", "C39 ", "C39| B" all describe the same classification list; store it as `B|C39`. */
 export function normalizeClassifications(raw: string | null | undefined): string | null {
@@ -22,8 +30,10 @@ export const cslbLicenses: SourceAdapter = {
     id: 'cslb_license_master',
     name: 'California CSLB licence master (statewide)',
     url: 'https://www.cslb.ca.gov/onlineservices/dataportal/ContractorList.aspx',
-    licence: 'California Contractors State License Board public data portal. Public record; no email addresses (Business and Professions Code s.27).',
-    limits: 'One CSV of about 78 MB served slowly (about 0.5 MB/s measured). The portal form postback is blocked by its firewall for scripts (HTTP 503); the direct download handler behind the form works. Only renewed or renewable licences are listed.',
+    licence:
+      'California Contractors State License Board public data portal. Public record; no email addresses (Business and Professions Code s.27).',
+    limits:
+      'One CSV of about 78 MB served slowly (about 0.5 MB/s measured). The portal form postback is blocked by its firewall for scripts (HTTP 503); the direct download handler behind the form works. Only renewed or renewable licences are listed.',
     changeDetection: 'snapshot',
   },
   entities: ['cslbLicense'],
@@ -72,7 +82,11 @@ export const cslbLicenses: SourceAdapter = {
             bond_surety: blankToNull(record['CBSuretyCompany']),
             source_updated_on: usDate(record['LastUpdate']),
           },
-          { sourceRecordId: license, sourceUrl: `https://www.cslb.ca.gov/OnlineServices/CheckLicenseII/LicenseDetail.aspx?LicNum=${license}`, fetchedAt: file.fetchedAt },
+          {
+            sourceRecordId: license,
+            sourceUrl: `https://www.cslb.ca.gov/OnlineServices/CheckLicenseII/LicenseDetail.aspx?LicNum=${license}`,
+            fetchedAt: file.fetchedAt,
+          },
           record,
         );
       }
