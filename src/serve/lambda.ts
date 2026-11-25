@@ -116,7 +116,13 @@ export const handler = async (
           : event.isBase64Encoded
             ? Buffer.from(event.body, 'base64').toString('utf8')
             : event.body;
-      const parsed = agentAskInput.safeParse(JSON.parse(raw) as unknown);
+      let body: unknown;
+      try {
+        body = JSON.parse(raw) as unknown;
+      } catch {
+        return json(400, { error: 'Request body must be JSON: {"question": "..."}' });
+      }
+      const parsed = agentAskInput.safeParse(body);
       if (!parsed.success) return json(400, { error: 'Invalid question', issues: parsed.error.issues });
       const day = isoDate(new Date());
       if (agentDay !== day) {

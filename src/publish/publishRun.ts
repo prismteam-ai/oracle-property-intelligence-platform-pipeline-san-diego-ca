@@ -198,10 +198,13 @@ export async function publishRun(options: PublishOptions): Promise<PublishResult
   const repoRunDir = path.join(options.repoPublications, COUNTY_SLUG, path.basename(exported.dir));
   await mkdir(repoRunDir, { recursive: true });
   await writeFile(path.join(repoRunDir, 'manifest.json'), manifestText);
-  await writeFile(
-    path.join(repoRunDir, 'verification.json'),
-    `${JSON.stringify({ checkedAt: options.now().toISOString(), gateways, results: verification }, null, 2)}\n`,
-  );
+  // A record is written only when verification actually ran; `npm run verify:ipfs` writes it otherwise.
+  if (verification.length > 0) {
+    await writeFile(
+      path.join(repoRunDir, 'verification.json'),
+      `${JSON.stringify({ checkedAt: options.now().toISOString(), gateways, results: verification }, null, 2)}\n`,
+    );
+  }
   for (const small of ['coverage.json', 'run-history.json', 'sources.json']) {
     await writeFile(path.join(repoRunDir, small), await readFile(path.join(exported.dir, small)));
   }
