@@ -86,6 +86,7 @@ const usage = {
 function scriptedModel(toolName: string, input: unknown, finalText: string): MockLanguageModelV4 {
   let step = 0;
   return new MockLanguageModelV4({
+    // eslint-disable-next-line @typescript-eslint/require-await -- the mock contract is async
     doGenerate: async () => {
       step += 1;
       if (step === 1) {
@@ -115,7 +116,9 @@ beforeAll(async () => {
   store = await Store.open(dir);
 });
 
-afterAll(() => store.close());
+afterAll(() => {
+  store.close();
+});
 
 describe('serving queries over Parquet', () => {
   it('finds the open roofing permit, with permit number, contractor and unit', async () => {
@@ -237,6 +240,7 @@ describe('agent loop, replayed with a scripted model', () => {
 
   it('gives no figures when the model answered without retrieving anything', async () => {
     const model = new MockLanguageModelV4({
+      // eslint-disable-next-line @typescript-eslint/require-await -- the mock contract is async
       doGenerate: async () => ({
         content: [{ type: 'text', text: 'There are 4,000 open permits.' }],
         finishReason: { unified: 'stop', raw: 'end_turn' },
