@@ -7,6 +7,7 @@ import {
   PutObjectCommand,
   S3Client,
 } from '@aws-sdk/client-s3';
+import { CID } from 'multiformats/cid';
 import { z } from 'zod';
 
 export interface PinResult {
@@ -51,6 +52,30 @@ export class FilebasePinner implements Pinner {
       await this.s3.send(new HeadBucketCommand({ Bucket: this.config.bucket }));
     } catch {
       await this.s3.send(new CreateBucketCommand({ Bucket: this.config.bucket }));
+    }
+  }
+
+  /**
+   * Stores the CAR file itself as an ordinary IPFS object (no import), so the archive of a run
+   * can be fetched by CID from any gateway and imported into any node. Returns its CIDv1.
+   */
+  async publishFile(filePath: string, key: string): Promise<string | null> {
+    try {
+      await this.ensureBucket();
+      await this.s3.send(
+        new PutObjectCommand({
+          Bucket: this.config.bucket,
+          Key: key,
+          Body: createReadStream(filePath),
+          ContentLength: (await stat(filePath)).size,
+          ContentType: 'application/vnd.ipld.car',
+        }),
+      );
+      const head = await this.s3.send(new HeadObjectCommand({ Bucket: this.config.bucket, Key: key }));
+      const cid = head.Metadata?.['cid'];
+      return cid ? CID.parse(cid).toV1().toString() : null;
+    } catch {
+      return null;
     }
   }
 

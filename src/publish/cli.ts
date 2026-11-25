@@ -21,15 +21,15 @@ async function main(): Promise<void> {
   });
   const env = process.env;
   const carPinners: Pinner[] = [];
+  let carStore: FilebasePinner | undefined;
   const filePinners: FilePinner[] = [];
   if (env['FILEBASE_ACCESS_KEY'] && env['FILEBASE_SECRET_KEY'] && env['FILEBASE_BUCKET']) {
-    carPinners.push(
-      new FilebasePinner({
-        accessKey: env['FILEBASE_ACCESS_KEY'],
-        secretKey: env['FILEBASE_SECRET_KEY'],
-        bucket: env['FILEBASE_BUCKET'],
-      }),
-    );
+    carStore = new FilebasePinner({
+      accessKey: env['FILEBASE_ACCESS_KEY'],
+      secretKey: env['FILEBASE_SECRET_KEY'],
+      bucket: env['FILEBASE_BUCKET'],
+    });
+    carPinners.push(carStore);
   }
   if (env['PINATA_JWT']) filePinners.push(new PinataFilePinner(env['PINATA_JWT']));
 
@@ -45,6 +45,7 @@ async function main(): Promise<void> {
       repoPublications: 'publications',
       carPinners,
       filePinners,
+      ...(carStore ? { carStore } : {}),
       ...(env['FILEBASE_ACCESS_KEY'] && env['FILEBASE_SECRET_KEY']
         ? {
             names: new FilebaseNames(

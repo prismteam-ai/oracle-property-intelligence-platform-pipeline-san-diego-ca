@@ -16,7 +16,13 @@
       "manifestCid": null,
       "previousRootCid": null,
       "objects": 10,
-      "bytes": 171459921
+      "bytes": 171459921,
+      "car": {
+        "name": "run-0003.car",
+        "cid": "bafybeid2ogx7n7wbaj6clvpuffvjqvgl7kf4mu5t3bdlyvjlykkiiogzyq",
+        "size": 171519765,
+        "sha256": "b8be4a88e985969db7544019873ec689e9eb2fa5c4f6b2818ca3ac9b4bee37bf"
+      }
     },
     {
       "rootCid": "bafybeih5vicdja4prbknofmxzln67pu5vg2saifog4qonlknv43nmwxsea",
@@ -26,7 +32,13 @@
       "manifestCid": "bafkreigrfptl3wsxrjrbe7bmhpr634l7z3hdaqvuvat7pmslm7lva5gwsu",
       "previousRootCid": "bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy",
       "objects": 10,
-      "bytes": 172379311
+      "bytes": 172379311,
+      "car": {
+        "name": "run-0006.car",
+        "cid": "bafybeihhtjibp72bmfef6elrrdii5q6oc43ygtq2zvbhcy57cnv2j422xy",
+        "size": 172439513,
+        "sha256": "8c841e727623f812046bfd4404679f688a4ea80008e9584826936a73d0f99375"
+      }
     },
     {
       "rootCid": "bafybeievgzncrw5djebyd3zcx2o5cd6guwamfk7l7qo7rfppxtznvmayhi",
@@ -36,7 +48,13 @@
       "manifestCid": "bafkreihg6veyvldco5xueinthcj52ecmut4p6ytekae5xfihh5ckik5h7i",
       "previousRootCid": "bafybeih5vicdja4prbknofmxzln67pu5vg2saifog4qonlknv43nmwxsea",
       "objects": 10,
-      "bytes": 172353658
+      "bytes": 172353658,
+      "car": {
+        "name": "run-0007.car",
+        "cid": "bafybeihotboun4o2gowa646vwnd7p6y7ivrr65negjowibe3bs7nz4pwvq",
+        "size": 172413857,
+        "sha256": "f247b7a7d1495b45b278e1964c4177e29600a3ea89873132eb264b41d60a58e0"
+      }
     }
   ]
 }

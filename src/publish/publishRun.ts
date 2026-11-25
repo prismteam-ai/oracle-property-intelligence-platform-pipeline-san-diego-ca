@@ -60,6 +60,10 @@ const indexSchema = z.object({
       objects: z.number(),
       bytes: z.number(),
       verifiedGateways: z.number(),
+      /** The run's CAR as its own IPFS object: fetch by CID, check the digest, import anywhere. */
+      car: z
+        .object({ name: z.string(), cid: z.string().nullable(), size: z.number(), sha256: z.string() })
+        .optional(),
     }),
   ),
 });
@@ -79,6 +83,8 @@ export interface PublishOptions {
   repoPublications: string;
   carPinners: Pinner[];
   filePinners: FilePinner[];
+  /** Optional: also publish the CAR file itself as a plain IPFS object and record its CID. */
+  carStore?: { publishFile(filePath: string, key: string): Promise<string | null> };
   /** Optional IPNS name to move to each new root. */
   names?: FilebaseNames;
   gateways?: readonly string[];
@@ -230,6 +236,11 @@ export async function publishRun(options: PublishOptions): Promise<PublishResult
     await writeFile(path.join(repoRunDir, small), await readFile(path.join(exported.dir, small)));
   }
 
+  const carCid = options.carStore
+    ? await options.carStore.publishFile(carPath, `cars/${COUNTY_SLUG}-${carName}`)
+    : null;
+  if (options.carStore) log(`CAR object ${carCid ?? 'not published'}`);
+
   const entry = {
     runId: exported.runId,
     createdAt,
@@ -239,6 +250,7 @@ export async function publishRun(options: PublishOptions): Promise<PublishResult
     objects: packed.files.length,
     bytes: totalBytes,
     verifiedGateways: verification.length === 0 ? 0 : Math.min(...verification.map((v) => v.passed)),
+    car: { name: carName, cid: carCid, size: packed.car.size, sha256: packed.car.sha256 },
   };
   index.runs = [...index.runs.filter((r) => r.rootCid !== packed.rootCid), entry];
   if (ipns) index.ipns = ipns;

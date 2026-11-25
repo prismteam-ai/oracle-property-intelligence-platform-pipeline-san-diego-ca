@@ -76,7 +76,7 @@ A scheduled run is defined in [`.github/workflows/ingest.yml`](.github/workflows
 
 **About `ipfs.io` and `dweb.link`** (the story's example gateways): since September 2026 they answer scripts with HTTP 429 ("switching to a service worker gateway only") and put automated browsers through a bot challenge; they are meant for interactive use. Scripted checks therefore use other public, anonymous gateways and record each one's real status. Matching bytes were fetched from three independent gateways (`latam.orbitor.dev`, `ipfs.raribleuserdata.com`, `ipfs.hypha.coop`) and from the public gateways of the two pinning services (`gateway.pinata.cloud`, `ipfs.filebase.io`). `4everland.io` and `storry.tv` are also tried; at the time of writing they did not find this content.
 
-The CAR files are 172 MB each, above GitHub's per-file limit, so they are not in git. Both are pinned at Filebase (the import is what produced the root CIDs above), any IPFS node can rebuild one with `ipfs dag export <rootCid>`, and the manifest carries each CAR's size and SHA-256. They will also be attached to the GitHub Release that accompanies this PR.
+The CAR of each run is about 172 MB, above GitHub's per-file limit, so the CARs are not in git. Each one is published to IPFS as an object of its own, and `publications/san-diego/index.json` records its CID, size and SHA-256 (run 7: `bafybeihotboun4o2gowa646vwnd7p6y7ivrr65negjowibe3bs7nz4pwvq`, fetched back with a matching digest from two independent gateways). Download it by CID and `ipfs dag import` it into any node. They will also be attached to the GitHub Release that accompanies this PR.
 
 ## Query layer, MCP and agent
 
