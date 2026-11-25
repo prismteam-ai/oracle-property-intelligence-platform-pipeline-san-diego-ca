@@ -38,6 +38,7 @@ const text = z.string().nullable();
 const leadRow = z.object({
   apn: z.string(),
   address: text,
+  unit: text.optional(),
   city: text,
   zip: text,
   lat: num,
@@ -136,6 +137,25 @@ export function coverageNote(coverage: JurisdictionCoverage[]): string | null {
     return `No permit data is published for ${listNames(without)}, so open-permit filters return nothing here. Roof-age results are complete.`;
   }
   return `Permit data in this area covers ${listNames(withFeed)} only. ${listNames(without)} (${share}% of parcels in this radius) publish no bulk permit feed, so open permits there are not shown. Roof-age results are complete.`;
+}
+
+const columnCache = new WeakMap<Store, Map<string, Promise<Set<string>>>>();
+
+/** Lets the serving code read snapshots published before a column existed. */
+async function hasColumn(store: Store, relation: string, column: string): Promise<boolean> {
+  let perStore = columnCache.get(store);
+  if (!perStore) {
+    perStore = new Map();
+    columnCache.set(store, perStore);
+  }
+  let columns = perStore.get(relation);
+  if (!columns) {
+    columns = store
+      .query(z.object({ column_name: z.string() }), `DESCRIBE ${relation}`)
+      .then((rows) => new Set(rows.map((r) => r.column_name)));
+    perStore.set(relation, columns);
+  }
+  return (await columns).has(column);
 }
 
 const SIGNAL_SQL: Record<LeadSearchInput['signal'], string> = {
@@ -242,7 +262,7 @@ export async function findRoofingLeads(
   const rows = await store.queryNamed(
     leadRow,
     `${candidatesCte()}
-     SELECT apn, address, city, zip, lat, lon,
+     SELECT apn, address, ${(await hasColumn(store, 'parcel', 'unit')) ? 'unit' : 'NULL AS unit'}, city, zip, lat, lon,
             round(distance_miles, 3) AS "distanceMiles",
             roof_year AS "roofYear", roof_age_years AS "roofAgeYears",
             roof_basis AS "roofBasis", roof_confidence AS "roofConfidence",
@@ -297,6 +317,8 @@ const permitOut = z.object({
   roofingClass: text,
   isRoofing: z.boolean(),
   status: text,
+  /** open | pending (applied, not issued) | completed | expired | cancelled | other */
+  statusGroup: text,
   isOpen: z.boolean(),
   appliedDate: text,
   issuedDate: text,
@@ -321,6 +343,7 @@ const permitOut = z.object({
 export const propertyOut = z.object({
   apn: z.string(),
   address: text,
+  unit: text.optional(),
   city: text,
   zip: text,
   lat: num,
@@ -344,6 +367,7 @@ export type PropertyOut = z.infer<typeof propertyOut>;
 const parcelDetailRow = z.object({
   apn: z.string(),
   address: text,
+  unit: text.optional(),
   city: text,
   zip: text,
   lat: num,
@@ -375,6 +399,7 @@ const permitDetailRow = z.object({
   roofing_class: text,
   is_roofing: z.boolean(),
   status: text,
+  status_group: text,
   is_open: z.boolean(),
   applied_date: text,
   issued_date: text,
@@ -409,7 +434,7 @@ export async function getOracleProperty(
   if (!/^\d{10}$/.test(apn)) return null;
   const parcels = await store.queryNamed(
     parcelDetailRow,
-    `SELECT apn, address, city, zip, lat, lon, year_built, roof_year,
+    `SELECT apn, address, ${(await hasColumn(store, 'parcel', 'unit')) ? 'unit' : 'NULL AS unit'}, city, zip, lat, lon, year_built, roof_year,
             (year($today::DATE) - roof_year)::INTEGER AS roof_age_years,
             roof_basis, roof_confidence, roof_confidence_reason, use_code,
             owner_occupied, owner_name, owner_mail_city, owner_mail_state,
@@ -425,7 +450,7 @@ export async function getOracleProperty(
   const permits = await store.queryNamed(
     permitDetailRow,
     `SELECT pm.permit_id, pm.apn, pm.permit_type, pm.permit_subtype, pm.roofing_class, pm.is_roofing,
-            pm.status, pm.is_open,
+            pm.status, pm.status_group, pm.is_open,
             pm.applied_date::VARCHAR AS applied_date, pm.issued_date::VARCHAR AS issued_date,
             pm.closed_date::VARCHAR AS closed_date,
             CASE WHEN pm.open_since IS NOT NULL
@@ -446,6 +471,7 @@ export async function getOracleProperty(
   return {
     apn: p.apn,
     address: p.address,
+    unit: p.unit ?? null,
     city: p.city,
     zip: p.zip,
     lat: p.lat,
@@ -474,6 +500,7 @@ export async function getOracleProperty(
         roofingClass: m.roofing_class,
         isRoofing: m.is_roofing,
         status: m.status,
+        statusGroup: m.status_group,
         isOpen: m.is_open,
         appliedDate: m.applied_date,
         issuedDate: m.issued_date,

@@ -6,7 +6,9 @@ import { MAX_QUERY_ROWS, QueryRejectedError, guardSelect } from '../src/serve/sq
 describe('guardSelect: the gate for agent-written SQL', () => {
   it('wraps a single SELECT with a row cap the caller cannot remove', () => {
     const sql = guardSelect('SELECT apn FROM parcel LIMIT 999999;');
-    expect(sql).toBe(`SELECT * FROM (SELECT apn FROM parcel LIMIT 999999) AS q LIMIT ${MAX_QUERY_ROWS + 1}`);
+    expect(sql).toBe(
+      `SELECT * FROM (\nSELECT apn FROM parcel LIMIT 999999\n) AS q LIMIT ${MAX_QUERY_ROWS + 1}`,
+    );
     expect(guardSelect('WITH a AS (SELECT 1 AS x) SELECT x FROM a')).toContain('WITH a AS');
   });
 
@@ -18,10 +20,18 @@ describe('guardSelect: the gate for agent-written SQL', () => {
     ["COPY parcel TO 'out.csv'", /Only SELECT/],
     ['SELECT 1 UNION ALL (INSERT INTO t VALUES (1))', /insert/i],
     ["SELECT getenv('HOME')", /Function not allowed: getenv/],
+    ['select apn from parcel) q union all select apn from parcel --', /Unbalanced/],
+    ['SELECT (1', /Unbalanced/],
     ['', /Empty/],
   ])('rejects %s', (sql, reason) => {
     expect(() => guardSelect(sql)).toThrow(QueryRejectedError);
     expect(() => guardSelect(sql)).toThrow(reason);
+  });
+
+  it('keeps the row cap even when the statement ends in a line comment', () => {
+    const sql = guardSelect('SELECT apn FROM parcel -- everything');
+    expect(sql.trimEnd().endsWith(`LIMIT ${MAX_QUERY_ROWS + 1}`)).toBe(true);
+    expect(sql.split('\n').at(-1)).toMatch(/^\) AS q LIMIT/);
   });
 
   it('does not trip on keywords inside string literals or on column names', () => {

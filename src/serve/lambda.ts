@@ -43,6 +43,14 @@ async function loadModel(): Promise<{ model: LanguageModel | null; modelName: st
 
 let ready: Promise<Ready> | null = null;
 
+/**
+ * The agent endpoint is public and each answer costs model tokens. Calls are counted per running
+ * container per day (a soft cap; the provider key also has a hard monthly spend limit).
+ */
+const AGENT_DAILY_LIMIT = Number(process.env['AGENT_DAILY_LIMIT'] ?? 150);
+let agentDay = '';
+let agentCalls = 0;
+
 async function start(): Promise<Ready> {
   const bucket = process.env['ARTIFACT_BUCKET'];
   const prefix = process.env['ARTIFACT_PREFIX'];
@@ -110,6 +118,18 @@ export const handler = async (
             : event.body;
       const parsed = agentAskInput.safeParse(JSON.parse(raw) as unknown);
       if (!parsed.success) return json(400, { error: 'Invalid question', issues: parsed.error.issues });
+      const day = isoDate(new Date());
+      if (agentDay !== day) {
+        agentDay = day;
+        agentCalls = 0;
+      }
+      agentCalls += 1;
+      if (model && agentCalls > AGENT_DAILY_LIMIT) {
+        return json(429, {
+          error:
+            'The agent has reached its daily question limit for this demo. The MCP tools and the UI still work.',
+        });
+      }
       const answer = await askAgent({ store, model, modelName, today: isoDate(new Date()) }, parsed.data);
       metrics.addMetric('AgentQuestionsAnswered', MetricUnit.Count, 1);
       return json(200, answer);

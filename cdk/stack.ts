@@ -101,6 +101,10 @@ export class OraclePipelineStack extends cdk.Stack {
       integration: new integrations.HttpLambdaIntegration('McpIntegration', mcp),
     });
 
+    // Public and unauthenticated by design, so it is rate-limited at the door.
+    const stage = httpApi.defaultStage?.node.defaultChild as apigwv2.CfnStage | undefined;
+    if (stage) stage.defaultRouteSettings = { throttlingBurstLimit: 30, throttlingRateLimit: 15 };
+
     // One self-resolving alarm on function errors, fanned out through SNS. In a company account
     // PagerDuty (Events API v2) subscribes to this topic; this exercise account has no PagerDuty.
     const alarmTopic = new sns.Topic(this, 'CriticalAlarms');

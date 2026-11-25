@@ -33,6 +33,15 @@ export function guardSelect(input: string, maxRows = MAX_QUERY_ROWS): string {
   if (trimmed.length > 4000) throw new QueryRejectedError('Query longer than 4000 characters.');
   const bare = stripLiteralsAndComments(trimmed);
   if (bare.includes(';')) throw new QueryRejectedError('Only one statement is allowed.');
+  // The statement is wrapped in a subquery to apply the row cap, so it must not be able to close
+  // that wrapper itself: parentheses have to balance and never dip below zero.
+  let depth = 0;
+  for (const ch of bare) {
+    if (ch === '(') depth += 1;
+    else if (ch === ')') depth -= 1;
+    if (depth < 0) throw new QueryRejectedError('Unbalanced parentheses.');
+  }
+  if (depth !== 0) throw new QueryRejectedError('Unbalanced parentheses.');
   if (!/^\s*(select|with)\b/i.test(bare)) {
     throw new QueryRejectedError('Only SELECT (or WITH ... SELECT) is allowed.');
   }
@@ -40,5 +49,6 @@ export function guardSelect(input: string, maxRows = MAX_QUERY_ROWS): string {
   if (keyword) throw new QueryRejectedError(`Keyword not allowed in a read-only query: ${keyword[0]}`);
   const fn = FORBIDDEN_FUNCTIONS.exec(bare);
   if (fn) throw new QueryRejectedError(`Function not allowed: ${fn[0].replace(/\s*\($/, '')}`);
-  return `SELECT * FROM (${trimmed}) AS q LIMIT ${maxRows + 1}`;
+  // Newlines around the statement: a trailing `--` comment cannot comment out the row cap.
+  return `SELECT * FROM (\n${trimmed}\n) AS q LIMIT ${maxRows + 1}`;
 }

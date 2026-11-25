@@ -95,6 +95,7 @@ const QUERY_TABLE_SQL = `
   SELECT
     p.apn,
     p.situs_address AS address,
+    p.situs_unit AS unit,
     p.situs_city AS city,
     p.situs_zip AS zip,
     p.situs_juris AS jurisdiction,

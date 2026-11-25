@@ -43,7 +43,7 @@ jobs:
           else
             # Start two days before the last successful run began, so late edits are not missed;
             # the row-hash upsert makes the overlap free.
-            since=$(npm run -s query -- "SELECT strftime(max(started_at) - INTERVAL 2 DAY, '%Y-%m-%d') AS d FROM pipeline_run WHERE status = 'ok'" | sed -E 's/.*"d":"([0-9-]+)".*//')
+            since=$(npm run -s query -- "SELECT strftime(max(started_at) - INTERVAL 2 DAY, '%Y-%m-%d') AS d FROM pipeline_run WHERE status = 'ok'" | sed -E 's/.*"d":"([0-9-]+)".*/\1/')
             npm run pipeline -- --window "${since}.."
           fi
       - name: Publish only if something changed
