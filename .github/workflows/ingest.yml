@@ -1,0 +1,73 @@
+name: ingest
+# Scheduled incremental run. Nothing is hosted between runs: the working database lives as one
+# object in the mirror bucket, is pulled at the start and pushed back at the end.
+# NOT YET EXERCISED: this workflow starts running only once the repository is on GitHub with the
+# secrets below. Until then runs are started by hand (see the run history in the README).
+on:
+  schedule:
+    - cron: '17 9 * * *' # daily, 09:17 UTC
+  workflow_dispatch:
+    inputs:
+      window:
+        description: 'Window, e.g. 2026-11-20.. (empty = since the last successful run)'
+        required: false
+permissions:
+  id-token: write
+  contents: write
+concurrency:
+  group: ingest
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      STATE_URI: s3://${{ vars.MIRROR_BUCKET }}/state/oracle.duckdb
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_INGEST_ROLE_ARN }}
+          aws-region: us-east-2
+      - run: npm ci
+      - name: Restore working database
+        run: mkdir -p data && aws s3 cp "$STATE_URI" data/oracle.duckdb --only-show-errors
+      - name: Incremental run
+        run: |
+          if [ -n "${{ inputs.window }}" ]; then
+            npm run pipeline -- --window "${{ inputs.window }}"
+          else
+            # Start two days before the last successful run began, so late edits are not missed;
+            # the row-hash upsert makes the overlap free.
+            since=$(npm run -s query -- "SELECT strftime(max(started_at) - INTERVAL 2 DAY, '%Y-%m-%d') AS d FROM pipeline_run WHERE status = 'ok'" | sed -E 's/.*"d":"([0-9-]+)".*//')
+            npm run pipeline -- --window "${since}.."
+          fi
+      - name: Publish only if something changed
+        id: publish
+        env:
+          FILEBASE_ACCESS_KEY: ${{ secrets.FILEBASE_ACCESS_KEY }}
+          FILEBASE_SECRET_KEY: ${{ secrets.FILEBASE_SECRET_KEY }}
+          FILEBASE_BUCKET: ${{ vars.FILEBASE_BUCKET }}
+          PINATA_JWT: ${{ secrets.PINATA_JWT }}
+        run: |
+          changed=$(npm run -s query -- "SELECT coalesce(sum(inserted + updated), 0) AS n FROM run_history WHERE run_id = (SELECT max(run_id) FROM pipeline_run)" | sed -E 's/.*"n":"?([0-9]+).*/\1/')
+          echo "changed=$changed" >> "$GITHUB_OUTPUT"
+          if [ "$changed" -gt 0 ]; then
+            npm run publish:ipfs -- --mirror-bucket "${{ vars.MIRROR_BUCKET }}"
+          else
+            echo "No inserted or updated rows: nothing to publish."
+          fi
+      - name: Save working database
+        run: aws s3 cp data/oracle.duckdb "$STATE_URI" --only-show-errors
+      - name: Commit the new manifest and run index
+        if: steps.publish.outputs.changed != '0'
+        run: |
+          git config user.name "oracle-ingest"
+          git config user.email "oracle-ingest@users.noreply.github.com"
+          git add publications
+          git commit -m "Publish scheduled run" || echo "nothing to commit"
+          git push
