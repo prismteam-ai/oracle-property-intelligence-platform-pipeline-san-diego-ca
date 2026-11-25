@@ -2,24 +2,34 @@
   "countySlug": "san-diego",
   "runs": [
     {
-      "rootCid": "bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy",
-      "verifiedGateways": 3,
       "runId": 3,
       "createdAt": "2026-11-25T16:58:03.918Z",
+      "rootCid": "bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy",
       "manifestCid": null,
       "previousRootCid": null,
       "objects": 10,
-      "bytes": 171459921
+      "bytes": 171459921,
+      "verifiedGateways": 3
     },
     {
-      "rootCid": "bafybeih5vicdja4prbknofmxzln67pu5vg2saifog4qonlknv43nmwxsea",
-      "verifiedGateways": 2,
       "runId": 6,
       "createdAt": "2026-11-25T17:39:55.679Z",
+      "rootCid": "bafybeih5vicdja4prbknofmxzln67pu5vg2saifog4qonlknv43nmwxsea",
       "manifestCid": "bafkreigrfptl3wsxrjrbe7bmhpr634l7z3hdaqvuvat7pmslm7lva5gwsu",
       "previousRootCid": "bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy",
       "objects": 10,
-      "bytes": 172379311
+      "bytes": 172379311,
+      "verifiedGateways": 2
+    },
+    {
+      "runId": 7,
+      "createdAt": "2026-11-25T19:13:52.581Z",
+      "rootCid": "bafybeievgzncrw5djebyd3zcx2o5cd6guwamfk7l7qo7rfppxtznvmayhi",
+      "manifestCid": "bafkreihg6veyvldco5xueinthcj52ecmut4p6ytekae5xfihh5ckik5h7i",
+      "previousRootCid": "bafybeih5vicdja4prbknofmxzln67pu5vg2saifog4qonlknv43nmwxsea",
+      "objects": 10,
+      "bytes": 172353658,
+      "verifiedGateways": 0
     }
   ]
 }

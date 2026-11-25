@@ -560,6 +560,8 @@ const sourceRow = z.object({
   url: text,
   limits: text,
   state_updated_at: text.optional(),
+  /** ISO 8601 UTC, present from run 7 on. */
+  last_fetched_at_utc: text.optional(),
 });
 
 const manifestHead = z.object({ rootCid: z.string() }).partial();
@@ -611,7 +613,7 @@ export async function getAtlasDatasetInfo(store: Store): Promise<DatasetInfo> {
       name: s.name,
       url: s.url,
       rows: fetchedBySource.get(s.source_id) ?? null,
-      fetchedAt: s.state_updated_at ?? null,
+      fetchedAt: s.last_fetched_at_utc ?? s.state_updated_at ?? null,
       limits: s.limits,
     })),
     manifestCid,

@@ -119,6 +119,8 @@ const QUERY_TABLE_SQL = `
     o.out_of_area_basis,
     o.last_transfer_date,
     o.last_transfer_ambiguous,
+    o.last_transfer_confidence,
+    o.last_transfer_rule,
     o.owner_name,
     o.mail_city AS owner_mail_city,
     o.mail_state AS owner_mail_state,
@@ -144,12 +146,13 @@ const QUERY_TABLE_SQL = `
   ORDER BY floor(p.lat * 40), floor(p.lon * 40), p.apn`;
 
 const PERMITS_SQL = `
-  SELECT permit_uid, source_permit_id AS permit_id, jurisdiction, apn, apn_matched_property,
+  SELECT permit_uid, source_permit_id AS permit_id, alias_permit_id, jurisdiction, apn, apn_basis,
+         apn_matched_property,
          permit_type, permit_subtype, description, project_title,
          roofing_class, is_roofing, roofing_rule,
          status, status_group, is_open,
          applied_date, issued_date, effective_closed_date AS closed_date, closed_date_basis,
-         expire_date, open_since, valuation,
+         expire_date, open_since, days_pending, status_as_of, valuation,
          holder_name, address, city, zip,
          geo_lat AS lat, geo_lon AS lon, geo_basis,
          contractor_id, contractor_match_method, contractor_name, contractor_license_no,
@@ -279,6 +282,12 @@ export async function exportArtifacts(db: Db, publishRoot: string, asOf: string)
   ];
   const counts: Coverage['counts'] = [];
   for (const table of tables) counts.push({ table, rows: await tableCount(db, table) });
+  // `permit` holds every source row; duplicated ids (the same permit listed twice by a source) are
+  // reconciled in `permit_enriched`, which is what gets published.
+  counts.push({
+    table: 'permit (one row per permit, published)',
+    rows: await tableCount(db, 'permit_enriched'),
+  });
 
   const roofing = await db.one(
     z.object({
@@ -306,7 +315,7 @@ export async function exportArtifacts(db: Db, publishRoot: string, asOf: string)
 
   const permitSources = await db.query(
     z.object({ jurisdiction: z.string(), permits: z.coerce.number() }),
-    `SELECT jurisdiction, count(*) AS permits FROM permit GROUP BY 1 ORDER BY permits DESC`,
+    `SELECT jurisdiction, count(*) AS permits FROM permit_enriched GROUP BY 1 ORDER BY permits DESC`,
   );
 
   const coverage: Coverage = {
