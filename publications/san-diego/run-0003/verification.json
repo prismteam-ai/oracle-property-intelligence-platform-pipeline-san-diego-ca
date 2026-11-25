@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-25T17:52:38.920Z",
+  "checkedAt": "2026-11-25T19:31:04.785Z",
   "rootCid": "bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy",
   "gateways": [
     {
@@ -7,11 +7,11 @@
       "kind": "independent"
     },
     {
-      "url": "https://4everland.io",
+      "url": "https://ipfs.raribleuserdata.com",
       "kind": "independent"
     },
     {
-      "url": "https://storry.tv",
+      "url": "https://ipfs.hypha.coop",
       "kind": "independent"
     },
     {
@@ -21,6 +21,14 @@
     {
       "url": "https://ipfs.filebase.io",
       "kind": "pinning-vendor"
+    },
+    {
+      "url": "https://4everland.io",
+      "kind": "independent"
+    },
+    {
+      "url": "https://storry.tv",
+      "kind": "independent"
     },
     {
       "url": "https://ipfs.io",
@@ -34,7 +42,7 @@
   "results": [
     {
       "cid": "bafybeiajvcr7bm7cvd22rys6unpqoswnbencmqp6pgiq7gtf3bbsbp65b4",
-      "passed": 3,
+      "passed": 5,
       "required": 2,
       "verified": true,
       "checks": [
@@ -45,28 +53,28 @@
           "ok": true,
           "size": 29435300,
           "sha256": "b5e87e6350284ac4e6ead852590bf4a828486bcdef61c80371ecb8679ed998e7",
-          "ms": 6065,
+          "ms": 9848,
           "reason": null
         },
         {
-          "gateway": "https://4everland.io",
-          "url": "https://4everland.io/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/query-table.parquet",
-          "status": 504,
-          "ok": false,
-          "size": null,
-          "sha256": null,
-          "ms": 30243,
-          "reason": "HTTP 504"
+          "gateway": "https://ipfs.raribleuserdata.com",
+          "url": "https://ipfs.raribleuserdata.com/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/query-table.parquet",
+          "status": 200,
+          "ok": true,
+          "size": 29435300,
+          "sha256": "b5e87e6350284ac4e6ead852590bf4a828486bcdef61c80371ecb8679ed998e7",
+          "ms": 11156,
+          "reason": null
         },
         {
-          "gateway": "https://storry.tv",
-          "url": "https://storry.tv/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/query-table.parquet",
-          "status": 500,
-          "ok": false,
-          "size": null,
-          "sha256": null,
-          "ms": 359,
-          "reason": "HTTP 500"
+          "gateway": "https://ipfs.hypha.coop",
+          "url": "https://ipfs.hypha.coop/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/query-table.parquet",
+          "status": 200,
+          "ok": true,
+          "size": 29435300,
+          "sha256": "b5e87e6350284ac4e6ead852590bf4a828486bcdef61c80371ecb8679ed998e7",
+          "ms": 14551,
+          "reason": null
         },
         {
           "gateway": "https://gateway.pinata.cloud",
@@ -75,7 +83,7 @@
           "ok": true,
           "size": 29435300,
           "sha256": "b5e87e6350284ac4e6ead852590bf4a828486bcdef61c80371ecb8679ed998e7",
-          "ms": 8478,
+          "ms": 13278,
           "reason": null
         },
         {
@@ -85,8 +93,28 @@
           "ok": true,
           "size": 29435300,
           "sha256": "b5e87e6350284ac4e6ead852590bf4a828486bcdef61c80371ecb8679ed998e7",
-          "ms": 3235,
+          "ms": 6373,
           "reason": null
+        },
+        {
+          "gateway": "https://4everland.io",
+          "url": "https://4everland.io/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/query-table.parquet",
+          "status": 504,
+          "ok": false,
+          "size": null,
+          "sha256": null,
+          "ms": 30939,
+          "reason": "HTTP 504"
+        },
+        {
+          "gateway": "https://storry.tv",
+          "url": "https://storry.tv/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/query-table.parquet",
+          "status": 500,
+          "ok": false,
+          "size": null,
+          "sha256": null,
+          "ms": 490,
+          "reason": "HTTP 500"
         },
         {
           "gateway": "https://ipfs.io",
@@ -95,7 +123,7 @@
           "ok": false,
           "size": null,
           "sha256": null,
-          "ms": 108,
+          "ms": 179,
           "reason": "HTTP 429"
         },
         {
@@ -105,14 +133,14 @@
           "ok": false,
           "size": null,
           "sha256": null,
-          "ms": 109,
+          "ms": 192,
           "reason": "HTTP 429"
         }
       ]
     },
     {
       "cid": "bafybeicuxdubvjngaccfe6lgtllojetwld47mglkkppbflihrxwycrdwqu",
-      "passed": 3,
+      "passed": 5,
       "required": 2,
       "verified": true,
       "checks": [
@@ -123,28 +151,28 @@
           "ok": true,
           "size": 10194246,
           "sha256": "63ee0688883cc2478286fa7c5afd4886547b172d512d25f3be5e59d076b3156a",
-          "ms": 2229,
+          "ms": 4385,
           "reason": null
         },
         {
-          "gateway": "https://4everland.io",
-          "url": "https://4everland.io/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/contractors.parquet",
-          "status": 504,
-          "ok": false,
-          "size": null,
-          "sha256": null,
-          "ms": 30252,
-          "reason": "HTTP 504"
+          "gateway": "https://ipfs.raribleuserdata.com",
+          "url": "https://ipfs.raribleuserdata.com/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/contractors.parquet",
+          "status": 200,
+          "ok": true,
+          "size": 10194246,
+          "sha256": "63ee0688883cc2478286fa7c5afd4886547b172d512d25f3be5e59d076b3156a",
+          "ms": 2933,
+          "reason": null
         },
         {
-          "gateway": "https://storry.tv",
-          "url": "https://storry.tv/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/contractors.parquet",
-          "status": 500,
-          "ok": false,
-          "size": null,
-          "sha256": null,
-          "ms": 292,
-          "reason": "HTTP 500"
+          "gateway": "https://ipfs.hypha.coop",
+          "url": "https://ipfs.hypha.coop/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/contractors.parquet",
+          "status": 200,
+          "ok": true,
+          "size": 10194246,
+          "sha256": "63ee0688883cc2478286fa7c5afd4886547b172d512d25f3be5e59d076b3156a",
+          "ms": 3862,
+          "reason": null
         },
         {
           "gateway": "https://gateway.pinata.cloud",
@@ -153,7 +181,7 @@
           "ok": true,
           "size": 10194246,
           "sha256": "63ee0688883cc2478286fa7c5afd4886547b172d512d25f3be5e59d076b3156a",
-          "ms": 5714,
+          "ms": 7923,
           "reason": null
         },
         {
@@ -163,8 +191,28 @@
           "ok": true,
           "size": 10194246,
           "sha256": "63ee0688883cc2478286fa7c5afd4886547b172d512d25f3be5e59d076b3156a",
-          "ms": 1300,
+          "ms": 2433,
           "reason": null
+        },
+        {
+          "gateway": "https://4everland.io",
+          "url": "https://4everland.io/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/contractors.parquet",
+          "status": 504,
+          "ok": false,
+          "size": null,
+          "sha256": null,
+          "ms": 30257,
+          "reason": "HTTP 504"
+        },
+        {
+          "gateway": "https://storry.tv",
+          "url": "https://storry.tv/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/contractors.parquet",
+          "status": 500,
+          "ok": false,
+          "size": null,
+          "sha256": null,
+          "ms": 361,
+          "reason": "HTTP 500"
         },
         {
           "gateway": "https://ipfs.io",
@@ -173,7 +221,7 @@
           "ok": false,
           "size": null,
           "sha256": null,
-          "ms": 70,
+          "ms": 87,
           "reason": "HTTP 429"
         },
         {
@@ -183,14 +231,14 @@
           "ok": false,
           "size": null,
           "sha256": null,
-          "ms": 63,
+          "ms": 91,
           "reason": "HTTP 429"
         }
       ]
     },
     {
       "cid": "bafybeicehxt45sddxym76ma3aw56lj6zbgf6nv5g2niz5sx5si6a53dvea",
-      "passed": 3,
+      "passed": 5,
       "required": 2,
       "verified": true,
       "checks": [
@@ -201,28 +249,28 @@
           "ok": true,
           "size": 3151865,
           "sha256": "6cefffe8a4b5258afde1150a49898bc7cac04777c9ee7794890fca786d894812",
-          "ms": 1133,
+          "ms": 1315,
           "reason": null
         },
         {
-          "gateway": "https://4everland.io",
-          "url": "https://4everland.io/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/businesses.parquet",
-          "status": 504,
-          "ok": false,
-          "size": null,
-          "sha256": null,
-          "ms": 30261,
-          "reason": "HTTP 504"
+          "gateway": "https://ipfs.raribleuserdata.com",
+          "url": "https://ipfs.raribleuserdata.com/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/businesses.parquet",
+          "status": 200,
+          "ok": true,
+          "size": 3151865,
+          "sha256": "6cefffe8a4b5258afde1150a49898bc7cac04777c9ee7794890fca786d894812",
+          "ms": 999,
+          "reason": null
         },
         {
-          "gateway": "https://storry.tv",
-          "url": "https://storry.tv/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/businesses.parquet",
-          "status": 500,
-          "ok": false,
-          "size": null,
-          "sha256": null,
-          "ms": 331,
-          "reason": "HTTP 500"
+          "gateway": "https://ipfs.hypha.coop",
+          "url": "https://ipfs.hypha.coop/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/businesses.parquet",
+          "status": 200,
+          "ok": true,
+          "size": 3151865,
+          "sha256": "6cefffe8a4b5258afde1150a49898bc7cac04777c9ee7794890fca786d894812",
+          "ms": 1577,
+          "reason": null
         },
         {
           "gateway": "https://gateway.pinata.cloud",
@@ -231,7 +279,7 @@
           "ok": true,
           "size": 3151865,
           "sha256": "6cefffe8a4b5258afde1150a49898bc7cac04777c9ee7794890fca786d894812",
-          "ms": 4752,
+          "ms": 4831,
           "reason": null
         },
         {
@@ -241,8 +289,28 @@
           "ok": true,
           "size": 3151865,
           "sha256": "6cefffe8a4b5258afde1150a49898bc7cac04777c9ee7794890fca786d894812",
-          "ms": 652,
+          "ms": 743,
           "reason": null
+        },
+        {
+          "gateway": "https://4everland.io",
+          "url": "https://4everland.io/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/businesses.parquet",
+          "status": 504,
+          "ok": false,
+          "size": null,
+          "sha256": null,
+          "ms": 31003,
+          "reason": "HTTP 504"
+        },
+        {
+          "gateway": "https://storry.tv",
+          "url": "https://storry.tv/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/businesses.parquet",
+          "status": 500,
+          "ok": false,
+          "size": null,
+          "sha256": null,
+          "ms": 375,
+          "reason": "HTTP 500"
         },
         {
           "gateway": "https://ipfs.io",
@@ -251,7 +319,7 @@
           "ok": false,
           "size": null,
           "sha256": null,
-          "ms": 70,
+          "ms": 73,
           "reason": "HTTP 429"
         },
         {
@@ -261,14 +329,14 @@
           "ok": false,
           "size": null,
           "sha256": null,
-          "ms": 80,
+          "ms": 72,
           "reason": "HTTP 429"
         }
       ]
     },
     {
       "cid": "bafkreieu3ruqmovshmtwsnav3neigzia7dcrxppf66jm3j3tsxsyytdkdi",
-      "passed": 3,
+      "passed": 5,
       "required": 2,
       "verified": true,
       "checks": [
@@ -279,28 +347,28 @@
           "ok": true,
           "size": 4258,
           "sha256": "94dc69063ab23b27693415db48836500f8c51bbde5f792cda77395e58c4c6a1a",
-          "ms": 257,
+          "ms": 397,
           "reason": null
         },
         {
-          "gateway": "https://4everland.io",
-          "url": "https://4everland.io/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/places.parquet",
-          "status": 504,
-          "ok": false,
-          "size": null,
-          "sha256": null,
-          "ms": 30274,
-          "reason": "HTTP 504"
+          "gateway": "https://ipfs.raribleuserdata.com",
+          "url": "https://ipfs.raribleuserdata.com/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/places.parquet",
+          "status": 200,
+          "ok": true,
+          "size": 4258,
+          "sha256": "94dc69063ab23b27693415db48836500f8c51bbde5f792cda77395e58c4c6a1a",
+          "ms": 172,
+          "reason": null
         },
         {
-          "gateway": "https://storry.tv",
-          "url": "https://storry.tv/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/places.parquet",
-          "status": 500,
-          "ok": false,
-          "size": null,
-          "sha256": null,
-          "ms": 334,
-          "reason": "HTTP 500"
+          "gateway": "https://ipfs.hypha.coop",
+          "url": "https://ipfs.hypha.coop/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/places.parquet",
+          "status": 200,
+          "ok": true,
+          "size": 4258,
+          "sha256": "94dc69063ab23b27693415db48836500f8c51bbde5f792cda77395e58c4c6a1a",
+          "ms": 313,
+          "reason": null
         },
         {
           "gateway": "https://gateway.pinata.cloud",
@@ -309,7 +377,7 @@
           "ok": true,
           "size": 4258,
           "sha256": "94dc69063ab23b27693415db48836500f8c51bbde5f792cda77395e58c4c6a1a",
-          "ms": 7075,
+          "ms": 6407,
           "reason": null
         },
         {
@@ -319,8 +387,28 @@
           "ok": true,
           "size": 4258,
           "sha256": "94dc69063ab23b27693415db48836500f8c51bbde5f792cda77395e58c4c6a1a",
-          "ms": 169,
+          "ms": 183,
           "reason": null
+        },
+        {
+          "gateway": "https://4everland.io",
+          "url": "https://4everland.io/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/places.parquet",
+          "status": 504,
+          "ok": false,
+          "size": null,
+          "sha256": null,
+          "ms": 30279,
+          "reason": "HTTP 504"
+        },
+        {
+          "gateway": "https://storry.tv",
+          "url": "https://storry.tv/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/places.parquet",
+          "status": 500,
+          "ok": false,
+          "size": null,
+          "sha256": null,
+          "ms": 415,
+          "reason": "HTTP 500"
         },
         {
           "gateway": "https://ipfs.io",
@@ -329,7 +417,7 @@
           "ok": false,
           "size": null,
           "sha256": null,
-          "ms": 71,
+          "ms": 104,
           "reason": "HTTP 429"
         },
         {
@@ -339,14 +427,14 @@
           "ok": false,
           "size": null,
           "sha256": null,
-          "ms": 74,
+          "ms": 140,
           "reason": "HTTP 429"
         }
       ]
     },
     {
       "cid": "bafkreihl6rt6wv6h3spxmojfkvxkv6alep6mt4ru773xqbpabf2mkmxgma",
-      "passed": 3,
+      "passed": 5,
       "required": 2,
       "verified": true,
       "checks": [
@@ -357,28 +445,28 @@
           "ok": true,
           "size": 16127,
           "sha256": "ebf467eb57c7dc9f763925556eaaf80b23fcc9f234fff77805e00974c532e660",
-          "ms": 372,
+          "ms": 560,
           "reason": null
         },
         {
-          "gateway": "https://4everland.io",
-          "url": "https://4everland.io/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/run-history.json",
-          "status": 504,
-          "ok": false,
-          "size": null,
-          "sha256": null,
-          "ms": 30484,
-          "reason": "HTTP 504"
+          "gateway": "https://ipfs.raribleuserdata.com",
+          "url": "https://ipfs.raribleuserdata.com/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/run-history.json",
+          "status": 200,
+          "ok": true,
+          "size": 16127,
+          "sha256": "ebf467eb57c7dc9f763925556eaaf80b23fcc9f234fff77805e00974c532e660",
+          "ms": 308,
+          "reason": null
         },
         {
-          "gateway": "https://storry.tv",
-          "url": "https://storry.tv/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/run-history.json",
-          "status": 500,
-          "ok": false,
-          "size": null,
-          "sha256": null,
-          "ms": 360,
-          "reason": "HTTP 500"
+          "gateway": "https://ipfs.hypha.coop",
+          "url": "https://ipfs.hypha.coop/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/run-history.json",
+          "status": 200,
+          "ok": true,
+          "size": 16127,
+          "sha256": "ebf467eb57c7dc9f763925556eaaf80b23fcc9f234fff77805e00974c532e660",
+          "ms": 454,
+          "reason": null
         },
         {
           "gateway": "https://gateway.pinata.cloud",
@@ -387,7 +475,7 @@
           "ok": true,
           "size": 16127,
           "sha256": "ebf467eb57c7dc9f763925556eaaf80b23fcc9f234fff77805e00974c532e660",
-          "ms": 3576,
+          "ms": 3314,
           "reason": null
         },
         {
@@ -397,8 +485,28 @@
           "ok": true,
           "size": 16127,
           "sha256": "ebf467eb57c7dc9f763925556eaaf80b23fcc9f234fff77805e00974c532e660",
-          "ms": 199,
+          "ms": 301,
           "reason": null
+        },
+        {
+          "gateway": "https://4everland.io",
+          "url": "https://4everland.io/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/run-history.json",
+          "status": 504,
+          "ok": false,
+          "size": null,
+          "sha256": null,
+          "ms": 30396,
+          "reason": "HTTP 504"
+        },
+        {
+          "gateway": "https://storry.tv",
+          "url": "https://storry.tv/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/run-history.json",
+          "status": 500,
+          "ok": false,
+          "size": null,
+          "sha256": null,
+          "ms": 476,
+          "reason": "HTTP 500"
         },
         {
           "gateway": "https://ipfs.io",
@@ -407,7 +515,7 @@
           "ok": false,
           "size": null,
           "sha256": null,
-          "ms": 83,
+          "ms": 203,
           "reason": "HTTP 429"
         },
         {
@@ -417,14 +525,14 @@
           "ok": false,
           "size": null,
           "sha256": null,
-          "ms": 83,
+          "ms": 204,
           "reason": "HTTP 429"
         }
       ]
     },
     {
       "cid": "bafkreibzrtnjsc5bxuf2b2dwqqfzmy4zfu2sse72nk7556tknggrh22hme",
-      "passed": 3,
+      "passed": 5,
       "required": 2,
       "verified": true,
       "checks": [
@@ -435,28 +543,28 @@
           "ok": true,
           "size": 5071,
           "sha256": "398cda990ba1bd0ba0e876840b9663992d352913fa6abfdefa6a698d13eb4761",
-          "ms": 249,
+          "ms": 378,
           "reason": null
         },
         {
-          "gateway": "https://4everland.io",
-          "url": "https://4everland.io/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/sources.json",
-          "status": 504,
-          "ok": false,
-          "size": null,
-          "sha256": null,
-          "ms": 30232,
-          "reason": "HTTP 504"
+          "gateway": "https://ipfs.raribleuserdata.com",
+          "url": "https://ipfs.raribleuserdata.com/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/sources.json",
+          "status": 200,
+          "ok": true,
+          "size": 5071,
+          "sha256": "398cda990ba1bd0ba0e876840b9663992d352913fa6abfdefa6a698d13eb4761",
+          "ms": 184,
+          "reason": null
         },
         {
-          "gateway": "https://storry.tv",
-          "url": "https://storry.tv/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/sources.json",
-          "status": 500,
-          "ok": false,
-          "size": null,
-          "sha256": null,
-          "ms": 300,
-          "reason": "HTTP 500"
+          "gateway": "https://ipfs.hypha.coop",
+          "url": "https://ipfs.hypha.coop/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/sources.json",
+          "status": 200,
+          "ok": true,
+          "size": 5071,
+          "sha256": "398cda990ba1bd0ba0e876840b9663992d352913fa6abfdefa6a698d13eb4761",
+          "ms": 635,
+          "reason": null
         },
         {
           "gateway": "https://gateway.pinata.cloud",
@@ -465,7 +573,7 @@
           "ok": true,
           "size": 5071,
           "sha256": "398cda990ba1bd0ba0e876840b9663992d352913fa6abfdefa6a698d13eb4761",
-          "ms": 4119,
+          "ms": 4839,
           "reason": null
         },
         {
@@ -475,8 +583,28 @@
           "ok": true,
           "size": 5071,
           "sha256": "398cda990ba1bd0ba0e876840b9663992d352913fa6abfdefa6a698d13eb4761",
-          "ms": 171,
+          "ms": 191,
           "reason": null
+        },
+        {
+          "gateway": "https://4everland.io",
+          "url": "https://4everland.io/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/sources.json",
+          "status": 504,
+          "ok": false,
+          "size": null,
+          "sha256": null,
+          "ms": 30518,
+          "reason": "HTTP 504"
+        },
+        {
+          "gateway": "https://storry.tv",
+          "url": "https://storry.tv/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/sources.json",
+          "status": 500,
+          "ok": false,
+          "size": null,
+          "sha256": null,
+          "ms": 353,
+          "reason": "HTTP 500"
         },
         {
           "gateway": "https://ipfs.io",
@@ -485,7 +613,7 @@
           "ok": false,
           "size": null,
           "sha256": null,
-          "ms": 59,
+          "ms": 76,
           "reason": "HTTP 429"
         },
         {
@@ -495,14 +623,14 @@
           "ok": false,
           "size": null,
           "sha256": null,
-          "ms": 63,
+          "ms": 94,
           "reason": "HTTP 429"
         }
       ]
     },
     {
       "cid": "bafkreichkv2ldqi5abg347zeefq7v4tsbwmbwmxuears2luohorbr7tvm4",
-      "passed": 3,
+      "passed": 5,
       "required": 2,
       "verified": true,
       "checks": [
@@ -513,28 +641,28 @@
           "ok": true,
           "size": 3115,
           "sha256": "475574b1c11d004dbe7f242161faf2720d981b32f420232d2e8e3ba218fe7567",
-          "ms": 248,
+          "ms": 260,
           "reason": null
         },
         {
-          "gateway": "https://4everland.io",
-          "url": "https://4everland.io/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/coverage.json",
-          "status": 504,
-          "ok": false,
-          "size": null,
-          "sha256": null,
-          "ms": 30217,
-          "reason": "HTTP 504"
+          "gateway": "https://ipfs.raribleuserdata.com",
+          "url": "https://ipfs.raribleuserdata.com/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/coverage.json",
+          "status": 200,
+          "ok": true,
+          "size": 3115,
+          "sha256": "475574b1c11d004dbe7f242161faf2720d981b32f420232d2e8e3ba218fe7567",
+          "ms": 183,
+          "reason": null
         },
         {
-          "gateway": "https://storry.tv",
-          "url": "https://storry.tv/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/coverage.json",
-          "status": 500,
-          "ok": false,
-          "size": null,
-          "sha256": null,
-          "ms": 325,
-          "reason": "HTTP 500"
+          "gateway": "https://ipfs.hypha.coop",
+          "url": "https://ipfs.hypha.coop/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/coverage.json",
+          "status": 200,
+          "ok": true,
+          "size": 3115,
+          "sha256": "475574b1c11d004dbe7f242161faf2720d981b32f420232d2e8e3ba218fe7567",
+          "ms": 195,
+          "reason": null
         },
         {
           "gateway": "https://gateway.pinata.cloud",
@@ -543,7 +671,7 @@
           "ok": true,
           "size": 3115,
           "sha256": "475574b1c11d004dbe7f242161faf2720d981b32f420232d2e8e3ba218fe7567",
-          "ms": 5267,
+          "ms": 6198,
           "reason": null
         },
         {
@@ -553,8 +681,28 @@
           "ok": true,
           "size": 3115,
           "sha256": "475574b1c11d004dbe7f242161faf2720d981b32f420232d2e8e3ba218fe7567",
-          "ms": 174,
+          "ms": 153,
           "reason": null
+        },
+        {
+          "gateway": "https://4everland.io",
+          "url": "https://4everland.io/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/coverage.json",
+          "status": 504,
+          "ok": false,
+          "size": null,
+          "sha256": null,
+          "ms": 30284,
+          "reason": "HTTP 504"
+        },
+        {
+          "gateway": "https://storry.tv",
+          "url": "https://storry.tv/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/coverage.json",
+          "status": 500,
+          "ok": false,
+          "size": null,
+          "sha256": null,
+          "ms": 368,
+          "reason": "HTTP 500"
         },
         {
           "gateway": "https://ipfs.io",
@@ -563,7 +711,7 @@
           "ok": false,
           "size": null,
           "sha256": null,
-          "ms": 54,
+          "ms": 68,
           "reason": "HTTP 429"
         },
         {
@@ -580,7 +728,7 @@
     },
     {
       "cid": "bafkreibv7xbva5i5wh73cvndq7xqdysytsll6cz2ogm4k3ag7nd6nrp2cu",
-      "passed": 3,
+      "passed": 5,
       "required": 2,
       "verified": true,
       "checks": [
@@ -591,28 +739,28 @@
           "ok": true,
           "size": 128754,
           "sha256": "35fdc350751db1ffb155a387ef01e2589c96bf0b3a7199c56c06fb47e6c5fa15",
-          "ms": 157,
+          "ms": 302,
           "reason": null
         },
         {
-          "gateway": "https://4everland.io",
-          "url": "https://4everland.io/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/samples/long-open-roofing-permits.csv",
-          "status": 504,
-          "ok": false,
-          "size": null,
-          "sha256": null,
-          "ms": 30233,
-          "reason": "HTTP 504"
+          "gateway": "https://ipfs.raribleuserdata.com",
+          "url": "https://ipfs.raribleuserdata.com/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/samples/long-open-roofing-permits.csv",
+          "status": 200,
+          "ok": true,
+          "size": 128754,
+          "sha256": "35fdc350751db1ffb155a387ef01e2589c96bf0b3a7199c56c06fb47e6c5fa15",
+          "ms": 421,
+          "reason": null
         },
         {
-          "gateway": "https://storry.tv",
-          "url": "https://storry.tv/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/samples/long-open-roofing-permits.csv",
-          "status": 500,
-          "ok": false,
-          "size": null,
-          "sha256": null,
-          "ms": 345,
-          "reason": "HTTP 500"
+          "gateway": "https://ipfs.hypha.coop",
+          "url": "https://ipfs.hypha.coop/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/samples/long-open-roofing-permits.csv",
+          "status": 200,
+          "ok": true,
+          "size": 128754,
+          "sha256": "35fdc350751db1ffb155a387ef01e2589c96bf0b3a7199c56c06fb47e6c5fa15",
+          "ms": 657,
+          "reason": null
         },
         {
           "gateway": "https://gateway.pinata.cloud",
@@ -621,7 +769,7 @@
           "ok": true,
           "size": 128754,
           "sha256": "35fdc350751db1ffb155a387ef01e2589c96bf0b3a7199c56c06fb47e6c5fa15",
-          "ms": 4433,
+          "ms": 6920,
           "reason": null
         },
         {
@@ -631,8 +779,28 @@
           "ok": true,
           "size": 128754,
           "sha256": "35fdc350751db1ffb155a387ef01e2589c96bf0b3a7199c56c06fb47e6c5fa15",
-          "ms": 322,
+          "ms": 406,
           "reason": null
+        },
+        {
+          "gateway": "https://4everland.io",
+          "url": "https://4everland.io/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/samples/long-open-roofing-permits.csv",
+          "status": 504,
+          "ok": false,
+          "size": null,
+          "sha256": null,
+          "ms": 30560,
+          "reason": "HTTP 504"
+        },
+        {
+          "gateway": "https://storry.tv",
+          "url": "https://storry.tv/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/samples/long-open-roofing-permits.csv",
+          "status": 500,
+          "ok": false,
+          "size": null,
+          "sha256": null,
+          "ms": 507,
+          "reason": "HTTP 500"
         },
         {
           "gateway": "https://ipfs.io",
@@ -641,7 +809,7 @@
           "ok": false,
           "size": null,
           "sha256": null,
-          "ms": 95,
+          "ms": 193,
           "reason": "HTTP 429"
         },
         {
@@ -651,14 +819,14 @@
           "ok": false,
           "size": null,
           "sha256": null,
-          "ms": 89,
+          "ms": 213,
           "reason": "HTTP 429"
         }
       ]
     },
     {
       "cid": "bafkreiab3yaejmtu7qnmfhbgxa2f7aqyetwthrylxf3bwhyyax4g3pqtbe",
-      "passed": 3,
+      "passed": 5,
       "required": 2,
       "verified": true,
       "checks": [
@@ -669,28 +837,28 @@
           "ok": true,
           "size": 124482,
           "sha256": "01de0044b274fc1ac29c26b8345f821824ed33c70bb9761b1f1805f86dbe1309",
-          "ms": 292,
+          "ms": 195,
           "reason": null
         },
         {
-          "gateway": "https://4everland.io",
-          "url": "https://4everland.io/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/samples/aged-roofs-sample.csv",
-          "status": 504,
-          "ok": false,
-          "size": null,
-          "sha256": null,
-          "ms": 30337,
-          "reason": "HTTP 504"
+          "gateway": "https://ipfs.raribleuserdata.com",
+          "url": "https://ipfs.raribleuserdata.com/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/samples/aged-roofs-sample.csv",
+          "status": 200,
+          "ok": true,
+          "size": 124482,
+          "sha256": "01de0044b274fc1ac29c26b8345f821824ed33c70bb9761b1f1805f86dbe1309",
+          "ms": 338,
+          "reason": null
         },
         {
-          "gateway": "https://storry.tv",
-          "url": "https://storry.tv/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/samples/aged-roofs-sample.csv",
-          "status": 500,
-          "ok": false,
-          "size": null,
-          "sha256": null,
-          "ms": 310,
-          "reason": "HTTP 500"
+          "gateway": "https://ipfs.hypha.coop",
+          "url": "https://ipfs.hypha.coop/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/samples/aged-roofs-sample.csv",
+          "status": 200,
+          "ok": true,
+          "size": 124482,
+          "sha256": "01de0044b274fc1ac29c26b8345f821824ed33c70bb9761b1f1805f86dbe1309",
+          "ms": 760,
+          "reason": null
         },
         {
           "gateway": "https://gateway.pinata.cloud",
@@ -699,7 +867,7 @@
           "ok": true,
           "size": 124482,
           "sha256": "01de0044b274fc1ac29c26b8345f821824ed33c70bb9761b1f1805f86dbe1309",
-          "ms": 7407,
+          "ms": 6600,
           "reason": null
         },
         {
@@ -709,8 +877,28 @@
           "ok": true,
           "size": 124482,
           "sha256": "01de0044b274fc1ac29c26b8345f821824ed33c70bb9761b1f1805f86dbe1309",
-          "ms": 252,
+          "ms": 330,
           "reason": null
+        },
+        {
+          "gateway": "https://4everland.io",
+          "url": "https://4everland.io/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/samples/aged-roofs-sample.csv",
+          "status": 504,
+          "ok": false,
+          "size": null,
+          "sha256": null,
+          "ms": 30292,
+          "reason": "HTTP 504"
+        },
+        {
+          "gateway": "https://storry.tv",
+          "url": "https://storry.tv/ipfs/bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy/samples/aged-roofs-sample.csv",
+          "status": 500,
+          "ok": false,
+          "size": null,
+          "sha256": null,
+          "ms": 432,
+          "reason": "HTTP 500"
         },
         {
           "gateway": "https://ipfs.io",
@@ -719,7 +907,7 @@
           "ok": false,
           "size": null,
           "sha256": null,
-          "ms": 55,
+          "ms": 133,
           "reason": "HTTP 429"
         },
         {
@@ -729,7 +917,7 @@
           "ok": false,
           "size": null,
           "sha256": null,
-          "ms": 60,
+          "ms": 127,
           "reason": "HTTP 429"
         }
       ]
