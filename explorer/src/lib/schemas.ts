@@ -234,10 +234,27 @@ export const publicationSchema = z.object({
 });
 export type Publication = z.infer<typeof publicationSchema>;
 
+export const ipnsSchema = z.object({
+  name: z.string(),
+  label: z.string().nullish(),
+  resolvedCid: z.string().nullish(),
+  sequence: numOrNull.optional(),
+  updatedAt: z.string().nullish(),
+});
+export type Ipns = z.infer<typeof ipnsSchema>;
+
+export interface PublicationIndex {
+  runs: Publication[];
+  /** Null when the API does not report an IPNS name (older deployments). */
+  ipns: Ipns | null;
+}
+
 /** The history tool may answer with the index object or with the bare list of runs. */
 export const publicationHistorySchema = z.union([
-  z.array(publicationSchema),
-  z.object({ runs: z.array(publicationSchema) }).transform((v) => v.runs),
+  z.array(publicationSchema).transform((runs): PublicationIndex => ({ runs, ipns: null })),
+  z
+    .object({ runs: z.array(publicationSchema), ipns: ipnsSchema.nullish() })
+    .transform((v): PublicationIndex => ({ runs: v.runs, ipns: v.ipns ?? null })),
 ]);
 
 export const agentResponseSchema = z.object({

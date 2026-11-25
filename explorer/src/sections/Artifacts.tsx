@@ -5,6 +5,7 @@ import { fmtBytes, fmtInt, fmtTimestamp, shortCid } from '../lib/format';
 import { McpError } from '../lib/mcp';
 import {
   manifestSchema,
+  type Ipns,
   type Manifest,
   type ManifestObject,
   type Publication,
@@ -365,9 +366,6 @@ export function ManifestView({ manifest, deps }: { manifest: Manifest; deps?: Ch
           ) : (
             'None: this is the first publish.'
           )}
-        </Fact>
-        <Fact label="IPNS">
-          Not used. The root CID is the address; nothing mutable points at it.
         </Fact>
         <Fact label="Objects">{manifest.objects.length}</Fact>
       </dl>
@@ -772,6 +770,139 @@ export function PublicationHistory({
   );
 }
 
+/** Gateways asked to resolve the IPNS name: one independent, one pinning-vendor. */
+const IPNS_GATEWAYS = GATEWAYS.filter((g) =>
+  ['latam.orbitor.dev', 'ipfs.filebase.io'].includes(g.id),
+);
+
+export const ipnsUrl = (origin: string, name: string, path = PROBE_OBJECT): string =>
+  `${origin}/ipns/${name}/${path}`;
+
+type IpnsState =
+  { status: 'idle' } | { status: 'active'; checks: GatewayCheck[]; pending: string[] };
+
+/**
+ * The IPNS name and what it points at. IPNS is the one mutable part of the design, so the card
+ * says what it is, compares it with the served root, and can resolve it through public gateways.
+ */
+export function IpnsCard({
+  ipns,
+  manifest,
+  deps = {},
+}: {
+  ipns: Ipns | null;
+  manifest: Manifest | null;
+  deps?: CheckDeps;
+}) {
+  const [state, setState] = useState<IpnsState>({ status: 'idle' });
+  if (!ipns) {
+    return (
+      <p className="empty-line" data-testid="ipns-unused">
+        IPNS not used. Each run’s root CID is the address; nothing mutable points at it.
+      </p>
+    );
+  }
+  const probe = manifest?.objects.find((o) => o.name === PROBE_OBJECT) ?? null;
+  const pointsAtServed =
+    manifest && ipns.resolvedCid ? ipns.resolvedCid === manifest.rootCid : null;
+  const busy = state.status === 'active' && state.pending.length > 0;
+
+  const resolve = (): void => {
+    const expected: Expected = probe
+      ? { size: probe.size, sha256: probe.sha256 }
+      : { size: null, sha256: null };
+    setState({ status: 'active', checks: [], pending: IPNS_GATEWAYS.map((g) => g.id) });
+    for (const g of IPNS_GATEWAYS) {
+      void checkGateway(g.id, ipnsUrl(g.origin, ipns.name), expected, {
+        ...budgetFor(expected.size),
+        ...deps,
+      }).then((check) =>
+        setState((s) =>
+          s.status === 'active'
+            ? {
+                status: 'active',
+                checks: addResult(s.checks, check),
+                pending: s.pending.filter((id) => id !== check.gateway),
+              }
+            : s,
+        ),
+      );
+    }
+  };
+
+  return (
+    <div className="stack-tight" data-testid="ipns">
+      <p data-testid="ipns-explainer">
+        IPNS is a pointer to the latest snapshot; each run’s CID is the snapshot.
+      </p>
+      <dl className="kv">
+        <dt>IPNS name</dt>
+        <dd className="cid-row">
+          <code className="hash" data-testid="ipns-name">
+            {ipns.name}
+          </code>
+          <CopyButton value={ipns.name} label="Copy name" testId="copy-ipns-name" />
+        </dd>
+        <dt>Label</dt>
+        <dd data-testid="ipns-label">{ipns.label ?? <span className="muted">none</span>}</dd>
+        <dt>Resolved CID</dt>
+        <dd>
+          {ipns.resolvedCid ? (
+            <code className="hash" data-testid="ipns-resolved-cid">
+              {ipns.resolvedCid}
+            </code>
+          ) : (
+            <span className="muted">not reported</span>
+          )}
+        </dd>
+        <dt>Points at</dt>
+        <dd data-testid="ipns-points-at">
+          {pointsAtServed === null ? (
+            <span className="muted">cannot be compared: no served manifest or no resolved CID</span>
+          ) : pointsAtServed ? (
+            <span className="badge badge-ok">Points at the run being served</span>
+          ) : (
+            <span className="badge badge-danger">
+              Mismatch: the name does not point at the served root
+            </span>
+          )}
+        </dd>
+        <dt>Updated</dt>
+        <dd>
+          {ipns.updatedAt ? fmtTimestamp(ipns.updatedAt) : 'not recorded'}
+          {ipns.sequence !== null && ipns.sequence !== undefined
+            ? ` · sequence ${ipns.sequence}`
+            : ''}
+        </dd>
+      </dl>
+      <div className="row">
+        <button
+          type="button"
+          className="btn btn-small btn-primary"
+          data-testid="ipns-resolve"
+          disabled={busy}
+          onClick={resolve}
+        >
+          Resolve now
+        </button>
+        <span className="muted small">
+          Fetches <code>{PROBE_OBJECT}</code> through the name from {IPNS_GATEWAYS.length} public
+          gateways and compares it with the served manifest; each gets 12 s.
+        </span>
+      </div>
+      {busy ? <Loading label="Resolving the IPNS name through public gateways…" /> : null}
+      {state.status === 'active' ? (
+        <VerifyResults
+          checks={state.checks}
+          pending={state.pending}
+          testId="ipns-result"
+          needDigest={probe !== null && probe.sha256 !== null}
+        />
+      ) : null}
+    </div>
+  );
+}
+
 const isMissing = (error: Error, kind: 'tool_error' | 'tool_not_found'): boolean =>
   error instanceof McpError && error.kind === kind;
 
@@ -820,6 +951,17 @@ export default function Artifacts() {
           )
         ) : null}
         {served ? <ManifestView manifest={served} /> : null}
+      </Card>
+
+      <Card title="IPNS" testId="card-ipns">
+        {history.state.status === 'loading' ? (
+          <Loading label="Loading the IPNS record…" testId="ipns-loading" />
+        ) : (
+          <IpnsCard
+            ipns={history.state.status === 'ok' ? history.state.data.ipns : null}
+            manifest={served}
+          />
+        )}
       </Card>
 
       <Card title="Publication history" testId="card-publications">
@@ -889,7 +1031,7 @@ export default function Artifacts() {
           )
         ) : null}
         {history.state.status === 'ok' ? (
-          <PublicationHistory publications={history.state.data} manifest={served} />
+          <PublicationHistory publications={history.state.data.runs} manifest={served} />
         ) : null}
       </Card>
 

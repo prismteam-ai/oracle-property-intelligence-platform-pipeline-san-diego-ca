@@ -306,6 +306,27 @@ async function walk(viewport: (typeof VIEWPORTS)[number], dark: boolean): Promis
   );
   await fullShot(page, viewport, '04-artifacts-full');
 
+  if ((await page.getByTestId('ipns-resolve').count()) > 0) {
+    check(
+      /Points at the run being served/.test(
+        (await page.getByTestId('ipns-points-at').textContent()) ?? '',
+      ),
+      `[${tag}] IPNS ${await page.getByTestId('ipns-name').textContent()} points at the served root`,
+    );
+    await page.getByTestId('ipns-resolve').click();
+    await page
+      .locator('[data-testid="ipns-result"][data-complete="true"]')
+      .waitFor({ timeout: 30_000 });
+    const ipnsVerdict = (await page.getByTestId('ipns-result-summary').textContent()) ?? '';
+    check(
+      ipnsVerdict.startsWith('Verified'),
+      `[${tag}] IPNS resolves to the served bytes: ${ipnsVerdict}`,
+    );
+    await page.getByTestId('card-ipns').scrollIntoViewIfNeeded();
+    await shot(page, tag, '04-artifacts-ipns', false);
+  } else {
+    notes.push(`[${tag}] IPNS card: ${await page.getByTestId('card-ipns').textContent()}`);
+  }
   const artifactErrors = consoleErrors.slice(errorsBeforeArtifacts);
   check(
     artifactErrors.length === 0,

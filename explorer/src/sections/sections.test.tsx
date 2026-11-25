@@ -8,7 +8,12 @@ import type { AgentResponse, LeadRow, Manifest, PipelineRuns, Property } from '.
 import { clearResourceCache } from '../lib/useResource';
 import { SQL_EXAMPLES } from '../lib/sqlExamples';
 import AgentPanel, { retrievedCount } from './AgentPanel';
-import Artifacts, { ManifestView, PublicationHistory, RECORDED_PROBES } from './Artifacts';
+import Artifacts, {
+  IpnsCard,
+  ManifestView,
+  PublicationHistory,
+  RECORDED_PROBES,
+} from './Artifacts';
 import ExploreMap, {
   OUT_OF_AREA_NOTE,
   PropertyDetail,
@@ -878,6 +883,59 @@ describe('Artifacts', () => {
     expect(await screen.findByTestId('resolve-result-2-summary')).toHaveTextContent(
       'Resolves on 5 public gateways (3 independent, 2 pinning-vendor); no recorded digest',
     );
+  });
+
+  it('shows the IPNS pointer, compares it with the served root and resolves it', async () => {
+    const name = 'k51qzi5uqu5dh1gc755a3y657z3u4xk3v2ytqn82wjjbn9hzzavi7uzgsilcur';
+    const fetchImpl = vi.fn<typeof fetch>(async () => new Response(small));
+    render(
+      <IpnsCard
+        manifest={manifest}
+        deps={{ fetchImpl, digest }}
+        ipns={{
+          name,
+          label: 'oracle-query-table-san-diego',
+          resolvedCid: manifest.rootCid,
+          sequence: 2,
+          updatedAt: '2026-11-25T18:00:00.000Z',
+        }}
+      />,
+    );
+    expect(screen.getByTestId('ipns-name')).toHaveTextContent(name);
+    expect(screen.getByTestId('ipns-label')).toHaveTextContent('oracle-query-table-san-diego');
+    expect(screen.getByTestId('ipns-resolved-cid')).toHaveTextContent(manifest.rootCid);
+    expect(screen.getByTestId('ipns-explainer')).toHaveTextContent(
+      'IPNS is a pointer to the latest snapshot; each run’s CID is the snapshot.',
+    );
+    expect(screen.getByTestId('ipns-points-at')).toHaveTextContent(
+      'Points at the run being served',
+    );
+
+    await userEvent.click(screen.getByTestId('ipns-resolve'));
+    await waitFor(() =>
+      expect(screen.getByTestId('ipns-result-summary')).toHaveTextContent(
+        'Verified: bytes match the manifest on 2 public gateways (1 independent, 1 pinning-vendor).',
+      ),
+    );
+    expect(fetchImpl.mock.calls.map((c) => String(c[0])).sort()).toEqual([
+      `https://ipfs.filebase.io/ipns/${name}/coverage.json`,
+      `https://latam.orbitor.dev/ipns/${name}/coverage.json`,
+    ]);
+  });
+
+  it('flags an IPNS name that points somewhere else, and says "not used" when absent', () => {
+    const { unmount } = render(
+      <IpnsCard
+        manifest={manifest}
+        ipns={{ name: 'k51example', resolvedCid: 'bafybeisomethingelse' }}
+      />,
+    );
+    expect(screen.getByTestId('ipns-points-at')).toHaveTextContent(
+      'Mismatch: the name does not point at the served root',
+    );
+    unmount();
+    render(<IpnsCard manifest={manifest} ipns={null} />);
+    expect(screen.getByTestId('ipns-unused')).toHaveTextContent('IPNS not used');
   });
 
   it('handles "not published yet" and a history tool that does not exist yet', async () => {

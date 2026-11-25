@@ -18,7 +18,7 @@ import {
   type Manifest,
   type PipelineRuns,
   type Property,
-  type Publication,
+  type PublicationIndex,
   type QueryResult,
 } from './schemas';
 
@@ -57,7 +57,7 @@ export const getCoverage = (o?: RpcOptions): Promise<Coverage> =>
   typed(coverageSchema, 'getCoverage', {}, o);
 export const getManifest = (o?: RpcOptions): Promise<Manifest> =>
   typed(manifestSchema, 'getArtifactManifest', {}, o);
-export const getPublicationHistory = (o?: RpcOptions): Promise<Publication[]> =>
+export const getPublicationHistory = (o?: RpcOptions): Promise<PublicationIndex> =>
   typed(publicationHistorySchema, 'getPublicationHistory', {}, o);
 export const queryAtlas = (sql: string, o?: RpcOptions): Promise<QueryResult> =>
   typed(queryResultSchema, 'queryAtlas', { sql }, o);
