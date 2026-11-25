@@ -1,5 +1,12 @@
 {
   "countySlug": "san-diego",
+  "ipns": {
+    "name": "k51qzi5uqu5dh1gc755a3y657z3u4xk3v2ytqn82wjjbn9hzzavi7uzgsilcur",
+    "label": "oracle-query-table-san-diego",
+    "resolvedCid": "bafybeievgzncrw5djebyd3zcx2o5cd6guwamfk7l7qo7rfppxtznvmayhi",
+    "sequence": 1,
+    "updatedAt": "2026-11-25T19:40:16.426Z"
+  },
   "runs": [
     {
       "rootCid": "bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy",

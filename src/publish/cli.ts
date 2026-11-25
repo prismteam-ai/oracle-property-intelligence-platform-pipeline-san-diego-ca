@@ -2,7 +2,7 @@ import { parseArgs } from 'node:util';
 import { resolvePaths } from '../config.js';
 import { Db } from '../db.js';
 import { errorMessage } from '../log.js';
-import { FilebasePinner, PinataFilePinner, type Pinner } from './pin.js';
+import { FilebaseNames, FilebasePinner, PinataFilePinner, type Pinner } from './pin.js';
 import { publishRun, type FilePinner } from './publishRun.js';
 
 /**
@@ -45,6 +45,15 @@ async function main(): Promise<void> {
       repoPublications: 'publications',
       carPinners,
       filePinners,
+      ...(env['FILEBASE_ACCESS_KEY'] && env['FILEBASE_SECRET_KEY']
+        ? {
+            names: new FilebaseNames(
+              env['FILEBASE_ACCESS_KEY'],
+              env['FILEBASE_SECRET_KEY'],
+              env['FILEBASE_IPNS_LABEL'] ?? 'oracle-query-table-san-diego',
+            ),
+          }
+        : {}),
       verifyAttempts: Number(values['verify-attempts']),
       verifyWaitMs: Number(values['verify-wait-seconds']) * 1000,
       ...(mirrorBucket ? { mirror: { bucket: mirrorBucket, prefixRoot: 'san-diego' } } : {}),

@@ -70,6 +70,7 @@ A scheduled run is defined in [`.github/workflows/ingest.yml`](.github/workflows
 - The CAR and every CID are computed here, with the reference (Kubo) chunking, not by a vendor. Identity is the CID; URLs are locators.
 - **Filebase** imports the CAR and must report our root CID. **Pinata** receives the ten files individually and must report our ten file CIDs. Both did, for both runs.
 - Each run has a `manifest.json` (root CID, previous root CID, and for every object: CID, logical name, size, codec, SHA-256; pins; CAR name, size and digest) and a `verification.json`.
+- **IPNS:** the name `k51qzi5uqu5dh1gc755a3y657z3u4xk3v2ytqn82wjjbn9hzzavi7uzgsilcur` (label `oracle-query-table-san-diego`) points at the latest root, currently run 7's. It is a pointer only: the run index records the CID it resolved to, and the publish step moves it after each successful pin. It resolves through public gateways, for example `https://latam.orbitor.dev/ipns/<name>/coverage.json`.
 - Each publication names the previous root: run 7 points to run 6, run 6 to run 3. Earlier CIDs were not touched and still resolve.
 - `npm run verify:ipfs -- --manifest publications/san-diego/run-0007/manifest.json` needs no credentials: it fetches every object from public gateways and compares size and SHA-256.
 
@@ -144,11 +145,10 @@ Publishing keys (`FILEBASE_ACCESS_KEY`, `FILEBASE_SECRET_KEY`, `FILEBASE_BUCKET`
 - **The same permit can be listed twice by a source** (City "N" and "PMT-N"; county legacy "...1" and "...999"). 30,757 such pairs are reconciled to one permit, with the other id kept as an alias; 15 City pairs failed the date-or-parcel check and were left separate.
 - **Decades-open county permits** are probably permits never finalled in the record, not active jobs.
 - **Deletes are not tombstoned**: a record that disappears from a source keeps its last state, with `last_seen_run` showing when it was last present.
-- **No IPNS name.** The manifest chain (`previousRootCid`) and the run index give the history; an IPNS pointer is optional in the story and was left out.
 
 ## Kit deviations, each deliberate
 
-- No lexicon records, `elephant-cli`, Atlas PR or global IPNS: those belong to the county-onboarding route this exercise did not take (see "Shortest path"). The slug, query-table shape and gate, CAR, manifest fields and MCP tool names follow the conventions.
+- No lexicon records, `elephant-cli` or Atlas PR: those belong to the county-onboarding route this exercise did not take (see "Shortest path"). The slug, query-table shape and gate, CAR, manifest fields and MCP tool names follow the conventions.
 - The Filebase bucket is `oracle-open-data-san-diego-rv` in a personal account, not the organisation's `elephant-oracle-open-data-*`.
 - The loader is TypeScript end to end, per the engineering guidelines; no Python.
 - No custom API domain, PagerDuty service or Lexicon metric registration: those are tied to company accounts. Alarms go to an SNS topic.

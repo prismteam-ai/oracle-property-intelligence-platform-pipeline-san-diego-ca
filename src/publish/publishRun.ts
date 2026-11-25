@@ -7,7 +7,7 @@ import type { Db } from '../db.js';
 import { packDirectory, sha256File } from './car.js';
 import { COUNTY_SLUG, exportArtifacts } from './exportArtifacts.js';
 import { DEFAULT_GATEWAYS, verifyArtifact, type VerifyReport } from './gatewayVerify.js';
-import type { PinResult, Pinner } from './pin.js';
+import type { FilebaseNames, IpnsRecord, PinResult, Pinner } from './pin.js';
 
 export const MANIFEST_SCHEMA = 'oracle-artifact-manifest/1';
 
@@ -31,14 +31,25 @@ export interface Manifest {
   previousRootCid: string | null;
   objects: ManifestObject[];
   car: { name: string; size: number; sha256: string; rootCid: string };
-  ipns: null;
+  /** IPNS pointer as it stood for this run: the name and the CID it resolved to. */
+  ipns: IpnsRecord | null;
   origins: string[];
   pins: PinResult[];
   gatewayPattern: string;
 }
 
+const ipnsSchema = z.object({
+  name: z.string(),
+  label: z.string(),
+  resolvedCid: z.string(),
+  sequence: z.number(),
+  updatedAt: z.string(),
+});
+
 const indexSchema = z.object({
   countySlug: z.string(),
+  /** Current IPNS pointer. A pointer only: each run below keeps its own immutable root CID. */
+  ipns: ipnsSchema.nullish(),
   runs: z.array(
     z.object({
       runId: z.number(),
@@ -68,6 +79,8 @@ export interface PublishOptions {
   repoPublications: string;
   carPinners: Pinner[];
   filePinners: FilePinner[];
+  /** Optional IPNS name to move to each new root. */
+  names?: FilebaseNames;
   gateways?: readonly string[];
   /** Wait between verification rounds; fresh content takes time to reach public gateways. */
   verifyAttempts?: number;
@@ -146,6 +159,14 @@ export async function publishRun(options: PublishOptions): Promise<PublishResult
     log(`pin ${pinner.provider} (files): ${ok ? 'ok' : 'FAILED'} ${matched}/${packed.files.length}`);
   }
 
+  // Move the IPNS name only when the directory is pinned somewhere; otherwise it would point at
+  // content nobody serves.
+  const ipns =
+    options.names && pins.some((p) => p.ok && p.cid === packed.rootCid)
+      ? await options.names.point(packed.rootCid, options.now)
+      : null;
+  if (options.names) log(`ipns ${ipns ? `${ipns.name} -> ${ipns.resolvedCid}` : 'not updated'}`);
+
   const totalBytes = packed.files.reduce((sum, f) => sum + f.size, 0);
   const manifest: Manifest = {
     schema: MANIFEST_SCHEMA,
@@ -160,7 +181,7 @@ export async function publishRun(options: PublishOptions): Promise<PublishResult
       ...packed.files.map((f) => ({ ...f, codec: 'file' as const })),
     ],
     car: { name: carName, size: packed.car.size, sha256: packed.car.sha256, rootCid: packed.rootCid },
-    ipns: null,
+    ipns,
     origins: [],
     pins,
     gatewayPattern: 'https://<gateway>/ipfs/<cid>  (directory members: /ipfs/<rootCid>/<name>)',
@@ -220,6 +241,7 @@ export async function publishRun(options: PublishOptions): Promise<PublishResult
     verifiedGateways: verification.length === 0 ? 0 : Math.min(...verification.map((v) => v.passed)),
   };
   index.runs = [...index.runs.filter((r) => r.rootCid !== packed.rootCid), entry];
+  if (ipns) index.ipns = ipns;
   await mkdir(path.dirname(indexFile), { recursive: true });
   await writeFile(indexFile, `${JSON.stringify(index, null, 2)}\n`);
   await writeFile(path.join(exported.dir, 'publications-index.json'), `${JSON.stringify(index, null, 2)}\n`);

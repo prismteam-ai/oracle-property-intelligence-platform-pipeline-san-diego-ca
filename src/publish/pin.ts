@@ -164,3 +164,68 @@ export class PinataPinner implements Pinner {
     }
   }
 }
+
+export interface IpnsRecord {
+  /** IPNS name (the public key, k51...). A pointer; the CID is the snapshot. */
+  name: string;
+  label: string;
+  resolvedCid: string;
+  sequence: number;
+  updatedAt: string;
+}
+
+const nameResponse = z.object({
+  label: z.string(),
+  network_key: z.string(),
+  cid: z.string(),
+  sequence: z.number(),
+});
+
+/**
+ * Moves an IPNS name to a new root CID through Filebase's names API (creates it on first use).
+ * The name only says "latest"; every manifest still records the CID it resolved to for that run.
+ */
+export class FilebaseNames {
+  private readonly headers: Record<string, string>;
+
+  constructor(
+    accessKey: string,
+    secretKey: string,
+    private readonly label: string,
+  ) {
+    const token = Buffer.from(`${accessKey}:${secretKey}`).toString('base64');
+    this.headers = { authorization: `Bearer ${token}`, 'content-type': 'application/json' };
+  }
+
+  async point(cid: string, now: () => Date): Promise<IpnsRecord | null> {
+    const api = 'https://api.filebase.io/v1/names';
+    try {
+      let response = await fetch(`${api}/${this.label}`, {
+        method: 'PUT',
+        headers: this.headers,
+        body: JSON.stringify({ cid }),
+        signal: AbortSignal.timeout(60_000),
+      });
+      if (response.status === 404) {
+        response = await fetch(api, {
+          method: 'POST',
+          headers: this.headers,
+          body: JSON.stringify({ label: this.label, cid }),
+          signal: AbortSignal.timeout(60_000),
+        });
+      }
+      if (!response.ok) return null;
+      const record = nameResponse.parse(await response.json());
+      if (record.cid !== cid) return null;
+      return {
+        name: record.network_key,
+        label: record.label,
+        resolvedCid: record.cid,
+        sequence: record.sequence,
+        updatedAt: now().toISOString(),
+      };
+    } catch {
+      return null;
+    }
+  }
+}
