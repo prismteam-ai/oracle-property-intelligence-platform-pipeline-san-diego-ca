@@ -7,7 +7,7 @@ import {
   toNumber,
   truncate,
 } from '../normalize.js';
-import { classifyRoofing } from '../roofing.js';
+import { classifyPermitRoofing } from '../roofing.js';
 import type { StatusGroup } from './countySocrata.js';
 import { fetchSnapshotFiles, readCsv } from './shared.js';
 import type {
@@ -37,7 +37,9 @@ export function cityStatusGroup(status: string | null): StatusGroup {
   // "Approved Upon Final Payment" and "Review Phase Complete" are pre-issuance steps, not completion.
   if (/^(?:COMPLETED|CLOSED|FINAL CLOSED|FINALED)$/.test(s)) return 'completed';
   if (/^ISSUED|^INSPECT/.test(s)) return 'open';
-  return 'other';
+  // Everything else is a step before issuance: Created, Opened, Open, In Review, Pending Invoice
+  // Payment, Recheck Required and so on. Of 22,249 "Opened" records, 13 have an issue date.
+  return 'pending';
 }
 
 function dateField(
@@ -93,7 +95,7 @@ export const cityPermits: SourceAdapter = {
         const type = blankToNull(record['APPROVAL_TYPE']);
         const scope = blankToNull(record['APPROVAL_SCOPE']) ?? blankToNull(record['PROJECT_SCOPE']);
         const title = blankToNull(record['PROJECT_TITLE']);
-        const roofing = classifyRoofing(type, title, scope);
+        const roofing = classifyPermitRoofing(type, title, scope);
         const status = blankToNull(record['APPROVAL_STATUS']);
         const group = cityStatusGroup(status);
         const holder = blankToNull(record['APPROVAL_PERMIT_HOLDER']);

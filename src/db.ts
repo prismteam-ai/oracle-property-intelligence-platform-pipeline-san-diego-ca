@@ -106,11 +106,18 @@ const VIEWS: readonly string[] = [
           coalesce(p.closed_date, s.completed_date) AS effective_closed_date,
           CASE WHEN p.closed_date IS NOT NULL THEN 'source close date'
                WHEN s.completed_date IS NOT NULL THEN 'status history: last completed/finaled event' END AS closed_date_basis,
-          coalesce(p.issued_date, s.first_issued_date, p.applied_date) AS open_since,
-          CASE WHEN p.is_open
-                 THEN date_diff('day', coalesce(p.issued_date, s.first_issued_date, p.applied_date), current_date)
-               ELSE date_diff('day', coalesce(p.issued_date, s.first_issued_date, p.applied_date),
-                              coalesce(p.closed_date, s.completed_date, s.last_status_date)) END AS days_open,
+          -- open_since and days_open describe an issued permit; a pending application has neither.
+          CASE WHEN p.status_group IN ('pending', 'other') THEN NULL
+               ELSE coalesce(p.issued_date, s.first_issued_date, p.applied_date) END AS open_since,
+          CASE WHEN p.status_group = 'open'
+                 THEN date_diff('day', coalesce(p.issued_date, s.first_issued_date, p.applied_date),
+                                coalesce(p.status_as_of, current_date))
+               WHEN p.status_group IN ('completed', 'expired', 'cancelled')
+                 THEN date_diff('day', coalesce(p.issued_date, s.first_issued_date, p.applied_date),
+                                coalesce(p.closed_date, s.completed_date, s.last_status_date)) END AS days_open,
+          CASE WHEN p.status_group = 'pending'
+                 THEN date_diff('day', p.applied_date, coalesce(p.status_as_of, current_date)) END AS days_pending,
+          coalesce(p.status_as_of, current_date) AS open_as_of,
           coalesce(p.lat, pr.lat) AS geo_lat,
           coalesce(p.lon, pr.lon) AS geo_lon,
           CASE WHEN p.lat IS NOT NULL THEN 'permit coordinate' WHEN pr.lat IS NOT NULL THEN 'parcel centroid via APN' END AS geo_basis,

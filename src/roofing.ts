@@ -107,6 +107,42 @@ const ROOFING_CLASSES: ReadonlySet<RoofingClass> = new Set<RoofingClass>([
   'roof structural',
 ]);
 
+/**
+ * Approval types that are never roofing work, whatever their text says. The text of such a record
+ * describes a project or another permit, not work authorised by this record.
+ */
+const NON_ROOFING_TYPES: readonly { readonly name: string; readonly pattern: RegExp }[] = [
+  {
+    // "Construction Change to PTS 295778 ... changing from existing roof trusses to new prefabricated
+    // trusses": a revision to a permit that is already in the data. Counting it would count the roof twice
+    // and date it by the paperwork. The same goes for deferred submittals reviewed against a parent permit.
+    name: 'revision_of_another_permit',
+    pattern: /\bCONSTRUCTION CHANGE\b|\bDEFERRED DOCUMENT REVIEW\b/,
+  },
+  {
+    // Agreements, encroachments, right-of-way and traffic-control permits, land-use approvals, signs
+    // and demolition authorise something other than building a roof.
+    name: 'approval_type_not_building_work',
+    pattern:
+      /\bAGREEMENT\b|\bENCROACH\w*|\bRIGHT[- ]OF[- ]WAY\b|\bROW PERMIT\b|\bTRAFFIC CONTROL\b|\bDEVELOPMENT PERMIT\b|\bUSE PERMIT\b|\bZONING\b|\bVARIANCE\b|\bSIGN PERMIT\b|\bDEMOLITION\b|\bGRADING\b|\b(?:TENTATIVE|PARCEL|FINAL) MAP\b|\bEASEMENT\b/,
+  },
+];
+
+/**
+ * Classification for a permit record: the approval type is checked first, then the text rules.
+ * A non-roofing type that mentions a roof is classed `other` with the type rule recorded.
+ */
+export function classifyPermitRoofing(
+  permitType: string | null | undefined,
+  ...parts: readonly (string | null | undefined)[]
+): RoofingResult {
+  const byText = classifyRoofing(permitType, ...parts);
+  if (byText.rule === null) return byText;
+  const type = (permitType ?? '').toUpperCase();
+  const excluded = NON_ROOFING_TYPES.find((t) => t.pattern.test(type));
+  return excluded === undefined ? byText : { roofingClass: 'other', isRoofing: false, rule: excluded.name };
+}
+
 export function classifyRoofing(...parts: readonly (string | null | undefined)[]): RoofingResult {
   const text = parts
     .filter((p): p is string => typeof p === 'string' && p !== '')

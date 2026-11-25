@@ -140,22 +140,72 @@ describe('dates, coordinates and zips', () => {
   });
 });
 
-describe('status groups', () => {
-  it('groups county statuses', () => {
-    expect(countyStatusGroup('Completed')).toBe('completed');
-    expect(countyStatusGroup('Issued')).toBe('open');
-    expect(countyStatusGroup('Issued About to Expire')).toBe('open');
-    expect(countyStatusGroup('Issued Invalid Expired')).toBe('expired');
-    expect(countyStatusGroup('PC Expired')).toBe('expired');
-    expect(countyStatusGroup('Withdrawn')).toBe('cancelled');
-    expect(countyStatusGroup(null)).toBe('other');
+describe('status groups: every status value the sources use maps to one group', () => {
+  // Every distinct county status in the loaded data.
+  it.each([
+    ['Completed', 'completed'],
+    ['Issued', 'open'],
+    ['Issued About to Expire', 'open'],
+    ['Issued in Plan Change', 'open'],
+    ['Issued Expired', 'expired'],
+    ['Issued Invalid Expired', 'expired'],
+    ['PC Expired', 'expired'],
+    ['PC Invalid Expired', 'expired'],
+    ['Expired', 'expired'],
+    // "Open" is an open application (3 of 1,450 have an issue date), and PC is plan check.
+    ['Open', 'pending'],
+    ['PC About to Expire', 'pending'],
+    ['Withdrawn', 'cancelled'],
+    [null, 'other'],
+  ] as const)('county %s -> %s', (status, group) => {
+    expect(countyStatusGroup(status)).toBe(group);
   });
-  it('groups city statuses', () => {
-    expect(cityStatusGroup('Closed')).toBe('completed');
-    expect(cityStatusGroup('Final Closed')).toBe('completed');
-    expect(cityStatusGroup('Issued')).toBe('open');
-    expect(cityStatusGroup('Inspection Followup')).toBe('open');
-    expect(cityStatusGroup('Cancelled')).toBe('cancelled');
+
+  // Every distinct City of San Diego status in the loaded data.
+  it.each([
+    ['Completed', 'completed'],
+    ['Closed', 'completed'],
+    ['Final Closed', 'completed'],
+    ['Finaled', 'completed'],
+    ['Issued', 'open'],
+    ['Inspection Followup', 'open'],
+    ['Inspecting', 'open'],
+    ['Cancelled', 'cancelled'],
+    ['Canceled', 'cancelled'],
+    ['Cancelled Application Expired', 'cancelled'],
+    ['Cancelled Utilization Not Met', 'cancelled'],
+    ['Withdrawn', 'cancelled'],
+    ['Expired', 'expired'],
+    ['Application Expired', 'expired'],
+    // Reported from the live site: "Opened" (AGR-0003944, PMT-3329633) is an application, not an issued permit.
+    ['Opened', 'pending'],
+    ['Open', 'pending'],
+    ['Created', 'pending'],
+    ['Pending Invoice Payment', 'pending'],
+    ['Approved Upon Final Payment', 'pending'],
+    ['Recheck Required', 'pending'],
+    ['Invoice Paid', 'pending'],
+    ['All Fees Paid', 'pending'],
+    ['Application Pending Payment', 'pending'],
+    ['Agreement Processing', 'pending'],
+    ['In Review', 'pending'],
+    ['Resubmitted', 'pending'],
+    ['Hearing Scheduled', 'pending'],
+    ['Review Phase Complete', 'pending'],
+    ['Updates Required', 'pending'],
+    ['Revisions Required', 'pending'],
+    ['In Queue', 'pending'],
+    ['Ready for Issuance', 'pending'],
+    ['Pre-Screen', 'pending'],
+    ['In Progress', 'pending'],
+    ['Issuance Checklist Submitted', 'pending'],
+    ['Reviews Complete', 'pending'],
+    ['Issuance Pending', 'pending'],
+    ['Started', 'pending'],
+    ['Final Version Signed Off', 'pending'],
+    [null, 'other'],
+  ] as const)('city %s -> %s', (status, group) => {
+    expect(cityStatusGroup(status)).toBe(group);
   });
 });
 

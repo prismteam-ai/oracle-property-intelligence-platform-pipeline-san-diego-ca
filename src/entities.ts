@@ -237,7 +237,7 @@ function buildEntities(today: string) {
       is_roofing: f.bool,
       roofing_rule: f.text,
       status: f.text,
-      status_group: z.enum(['open', 'completed', 'expired', 'cancelled', 'other']),
+      status_group: z.enum(['open', 'pending', 'completed', 'expired', 'cancelled', 'other']),
       is_open: f.bool,
       applied_date: f.eventDate,
       issued_date: f.eventDate,

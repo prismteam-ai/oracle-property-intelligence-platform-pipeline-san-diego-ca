@@ -56,7 +56,7 @@ export function carlsbadStatusGroup(status: string | null): StatusGroup {
   if (s === 'CLOSED - EXPIRED') return 'expired';
   if (s.startsWith('CLOSED')) return 'cancelled'; // withdrawn, denied, revoked, error
   if (s.startsWith('ISSUED')) return 'open';
-  return 'other'; // pending, under review, approved but not yet issued
+  return 'pending'; // pending, under review, approved but not yet issued
 }
 
 function pageUrl(startExclusive: number): string {

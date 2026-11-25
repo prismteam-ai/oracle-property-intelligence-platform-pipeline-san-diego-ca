@@ -10,7 +10,7 @@ import {
   truncate,
   zip5,
 } from '../normalize.js';
-import { classifyRoofing } from '../roofing.js';
+import { classifyPermitRoofing } from '../roofing.js';
 import { fetchSocrata, readSocrataPages, str } from './shared.js';
 import type {
   FetchContext,
@@ -30,17 +30,29 @@ const LIMITS =
 
 export const COUNTY_PERMIT_PREFIX = 'sdcounty:';
 
-export type StatusGroup = 'open' | 'completed' | 'expired' | 'cancelled' | 'other';
+/**
+ * One meaning per group, the same in every source:
+ *  - `open`      issued, work not finalled. The only group with `is_open = true`.
+ *  - `pending`   applied for but not yet issued (in review, awaiting payment, plan check).
+ *  - `completed` finalled or closed.
+ *  - `expired`   lapsed without a final.
+ *  - `cancelled` cancelled, withdrawn, denied, void or revoked.
+ *  - `other`     the source gave no status.
+ */
+export type StatusGroup = 'open' | 'pending' | 'completed' | 'expired' | 'cancelled' | 'other';
 
-/** County (Accela) record statuses, grouped. "Expired" permits were issued but never finalled. */
+/**
+ * County (Accela) record statuses, grouped. "Open" here means the application is open: only 3 of
+ * 1,450 such records have an issue date, so it is `pending`, as is "PC About to Expire" (plan check).
+ */
 export function countyStatusGroup(status: string | null): StatusGroup {
   const s = (status ?? '').toUpperCase();
   if (s === '') return 'other';
   if (s === 'COMPLETED' || s === 'DONE') return 'completed';
   if (s.includes('EXPIRED') || s === 'EXPR') return 'expired';
   if (/VOID|WITHDRAWN|CANCEL|CNCL|REVOKED/.test(s)) return 'cancelled';
-  if (s.startsWith('ISSUED') || s === 'OPEN' || s.includes('ABOUT TO EXPIRE')) return 'open';
-  return 'other';
+  if (s.startsWith('ISSUED')) return 'open';
+  return 'pending';
 }
 
 const Point = z.object({ type: z.literal('Point'), coordinates: z.tuple([z.number(), z.number()]) });
@@ -124,7 +136,7 @@ export const countyPermits: SourceAdapter = socrataAdapter(
     const description = blankToNull(str(record, 'use'));
     const scope = blankToNull(str(record, 'primary_scope_code'));
     const category = blankToNull(str(record, 'record_category'));
-    const roofing = classifyRoofing(scope, description);
+    const roofing = classifyPermitRoofing(category, scope, description);
     const status = blankToNull(str(record, 'record_status'));
     const group = countyStatusGroup(status);
     const holder = blankToNull(str(record, 'contractor_name'));

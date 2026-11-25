@@ -447,6 +447,42 @@ describe('full load, then idempotent re-run', () => {
     });
   });
 
+  it('keeps status_group, is_open, open_since and days_open consistent for every permit', async () => {
+    await withDb(ws, async (db) => {
+      const count = async (where: string): Promise<number> =>
+        (await db.one(N, `SELECT count(*) AS n FROM permit_enriched WHERE ${where}`)).n;
+      // is_open means exactly one thing: issued and not finalled.
+      expect(await count("is_open <> (status_group = 'open')")).toBe(0);
+      // A pending application (the fixture has real "Opened", "Created" and "Open" rows) is not open
+      // and has no open duration; it has a pending duration instead.
+      expect(await count("status_group = 'pending'")).toBeGreaterThan(0);
+      expect(
+        await count(
+          "status_group IN ('pending', 'other') AND (open_since IS NOT NULL OR days_open IS NOT NULL)",
+        ),
+      ).toBe(0);
+      expect(await count("status_group <> 'pending' AND days_pending IS NOT NULL")).toBe(0);
+      expect(
+        await count("status_group = 'pending' AND applied_date IS NOT NULL AND days_pending IS NULL"),
+      ).toBe(0);
+      // Every open permit has a start and a non-negative duration.
+      expect(await count('is_open AND open_since IS NOT NULL AND days_open IS NULL')).toBe(0);
+      expect(await count('days_open < 0 AND is_open')).toBe(0);
+      // A frozen snapshot measures "open for" up to its snapshot date, not up to today.
+      expect(
+        await count("source_id = 'carlsbad_permits' AND is_open AND open_as_of <> DATE '2024-01-14'"),
+      ).toBe(0);
+      expect(await count("source_id = 'carlsbad_permits' AND is_open AND days_open > 745")).toBe(0);
+      expect(await count("source_id <> 'carlsbad_permits' AND open_as_of <> current_date")).toBe(0);
+      const Group = z.object({ status_group: z.string() });
+      const groups = (await db.query(Group, 'SELECT DISTINCT status_group FROM permit')).map(
+        (g) => g.status_group,
+      );
+      for (const g of groups)
+        expect(['open', 'pending', 'completed', 'expired', 'cancelled', 'other']).toContain(g);
+    });
+  });
+
   it('reconciles permits to parcels on APN and contractors on licence number', async () => {
     await withDb(ws, async (db) => {
       const { n: matched } = await db.one(

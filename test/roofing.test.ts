@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { carlsbadStatusGroup } from '../src/adapters/carlsbadPermits.js';
-import { ROOFING_RULES, classifyRoofing, type RoofingClass } from '../src/roofing.js';
+import { ROOFING_RULES, classifyPermitRoofing, classifyRoofing, type RoofingClass } from '../src/roofing.js';
 
 /**
  * Every description below is real permit text recorded from the City of San Diego approvals files or
@@ -311,7 +311,107 @@ describe('classifyRoofing on real Carlsbad permit descriptions', () => {
     expect(carlsbadStatusGroup('Closed - Expired')).toBe('expired');
     expect(carlsbadStatusGroup('Closed - Withdrawn')).toBe('cancelled');
     expect(carlsbadStatusGroup('Closed - Error')).toBe('cancelled');
-    expect(carlsbadStatusGroup('Under Review - Active')).toBe('other');
-    expect(carlsbadStatusGroup('Approved - Ready to Issue')).toBe('other');
+    expect(carlsbadStatusGroup('Under Review - Active')).toBe('pending');
+    expect(carlsbadStatusGroup('Approved - Ready to Issue')).toBe('pending');
+  });
+});
+
+/**
+ * Real City of San Diego rows where the text mentions roof work but the record is not a roofing permit.
+ * Each tuple is [approval type, project title, scope, expected rule].
+ */
+const NOT_BUILDING_WORK: readonly (readonly [string, string, string, string])[] = [
+  // Reported from the live site: a revision note on another permit (approval 1101363, 624 Bonair Pl).
+  [
+    'Construction Change - Building',
+    'Const. Change to PTS 295778',
+    'Construction Change to PTS 295778, Approval Number: 1036523. Changes to include changing from existing roof trusses to new prefabricated trusses.',
+    'revision_of_another_permit',
+  ],
+  [
+    'Construction Change - Building',
+    'Const. Chg. to Project 634429',
+    'Construction change to project 634429, approval 2278014 - (Delta 1) revision to show roof framing at interior remodel',
+    'revision_of_another_permit',
+  ],
+  // An agreement record that inherits its project's scope text (AGR-0001970, AGR-0003729).
+  [
+    'Approval - Process - Agreement',
+    'Rapid Review-Standard-Building Construction:5265/Arlene',
+    'CLAIREMONT MESA: Combination building permit for existing one story SDU. Scope of work includes addition and convert an existing bedroom into a new Junior Accessory dwelling unit adding new bathroom, new kitchen, non-bearing walls, new doors and windows and re-roofing a section in the existing SDU..',
+    'approval_type_not_building_work',
+  ],
+  [
+    'Approval - Process - Agreement',
+    'General-Express-Building Construction:2314/Harrison',
+    'SOUTHEASTERN SAN DIEGO. Building, mechanical, plumbing & electrical permits to remove parapet, replace damaged northeast wall, replace damaged roof trusses & (N) MPE work at existing commercial building.',
+    'approval_type_not_building_work',
+  ],
+  // A sidewalk closure so that someone else can fix a roof (approvals 1390716, 1607046).
+  [
+    'ROW Permit-Traffic Control',
+    'Traffic control permit 65933',
+    'Traffic Control Permit for parking lane closure and sidewalk closure for reroofing. Start Date: 11/17/2014 End Date: 11/25/2014',
+    'approval_type_not_building_work',
+  ],
+  [
+    'ROW Permit-Traffic Control',
+    'Traffic Control Permit 69249',
+    'Traffic Control Permit for: Parking Lane closure to assist with roof repair. Work only on 12/7 and 12/14 2015',
+    'approval_type_not_building_work',
+  ],
+  // The approval type reported from the live site (629 J St, 2005), with a roof-structure scope.
+  [
+    'Encroachment Agreement',
+    'EMRA',
+    'EMRA for subterranean parking structure under ROW and extended Roof Structure.',
+    'approval_type_not_building_work',
+  ],
+];
+
+describe('classifyPermitRoofing: the approval type is checked before the text', () => {
+  it.each(NOT_BUILDING_WORK)('%s / %s is not roofing work', (type, title, scope, expectedRule) => {
+    // The text alone would have said roofing: that was the defect.
+    expect(classifyRoofing(type, title, scope).isRoofing).toBe(true);
+    expect(classifyPermitRoofing(type, title, scope)).toEqual({
+      roofingClass: 'other',
+      isRoofing: false,
+      rule: expectedRule,
+    });
+  });
+
+  it('leaves real building permits exactly as the text rules class them', () => {
+    const cases: readonly (readonly [string, string, string])[] = [
+      [
+        'Combination Building Permit',
+        'Ruiz Roof Replacement',
+        'Roof replacement at an existing single family residence.',
+      ],
+      [
+        'Building Permit',
+        'Modernaire Apts Roof Repair',
+        'No Plan building permit for roof repair at several apartment buildings.',
+      ],
+      [
+        'Combination Building Permit',
+        'Cole Roof Structure',
+        'REDO EXISTING FLAT ROOF TO PITCHED ROOF 1357SF',
+      ],
+      ['Residential Alteration-Addn', '', 'CROSS STREET: DURGIN DESCRIPTION OF WORK: REROOF'],
+    ];
+    for (const [type, title, scope] of cases) {
+      expect(classifyPermitRoofing(type, title, scope)).toEqual(classifyRoofing(type, title, scope));
+      expect(classifyPermitRoofing(type, title, scope).isRoofing).toBe(true);
+    }
+  });
+
+  it('does not invent a rule for a non-roofing type that never mentions a roof', () => {
+    expect(
+      classifyPermitRoofing('Encroachment Agreement', 'Sidewalk cafe', 'Outdoor dining railing'),
+    ).toEqual({
+      roofingClass: 'other',
+      isRoofing: false,
+      rule: null,
+    });
   });
 });
