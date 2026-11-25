@@ -12,13 +12,17 @@ import {
 import { useResource } from '../lib/useResource';
 import {
   GATEWAYS,
+  KIND_LABEL,
   LARGE_OBJECT_BYTES,
   OUTCOME_LABEL,
   checkGateway,
   gatewayUrl,
+  kindOf,
   summarize,
+  verdict,
   type CheckDeps,
   type Expected,
+  type Gateway,
   type GatewayCheck,
 } from '../lib/verify';
 
@@ -35,19 +39,28 @@ const outcomeClass = (check: GatewayCheck): string =>
       ? 'badge-danger'
       : 'badge-warn';
 
+const HTTP_GATEWAYS = GATEWAYS.filter((g) => g.servesHttp);
+
 const yesNo = (value: boolean | null): string => (value === null ? 'n/a' : value ? 'yes' : 'NO');
 
-/** Runs the same object through every listed gateway at once. */
-export function verifyEverywhere(
+/**
+ * Runs the same object through every listed gateway: all at once for small objects, one after
+ * another for large ones so only one copy is held in memory at a time.
+ */
+export async function verifyEverywhere(
   rootCid: string,
   name: string,
   expected: Expected,
   deps: CheckDeps = {},
-  gateways = GATEWAYS,
+  gateways: readonly Gateway[] = GATEWAYS,
+  sequential = false,
 ): Promise<GatewayCheck[]> {
-  return Promise.all(
-    gateways.map((g) => checkGateway(g.id, gatewayUrl(g.origin, rootCid, name), expected, deps)),
-  );
+  const one = (g: Gateway): Promise<GatewayCheck> =>
+    checkGateway(g.id, gatewayUrl(g.origin, rootCid, name), expected, deps);
+  if (!sequential) return Promise.all(gateways.map(one));
+  const out: GatewayCheck[] = [];
+  for (const g of gateways) out.push(await one(g));
+  return out;
 }
 
 export function VerifyResults({
@@ -59,23 +72,15 @@ export function VerifyResults({
   testId: string;
   needDigest?: boolean;
 }) {
-  const summary = summarize(checks);
-  const resolved = checks.filter((c) => c.outcome === 'resolved').length;
-  const good = needDigest ? summary.matched : summary.matched + resolved;
+  const summary = summarize(checks, needDigest);
   return (
     <div className="verify" data-testid={testId}>
       <p
-        className={`verify-summary ${good >= 2 ? 'is-ok' : 'is-bad'}`}
+        className={`verify-summary ${summary.verified ? 'is-ok' : 'is-bad'}`}
         data-testid={`${testId}-summary`}
         role="status"
       >
-        {needDigest
-          ? good >= 2
-            ? `Verified: ${good} independent public gateways returned bytes whose size and SHA-256 equal the manifest.`
-            : `Not verified: only ${good} of ${checks.length} gateways returned matching bytes.`
-          : good >= 2
-            ? `Resolves: ${good} independent public gateways still serve this CID.`
-            : `Only ${good} of ${checks.length} gateways served this CID.`}
+        {verdict(checks, needDigest)}
       </p>
       <div className="table-scroll" tabIndex={0} role="group" aria-label="Per-gateway results">
         <table className="mini-table">
@@ -83,6 +88,7 @@ export function VerifyResults({
           <thead>
             <tr>
               <th scope="col">Gateway</th>
+              <th scope="col">Kind</th>
               <th scope="col">Result</th>
               <th scope="col" className="num">
                 HTTP
@@ -104,6 +110,7 @@ export function VerifyResults({
                 <td>
                   <ExternalLink href={c.url}>{c.gateway}</ExternalLink>
                 </td>
+                <td data-testid={`${testId}-${c.gateway}-kind`}>{KIND_LABEL[kindOf(c.gateway)]}</td>
                 <td>
                   <span className={`badge ${outcomeClass(c)}`}>{OUTCOME_LABEL[c.outcome]}</span>
                 </td>
@@ -116,7 +123,7 @@ export function VerifyResults({
                   {c.detail}
                   {c.outcome !== 'match' &&
                   c.outcome !== 'resolved' &&
-                  GATEWAYS.find((g) => g.id === c.gateway)?.servesHttp === false
+                  kindOf(c.gateway) === 'browser'
                     ? ' Expected here: this gateway refuses scripted requests and serves only through its in-browser service worker, so open the link in a tab instead.'
                     : ''}
                   {c.sha256 ? (
@@ -160,8 +167,8 @@ function ObjectRow({
 
   const run = (): void => {
     setState({ status: 'running', bytes: 0 });
-    // Large objects go to the gateways that serve plain HTTP only; the others would just say 429.
-    const gateways = large ? GATEWAYS.filter((g) => g.servesHttp) : GATEWAYS;
+    // Large objects skip the browser-only gateways (they would only say 429) and go one by one.
+    const gateways = large ? HTTP_GATEWAYS : GATEWAYS;
     void verifyEverywhere(
       rootCid,
       object.name,
@@ -174,6 +181,7 @@ function ObjectRow({
           ),
       },
       gateways,
+      large,
     ).then((checks) => setState({ status: 'done', checks }));
   };
   const runRef = useRef(run);
@@ -204,7 +212,8 @@ function ObjectRow({
               disabled={state.status === 'running'}
               onClick={run}
             >
-              Download and verify in full ({fmtBytes(object.size)} × 3 gateways)
+              Download and verify in full ({fmtBytes(object.size)} × {HTTP_GATEWAYS.length}{' '}
+              gateways)
             </button>
           ) : (
             <button
@@ -250,14 +259,14 @@ function ObjectRow({
       </dl>
       {large && state.status === 'idle' ? (
         <p className="notice notice-warn small" data-testid={`large-warning-${id}`}>
-          This object is {fmtBytes(object.size)}. A full check downloads it from three gateways and
-          hashes it in this tab, so it is not run automatically. Use the button above if you want
-          it.
+          This object is {fmtBytes(object.size)}. A full check downloads it from{' '}
+          {HTTP_GATEWAYS.length} gateways, one after another, and hashes it in this tab, so it is
+          not run automatically. Use the button above if you want it.
         </p>
       ) : null}
       {state.status === 'running' ? (
         <Loading
-          label={`Fetching from ${large ? 3 : GATEWAYS.length} public gateways and hashing in the browser…${
+          label={`Fetching from ${large ? HTTP_GATEWAYS.length : GATEWAYS.length} public gateways and hashing in the browser…${
             state.bytes > 0 ? ` ${fmtBytes(state.bytes)} read so far.` : ''
           }`}
           testId={`verify-loading-${id}`}
@@ -415,17 +424,24 @@ export function ManifestView({ manifest, deps }: { manifest: Manifest; deps?: Ch
   );
 }
 
+const KIND_BADGE: Record<Gateway['kind'], string> = {
+  independent: 'badge-ok',
+  vendor: 'badge-permit',
+  browser: 'badge-warn',
+};
+
 function GatewayList() {
   return (
     <ul className="source-list" data-testid="gateway-list">
       {GATEWAYS.map((g) => (
-        <li key={g.id} className="source-item">
+        <li key={g.id} className="source-item" data-testid={`gateway-${g.id}`}>
           <div className="source-title">
             <strong>{g.id}</strong>
-            <span className={`badge ${g.servesHttp ? 'badge-ok' : 'badge-warn'}`}>
+            <span className={`badge ${KIND_BADGE[g.kind]}`}>{KIND_LABEL[g.kind]}</span>
+            <span className="muted small">
               {g.servesHttp
-                ? 'Serves plain HTTP; sends CORS headers'
-                : 'Service worker only (HTTP 429 to scripts)'}
+                ? 'public, anonymous; a script can read the bytes when the gateway has the content'
+                : 'HTTP 429 to scripts; content only through its service worker'}
             </span>
           </div>
           {g.note ? <p className="small muted">{g.note}</p> : null}
@@ -434,6 +450,21 @@ function GatewayList() {
     </ul>
   );
 }
+
+/**
+ * Digests of the probe object for runs whose manifest the API no longer serves, copied from the
+ * manifest kept in the pipeline repository. Used only when neither the served manifest nor a
+ * pinned manifest CID can supply the value.
+ */
+export const RECORDED_PROBES: Readonly<
+  Record<string, { size: number; sha256: string; recordedIn: string }>
+> = {
+  bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy: {
+    size: 3115,
+    sha256: '475574b1c11d004dbe7f242161faf2720d981b32f420232d2e8e3ba218fe7567',
+    recordedIn: 'publications/san-diego/run-0003/manifest.json',
+  },
+};
 
 /** Finds what the older run's manifest says about the probe object, if that manifest is pinned. */
 async function expectedFromOldManifest(
@@ -464,7 +495,7 @@ async function expectedFromOldManifest(
 type ProbeState =
   | { status: 'idle' }
   | { status: 'running' }
-  | { status: 'done'; checks: GatewayCheck[]; hadDigest: boolean };
+  | { status: 'done'; checks: GatewayCheck[]; expected: Expected; basis: string };
 
 function PublicationRow({
   publication,
@@ -483,11 +514,24 @@ function PublicationRow({
   const probe = async (): Promise<void> => {
     setState({ status: 'running' });
     const fromServed = served ? manifest?.objects.find((o) => o.name === PROBE_OBJECT) : undefined;
-    const expected: Expected = fromServed
-      ? { size: fromServed.size, sha256: fromServed.sha256 }
-      : await expectedFromOldManifest(publication.manifestCid, deps);
+    const recorded = RECORDED_PROBES[publication.rootCid];
+    let expected: Expected = { size: null, sha256: null };
+    let basis = 'No digest is recorded for this run, so this shows reachability only.';
+    if (fromServed) {
+      expected = { size: fromServed.size, sha256: fromServed.sha256 };
+      basis = 'Compared with the size and SHA-256 in the manifest the API serves for this run.';
+    } else {
+      const pinned = await expectedFromOldManifest(publication.manifestCid, deps);
+      if (pinned.sha256 !== null) {
+        expected = pinned;
+        basis = `Compared with the size and SHA-256 in that run’s own manifest, fetched by its CID (${publication.manifestCid ?? ''}).`;
+      } else if (recorded) {
+        expected = { size: recorded.size, sha256: recorded.sha256 };
+        basis = `The API does not serve this older run’s manifest, so the digest is compared with the value recorded in the repository at ${recorded.recordedIn}.`;
+      }
+    }
     const checks = await verifyEverywhere(publication.rootCid, PROBE_OBJECT, expected, deps);
-    setState({ status: 'done', checks, hadDigest: expected.sha256 !== null });
+    setState({ status: 'done', checks, expected, basis });
   };
 
   return (
@@ -509,7 +553,7 @@ function PublicationRow({
           disabled={state.status === 'running'}
           onClick={() => void probe()}
         >
-          {served ? 'Check this CID resolves' : 'Check old CID still resolves'}
+          {served ? 'Check this CID resolves' : 'Check the earlier CID still resolves'}
         </button>
       </div>
       <dl className="kv">
@@ -540,7 +584,7 @@ function PublicationRow({
           {publication.objects === undefined ? '' : ` in ${publication.objects} objects`}
           {publication.verifiedGateways === undefined
             ? ''
-            : ` · verified on ${publication.verifiedGateways} gateways at publish time`}
+            : ` · ${publication.verifiedGateways} gateways had it at the moment of publishing (use the check to see now)`}
         </dd>
         <dt>Open</dt>
         <dd className="gateway-links">
@@ -556,16 +600,21 @@ function PublicationRow({
       ) : null}
       {state.status === 'done' ? (
         <>
-          <p className="small muted">
-            Fetched <code>{PROBE_OBJECT}</code> under this root.{' '}
-            {state.hadDigest
-              ? 'Compared with the size and SHA-256 in that run’s own manifest.'
-              : 'That run’s manifest could not be read, so this shows reachability only.'}
-          </p>
+          <div className="small" data-testid={`resolve-basis-${publication.runId}`}>
+            <p>
+              Fetched <code>{PROBE_OBJECT}</code> under this root. {state.basis}
+            </p>
+            {state.expected.sha256 !== null ? (
+              <p className="muted">
+                Expected {fmtInt(state.expected.size)} bytes, SHA-256{' '}
+                <code className="hash">{state.expected.sha256}</code>
+              </p>
+            ) : null}
+          </div>
           <VerifyResults
             checks={state.checks}
             testId={`resolve-result-${publication.runId}`}
-            needDigest={state.hadDigest}
+            needDigest={state.expected.sha256 !== null}
           />
         </>
       ) : null}
@@ -739,8 +788,10 @@ export default function Artifacts() {
 
       <Card title="Public gateways used" testId="card-gateways">
         <p className="muted small">
-          None of these is operated by this project or used for pinning. A fetch that the browser
-          refuses is reported as “Blocked by CORS” or “Network failure”, never as a pass.
+          None of these is operated by this project. Each is public and anonymous, and each is
+          labelled by kind: independent, the public gateway of a pinning vendor, or browser-only. A
+          fetch that the browser refuses is reported as “Blocked by CORS” or “Network failure”,
+          never as a pass.
         </p>
         <GatewayList />
       </Card>

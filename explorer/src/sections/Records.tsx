@@ -37,9 +37,9 @@ async function loadDerived(): Promise<Derived> {
 const HEADLINE: readonly { table: string; label: string; what: string }[] = [
   { table: 'property', label: 'Property', what: 'Parcels with assessor attributes' },
   { table: 'ownership', label: 'Ownership', what: 'Owner-occupancy and last transfer per parcel' },
-  { table: 'permit', label: 'Permit', what: 'City and county building permits' },
+  { table: 'permit', label: 'Permit', what: 'Building permits from every loaded jurisdiction' },
   { table: 'contractor', label: 'Contractor', what: 'Reconciled on CSLB licence number' },
-  { table: 'business', label: 'Business', what: 'City of San Diego tax certificates' },
+  { table: 'business', label: 'Business', what: 'Active business tax certificates' },
 ];
 
 const OTHER_LABEL: Record<string, string> = {
@@ -113,8 +113,58 @@ function Totals({ coverage, derived }: { coverage: Coverage; derived: Derived | 
   );
 }
 
+/**
+ * The run that last fetched rows from a source, found through the run history. The dataset tool
+ * reports each source's row count as its largest `fetched` value, so that value identifies the
+ * source's id in the history; an ambiguous or missing match returns null.
+ */
+export function lastRunForSource(
+  rows: number | null,
+  runs: PipelineRuns | null,
+): { runId: number; finishedAt: string | null } | null {
+  if (rows === null || !runs) return null;
+  const maxFetched = new Map<string, number>();
+  for (const s of runs.stats) {
+    maxFetched.set(s.source_id, Math.max(maxFetched.get(s.source_id) ?? 0, s.fetched ?? 0));
+  }
+  const ids = [...maxFetched].filter(([, fetched]) => fetched === rows).map(([id]) => id);
+  if (ids.length !== 1) return null;
+  const runIds = runs.stats
+    .filter((s) => s.source_id === ids[0] && (s.fetched ?? 0) > 0)
+    .map((s) => s.run_id);
+  if (runIds.length === 0) return null;
+  const runId = Math.max(...runIds);
+  const run = runs.runs.find((r) => r.run_id === runId);
+  return { runId, finishedAt: run?.finished_at ?? null };
+}
+
+function CollectedAt({
+  source,
+  runs,
+}: {
+  source: DatasetInfo['sources'][number];
+  runs: PipelineRuns | null;
+}) {
+  const run = lastRunForSource(source.rows, runs);
+  return (
+    <>
+      {run?.finishedAt ? (
+        <>
+          {fmtTimestamp(run.finishedAt)}
+          <span className="muted small"> (run {run.runId}, from the run history)</span>
+        </>
+      ) : null}
+      {source.fetchedAt ? (
+        <div className={run?.finishedAt ? 'muted small' : undefined}>
+          {source.fetchedAt.slice(0, 19)} loader local time (no zone recorded)
+        </div>
+      ) : null}
+      {!run?.finishedAt && !source.fetchedAt ? '—' : null}
+    </>
+  );
+}
+
 function SourceTable({ info, runs }: { info: DatasetInfo; runs: PipelineRuns | null }) {
-  const lastRun = runs ? [...runs.runs].sort((a, b) => b.run_id - a.run_id)[0] : undefined;
   return (
     <div className="table-scroll" tabIndex={0} role="group" aria-label="Records fetched per source">
       <table className="mini-table" data-testid="source-table">
@@ -138,22 +188,7 @@ function SourceTable({ info, runs }: { info: DatasetInfo; runs: PipelineRuns | n
               <td>{s.name}</td>
               <td className="num">{fmtInt(s.rows)}</td>
               <td>
-                {s.fetchedAt ? (
-                  <>
-                    {s.fetchedAt.slice(0, 19)}
-                    <span className="muted small"> (loader clock; no time zone recorded)</span>
-                  </>
-                ) : lastRun ? (
-                  <>
-                    {fmtTimestamp(lastRun.finished_at)}
-                    <span className="muted small">
-                      {' '}
-                      (end of run {lastRun.run_id}; no per-source time recorded)
-                    </span>
-                  </>
-                ) : (
-                  '—'
-                )}
+                <CollectedAt source={s} runs={runs} />
               </td>
               <td>
                 <SourceLink url={s.url} />

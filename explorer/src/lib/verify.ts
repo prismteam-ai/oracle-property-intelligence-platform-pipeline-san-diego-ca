@@ -1,26 +1,56 @@
 /** Objects above this size are only verified in full after an explicit confirmation. */
 export const LARGE_OBJECT_BYTES = 20 * 1024 * 1024;
 
+export type GatewayKind = 'independent' | 'vendor' | 'browser';
+
 export interface Gateway {
   id: string;
   origin: string;
+  /**
+   * independent: a public gateway with no relation to this project.
+   * vendor: the public, anonymous gateway of a service the snapshot is pinned with.
+   * browser: answers scripts with HTTP 429 and serves only through its in-page service worker.
+   */
+  kind: GatewayKind;
   /** False for gateways that no longer answer plain HTTP clients with content. */
   servesHttp: boolean;
   note: string | null;
 }
 
+export const KIND_LABEL: Record<GatewayKind, string> = {
+  independent: 'Independent',
+  vendor: 'Pinning-vendor public gateway',
+  browser: 'Browser-only',
+};
+
 const SERVICE_WORKER_NOTE =
   'Since September 2026 this gateway answers fetch and curl with HTTP 429 and serves content ' +
   'only through an in-browser service worker. Use the “Open in” link to load it in a new tab.';
+const VENDOR_NOTE =
+  'Run by a service this snapshot is pinned with, but public and anonymous: no key, no login. ' +
+  'Counted as evidence and labelled separately from the independent gateways.';
 
-/** Public gateways this project neither operates nor pins with. */
+const gw = (id: string, kind: GatewayKind, note: string | null): Gateway => ({
+  id,
+  origin: `https://${id}`,
+  kind,
+  servesHttp: kind !== 'browser',
+  note,
+});
+
+/** Public gateways. None is operated by this project. */
 export const GATEWAYS: readonly Gateway[] = [
-  { id: '4everland.io', origin: 'https://4everland.io', servesHttp: true, note: null },
-  { id: 'storry.tv', origin: 'https://storry.tv', servesHttp: true, note: null },
-  { id: 'latam.orbitor.dev', origin: 'https://latam.orbitor.dev', servesHttp: true, note: null },
-  { id: 'ipfs.io', origin: 'https://ipfs.io', servesHttp: false, note: SERVICE_WORKER_NOTE },
-  { id: 'dweb.link', origin: 'https://dweb.link', servesHttp: false, note: SERVICE_WORKER_NOTE },
+  gw('latam.orbitor.dev', 'independent', null),
+  gw('4everland.io', 'independent', null),
+  gw('storry.tv', 'independent', null),
+  gw('gateway.pinata.cloud', 'vendor', VENDOR_NOTE),
+  gw('ipfs.filebase.io', 'vendor', VENDOR_NOTE),
+  gw('ipfs.io', 'browser', SERVICE_WORKER_NOTE),
+  gw('dweb.link', 'browser', SERVICE_WORKER_NOTE),
 ];
+
+export const kindOf = (gatewayId: string): GatewayKind =>
+  GATEWAYS.find((g) => g.id === gatewayId)?.kind ?? 'independent';
 
 /** Gateway URLs are derived from CIDs only: `<gateway>/ipfs/<rootCid>/<name>`. */
 export function gatewayUrl(origin: string, rootCid: string, name = ''): string {
@@ -219,15 +249,49 @@ export async function checkGateway(
 }
 
 export interface VerifySummary {
+  /** Gateways whose result counts as good: `match`, or `resolved` when no digest is expected. */
   matched: number;
+  independent: number;
+  vendor: number;
+  /** Browser-only gateways that did answer a script; normally zero. */
+  browser: number;
   attempted: number;
-  /** The demo bar: the same bytes from at least two independent public gateways. */
+  /** The demo bar: the same bytes from at least two public gateways. */
   verified: boolean;
 }
 
-export function summarize(checks: readonly GatewayCheck[]): VerifySummary {
-  const matched = checks.filter((c) => c.outcome === 'match').length;
-  return { matched, attempted: checks.length, verified: matched >= 2 };
+export function summarize(checks: readonly GatewayCheck[], needDigest = true): VerifySummary {
+  const good = checks.filter(
+    (c) => c.outcome === 'match' || (!needDigest && c.outcome === 'resolved'),
+  );
+  const count = (kind: GatewayKind): number =>
+    good.filter((c) => kindOf(c.gateway) === kind).length;
+  return {
+    matched: good.length,
+    independent: count('independent'),
+    vendor: count('vendor'),
+    browser: count('browser'),
+    attempted: checks.length,
+    verified: good.length >= 2,
+  };
+}
+
+const plural = (n: number, word: string): string => `${n} ${word}${n === 1 ? '' : 's'}`;
+
+/** One sentence a viewer can read aloud: what matched, where, and of which kind. */
+export function verdict(checks: readonly GatewayCheck[], needDigest = true): string {
+  const s = summarize(checks, needDigest);
+  const split = `(${s.independent} independent, ${s.vendor} pinning-vendor${
+    s.browser > 0 ? `, ${s.browser} browser-only` : ''
+  })`;
+  if (needDigest) {
+    return s.verified
+      ? `Verified: bytes match the manifest on ${plural(s.matched, 'public gateway')} ${split}.`
+      : `Not verified: bytes match the manifest on only ${s.matched} of ${plural(s.attempted, 'gateway')} tried ${split}.`;
+  }
+  return s.verified
+    ? `Resolves on ${plural(s.matched, 'public gateway')} ${split}; no recorded digest to compare with.`
+    : `Resolves on only ${s.matched} of ${plural(s.attempted, 'gateway')} tried ${split}.`;
 }
 
 export const OUTCOME_LABEL: Record<CheckOutcome, string> = {

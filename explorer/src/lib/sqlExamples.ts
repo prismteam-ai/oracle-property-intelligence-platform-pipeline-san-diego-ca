@@ -4,6 +4,8 @@ export interface SqlExample {
   sql: string;
   /** True for the example that is meant to be refused by the read-only guard. */
   forbidden?: boolean;
+  /** True for the example that is meant to run into the 15-second time limit. */
+  slow?: boolean;
 }
 
 const LAT = 32.7157;
@@ -81,5 +83,12 @@ LIMIT 25`,
     label: 'Try a forbidden statement (DELETE)',
     forbidden: true,
     sql: `DELETE FROM permit WHERE is_open`,
+  },
+  {
+    id: 'timeout',
+    label: 'Try a runaway query (stopped after 15 s)',
+    slow: true,
+    sql: `-- A three-way cross join of 1.09 million parcels: the server stops it after 15 seconds
+SELECT count(*) FROM parcel a, parcel b, parcel c`,
   },
 ];

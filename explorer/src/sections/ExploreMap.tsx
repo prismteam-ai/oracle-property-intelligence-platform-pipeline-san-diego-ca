@@ -1,7 +1,7 @@
 import { Fragment, Suspense, lazy, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { MARKER_COLORS, type MapPoint } from '../components/mapColors';
 import { ErrorNotice, Loading, ResourceView, SourceLink } from '../components/ui';
-import { findLeads, getProperty } from '../lib/api';
+import { findLeads, getPermitStatusGroups, getProperty, type LeadSearchArgs } from '../lib/api';
 import { fmtInt, fmtOpenDuration, fmtTimestamp, roofBasisLabel } from '../lib/format';
 import { DEFAULT_PLACE, MAX_RADIUS_MILES, PLACES, inCounty, type Point } from '../lib/places';
 import type { LeadRow, LeadSearch, Permit, Property, Provenance } from '../lib/schemas';
@@ -9,17 +9,106 @@ import { useResource } from '../lib/useResource';
 
 const MapView = lazy(() => import('../components/MapView'));
 
-type Tab = 'aged' | 'permits';
+export type Tab = 'aged' | 'permits' | 'ownership' | 'outOfArea';
 
 const PAGE_SIZE = 20;
 
-interface Search {
+export interface Search {
   center: Point;
   radiusMiles: number;
   minAge: number;
+  minYearsHeld: number;
+}
+
+interface TabSpec {
+  id: Tab;
+  testId: string;
+  label: (s: Search) => string;
+  total: (s: Search) => string;
+  order: string;
+  color: string;
+  legend: string;
+  empty: string;
+  /** One honest line shown above the results of this tab. */
+  note?: string;
+}
+
+export const OUT_OF_AREA_NOTE =
+  'Proxy, not a fact: these are parcels the assessor does not flag as owner-occupied. No public source holds an owner mailing address, so this over-counts (rentals, second homes and owners who never claimed the exemption all appear).';
+
+export const TABS: readonly TabSpec[] = [
+  {
+    id: 'aged',
+    testId: 'tab-aged',
+    label: (s) => `Roofs older than ${s.minAge} years`,
+    total: (s) => `properties with a roof ${s.minAge}+ years old`,
+    order: 'oldest roof first',
+    color: MARKER_COLORS.aged,
+    legend: 'Roof at or above the age threshold',
+    empty:
+      'No parcel in this radius has a roof at or above the threshold. Try a wider radius or a lower threshold.',
+  },
+  {
+    id: 'permits',
+    testId: 'tab-permits',
+    label: () => 'Open roofing permits (longest open first)',
+    total: () => 'properties with open roofing permits',
+    order: 'longest open first',
+    color: MARKER_COLORS.permit,
+    legend: 'Open roofing permit',
+    empty:
+      'No open roofing permits were found in this radius. Permit data exists only for the jurisdictions listed under County coverage on the Run summary page.',
+  },
+  {
+    id: 'ownership',
+    testId: 'tab-ownership',
+    label: (s) => `Ownership unchanged ${s.minYearsHeld}+ years`,
+    total: (s) => `properties with no recorded transfer for ${s.minYearsHeld}+ years`,
+    order: 'nearest first',
+    color: MARKER_COLORS.ownership,
+    legend: 'Ownership unchanged for the chosen years',
+    empty:
+      'No parcel in this radius has gone that long without a recorded transfer. Try fewer years or a wider radius.',
+    note: 'Measured from the date of the last recorded ownership document on the parcel.',
+  },
+  {
+    id: 'outOfArea',
+    testId: 'tab-out-of-area',
+    label: () => 'Out-of-area owner (proxy)',
+    total: () => 'properties not flagged owner-occupied',
+    order: 'nearest first',
+    color: MARKER_COLORS.outOfArea,
+    legend: 'Not flagged owner-occupied (proxy)',
+    empty: 'Every parcel in this radius is flagged owner-occupied.',
+    note: OUT_OF_AREA_NOTE,
+  },
+];
+
+/** The findRoofingLeads arguments each tab sends. */
+export function leadArgs(tab: Tab, search: Search): LeadSearchArgs {
+  const base = {
+    center: { lat: search.center.lat, lon: search.center.lon },
+    radiusMiles: search.radiusMiles,
+    minRoofAgeYears: search.minAge,
+  };
+  if (tab === 'aged') return { ...base, signal: 'aged_roof' };
+  if (tab === 'permits') return { ...base, signal: 'open_permit' };
+  if (tab === 'ownership') {
+    return { ...base, signal: 'any', minYearsSinceTransfer: search.minYearsHeld };
+  }
+  return { ...base, signal: 'any', ownerOccupied: 'no' };
 }
 
 const coord = (n: number): string => n.toFixed(5);
+
+/** Whole years between an ISO date and the search's as-of date. */
+export function yearsBetween(from: string | null, asOf: string): number | null {
+  if (!from) return null;
+  const a = new Date(`${from.slice(0, 10)}T00:00:00Z`).getTime();
+  const b = new Date(`${asOf.slice(0, 10)}T00:00:00Z`).getTime();
+  if (Number.isNaN(a) || Number.isNaN(b)) return null;
+  return Math.floor((b - a) / (365.25 * 86_400_000));
+}
 
 function ProvenanceLine({ provenance, what }: { provenance: Provenance; what: string }) {
   return (
@@ -32,19 +121,40 @@ function ProvenanceLine({ provenance, what }: { provenance: Provenance; what: st
   );
 }
 
-function PermitCard({ permit }: { permit: Permit }) {
+const permitKey = (permit: Permit): string => `${permit.permitId}|${permit.provenance.source}`;
+
+type PermitState = 'open' | 'pending' | 'closed';
+
+function permitState(permit: Permit, group: string | null): PermitState {
+  if (permit.isOpen) return 'open';
+  return group === 'pending' ? 'pending' : 'closed';
+}
+
+function PermitCard({ permit, group }: { permit: Permit; group: string | null }) {
   const c = permit.contractor;
+  const state = permitState(permit, group);
   return (
     <li
-      className={`permit ${permit.isOpen ? 'permit-open' : ''}`}
+      className={`permit permit-${state}`}
       data-testid={`permit-${permit.permitId}`}
+      data-permit-state={state}
     >
       <div className="permit-head">
         <code>{permit.permitId}</code>
-        <span className={`badge ${permit.isOpen ? 'badge-permit' : 'badge-neutral'}`}>
-          {permit.isOpen ? 'Open' : 'Closed'}
-          {permit.status ? ` · ${permit.status}` : ''}
-        </span>
+        {state === 'open' ? (
+          <span className="badge badge-permit">
+            Open{permit.status ? ` · ${permit.status}` : ''}
+          </span>
+        ) : state === 'pending' ? (
+          <span className="badge badge-pending" data-testid="permit-pending">
+            Pending: applied, not issued{permit.status ? ` · source status “${permit.status}”` : ''}
+          </span>
+        ) : (
+          <span className="badge badge-neutral">
+            {group ? `${group[0]?.toUpperCase() ?? ''}${group.slice(1)}` : 'Closed'}
+            {permit.status ? ` · ${permit.status}` : ''}
+          </span>
+        )}
         {permit.isRoofing ? (
           <span className="badge badge-aged">
             Roofing{permit.roofingClass ? `: ${permit.roofingClass}` : ''}
@@ -52,6 +162,11 @@ function PermitCard({ permit }: { permit: Permit }) {
         ) : null}
         <span className="muted">{permit.permitType ?? ''}</span>
       </div>
+      {state === 'pending' ? (
+        <p className="small muted">
+          Not counted as an open permit: nothing has been issued yet, so no work is authorised.
+        </p>
+      ) : null}
       {permit.description ? <p className="small permit-desc">{permit.description}</p> : null}
       <dl className="kv">
         <dt>Dates</dt>
@@ -59,8 +174,12 @@ function PermitCard({ permit }: { permit: Permit }) {
           applied {permit.appliedDate ?? '—'} · issued {permit.issuedDate ?? '—'} · closed{' '}
           {permit.closedDate ?? '—'}
         </dd>
-        <dt>{permit.isOpen ? 'Open for' : 'Was open'}</dt>
-        <dd>{fmtOpenDuration(permit.daysOpen)}</dd>
+        {state === 'pending' ? null : (
+          <>
+            <dt>{permit.isOpen ? 'Open for' : 'Was open'}</dt>
+            <dd>{fmtOpenDuration(permit.daysOpen)}</dd>
+          </>
+        )}
         <dt>Contractor</dt>
         <dd>
           {c ? (
@@ -83,9 +202,7 @@ function PermitCard({ permit }: { permit: Permit }) {
                   {c.classifications ? ` · ${c.classifications}` : ''}
                 </>
               ) : (
-                <span className="muted">
-                  No licence number on this permit (the city feed carries only a free-text holder).
-                </span>
+                <span className="muted">No licence number is recorded on this permit.</span>
               )}
             </dd>
             <dt>BBB</dt>
@@ -109,11 +226,21 @@ function PermitCard({ permit }: { permit: Permit }) {
   );
 }
 
-export function PropertyDetail({ property }: { property: Property }) {
+export function PropertyDetail({
+  property,
+  statusGroups,
+}: {
+  property: Property;
+  statusGroups?: ReadonlyMap<string, string>;
+}) {
   const [all, setAll] = useState(false);
   const roofing = property.permits.filter((p) => p.isRoofing);
   const shown = all ? property.permits : roofing;
   const others = property.permits.length - roofing.length;
+  const groupOf = (p: Permit): string | null =>
+    p.statusGroup ?? statusGroups?.get(permitKey(p)) ?? null;
+  const pending = shown.filter((p) => permitState(p, groupOf(p)) === 'pending').length;
+  const open = shown.filter((p) => p.isOpen).length;
   return (
     <div className="detail" data-testid={`detail-${property.apn}`}>
       <dl className="facts facts-tight">
@@ -136,9 +263,15 @@ export function PropertyDetail({ property }: { property: Property }) {
             {property.ownerOccupied === null
               ? 'owner-occupancy unknown'
               : property.ownerOccupied
-                ? 'owner-occupied'
+                ? 'flagged owner-occupied'
                 : 'not flagged owner-occupied'}
-            {property.lastTransferDate ? ` · last transfer ${property.lastTransferDate}` : ''}
+            {property.lastTransferDate
+              ? ` · last transfer ${property.lastTransferDate}${
+                  property.yearsSinceTransfer === null
+                    ? ''
+                    : ` (${property.yearsSinceTransfer} yrs ago)`
+                }`
+              : ' · no transfer date recorded'}
             {property.ownerName
               ? ` · ${property.ownerName}`
               : ' · owner name not in any public source'}
@@ -150,8 +283,9 @@ export function PropertyDetail({ property }: { property: Property }) {
         </div>
       </dl>
       <ProvenanceLine provenance={property.provenance} what="parcel" />
-      <h4>
-        {all ? 'All permits' : 'Roofing permits'} ({shown.length})
+      <h4 data-testid="permit-counts">
+        {all ? 'All permits' : 'Roofing permits'} ({shown.length}): {open} open, {pending} pending,{' '}
+        {shown.length - open - pending} closed
       </h4>
       {shown.length === 0 ? (
         <p className="empty-line">
@@ -162,12 +296,17 @@ export function PropertyDetail({ property }: { property: Property }) {
       ) : (
         <ul className="permits">
           {shown.map((p) => (
-            <PermitCard key={`${p.permitId}/${p.provenance.source}`} permit={p} />
+            <PermitCard key={permitKey(p)} permit={p} group={groupOf(p)} />
           ))}
         </ul>
       )}
       {others > 0 ? (
-        <button type="button" className="link-btn" onClick={() => setAll((v) => !v)}>
+        <button
+          type="button"
+          className="link-btn"
+          data-testid="toggle-all-permits"
+          onClick={() => setAll((v) => !v)}
+        >
           {all ? 'Show roofing permits only' : `Show ${others} other (non-roofing) permits too`}
         </button>
       ) : null}
@@ -176,7 +315,14 @@ export function PropertyDetail({ property }: { property: Property }) {
 }
 
 function DetailLoader({ apn }: { apn: string }) {
-  const { state, reload } = useResource(`property:${apn}`, () => getProperty(apn));
+  const { state, reload } = useResource(`property:${apn}`, async () => {
+    const [property, groups] = await Promise.all([
+      getProperty(apn),
+      // The status group is a nicety; the detail still renders if this lookup fails.
+      getPermitStatusGroups(apn).catch(() => new Map<string, string>()),
+    ]);
+    return { property, groups };
+  });
   return (
     <ResourceView
       state={state}
@@ -184,9 +330,9 @@ function DetailLoader({ apn }: { apn: string }) {
       label="Loading permits and sources…"
       testId={`detail-${apn}`}
     >
-      {(property) =>
+      {({ property, groups }) =>
         property ? (
-          <PropertyDetail property={property} />
+          <PropertyDetail property={property} statusGroups={groups} />
         ) : (
           <p className="empty-line">This parcel is no longer in the served run.</p>
         )
@@ -195,47 +341,153 @@ function DetailLoader({ apn }: { apn: string }) {
   );
 }
 
+function RoofAgeCell({ row }: { row: LeadRow }) {
+  return (
+    <td className="num">
+      <strong>{row.roofAgeYears ?? '—'}</strong> yrs
+      <div className="muted small">roof {row.roofYear ?? '—'}</div>
+    </td>
+  );
+}
+
+function TransferCell({ row, asOf }: { row: LeadRow; asOf: string }) {
+  const years = yearsBetween(row.lastTransferDate, asOf);
+  return (
+    <td>
+      <strong>{years === null ? '—' : `${years} yrs`}</strong>
+      <div className="muted small">
+        {row.lastTransferDate ? `last transfer ${row.lastTransferDate}` : 'no transfer recorded'}
+      </div>
+    </td>
+  );
+}
+
+function OccupancyCell({ row }: { row: LeadRow }) {
+  return (
+    <td>
+      {row.ownerOccupied === true ? (
+        'Flagged owner-occupied'
+      ) : (
+        <span className="badge badge-out">Not flagged owner-occupied</span>
+      )}
+    </td>
+  );
+}
+
+const HEADERS: Record<Tab, readonly { label: string; num?: boolean }[]> = {
+  aged: [{ label: 'Roof age', num: true }, { label: 'Roof-age basis' }, { label: 'Open permits' }],
+  permits: [
+    { label: 'Longest open' },
+    { label: 'Permit' },
+    { label: 'Contractor' },
+    { label: 'Licence' },
+  ],
+  ownership: [
+    { label: 'Ownership unchanged' },
+    { label: 'Owner-occupied flag' },
+    { label: 'Roof age', num: true },
+  ],
+  outOfArea: [
+    { label: 'Owner-occupied flag' },
+    { label: 'Ownership unchanged' },
+    { label: 'Roof age', num: true },
+  ],
+};
+
+const EXPAND_LABEL: Record<Tab, string> = {
+  aged: 'Sources',
+  permits: 'Permits, BBB, sources',
+  ownership: 'Sources',
+  outOfArea: 'Sources',
+};
+
+function TabCells({ tab, row, asOf }: { tab: Tab; row: LeadRow; asOf: string }) {
+  if (tab === 'aged') {
+    return (
+      <>
+        <RoofAgeCell row={row} />
+        <td>
+          {roofBasisLabel(row.roofBasis)}
+          <div className="muted small">confidence {row.roofConfidence ?? 'n/a'}</div>
+        </td>
+        <td>{row.openRoofPermits > 0 ? row.openRoofPermits : '—'}</td>
+      </>
+    );
+  }
+  if (tab === 'permits') {
+    return (
+      <>
+        <td>
+          <strong>{fmtOpenDuration(row.longestOpenDays)}</strong>
+          <div className="muted small">
+            {row.openRoofPermits} open roofing {row.openRoofPermits === 1 ? 'permit' : 'permits'}
+          </div>
+        </td>
+        <td>
+          <code>{row.topOpenPermitId ?? '—'}</code>
+          <div>
+            <span className="badge badge-permit">Open</span>
+          </div>
+        </td>
+        <td>{row.topOpenContractor ?? <span className="muted">not listed</span>}</td>
+        <td>
+          {row.topOpenLicenseNo ? (
+            `#${row.topOpenLicenseNo}`
+          ) : (
+            <span className="muted">none on permit</span>
+          )}
+        </td>
+      </>
+    );
+  }
+  if (tab === 'ownership') {
+    return (
+      <>
+        <TransferCell row={row} asOf={asOf} />
+        <OccupancyCell row={row} />
+        <RoofAgeCell row={row} />
+      </>
+    );
+  }
+  return (
+    <>
+      <OccupancyCell row={row} />
+      <TransferCell row={row} asOf={asOf} />
+      <RoofAgeCell row={row} />
+    </>
+  );
+}
+
 function ResultsTable({
   tab,
   rows,
+  asOf,
   expanded,
   onToggle,
 }: {
   tab: Tab;
   rows: readonly LeadRow[];
+  asOf: string;
   expanded: string | null;
   onToggle: (apn: string) => void;
 }) {
-  const columns = tab === 'aged' ? 7 : 8;
+  const headers = HEADERS[tab];
   return (
     <div className="table-scroll" tabIndex={0} role="group" aria-label="Matching properties">
       <table className="results-table" data-testid="results-table">
-        <caption className="sr-only">
-          {tab === 'aged' ? 'Properties with aged roofs' : 'Properties with open roofing permits'}
-        </caption>
+        <caption className="sr-only">Matching properties</caption>
         <thead>
           <tr>
             <th scope="col">Property</th>
-            {tab === 'aged' ? (
-              <>
-                <th scope="col" className="num">
-                  Roof age
-                </th>
-                <th scope="col">Roof-age basis</th>
-              </>
-            ) : (
-              <>
-                <th scope="col">Longest open</th>
-                <th scope="col">Permit</th>
-                <th scope="col">Contractor</th>
-                <th scope="col">Licence</th>
-              </>
-            )}
+            {headers.map((h) => (
+              <th key={h.label} scope="col" className={h.num ? 'num' : undefined}>
+                {h.label}
+              </th>
+            ))}
             <th scope="col">Coordinates</th>
             <th scope="col" className="num">
               Distance
             </th>
-            {tab === 'aged' ? <th scope="col">Open permits</th> : null}
             <th scope="col">Sources</th>
           </tr>
         </thead>
@@ -255,49 +507,11 @@ function ResultsTable({
                       {[r.city, r.zip].filter(Boolean).join(' ')} · APN {r.apn}
                     </span>
                   </th>
-                  {tab === 'aged' ? (
-                    <>
-                      <td className="num">
-                        <strong>{r.roofAgeYears ?? '—'}</strong> yrs
-                        <div className="muted small">roof {r.roofYear ?? '—'}</div>
-                      </td>
-                      <td>
-                        {roofBasisLabel(r.roofBasis)}
-                        <div className="muted small">confidence {r.roofConfidence ?? 'n/a'}</div>
-                      </td>
-                    </>
-                  ) : (
-                    <>
-                      <td>
-                        <strong>{fmtOpenDuration(r.longestOpenDays)}</strong>
-                        <div className="muted small">
-                          {r.openRoofPermits} open roofing{' '}
-                          {r.openRoofPermits === 1 ? 'permit' : 'permits'}
-                        </div>
-                      </td>
-                      <td>
-                        <code>{r.topOpenPermitId ?? '—'}</code>
-                        <div>
-                          <span className="badge badge-permit">Open</span>
-                        </div>
-                      </td>
-                      <td>{r.topOpenContractor ?? <span className="muted">not listed</span>}</td>
-                      <td>
-                        {r.topOpenLicenseNo ? (
-                          `#${r.topOpenLicenseNo}`
-                        ) : (
-                          <span className="muted">none on permit</span>
-                        )}
-                      </td>
-                    </>
-                  )}
+                  <TabCells tab={tab} row={r} asOf={asOf} />
                   <td className="coords">
                     {coord(r.lat)}, {coord(r.lon)}
                   </td>
                   <td className="num">{r.distanceMiles.toFixed(2)} mi</td>
-                  {tab === 'aged' ? (
-                    <td>{r.openRoofPermits > 0 ? r.openRoofPermits : '—'}</td>
-                  ) : null}
                   <td>
                     <button
                       type="button"
@@ -306,13 +520,13 @@ function ResultsTable({
                       data-testid={`expand-${r.apn}`}
                       onClick={() => onToggle(r.apn)}
                     >
-                      {open ? 'Hide' : tab === 'aged' ? 'Sources' : 'Permits, BBB, sources'}
+                      {open ? 'Hide' : EXPAND_LABEL[tab]}
                     </button>
                   </td>
                 </tr>
                 {open ? (
                   <tr className="detail-row">
-                    <td colSpan={columns}>
+                    <td colSpan={headers.length + 4}>
                       <DetailLoader apn={r.apn} />
                     </td>
                   </tr>
@@ -326,7 +540,7 @@ function ResultsTable({
   );
 }
 
-function ResultsBody({
+export function ResultsBody({
   tab,
   data,
   search,
@@ -340,20 +554,26 @@ function ResultsBody({
   onToggle: (apn: string) => void;
 }) {
   const [shown, setShown] = useState(PAGE_SIZE);
+  const spec = TABS.find((t) => t.id === tab) ?? (TABS[0] as TabSpec);
   return (
     <div className="stack-tight">
       <p className="result-meta" data-testid="results-meta">
         <strong data-testid="results-total">
-          {fmtInt(data.total)}{' '}
-          {tab === 'aged'
-            ? `properties with a roof ${search.minAge}+ years old`
-            : 'properties with open roofing permits'}
+          {fmtInt(data.total)} {spec.total(search)}
         </strong>
         <span className="muted">
           within {search.radiusMiles} mi · showing {fmtInt(Math.min(shown, data.rows.length))} ·{' '}
-          {tab === 'aged' ? 'oldest roof first' : 'longest open first'} · as of {data.asOf}
+          {spec.order} · as of {data.asOf}
         </span>
       </p>
+      {spec.note ? (
+        <p
+          className={`notice ${tab === 'outOfArea' ? 'notice-warn' : 'notice-info'}`}
+          data-testid={tab === 'outOfArea' ? 'out-of-area-note' : 'tab-note'}
+        >
+          {spec.note}
+        </p>
+      ) : null}
       {data.coverageNote ? (
         <p className="notice notice-warn" data-testid="coverage-note">
           {data.coverageNote}
@@ -362,17 +582,14 @@ function ResultsBody({
       {data.rows.length === 0 ? (
         <div className="empty" data-testid="results-empty">
           <h3>No matches in this radius</h3>
-          <p>
-            {tab === 'permits'
-              ? 'No open roofing permits were found here. Permit data exists only for the City of San Diego and the unincorporated county.'
-              : 'No parcel in this radius has a roof at or above the threshold. Try a wider radius or a lower threshold.'}
-          </p>
+          <p>{spec.empty}</p>
         </div>
       ) : (
         <>
           <ResultsTable
             tab={tab}
             rows={data.rows.slice(0, shown)}
+            asOf={data.asOf}
             expanded={expanded}
             onToggle={onToggle}
           />
@@ -398,28 +615,25 @@ export default function ExploreMap() {
     center: DEFAULT_PLACE,
     radiusMiles: 1,
     minAge: 15,
+    minYearsHeld: 10,
   });
   const [draft, setDraft] = useState({
     lat: String(DEFAULT_PLACE.lat),
     lon: String(DEFAULT_PLACE.lon),
     radius: '1',
     minAge: '15',
+    minYearsHeld: '10',
   });
   const [tab, setTab] = useState<Tab>('aged');
   const [expanded, setExpanded] = useState<string | null>(null);
   const [formError, setFormError] = useState<string | null>(null);
   const formId = useId();
   const autoExpanded = useRef<string | null>(null);
+  const spec = TABS.find((t) => t.id === tab) ?? (TABS[0] as TabSpec);
 
-  const key = `leads:${tab}:${search.center.lat}:${search.center.lon}:${search.radiusMiles}:${search.minAge}`;
-  const { state, reload } = useResource(key, () =>
-    findLeads({
-      center: search.center,
-      radiusMiles: search.radiusMiles,
-      minRoofAgeYears: search.minAge,
-      signal: tab === 'aged' ? 'aged_roof' : 'open_permit',
-    }),
-  );
+  const args = leadArgs(tab, search);
+  const key = `leads:${JSON.stringify(args)}`;
+  const { state, reload } = useResource(key, () => findLeads(args));
 
   // Open the first row once per search so provenance is visible without an extra click.
   useEffect(() => {
@@ -428,26 +642,33 @@ export default function ExploreMap() {
     setExpanded(state.data.rows[0]?.apn ?? null);
   }, [state, key]);
 
-  const points = useMemo<MapPoint[]>(
-    () =>
-      state.status === 'ok'
-        ? state.data.rows.map((r) => ({
-            id: r.apn,
-            lat: r.lat,
-            lon: r.lon,
-            color: tab === 'aged' ? MARKER_COLORS.aged : MARKER_COLORS.permit,
-            label:
-              tab === 'aged'
-                ? `${r.address ?? r.apn}: roof ${r.roofAgeYears ?? '?'} yrs`
-                : `${r.address ?? r.apn}: open ${fmtOpenDuration(r.longestOpenDays)}`,
-          }))
-        : [],
-    [state, tab],
-  );
+  const points = useMemo<MapPoint[]>(() => {
+    if (state.status !== 'ok') return [];
+    const asOf = state.data.asOf;
+    return state.data.rows.map((r) => {
+      const held = yearsBetween(r.lastTransferDate, asOf);
+      const what =
+        tab === 'aged'
+          ? `roof ${r.roofAgeYears ?? '?'} yrs`
+          : tab === 'permits'
+            ? `open ${fmtOpenDuration(r.longestOpenDays)}`
+            : tab === 'ownership'
+              ? `unchanged ${held ?? '?'} yrs`
+              : 'not flagged owner-occupied';
+      return {
+        id: r.apn,
+        lat: r.lat,
+        lon: r.lon,
+        color: spec.color,
+        label: `${r.address ?? r.apn}: ${what}`,
+      };
+    });
+  }, [state, tab, spec.color]);
 
-  const commit = (center: Point, radiusText = draft.radius, ageText = draft.minAge): void => {
-    const radius = Number(radiusText);
-    const minAge = Number(ageText);
+  const commit = (center: Point): void => {
+    const radius = Number(draft.radius);
+    const minAge = Number(draft.minAge);
+    const minYearsHeld = Number(draft.minYearsHeld);
     if (!Number.isFinite(center.lat) || !Number.isFinite(center.lon) || !inCounty(center)) {
       setFormError(
         'That point is outside San Diego County (latitude 32.5 to 33.55, longitude -117.65 to -116.05).',
@@ -462,6 +683,10 @@ export default function ExploreMap() {
       setFormError('Roof-age threshold must be a whole number of years from 0 to 150.');
       return;
     }
+    if (!Number.isFinite(minYearsHeld) || minYearsHeld < 0 || minYearsHeld > 120) {
+      setFormError('Years since the last transfer must be between 0 and 120.');
+      return;
+    }
     setFormError(null);
     setExpanded(null);
     setDraft({
@@ -469,8 +694,9 @@ export default function ExploreMap() {
       lon: String(center.lon),
       radius: String(radius),
       minAge: String(minAge),
+      minYearsHeld: String(minYearsHeld),
     });
-    setSearch({ center, radiusMiles: radius, minAge });
+    setSearch({ center, radiusMiles: radius, minAge, minYearsHeld });
   };
 
   const round = (p: Point): Point => ({
@@ -480,7 +706,6 @@ export default function ExploreMap() {
   const activePlace = PLACES.find(
     (p) => p.lat === search.center.lat && p.lon === search.center.lon,
   );
-
   const toggle = (apn: string): void => setExpanded((current) => (current === apn ? null : apn));
 
   return (
@@ -568,6 +793,18 @@ export default function ExploreMap() {
               onChange={(e) => setDraft({ ...draft, minAge: e.target.value })}
             />
           </label>
+          <label className="field field-narrow">
+            <span className="field-label">Ownership unchanged (years)</span>
+            <input
+              type="number"
+              min={0}
+              max={120}
+              step={1}
+              data-testid="input-min-years-held"
+              value={draft.minYearsHeld}
+              onChange={(e) => setDraft({ ...draft, minYearsHeld: e.target.value })}
+            />
+          </label>
           <button type="submit" className="btn btn-primary" data-testid="search-submit">
             Search this area
           </button>
@@ -602,51 +839,35 @@ export default function ExploreMap() {
           </Suspense>
           <ul className="map-legend" aria-label="Map legend">
             <li>
-              <span className="legend-dot" style={{ background: MARKER_COLORS.aged }} /> Roof older
-              than threshold
-            </li>
-            <li>
-              <span className="legend-dot" style={{ background: MARKER_COLORS.permit }} /> Open
-              roofing permit
+              <span className="legend-dot" style={{ background: spec.color }} /> {spec.legend}
             </li>
           </ul>
         </div>
 
         <section className="card results" aria-label="Results">
-          <div className="tabs" role="tablist" aria-label="Result type">
-            <button
-              type="button"
-              role="tab"
-              id="tab-aged"
-              aria-selected={tab === 'aged'}
-              aria-controls="results-panel"
-              data-testid="tab-aged"
-              onClick={() => {
-                setTab('aged');
-                setExpanded(null);
-              }}
-            >
-              Roofs older than {search.minAge} years
-            </button>
-            <button
-              type="button"
-              role="tab"
-              id="tab-permits"
-              aria-selected={tab === 'permits'}
-              aria-controls="results-panel"
-              data-testid="tab-permits"
-              onClick={() => {
-                setTab('permits');
-                setExpanded(null);
-              }}
-            >
-              Open roofing permits (longest open first)
-            </button>
+          <div className="tabs tabs-wrap" role="tablist" aria-label="Result type">
+            {TABS.map((t) => (
+              <button
+                key={t.id}
+                type="button"
+                role="tab"
+                id={t.testId}
+                aria-selected={tab === t.id}
+                aria-controls="results-panel"
+                data-testid={t.testId}
+                onClick={() => {
+                  setTab(t.id);
+                  setExpanded(null);
+                }}
+              >
+                {t.label(search)}
+              </button>
+            ))}
           </div>
           <div
             id="results-panel"
             role="tabpanel"
-            aria-labelledby={`tab-${tab}`}
+            aria-labelledby={spec.testId}
             className="results-body"
             data-testid="results-panel"
           >

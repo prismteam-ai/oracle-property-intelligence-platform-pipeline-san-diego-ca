@@ -125,6 +125,7 @@ export const permitSchema = z.object({
   roofingClass: text,
   isRoofing: z.boolean(),
   status: text,
+  statusGroup: z.string().nullish(),
   isOpen: z.boolean(),
   appliedDate: text,
   issuedDate: text,

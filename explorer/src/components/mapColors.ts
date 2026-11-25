@@ -11,4 +11,6 @@ export const MARKER_COLORS = {
   aged: '#e08a00',
   permit: '#2f6fed',
   agent: '#7a4be0',
+  ownership: '#0e8f7e',
+  outOfArea: '#b0457a',
 } as const;

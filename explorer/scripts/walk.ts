@@ -74,6 +74,10 @@ async function walk(viewport: (typeof VIEWPORTS)[number], dark: boolean): Promis
   await page.getByTestId('run-history').waitFor({ timeout: 30_000 });
   await page.getByTestId('limitations-list').waitFor();
   await page.getByTestId('source-list').waitFor();
+  await page.getByTestId('permit-coverage-table').waitFor({ timeout: 30_000 });
+  notes.push(
+    `[${tag}] permit coverage (live): ${(await page.getByTestId('permit-coverage-table').locator('tbody tr').allTextContents()).join(' | ')}`,
+  );
   check(
     (await page.getByTestId('header-county').textContent())?.includes('San Diego') ?? false,
     `[${tag}] header shows the county`,
@@ -131,6 +135,28 @@ async function walk(viewport: (typeof VIEWPORTS)[number], dark: boolean): Promis
   check(/rejected/i.test(rejection), `[${tag}] guard refusal shown: "${rejection}"`);
   await page.getByTestId('sql-rejected').scrollIntoViewIfNeeded();
   await shot(page, tag, '03-query-guard', false);
+  await page.getByTestId('sql-example-timeout').click();
+  await page
+    .waitForFunction(
+      () =>
+        /time limit/i.test(
+          document.querySelector('[data-testid="sql-rejected-kind"]')?.textContent ?? '',
+        ),
+      undefined,
+      { timeout: 60_000 },
+    )
+    .catch(() => undefined);
+  const stopped =
+    (await page
+      .getByTestId('sql-rejected-message')
+      .textContent()
+      .catch(() => '')) ?? '';
+  check(
+    /stopped after 15 seconds/i.test(stopped),
+    `[${tag}] runaway query is stopped: "${stopped}"`,
+  );
+  await page.getByTestId('sql-rejected').scrollIntoViewIfNeeded();
+  await shot(page, tag, '03-query-timeout', false);
 
   // 4. Artifacts
   await open(page, 'artifacts');
@@ -172,18 +198,36 @@ async function walk(viewport: (typeof VIEWPORTS)[number], dark: boolean): Promis
       await shot(page, tag, '04-artifacts-verify', false);
     }
     const resolveButtons = page.locator('[data-testid^="check-resolves-"]');
-    notes.push(`[${tag}] publication rows: ${await resolveButtons.count()}`);
-    if ((await resolveButtons.count()) > 0) {
-      const last = resolveButtons.last();
-      await last.click();
-      await page
+    const publications = await resolveButtons.count();
+    check(
+      publications >= 2,
+      `[${tag}] publication history lists ${publications} runs: ${await page.getByTestId('publication-summary').textContent()}`,
+    );
+    if (publications >= 2) {
+      const earlier = page
+        .getByRole('button', { name: 'Check the earlier CID still resolves' })
+        .last();
+      await earlier.click();
+      const summary = page
         .locator('[data-testid^="resolve-result-"][data-testid$="-summary"]')
-        .first()
-        .waitFor({ timeout: 150_000 });
-      notes.push(
-        `[${tag}] old CID check: ${await page.locator('[data-testid^="resolve-result-"][data-testid$="-summary"]').first().textContent()}`,
+        .first();
+      await summary.waitFor({ timeout: 150_000 });
+      const text = (await summary.textContent()) ?? '';
+      check(
+        text.startsWith('Verified'),
+        `[${tag}] earlier root still resolves with the recorded digest: ${text}`,
       );
-      await last.scrollIntoViewIfNeeded();
+      notes.push(
+        `[${tag}] earlier root basis: ${await page.locator('[data-testid^="resolve-basis-"]').first().textContent()}`,
+      );
+      const rows = page.locator('[data-testid^="resolve-result-"] tbody tr');
+      for (let i = 0; i < (await rows.count()); i += 1) {
+        const row = rows.nth(i);
+        notes.push(
+          `[${tag}] earlier root ${await row.getAttribute('data-testid')}: ${await row.getAttribute('data-outcome')}`,
+        );
+      }
+      await summary.scrollIntoViewIfNeeded();
       await shot(page, tag, '04-artifacts-history', false);
     }
   } else {
@@ -225,7 +269,7 @@ async function walk(viewport: (typeof VIEWPORTS)[number], dark: boolean): Promis
   await page.getByTestId('search-submit').click();
   await page.getByTestId('tab-permits').click();
   await page.getByTestId('results-total').waitFor({ timeout: 45_000 });
-  await page.locator('[data-testid^="permit-"]').first().waitFor({ timeout: 30_000 });
+  await page.getByTestId('permit-counts').first().waitFor({ timeout: 45_000 });
   check(
     (await page.locator('[data-testid="bbb"]').count()) > 0 ||
       (await page.locator('[data-testid^="permit-"]').count()) > 0,
@@ -237,6 +281,93 @@ async function walk(viewport: (typeof VIEWPORTS)[number], dark: boolean): Promis
   await page.waitForTimeout(2000);
   await shot(page, tag, '05-map-permits', false);
   await fullShot(page, viewport, '05-map-permits-full');
+
+  for (const [tabId, name] of [
+    ['tab-ownership', 'ownership'],
+    ['tab-out-of-area', 'out-of-area'],
+  ] as const) {
+    await page.getByTestId(tabId).click();
+    await page.getByTestId('results-loading').waitFor({ state: 'detached', timeout: 45_000 });
+    await page.getByTestId('results-total').waitFor({ timeout: 45_000 });
+    const total = (await page.getByTestId('results-total').textContent()) ?? '';
+    check(
+      (await page.getByTestId('results-table').locator('tbody tr[data-testid^="row-"]').count()) >
+        0,
+      `[${tag}] ${name} tab returns rows: ${total}`,
+    );
+    if (name === 'out-of-area') {
+      check(
+        /Proxy/.test((await page.getByTestId('out-of-area-note').textContent()) ?? ''),
+        `[${tag}] out-of-area proxy note is shown`,
+      );
+    }
+    await page.waitForTimeout(1500);
+    await shot(page, tag, `05-map-${name}`, false);
+  }
+
+  // A parcel with a pending (applied, not issued) roofing permit, found through the API.
+  const pending = await page.evaluate(async () => {
+    const response = await fetch('https://mywcppj2yl.execute-api.us-east-2.amazonaws.com/mcp', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        accept: 'application/json, text/event-stream',
+      },
+      body: JSON.stringify({
+        jsonrpc: '2.0',
+        id: 1,
+        method: 'tools/call',
+        params: {
+          name: 'queryAtlas',
+          arguments: {
+            sql: "SELECT p.apn, p.lat, p.lon FROM permit m JOIN parcel p ON p.apn = m.apn WHERE m.is_roofing AND m.status_group = 'pending' ORDER BY m.applied_date DESC LIMIT 1",
+          },
+        },
+      }),
+    });
+    const body = (await response.json()) as {
+      result: { structuredContent: { rows: { apn: string; lat: number; lon: number }[] } };
+    };
+    return body.result.structuredContent.rows[0] ?? null;
+  });
+  if (pending) {
+    await page.getByTestId('tab-aged').click();
+    await page.getByTestId('input-lat').fill(String(pending.lat));
+    await page.getByTestId('input-lon').fill(String(pending.lon));
+    await page.getByTestId('input-radius').fill('0.1');
+    await page.getByTestId('input-min-age').fill('0');
+    await page.getByTestId('search-submit').click();
+    const row = page.getByTestId(`row-${pending.apn}`);
+    const found = await row.waitFor({ timeout: 45_000 }).then(
+      () => true,
+      () => false,
+    );
+    if (found) {
+      if ((await page.getByTestId(`detail-${pending.apn}`).count()) === 0)
+        await page.getByTestId(`expand-${pending.apn}`).click();
+      await page.getByTestId(`detail-${pending.apn}`).waitFor({ timeout: 30_000 });
+      const shown = await page
+        .getByTestId('permit-pending')
+        .first()
+        .waitFor({ timeout: 15_000 })
+        .then(
+          () => true,
+          () => false,
+        );
+      check(
+        shown,
+        `[${tag}] pending permit shown distinctly on APN ${pending.apn}: ${await page.getByTestId('permit-counts').textContent()}`,
+      );
+      if (shown) await page.getByTestId('permit-pending').first().scrollIntoViewIfNeeded();
+      await shot(page, tag, '05-map-pending-permit', false);
+    } else {
+      notes.push(
+        `[${tag}] pending-permit parcel ${pending.apn} was not in the first page of results; not checked`,
+      );
+    }
+    await page.getByTestId('input-radius').fill('1');
+    await page.getByTestId('input-min-age').fill('15');
+  }
 
   await page.getByTestId('place-la-jolla').click();
   await page.getByTestId('results-total').waitFor({ timeout: 45_000 });

@@ -41,7 +41,11 @@ export interface LeadSearchArgs {
   center: { lat: number; lon: number };
   radiusMiles: number;
   minRoofAgeYears: number;
-  signal: 'aged_roof' | 'open_permit';
+  signal: 'aged_roof' | 'open_permit' | 'any';
+  /** Only parcels whose last recorded transfer is at least this many years old. */
+  minYearsSinceTransfer?: number;
+  /** 'no' is the out-of-area proxy: the parcel is not flagged owner-occupied. */
+  ownerOccupied?: 'yes' | 'no';
   limit?: number;
 }
 
@@ -64,7 +68,12 @@ export async function getSchemaText(o?: RpcOptions): Promise<string> {
 }
 
 export function findLeads(args: LeadSearchArgs, o?: RpcOptions): Promise<LeadSearch> {
-  const aged = args.signal === 'aged_roof';
+  const sort =
+    args.signal === 'aged_roof'
+      ? 'roof_age'
+      : args.signal === 'open_permit'
+        ? 'open_days'
+        : 'distance';
   return typed(
     leadSearchSchema,
     'findRoofingLeads',
@@ -73,12 +82,36 @@ export function findLeads(args: LeadSearchArgs, o?: RpcOptions): Promise<LeadSea
       radiusMiles: args.radiusMiles,
       minRoofAgeYears: args.minRoofAgeYears,
       signal: args.signal,
-      ...(aged ? {} : { permitStatus: 'open' }),
-      sort: aged ? 'roof_age' : 'open_days',
+      ...(args.signal === 'open_permit' ? { permitStatus: 'open' } : {}),
+      ...(args.minYearsSinceTransfer === undefined
+        ? {}
+        : { minYearsSinceTransfer: args.minYearsSinceTransfer }),
+      ...(args.ownerOccupied === undefined ? {} : { ownerOccupied: args.ownerOccupied }),
+      sort,
       limit: args.limit ?? 100,
     },
     o,
   );
+}
+
+/** status_group per permit on one parcel: open, pending, completed, cancelled, expired, other. */
+export async function getPermitStatusGroups(
+  apn: string,
+  o?: RpcOptions,
+): Promise<Map<string, string>> {
+  const digits = apn.replace(/[^0-9]/g, '');
+  const groups = new Map<string, string>();
+  if (digits === '') return groups;
+  const result = await queryAtlas(
+    `SELECT permit_id, source_id, status_group FROM permit WHERE apn = '${digits}'`,
+    o,
+  );
+  for (const row of result.rows) {
+    if (typeof row.status_group === 'string') {
+      groups.set(`${String(row.permit_id)}|${String(row.source_id)}`, row.status_group);
+    }
+  }
+  return groups;
 }
 
 export async function getProperty(apn: string, o?: RpcOptions): Promise<Property | null> {

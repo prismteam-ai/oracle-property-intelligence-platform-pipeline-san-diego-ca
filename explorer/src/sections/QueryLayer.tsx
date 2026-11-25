@@ -35,6 +35,27 @@ export function parseSchema(text: string): { relations: Relation[]; notes: strin
   return { relations, notes };
 }
 
+/** The server answers every refused or failed query as an error result; say which kind it was. */
+export function refusal(message: string): { headline: string; explain: string } {
+  if (/^Query stopped/i.test(message)) {
+    return {
+      headline: 'The time limit stopped this query.',
+      explain:
+        'The server interrupts any statement after 15 seconds, so a runaway query cannot hold the function or run up cost.',
+    };
+  }
+  if (/^Query rejected/i.test(message)) {
+    return {
+      headline: 'The read-only guard refused this statement.',
+      explain: 'Nothing was executed. Only one SELECT (or WITH … SELECT) is accepted.',
+    };
+  }
+  return {
+    headline: 'DuckDB could not run this statement.',
+    explain: 'The statement passed the read-only guard but failed in the engine; check the SQL.',
+  };
+}
+
 type RunState =
   | { status: 'idle' }
   | { status: 'running'; sql: string }
@@ -82,7 +103,7 @@ export function QueryConsole({
             <li key={example.id}>
               <button
                 type="button"
-                className={`chip-btn${example.forbidden ? ' chip-danger' : ''}`}
+                className={`chip-btn${example.forbidden || example.slow ? ' chip-danger' : ''}`}
                 data-testid={`sql-example-${example.id}`}
                 onClick={() => {
                   setSql(example.sql);
@@ -138,16 +159,21 @@ export function QueryConsole({
           <p className="empty-line">Pick an example or write a SELECT, then run it.</p>
         ) : null}
         {state.status === 'running' ? (
-          <Loading label="Running the query in DuckDB…" testId="sql-loading" />
+          <Loading
+            label={
+              /parcel a, parcel b/i.test(state.sql)
+                ? 'Running the query in DuckDB… this one is meant to hit the 15-second limit.'
+                : 'Running the query in DuckDB…'
+            }
+            testId="sql-loading"
+          />
         ) : null}
         {state.status === 'rejected' ? (
           <div className="notice notice-guard" role="alert" data-testid="sql-rejected">
             <div className="notice-body">
-              <strong>The read-only guard refused this statement.</strong>
+              <strong data-testid="sql-rejected-kind">{refusal(state.message).headline}</strong>
               <p data-testid="sql-rejected-message">{state.message}</p>
-              <p className="small">
-                Nothing was executed. Only one SELECT (or WITH … SELECT) is accepted.
-              </p>
+              <p className="small">{refusal(state.message).explain}</p>
             </div>
           </div>
         ) : null}

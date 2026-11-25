@@ -1,5 +1,5 @@
 import { Card, Fact, ResourceView, SourceLink, StatusBadge } from '../components/ui';
-import { getCoverage, getDatasetInfo, getPipelineRuns } from '../lib/api';
+import { getCoverage, getDatasetInfo, getPipelineRuns, queryAtlas } from '../lib/api';
 import { COUNTY_NAME } from '../lib/config';
 import { fmtDuration, fmtInt, fmtTimestamp } from '../lib/format';
 import type { Coverage, DatasetInfo, PipelineRun, PipelineRuns, RunStat } from '../lib/schemas';
@@ -24,6 +24,11 @@ const LICENCES: readonly { match: string; licence: string }[] = [
     match: 'data.sandiego.gov',
     licence:
       'City of San Diego Open Data Portal: Open Data Commons Public Domain Dedication and Licence (PDDL).',
+  },
+  {
+    match: 'services.arcgis.com/ay9ePoQ2UfAX3U38',
+    licence:
+      'Public feature service owned by the City of Carlsbad GIS, tagged “open data”, no login. The item declares no licence text.',
   },
   {
     match: 'cslb.ca.gov',
@@ -171,6 +176,67 @@ function LatestRun({ runs, coverage }: { runs: PipelineRuns; coverage: Coverage 
   );
 }
 
+export const PERMIT_COVERAGE_SQL =
+  'SELECT jurisdiction, count(*) AS permits, count(*) FILTER (is_roofing) AS roofing_permits, ' +
+  'count(*) FILTER (is_roofing AND is_open) AS open_roofing_permits FROM permit GROUP BY 1 ORDER BY 2 DESC';
+
+/** Which jurisdictions have permit data: counted live, with the run's own statement beside it. */
+function PermitCoverage({ statement }: { statement: string | undefined }) {
+  const { state } = useResource('permitCoverage', () => queryAtlas(PERMIT_COVERAGE_SQL));
+  return (
+    <div className="subcard" data-testid="permit-coverage">
+      <h4>Permit coverage by jurisdiction</h4>
+      {statement ? (
+        <p className="small" data-testid="permit-coverage-statement">
+          {statement}
+        </p>
+      ) : null}
+      {state.status === 'loading' ? (
+        <p className="muted small">Counting permits per jurisdiction…</p>
+      ) : null}
+      {state.status === 'error' ? (
+        <p className="muted small">
+          The live per-jurisdiction count is unavailable ({state.error.message}).
+        </p>
+      ) : null}
+      {state.status === 'ok' ? (
+        <div className="table-scroll table-mid">
+          <table className="mini-table" data-testid="permit-coverage-table">
+            <caption className="sr-only">Permits per jurisdiction, counted live</caption>
+            <thead>
+              <tr>
+                <th scope="col">Jurisdiction with a permit feed</th>
+                <th scope="col" className="num">
+                  Permits
+                </th>
+                <th scope="col" className="num">
+                  Roofing
+                </th>
+                <th scope="col" className="num">
+                  Open roofing
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {state.data.rows.map((row) => (
+                <tr key={String(row.jurisdiction)}>
+                  <td>{String(row.jurisdiction ?? 'not recorded')}</td>
+                  <td className="num">{fmtInt(Number(row.permits))}</td>
+                  <td className="num">{fmtInt(Number(row.roofing_permits))}</td>
+                  <td className="num">{fmtInt(Number(row.open_roofing_permits))}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : null}
+      <p className="muted small">
+        Parcels are loaded for the whole county; the table is counted live with queryAtlas.
+      </p>
+    </div>
+  );
+}
+
 function CoverageBlock({ coverage }: { coverage: Coverage }) {
   const roofing = coverage.roofing ?? {};
   const label: Record<string, string> = {
@@ -201,10 +267,7 @@ function CoverageBlock({ coverage }: { coverage: Coverage }) {
           </Fact>
         ))}
       </dl>
-      <p className="muted small">
-        Parcels cover the whole county. Permits cover the City of San Diego and the unincorporated
-        county; see the limitations below for the other 17 cities.
-      </p>
+      <PermitCoverage statement={coverage.limitations.find((l) => /^Permit data/i.test(l))} />
     </>
   );
 }

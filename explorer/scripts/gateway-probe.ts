@@ -7,7 +7,15 @@ import { chromium } from 'playwright';
 
 const BASE = process.env.EXPLORER_URL ?? 'http://localhost:5183';
 const PATH = process.env.PROBE_PATH ?? 'QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme';
-const GATEWAYS = ['4everland.io', 'storry.tv', 'latam.orbitor.dev', 'ipfs.io', 'dweb.link'];
+const EXTRA = ['gateway.pinata.cloud', 'ipfs.filebase.io'];
+const GATEWAYS = [
+  'latam.orbitor.dev',
+  '4everland.io',
+  'storry.tv',
+  ...EXTRA,
+  'ipfs.io',
+  'dweb.link',
+];
 
 const browser = await chromium.launch();
 const page = await browser.newPage();
@@ -29,7 +37,7 @@ const results = await page.evaluate(
           '',
         );
         out.push(
-          `${g}: readable (CORS ok), HTTP ${response.status}, ${bytes.length} bytes, sha256 ${hex.slice(0, 16)}, ${Math.round(performance.now() - started)} ms`,
+          `${g}: readable (CORS ok), HTTP ${response.status}, ${bytes.length} bytes, sha256 ${hex.slice(0, 16)}, ${Math.round(performance.now() - started)} ms, final URL ${response.url}`,
         );
       } catch (error) {
         let opaque = 'unreachable';
