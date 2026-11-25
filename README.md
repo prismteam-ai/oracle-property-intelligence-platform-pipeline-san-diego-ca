@@ -72,7 +72,7 @@ A scheduled run is defined in [`.github/workflows/ingest.yml`](.github/workflows
 - Run 6 names run 3 as its previous root. Run 3's CID was not touched and still resolves.
 - `npm run verify:ipfs -- --manifest publications/san-diego/run-0006/manifest.json` needs no credentials: it fetches every object from public gateways and compares size and SHA-256.
 
-**About `ipfs.io` and `dweb.link`** (the story's example gateways): since September 2026 they answer scripts with HTTP 429 and serve content only inside a browser, through a service worker. Opening `https://ipfs.io/ipfs/<cid>` in a browser works; `curl` does not. Scripted checks therefore use other public, anonymous gateways and report each one's real status: `latam.orbitor.dev` (independent), `gateway.pinata.cloud` and `ipfs.filebase.io` (the public gateways of the two pinning services). `4everland.io` and `storry.tv` are also tried; at the time of writing they did not find this content.
+**About `ipfs.io` and `dweb.link`** (the story's example gateways): since September 2026 they answer scripts with HTTP 429 ("switching to a service worker gateway only") and put automated browsers through a bot challenge; they are meant for interactive use. Scripted checks therefore use other public, anonymous gateways and record each one's real status. Matching bytes were fetched from three independent gateways (`latam.orbitor.dev`, `ipfs.raribleuserdata.com`, `ipfs.hypha.coop`) and from the public gateways of the two pinning services (`gateway.pinata.cloud`, `ipfs.filebase.io`). `4everland.io` and `storry.tv` are also tried; at the time of writing they did not find this content.
 
 The CAR files are 172 MB each, above GitHub's per-file limit, so they are not in git. Both are pinned at Filebase (the import is what produced the root CIDs above), any IPFS node can rebuild one with `ipfs dag export <rootCid>`, and the manifest carries each CAR's size and SHA-256. They will also be attached to the GitHub Release that accompanies this PR.
 
@@ -115,7 +115,7 @@ One Lambda function, one HTTP API, one mirror bucket holding about 170 MB, stati
 
 ## Run it
 
-Requires Node 24.
+Requires Node 24 for the pipeline and tools (the deployed function runs on the Node 22 Lambda runtime).
 
 ```bash
 npm ci

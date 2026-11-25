@@ -10,10 +10,12 @@ import { createHash } from 'node:crypto';
  */
 export const GATEWAYS = [
   { url: 'https://latam.orbitor.dev', kind: 'independent' },
-  { url: 'https://4everland.io', kind: 'independent' },
-  { url: 'https://storry.tv', kind: 'independent' },
+  { url: 'https://ipfs.raribleuserdata.com', kind: 'independent' },
+  { url: 'https://ipfs.hypha.coop', kind: 'independent' },
   { url: 'https://gateway.pinata.cloud', kind: 'pinning-vendor' },
   { url: 'https://ipfs.filebase.io', kind: 'pinning-vendor' },
+  { url: 'https://4everland.io', kind: 'independent' },
+  { url: 'https://storry.tv', kind: 'independent' },
   { url: 'https://ipfs.io', kind: 'independent' },
   { url: 'https://dweb.link', kind: 'independent' },
 ] as const;
@@ -42,7 +44,7 @@ export interface GatewayCheck {
 export async function checkGateway(
   gateway: string,
   expected: Expected,
-  timeoutMs = 240_000,
+  timeoutMs = 180_000,
   fetchImpl: typeof fetch = fetch,
 ): Promise<GatewayCheck> {
   const url = `${gateway}/ipfs/${expected.path ?? expected.cid}`;
