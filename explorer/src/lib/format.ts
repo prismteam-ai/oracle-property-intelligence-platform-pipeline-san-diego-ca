@@ -82,3 +82,12 @@ export async function copyText(value: string): Promise<boolean> {
     }
   }
 }
+
+/** Street address with the unit when the API supplies one, so condo units are distinguishable. */
+export function fullAddress(address: string | null, unit?: string | null): string {
+  const street = address ?? 'No situs address';
+  return unit && unit.trim() !== '' ? `${street}, Unit ${unit.trim()}` : street;
+}
+
+/** True when a timestamp string states its own zone (Z or a numeric offset). */
+export const hasZone = (value: string): boolean => /[zZ]$|[+-]\d\d:?\d\d$/.test(value);

@@ -1,8 +1,15 @@
+import type { ReactNode } from 'react';
 import { Fragment, Suspense, lazy, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { MARKER_COLORS, type MapPoint } from '../components/mapColors';
 import { ErrorNotice, Loading, ResourceView, SourceLink } from '../components/ui';
-import { findLeads, getPermitStatusGroups, getProperty, type LeadSearchArgs } from '../lib/api';
-import { fmtInt, fmtOpenDuration, fmtTimestamp, roofBasisLabel } from '../lib/format';
+import {
+  findLeads,
+  getPermitStatusGroups,
+  getProperty,
+  queryAtlas,
+  type LeadSearchArgs,
+} from '../lib/api';
+import { fmtInt, fmtOpenDuration, fmtTimestamp, fullAddress, roofBasisLabel } from '../lib/format';
 import { DEFAULT_PLACE, MAX_RADIUS_MILES, PLACES, inCounty, type Point } from '../lib/places';
 import type { LeadRow, LeadSearch, Permit, Property, Provenance } from '../lib/schemas';
 import { useResource } from '../lib/useResource';
@@ -243,6 +250,14 @@ export function PropertyDetail({
   const open = shown.filter((p) => p.isOpen).length;
   return (
     <div className="detail" data-testid={`detail-${property.apn}`}>
+      <p className="detail-title" data-testid="detail-address">
+        <strong>{fullAddress(property.address, property.unit)}</strong>
+        <span className="muted">
+          {' '}
+          {[property.city, property.zip].filter(Boolean).join(' ')}
+        </span>{' '}
+        <code className="apn">APN {property.apn}</code>
+      </p>
       <dl className="facts facts-tight">
         <div className="fact">
           <dt>Roof-age basis</dt>
@@ -502,10 +517,11 @@ function ResultsTable({
                   id={`row-${r.apn}`}
                 >
                   <th scope="row" className="prop-cell">
-                    <span className="prop-address">{r.address ?? 'No situs address'}</span>
-                    <span className="muted small">
-                      {[r.city, r.zip].filter(Boolean).join(' ')} · APN {r.apn}
-                    </span>
+                    <span className="prop-address">{fullAddress(r.address, r.unit)}</span>
+                    <span className="muted small">{[r.city, r.zip].filter(Boolean).join(' ')}</span>
+                    <code className="apn" data-testid={`apn-${r.apn}`}>
+                      APN {r.apn}
+                    </code>
                   </th>
                   <TabCells tab={tab} row={r} asOf={asOf} />
                   <td className="coords">
@@ -546,12 +562,15 @@ export function ResultsBody({
   search,
   expanded,
   onToggle,
+  extraNote,
 }: {
   tab: Tab;
   data: LeadSearch;
   search: Search;
   expanded: string | null;
   onToggle: (apn: string) => void;
+  /** Live context for the tab, rendered under its note. */
+  extraNote?: ReactNode;
 }) {
   const [shown, setShown] = useState(PAGE_SIZE);
   const spec = TABS.find((t) => t.id === tab) ?? (TABS[0] as TabSpec);
@@ -574,6 +593,7 @@ export function ResultsBody({
           {spec.note}
         </p>
       ) : null}
+      {extraNote}
       {data.coverageNote ? (
         <p className="notice notice-warn" data-testid="coverage-note">
           {data.coverageNote}
@@ -610,6 +630,35 @@ export function ResultsBody({
   );
 }
 
+export const TRANSFER_BASE_SQL =
+  'SELECT count(*) FILTER (last_transfer_date IS NOT NULL AND NOT coalesce(last_transfer_ambiguous, false)) AS usable, count(*) AS total FROM parcel';
+
+export function transferBaseSentence(usable: number, total: number): string {
+  const share = total > 0 ? ((usable / total) * 100).toFixed(1) : '0';
+  return `This filter can use ${fmtInt(usable)} of ${fmtInt(total)} parcels (${share}%): the rest have a transfer date whose century is uncertain, or none at all.`;
+}
+
+/** How many parcels the ownership filter can actually judge, counted live for the whole county. */
+function TransferBase() {
+  const { state } = useResource('transferBase', () => queryAtlas(TRANSFER_BASE_SQL));
+  if (state.status === 'loading') {
+    return <p className="muted small">Counting the parcels this filter can use…</p>;
+  }
+  if (state.status !== 'ok') {
+    return (
+      <p className="muted small" data-testid="transfer-base">
+        The count of parcels with a usable transfer date is unavailable right now.
+      </p>
+    );
+  }
+  const row = state.data.rows[0] ?? {};
+  return (
+    <p className="notice notice-warn" data-testid="transfer-base">
+      {transferBaseSentence(Number(row.usable), Number(row.total))}
+    </p>
+  );
+}
+
 export default function ExploreMap() {
   const [search, setSearch] = useState<Search>({
     center: DEFAULT_PLACE,
@@ -643,7 +692,7 @@ export default function ExploreMap() {
   }, [state, key]);
 
   const points = useMemo<MapPoint[]>(() => {
-    if (state.status !== 'ok') return [];
+    if (state.status !== 'ok' || formError !== null) return [];
     const asOf = state.data.asOf;
     return state.data.rows.map((r) => {
       const held = yearsBetween(r.lastTransferDate, asOf);
@@ -663,28 +712,41 @@ export default function ExploreMap() {
         label: `${r.address ?? r.apn}: ${what}`,
       };
     });
-  }, [state, tab, spec.color]);
+  }, [state, tab, spec.color, formError]);
 
-  const commit = (center: Point): void => {
-    const radius = Number(draft.radius);
-    const minAge = Number(draft.minAge);
-    const minYearsHeld = Number(draft.minYearsHeld);
-    if (!Number.isFinite(center.lat) || !Number.isFinite(center.lon) || !inCounty(center)) {
-      setFormError(
-        'That point is outside San Diego County (latitude 32.5 to 33.55, longitude -117.65 to -116.05).',
-      );
-      return;
-    }
-    if (!Number.isFinite(radius) || radius <= 0 || radius > MAX_RADIUS_MILES) {
-      setFormError(`Radius must be between 0.1 and ${MAX_RADIUS_MILES} miles.`);
-      return;
-    }
-    if (!Number.isInteger(minAge) || minAge < 0 || minAge > 150) {
-      setFormError('Roof-age threshold must be a whole number of years from 0 to 150.');
-      return;
-    }
-    if (!Number.isFinite(minYearsHeld) || minYearsHeld < 0 || minYearsHeld > 120) {
-      setFormError('Years since the last transfer must be between 0 and 120.');
+  /**
+   * Starts a search. The form submits strictly: any bad field shows a message and hides the old
+   * rows. A jump or a map click only supplies a point, so fields left in a bad state fall back to
+   * the last good values and any earlier error is cleared.
+   */
+  const commit = (center: Point, strict: boolean): void => {
+    const pick = (text: string, ok: (n: number) => boolean, last: number): number | null => {
+      const n = Number(text);
+      if (text.trim() !== '' && Number.isFinite(n) && ok(n)) return n;
+      return strict ? null : last;
+    };
+    const radius = pick(draft.radius, (n) => n > 0 && n <= MAX_RADIUS_MILES, search.radiusMiles);
+    const minAge = pick(
+      draft.minAge,
+      (n) => Number.isInteger(n) && n >= 0 && n <= 150,
+      search.minAge,
+    );
+    const minYearsHeld = pick(draft.minYearsHeld, (n) => n >= 0 && n <= 120, search.minYearsHeld);
+    const problem =
+      !Number.isFinite(center.lat) || !Number.isFinite(center.lon)
+        ? 'Latitude and longitude must be numbers, for example 32.7157 and -117.1611.'
+        : !inCounty(center)
+          ? 'That point is outside San Diego County (latitude 32.5 to 33.55, longitude -117.65 to -116.05).'
+          : radius === null
+            ? `Radius must be a number above 0 and at most ${MAX_RADIUS_MILES} miles.`
+            : minAge === null
+              ? 'Roof-age threshold must be a whole number of years from 0 to 150.'
+              : minYearsHeld === null
+                ? 'Years since the last transfer must be a number from 0 to 120.'
+                : null;
+    if (problem !== null || radius === null || minAge === null || minYearsHeld === null) {
+      setFormError(problem);
+      setExpanded(null);
       return;
     }
     setFormError(null);
@@ -725,7 +787,13 @@ export default function ExploreMap() {
         aria-label="Search area"
         onSubmit={(event) => {
           event.preventDefault();
-          commit({ lat: Number(draft.lat), lon: Number(draft.lon) });
+          commit(
+            {
+              lat: draft.lat.trim() === '' ? Number.NaN : Number(draft.lat),
+              lon: draft.lon.trim() === '' ? Number.NaN : Number(draft.lon),
+            },
+            true,
+          );
         }}
       >
         <div>
@@ -740,7 +808,7 @@ export default function ExploreMap() {
                   className="chip-btn"
                   aria-pressed={activePlace?.id === p.id}
                   data-testid={`place-${p.id}`}
-                  onClick={() => commit(p)}
+                  onClick={() => commit(p, false)}
                 >
                   {p.name}
                 </button>
@@ -811,7 +879,7 @@ export default function ExploreMap() {
         </div>
         {formError ? (
           <p className="notice notice-error" role="alert" data-testid="search-form-error">
-            {formError}
+            {formError} Nothing was searched.
           </p>
         ) : (
           <p className="muted small">Or click the map to move the pin.</p>
@@ -828,7 +896,7 @@ export default function ExploreMap() {
               radiusMiles={search.radiusMiles}
               points={points}
               selectedId={expanded}
-              onPinChange={(p) => commit(round(p))}
+              onPinChange={(p) => commit(round(p), false)}
               onSelect={(apn) => {
                 setExpanded(apn);
                 document
@@ -871,22 +939,35 @@ export default function ExploreMap() {
             className="results-body"
             data-testid="results-panel"
           >
-            {state.status === 'loading' ? (
-              <Loading label="Searching the radius…" testId="results-loading" />
-            ) : null}
-            {state.status === 'error' ? (
-              <ErrorNotice error={state.error} onRetry={reload} testId="results-error" />
-            ) : null}
-            {state.status === 'ok' ? (
-              <ResultsBody
-                key={key}
-                tab={tab}
-                data={state.data}
-                search={search}
-                expanded={expanded}
-                onToggle={toggle}
-              />
-            ) : null}
+            {formError !== null ? (
+              <div className="empty" data-testid="results-stale">
+                <h3>No results to show</h3>
+                <p>
+                  The search fields above are not valid, so the earlier results have been cleared.
+                  Correct them and search again, or pick a place under “Jump to”.
+                </p>
+              </div>
+            ) : (
+              <>
+                {state.status === 'loading' ? (
+                  <Loading label="Searching the radius…" testId="results-loading" />
+                ) : null}
+                {state.status === 'error' ? (
+                  <ErrorNotice error={state.error} onRetry={reload} testId="results-error" />
+                ) : null}
+                {state.status === 'ok' ? (
+                  <ResultsBody
+                    key={key}
+                    tab={tab}
+                    data={state.data}
+                    search={search}
+                    expanded={expanded}
+                    onToggle={toggle}
+                    extraNote={tab === 'ownership' ? <TransferBase /> : undefined}
+                  />
+                ) : null}
+              </>
+            )}
           </div>
         </section>
       </div>

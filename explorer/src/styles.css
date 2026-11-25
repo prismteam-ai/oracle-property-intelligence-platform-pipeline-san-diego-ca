@@ -1044,6 +1044,11 @@ tfoot td {
   color: var(--ok-text);
 }
 
+.verify-summary.is-wait {
+  background: var(--info-soft);
+  color: var(--info-text);
+}
+
 .verify-summary.is-bad {
   background: var(--warn-soft);
   color: var(--warn-text);
@@ -1195,6 +1200,16 @@ tfoot td {
 
 .prop-cell {
   min-width: 190px;
+}
+
+.apn {
+  display: block;
+  color: var(--muted);
+  font-size: 11.5px;
+}
+
+.detail-title .apn {
+  display: inline;
 }
 
 .prop-address {

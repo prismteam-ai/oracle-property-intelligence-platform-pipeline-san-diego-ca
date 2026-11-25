@@ -23,9 +23,25 @@ export const KIND_LABEL: Record<GatewayKind, string> = {
   browser: 'Browser-only',
 };
 
-const SERVICE_WORKER_NOTE =
-  'Since September 2026 this gateway answers fetch and curl with HTTP 429 and serves content ' +
-  'only through an in-browser service worker. Use the “Open in” link to load it in a new tab.';
+export const SMALL_OBJECT_BYTES = 1024 * 1024;
+
+/**
+ * Time budgets per gateway. Small objects get 12 seconds in all, so one hanging gateway cannot
+ * hold up the verdict. Mid-sized objects get the same 12 seconds to start answering and longer
+ * to finish; only the explicit large-object check waits minutes.
+ */
+export function budgetFor(size: number | null): { headerTimeoutMs: number; timeoutMs: number } {
+  if (size === null || size <= SMALL_OBJECT_BYTES)
+    return { headerTimeoutMs: 12_000, timeoutMs: 12_000 };
+  if (size <= LARGE_OBJECT_BYTES) return { headerTimeoutMs: 12_000, timeoutMs: 90_000 };
+  return { headerTimeoutMs: 20_000, timeoutMs: 600_000 };
+}
+
+export const BROWSER_ONLY_NOTE =
+  'ipfs.io and dweb.link no longer serve scripts (HTTP 429) and challenge automated browsers; ' +
+  'they are meant for interactive use. Open in a normal browser tab to check.';
+
+const SERVICE_WORKER_NOTE = BROWSER_ONLY_NOTE;
 const VENDOR_NOTE =
   'Run by a service this snapshot is pinned with, but public and anonymous: no key, no login. ' +
   'Counted as evidence and labelled separately from the independent gateways.';
@@ -41,10 +57,13 @@ const gw = (id: string, kind: GatewayKind, note: string | null): Gateway => ({
 /** Public gateways. None is operated by this project. */
 export const GATEWAYS: readonly Gateway[] = [
   gw('latam.orbitor.dev', 'independent', null),
-  gw('4everland.io', 'independent', null),
-  gw('storry.tv', 'independent', null),
+  gw('ipfs.raribleuserdata.com', 'independent', null),
+  gw('ipfs.hypha.coop', 'independent', null),
   gw('gateway.pinata.cloud', 'vendor', VENDOR_NOTE),
   gw('ipfs.filebase.io', 'vendor', VENDOR_NOTE),
+  // Kept so their real result is on show: at the time of writing neither had found this content.
+  gw('4everland.io', 'independent', null),
+  gw('storry.tv', 'independent', null),
   gw('ipfs.io', 'browser', SERVICE_WORKER_NOTE),
   gw('dweb.link', 'browser', SERVICE_WORKER_NOTE),
 ];
@@ -88,7 +107,10 @@ export interface CheckDeps {
   fetchImpl?: typeof fetch;
   digest?: (bytes: Uint8Array) => Promise<string>;
   now?: () => number;
+  /** Whole-request budget. */
   timeoutMs?: number;
+  /** Budget for the gateway to start answering; defaults to the whole-request budget. */
+  headerTimeoutMs?: number;
   onProgress?: (bytesSoFar: number) => void;
 }
 
@@ -122,8 +144,12 @@ async function readAll(
   return out;
 }
 
-const isAbort = (error: unknown): boolean =>
-  error instanceof Error && (error.name === 'AbortError' || error.name === 'TimeoutError');
+const isAbort = (error: unknown): boolean => {
+  // DOMException is not an Error subclass in every runtime, so go by the name alone.
+  const name =
+    typeof error === 'object' && error !== null && 'name' in error ? String(error.name) : '';
+  return name === 'AbortError' || name === 'TimeoutError';
+};
 
 /**
  * Fetches one object from one gateway in the browser and compares it with the manifest.
@@ -150,16 +176,21 @@ export async function checkGateway(
     digestMatches: null,
   };
   const elapsed = (): number => Math.round(now() - started);
+  const totalMs = deps.timeoutMs ?? 120_000;
+  const headerMs = Math.min(deps.headerTimeoutMs ?? totalMs, totalMs);
+  const seconds = (ms: number): string => String(Math.round(ms / 100) / 10);
+  const noAnswer = `No answer in ${seconds(headerMs)} s.`;
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), deps.timeoutMs ?? 120_000);
+  const headerTimer = setTimeout(() => controller.abort(), headerMs);
+  const timer = setTimeout(() => controller.abort(), totalMs);
 
   try {
     let response: Response;
     try {
       response = await fetchImpl(url, { signal: controller.signal, cache: 'no-store' });
     } catch (error) {
-      if (isAbort(error)) {
-        return { ...base, outcome: 'timeout', ms: elapsed(), detail: 'Timed out.' };
+      if (isAbort(error) || controller.signal.aborted) {
+        return { ...base, outcome: 'timeout', ms: elapsed(), detail: noAnswer };
       }
       try {
         await fetchImpl(url, { mode: 'no-cors', signal: controller.signal, cache: 'no-store' });
@@ -171,6 +202,9 @@ export async function checkGateway(
             'Blocked by CORS: the gateway answered, but without CORS headers, so the browser will not let this page read the bytes. Gateway timeout pages are often sent this way when content has not reached the gateway yet.',
         };
       } catch {
+        if (controller.signal.aborted) {
+          return { ...base, outcome: 'timeout', ms: elapsed(), detail: noAnswer };
+        }
         return {
           ...base,
           outcome: 'network_error',
@@ -180,6 +214,7 @@ export async function checkGateway(
         };
       }
     }
+    clearTimeout(headerTimer);
     if (!response.ok) {
       // Gateways explain themselves in the body ("no providers found"), so show a short excerpt.
       let said = '';
@@ -212,7 +247,9 @@ export async function checkGateway(
         outcome: isAbort(error) ? 'timeout' : 'network_error',
         httpStatus: response.status,
         ms: elapsed(),
-        detail: isAbort(error) ? 'Timed out while downloading.' : 'The download was cut off.',
+        detail: isAbort(error)
+          ? `Download not finished in ${seconds(totalMs)} s.`
+          : 'The download was cut off.',
       };
     }
     const sha256 = await digest(bytes);
@@ -244,6 +281,7 @@ export async function checkGateway(
         : 'The bytes do NOT match the manifest size/digest.',
     };
   } finally {
+    clearTimeout(headerTimer);
     clearTimeout(timer);
   }
 }
@@ -301,5 +339,5 @@ export const OUTCOME_LABEL: Record<CheckOutcome, string> = {
   http_error: 'HTTP error',
   cors_blocked: 'Blocked by CORS',
   network_error: 'Network failure',
-  timeout: 'Timed out',
+  timeout: 'No answer in time',
 };

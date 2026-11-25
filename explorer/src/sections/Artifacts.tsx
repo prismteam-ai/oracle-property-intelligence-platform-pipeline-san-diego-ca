@@ -11,10 +11,12 @@ import {
 } from '../lib/schemas';
 import { useResource } from '../lib/useResource';
 import {
+  BROWSER_ONLY_NOTE,
   GATEWAYS,
   KIND_LABEL,
   LARGE_OBJECT_BYTES,
   OUTCOME_LABEL,
+  budgetFor,
   checkGateway,
   gatewayUrl,
   kindOf,
@@ -45,7 +47,8 @@ const yesNo = (value: boolean | null): string => (value === null ? 'n/a' : value
 
 /**
  * Runs the same object through every listed gateway: all at once for small objects, one after
- * another for large ones so only one copy is held in memory at a time.
+ * another for large ones so only one copy is held in memory at a time. `onResult` fires as each
+ * gateway finishes, so the page can show answers as they arrive.
  */
 export async function verifyEverywhere(
   rootCid: string,
@@ -54,33 +57,57 @@ export async function verifyEverywhere(
   deps: CheckDeps = {},
   gateways: readonly Gateway[] = GATEWAYS,
   sequential = false,
+  onResult?: (check: GatewayCheck) => void,
 ): Promise<GatewayCheck[]> {
-  const one = (g: Gateway): Promise<GatewayCheck> =>
-    checkGateway(g.id, gatewayUrl(g.origin, rootCid, name), expected, deps);
+  const budget = budgetFor(expected.size);
+  const one = async (g: Gateway): Promise<GatewayCheck> => {
+    const check = await checkGateway(g.id, gatewayUrl(g.origin, rootCid, name), expected, {
+      ...budget,
+      ...deps,
+    });
+    onResult?.(check);
+    return check;
+  };
   if (!sequential) return Promise.all(gateways.map(one));
   const out: GatewayCheck[] = [];
   for (const g of gateways) out.push(await one(g));
   return out;
 }
 
+const gatewayOrder = (id: string): number => GATEWAYS.findIndex((g) => g.id === id);
+
+/**
+ * Per-gateway results and the verdict. While some gateways are still `pending`, the verdict is
+ * already final once two have matched; otherwise it says how far the check has got.
+ */
 export function VerifyResults({
   checks,
+  pending = [],
   testId,
   needDigest = true,
 }: {
   checks: readonly GatewayCheck[];
+  pending?: readonly string[];
   testId: string;
   needDigest?: boolean;
 }) {
   const summary = summarize(checks, needDigest);
+  const ordered = [...checks].sort((a, b) => gatewayOrder(a.gateway) - gatewayOrder(b.gateway));
+  const waiting = pending.length;
+  const text =
+    waiting === 0
+      ? verdict(checks, needDigest)
+      : summary.verified
+        ? `${verdict(checks, needDigest)} Still waiting on ${waiting} slower ${waiting === 1 ? 'gateway' : 'gateways'}.`
+        : `Checking: ${checks.length} of ${checks.length + waiting} gateways have answered, ${summary.matched} matched so far.`;
   return (
-    <div className="verify" data-testid={testId}>
+    <div className="verify" data-testid={testId} data-complete={waiting === 0 ? 'true' : 'false'}>
       <p
-        className={`verify-summary ${summary.verified ? 'is-ok' : 'is-bad'}`}
+        className={`verify-summary ${summary.verified ? 'is-ok' : waiting > 0 ? 'is-wait' : 'is-bad'}`}
         data-testid={`${testId}-summary`}
         role="status"
       >
-        {verdict(checks, needDigest)}
+        {text}
       </p>
       <div className="table-scroll" tabIndex={0} role="group" aria-label="Per-gateway results">
         <table className="mini-table">
@@ -105,7 +132,7 @@ export function VerifyResults({
             </tr>
           </thead>
           <tbody>
-            {checks.map((c) => (
+            {ordered.map((c) => (
               <tr key={c.gateway} data-testid={`${testId}-${c.gateway}`} data-outcome={c.outcome}>
                 <td>
                   <ExternalLink href={c.url}>{c.gateway}</ExternalLink>
@@ -124,7 +151,7 @@ export function VerifyResults({
                   {c.outcome !== 'match' &&
                   c.outcome !== 'resolved' &&
                   kindOf(c.gateway) === 'browser'
-                    ? ' Expected here: this gateway refuses scripted requests and serves only through its in-browser service worker, so open the link in a tab instead.'
+                    ? ` ${BROWSER_ONLY_NOTE}`
                     : ''}
                   {c.sha256 ? (
                     <>
@@ -137,6 +164,18 @@ export function VerifyResults({
                 </td>
               </tr>
             ))}
+            {pending.map((id) => (
+              <tr key={id} data-testid={`${testId}-${id}`} data-outcome="pending">
+                <td>{id}</td>
+                <td>{KIND_LABEL[kindOf(id)]}</td>
+                <td>
+                  <span className="badge badge-neutral">Waiting…</span>
+                </td>
+                <td colSpan={6} className="note-cell">
+                  No answer yet.
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
@@ -146,8 +185,13 @@ export function VerifyResults({
 
 type VerifyState =
   | { status: 'idle' }
-  | { status: 'running'; bytes: number }
-  | { status: 'done'; checks: GatewayCheck[] };
+  /** `pending` empties as gateways answer; an empty list means the check is finished. */
+  | { status: 'active'; checks: GatewayCheck[]; pending: string[]; bytes: number };
+
+const addResult = (checks: GatewayCheck[], check: GatewayCheck): GatewayCheck[] => [
+  ...checks.filter((c) => c.gateway !== check.gateway),
+  check,
+];
 
 function ObjectRow({
   object,
@@ -166,9 +210,9 @@ function ObjectRow({
   const [state, setState] = useState<VerifyState>({ status: 'idle' });
 
   const run = (): void => {
-    setState({ status: 'running', bytes: 0 });
     // Large objects skip the browser-only gateways (they would only say 429) and go one by one.
     const gateways = large ? HTTP_GATEWAYS : GATEWAYS;
+    setState({ status: 'active', checks: [], pending: gateways.map((g) => g.id), bytes: 0 });
     void verifyEverywhere(
       rootCid,
       object.name,
@@ -176,14 +220,23 @@ function ObjectRow({
       {
         ...deps,
         onProgress: (bytes) =>
-          setState((s) =>
-            s.status === 'running' && bytes > s.bytes ? { status: 'running', bytes } : s,
-          ),
+          setState((s) => (s.status === 'active' && bytes > s.bytes ? { ...s, bytes } : s)),
       },
       gateways,
       large,
-    ).then((checks) => setState({ status: 'done', checks }));
+      (check) =>
+        setState((s) =>
+          s.status === 'active'
+            ? {
+                ...s,
+                checks: addResult(s.checks, check),
+                pending: s.pending.filter((id) => id !== check.gateway),
+              }
+            : s,
+        ),
+    );
   };
+  const busy = state.status === 'active' && state.pending.length > 0;
   const runRef = useRef(run);
   runRef.current = run;
   const eligibleForAuto = !large && !isDirectory;
@@ -209,7 +262,7 @@ function ObjectRow({
               type="button"
               className="btn btn-small"
               data-testid={`verify-full-${id}`}
-              disabled={state.status === 'running'}
+              disabled={busy}
               onClick={run}
             >
               Download and verify in full ({fmtBytes(object.size)} × {HTTP_GATEWAYS.length}{' '}
@@ -220,7 +273,7 @@ function ObjectRow({
               type="button"
               className="btn btn-small btn-primary"
               data-testid={`verify-${id}`}
-              disabled={state.status === 'running'}
+              disabled={busy}
               onClick={run}
             >
               {isDirectory ? 'Check it resolves' : 'Verify now'}
@@ -264,17 +317,18 @@ function ObjectRow({
           not run automatically. Use the button above if you want it.
         </p>
       ) : null}
-      {state.status === 'running' ? (
+      {busy ? (
         <Loading
-          label={`Fetching from ${large ? HTTP_GATEWAYS.length : GATEWAYS.length} public gateways and hashing in the browser…${
-            state.bytes > 0 ? ` ${fmtBytes(state.bytes)} read so far.` : ''
-          }`}
+          label={`Fetching from ${large ? HTTP_GATEWAYS.length : GATEWAYS.length} public gateways and hashing in the browser; each gateway gets ${
+            budgetFor(isDirectory ? null : object.size).headerTimeoutMs / 1000
+          } s to answer.${state.status === 'active' && state.bytes > 0 ? ` ${fmtBytes(state.bytes)} read so far.` : ''}`}
           testId={`verify-loading-${id}`}
         />
       ) : null}
-      {state.status === 'done' ? (
+      {state.status === 'active' ? (
         <VerifyResults
           checks={state.checks}
+          pending={state.pending}
           testId={`verify-result-${id}`}
           needDigest={!isDirectory}
         />
@@ -441,7 +495,7 @@ function GatewayList() {
             <span className="muted small">
               {g.servesHttp
                 ? 'public, anonymous; a script can read the bytes when the gateway has the content'
-                : 'HTTP 429 to scripts; content only through its service worker'}
+                : 'no longer serves scripts; interactive use only'}
             </span>
           </div>
           {g.note ? <p className="small muted">{g.note}</p> : null}
@@ -474,28 +528,32 @@ async function expectedFromOldManifest(
   const none: Expected = { size: null, sha256: null };
   if (!manifestCid) return none;
   const fetchImpl = deps.fetchImpl ?? fetch;
-  for (const g of GATEWAYS.filter((x) => x.servesHttp)) {
-    try {
-      const response = await fetchImpl(`${g.origin}/ipfs/${manifestCid}`, {
-        signal: AbortSignal.timeout(20_000),
-      });
-      if (!response.ok) continue;
-      const parsed = manifestSchema.safeParse(await response.json());
-      const object = parsed.success
-        ? parsed.data.objects.find((o) => o.name === PROBE_OBJECT)
-        : undefined;
-      if (object) return { size: object.size, sha256: object.sha256 };
-    } catch {
-      // Try the next gateway.
-    }
-  }
-  return none;
+  const fromGateway = async (g: Gateway): Promise<Expected> => {
+    const response = await fetchImpl(`${g.origin}/ipfs/${manifestCid}`, {
+      signal: AbortSignal.timeout(10_000),
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const parsed = manifestSchema.safeParse(await response.json());
+    const object = parsed.success
+      ? parsed.data.objects.find((o) => o.name === PROBE_OBJECT)
+      : undefined;
+    if (!object) throw new Error('no probe object');
+    return { size: object.size, sha256: object.sha256 };
+  };
+  // All gateways at once; the first usable answer wins, and nothing waits past 10 seconds.
+  return Promise.any(HTTP_GATEWAYS.map(fromGateway)).catch(() => none);
 }
 
 type ProbeState =
   | { status: 'idle' }
-  | { status: 'running' }
-  | { status: 'done'; checks: GatewayCheck[]; expected: Expected; basis: string };
+  | { status: 'preparing' }
+  | {
+      status: 'active';
+      checks: GatewayCheck[];
+      pending: string[];
+      expected: Expected;
+      basis: string;
+    };
 
 function PublicationRow({
   publication,
@@ -512,7 +570,7 @@ function PublicationRow({
   const id = `publication-${publication.runId}-${publication.rootCid.slice(-6)}`;
 
   const probe = async (): Promise<void> => {
-    setState({ status: 'running' });
+    setState({ status: 'preparing' });
     const fromServed = served ? manifest?.objects.find((o) => o.name === PROBE_OBJECT) : undefined;
     const recorded = RECORDED_PROBES[publication.rootCid];
     let expected: Expected = { size: null, sha256: null };
@@ -530,8 +588,31 @@ function PublicationRow({
         basis = `The API does not serve this older run’s manifest, so the digest is compared with the value recorded in the repository at ${recorded.recordedIn}.`;
       }
     }
-    const checks = await verifyEverywhere(publication.rootCid, PROBE_OBJECT, expected, deps);
-    setState({ status: 'done', checks, expected, basis });
+    setState({
+      status: 'active',
+      checks: [],
+      pending: GATEWAYS.map((g) => g.id),
+      expected,
+      basis,
+    });
+    await verifyEverywhere(
+      publication.rootCid,
+      PROBE_OBJECT,
+      expected,
+      deps,
+      GATEWAYS,
+      false,
+      (check) =>
+        setState((s) =>
+          s.status === 'active'
+            ? {
+                ...s,
+                checks: addResult(s.checks, check),
+                pending: s.pending.filter((id) => id !== check.gateway),
+              }
+            : s,
+        ),
+    );
   };
 
   return (
@@ -550,7 +631,9 @@ function PublicationRow({
           type="button"
           className="btn btn-small"
           data-testid={`check-resolves-${publication.runId}`}
-          disabled={state.status === 'running'}
+          disabled={
+            state.status === 'preparing' || (state.status === 'active' && state.pending.length > 0)
+          }
           onClick={() => void probe()}
         >
           {served ? 'Check this CID resolves' : 'Check the earlier CID still resolves'}
@@ -595,10 +678,12 @@ function PublicationRow({
           ))}
         </dd>
       </dl>
-      {state.status === 'running' ? (
-        <Loading label={`Fetching ${PROBE_OBJECT} under this root from public gateways…`} />
+      {state.status === 'preparing' || (state.status === 'active' && state.pending.length > 0) ? (
+        <Loading
+          label={`Fetching ${PROBE_OBJECT} under this root from public gateways; each gets 12 s to answer.`}
+        />
       ) : null}
-      {state.status === 'done' ? (
+      {state.status === 'active' ? (
         <>
           <div className="small" data-testid={`resolve-basis-${publication.runId}`}>
             <p>
@@ -613,6 +698,7 @@ function PublicationRow({
           </div>
           <VerifyResults
             checks={state.checks}
+            pending={state.pending}
             testId={`resolve-result-${publication.runId}`}
             needDigest={state.expected.sha256 !== null}
           />

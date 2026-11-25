@@ -23,6 +23,12 @@ type State =
 
 const MAX_ROWS_SHOWN = 200;
 
+/** The largest row count any of the agent's tool calls reported, or the rows it returned. */
+export function retrievedCount(response: AgentResponse): number {
+  const counts = response.evidence.map((e) => e.rowCount ?? 0);
+  return Math.max(response.rows.length, ...counts);
+}
+
 function columnsOf(rows: readonly Record<string, unknown>[]): string[] {
   const seen = new Set<string>();
   for (const row of rows.slice(0, 50)) for (const key of Object.keys(row)) seen.add(key);
@@ -59,6 +65,8 @@ function Answer({
     [response.points],
   );
   const columns = columnsOf(response.rows);
+  const shownRows = Math.min(response.rows.length, MAX_ROWS_SHOWN);
+  const retrieved = retrievedCount(response);
   return (
     <div className="stack" data-testid="agent-result">
       <section aria-label="Answer">
@@ -110,7 +118,17 @@ function Answer({
       </section>
 
       <section aria-label="Rows">
-        <h4>Rows ({fmtInt(response.rows.length)})</h4>
+        <h4 data-testid="agent-rows-count">
+          {retrieved > shownRows
+            ? `Rows: showing ${fmtInt(shownRows)} of ${fmtInt(retrieved)} retrieved`
+            : `Rows (${fmtInt(shownRows)})`}
+        </h4>
+        {retrieved > shownRows ? (
+          <p className="muted small">
+            The agent’s tools found {fmtInt(retrieved)} rows; the answer carries the first{' '}
+            {fmtInt(shownRows)}. Use the Explore map or the query layer for the full list.
+          </p>
+        ) : null}
         {response.rows.length === 0 ? (
           <p className="empty-line" data-testid="agent-rows-empty">
             The agent returned no rows for this question.
@@ -123,9 +141,6 @@ function Answer({
               testId="agent-rows"
               caption="Rows returned by the agent"
             />
-            {response.rows.length > MAX_ROWS_SHOWN ? (
-              <p className="muted small">Showing the first {MAX_ROWS_SHOWN} rows.</p>
-            ) : null}
           </>
         )}
       </section>

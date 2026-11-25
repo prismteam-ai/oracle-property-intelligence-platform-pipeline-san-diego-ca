@@ -18,6 +18,11 @@ export const datasetInfoSchema = z.object({
       url: text,
       rows: numOrNull,
       fetchedAt: optText,
+      // Optional fields a later data run adds; read when present, never assumed.
+      fetchedAtUtc: optText,
+      sourceLastModified: optText,
+      sourceUpdatedAt: optText,
+      lastModified: optText,
       limits: text,
     }),
   ),
@@ -78,6 +83,7 @@ export type Coverage = z.infer<typeof coverageSchema>;
 export const leadRowSchema = z.object({
   apn: z.string(),
   address: text,
+  unit: optText,
   city: text,
   zip: text,
   lat: num,
@@ -151,6 +157,7 @@ export type Permit = z.infer<typeof permitSchema>;
 export const propertySchema = z.object({
   apn: z.string(),
   address: text,
+  unit: optText,
   city: text,
   zip: text,
   lat: num,

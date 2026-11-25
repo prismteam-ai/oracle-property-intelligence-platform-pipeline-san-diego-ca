@@ -2,6 +2,7 @@ import { webcrypto } from 'node:crypto';
 import { describe, expect, it, vi } from 'vitest';
 import {
   GATEWAYS,
+  budgetFor,
   checkGateway,
   gatewayUrl,
   summarize,
@@ -100,6 +101,35 @@ describe('checkGateway', () => {
   });
 });
 
+describe('time budget', () => {
+  it('gives small objects 12 seconds and only large ones minutes', () => {
+    expect(budgetFor(3252)).toEqual({ headerTimeoutMs: 12_000, timeoutMs: 12_000 });
+    expect(budgetFor(null).timeoutMs).toBe(12_000);
+    expect(budgetFor(10 * 1024 * 1024).headerTimeoutMs).toBe(12_000);
+    expect(budgetFor(128 * 1024 * 1024).timeoutMs).toBeGreaterThan(60_000);
+  });
+
+  it('reports "no answer" when a gateway hangs past its budget', async () => {
+    const hanging = vi.fn<typeof fetch>(
+      (_url, init) =>
+        new Promise<Response>((_resolve, reject) => {
+          init?.signal?.addEventListener('abort', () =>
+            reject(new DOMException('aborted', 'AbortError')),
+          );
+        }),
+    );
+    const check = await checkGateway('4everland.io', URL_1, await expectedFor(BODY), {
+      fetchImpl: hanging,
+      digest,
+      headerTimeoutMs: 30,
+      timeoutMs: 30,
+    });
+    expect(check.outcome).toBe('timeout');
+    expect(check.detail).toBe('No answer in 0 s.');
+    expect(check.bytes).toBeNull();
+  });
+});
+
 describe('summarize and verdict', () => {
   const check = (gateway: string, outcome: GatewayCheck['outcome']): GatewayCheck => ({
     gateway,
@@ -117,10 +147,12 @@ describe('summarize and verdict', () => {
   it('lists the gateways by kind, independent first', () => {
     expect(GATEWAYS.map((g) => `${g.id}:${g.kind}`)).toEqual([
       'latam.orbitor.dev:independent',
-      '4everland.io:independent',
-      'storry.tv:independent',
+      'ipfs.raribleuserdata.com:independent',
+      'ipfs.hypha.coop:independent',
       'gateway.pinata.cloud:vendor',
       'ipfs.filebase.io:vendor',
+      '4everland.io:independent',
+      'storry.tv:independent',
       'ipfs.io:browser',
       'dweb.link:browser',
     ]);
@@ -146,6 +178,21 @@ describe('summarize and verdict', () => {
     });
     expect(verdict(checks)).toBe(
       'Verified: bytes match the manifest on 3 public gateways (1 independent, 2 pinning-vendor).',
+    );
+  });
+
+  it('reads 5 public gateways when all three independent and both vendor gateways match', () => {
+    const checks = [
+      check('latam.orbitor.dev', 'match'),
+      check('ipfs.raribleuserdata.com', 'match'),
+      check('ipfs.hypha.coop', 'match'),
+      check('gateway.pinata.cloud', 'match'),
+      check('ipfs.filebase.io', 'match'),
+      check('4everland.io', 'timeout'),
+      check('storry.tv', 'http_error'),
+    ];
+    expect(verdict(checks)).toBe(
+      'Verified: bytes match the manifest on 5 public gateways (3 independent, 2 pinning-vendor).',
     );
   });
 

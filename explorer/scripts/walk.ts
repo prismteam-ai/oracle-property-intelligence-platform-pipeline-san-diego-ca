@@ -97,6 +97,12 @@ async function walk(viewport: (typeof VIEWPORTS)[number], dark: boolean): Promis
   await open(page, 'records');
   await page.getByTestId('record-totals').waitFor({ timeout: 30_000 });
   await page.getByTestId('source-table').waitFor();
+  notes.push(
+    `[${tag}] source times: ${(await page.getByTestId('source-table').locator('tbody tr').first().textContent()) ?? ''}`.slice(
+      0,
+      330,
+    ),
+  );
   await page.waitForFunction(
     () =>
       document.querySelector('[data-testid="total-coordinates"] .stat-value')?.textContent !== '…',
@@ -179,8 +185,36 @@ async function walk(viewport: (typeof VIEWPORTS)[number], dark: boolean): Promis
     );
     const small = page.getByTestId('verify-coverage-json');
     if ((await small.count()) > 0) {
+      const clicked = Date.now();
       await small.click();
-      await page.getByTestId('verify-result-coverage-json').waitFor({ timeout: 150_000 });
+      // The verdict must not wait for a hanging gateway: time it, then let the slow ones finish.
+      await page
+        .waitForFunction(
+          () =>
+            (
+              document.querySelector('[data-testid="verify-result-coverage-json-summary"]')
+                ?.textContent ?? ''
+            ).startsWith('Verified'),
+          undefined,
+          { timeout: 20_000 },
+        )
+        .catch(() => undefined);
+      const verdictMs = Date.now() - clicked;
+      const early =
+        (await page.getByTestId('verify-result-coverage-json-summary').textContent()) ?? '';
+      check(
+        early.startsWith('Verified') && verdictMs < 13_000,
+        `[${tag}] verdict shown after ${verdictMs} ms: ${early}`,
+      );
+      await shot(page, tag, '04-artifacts-verify-partial', false);
+      await page
+        .locator('[data-testid="verify-result-coverage-json"][data-complete="true"]')
+        .waitFor({ timeout: 20_000 });
+      const allMs = Date.now() - clicked;
+      check(
+        allMs < 16_000,
+        `[${tag}] every gateway settled within its 12 s budget (${allMs} ms in all)`,
+      );
       const rows = page.getByTestId('verify-result-coverage-json').locator('tbody tr');
       for (let i = 0; i < (await rows.count()); i += 1) {
         const row = rows.nth(i);
@@ -195,6 +229,12 @@ async function walk(viewport: (typeof VIEWPORTS)[number], dark: boolean): Promis
         `[${tag}] coverage.json verified on 2+ gateways: ${summary}`,
       );
       await page.getByTestId('object-coverage-json').scrollIntoViewIfNeeded();
+      for (const g of ['ipfs.raribleuserdata.com', 'ipfs.hypha.coop']) {
+        const outcome = await page
+          .getByTestId(`verify-result-coverage-json-${g}`)
+          .getAttribute('data-outcome');
+        check(outcome === 'match', `[${tag}] run 6 root: ${g} passes in-browser (${outcome})`);
+      }
       await shot(page, tag, '04-artifacts-verify', false);
     }
     const resolveButtons = page.locator('[data-testid^="check-resolves-"]');
@@ -211,7 +251,10 @@ async function walk(viewport: (typeof VIEWPORTS)[number], dark: boolean): Promis
       const summary = page
         .locator('[data-testid^="resolve-result-"][data-testid$="-summary"]')
         .first();
-      await summary.waitFor({ timeout: 150_000 });
+      await page
+        .locator('[data-testid^="resolve-result-"][data-complete="true"]')
+        .first()
+        .waitFor({ timeout: 30_000 });
       const text = (await summary.textContent()) ?? '';
       check(
         text.startsWith('Verified'),
@@ -220,6 +263,13 @@ async function walk(viewport: (typeof VIEWPORTS)[number], dark: boolean): Promis
       notes.push(
         `[${tag}] earlier root basis: ${await page.locator('[data-testid^="resolve-basis-"]').first().textContent()}`,
       );
+      for (const g of ['ipfs.raribleuserdata.com', 'ipfs.hypha.coop']) {
+        const outcome = await page
+          .locator(`[data-testid^="resolve-result-"][data-testid$="-${g}"]`)
+          .first()
+          .getAttribute('data-outcome');
+        check(outcome === 'match', `[${tag}] run 3 root: ${g} passes in-browser (${outcome})`);
+      }
       const rows = page.locator('[data-testid^="resolve-result-"] tbody tr');
       for (let i = 0; i < (await rows.count()); i += 1) {
         const row = rows.nth(i);
@@ -295,6 +345,13 @@ async function walk(viewport: (typeof VIEWPORTS)[number], dark: boolean): Promis
         0,
       `[${tag}] ${name} tab returns rows: ${total}`,
     );
+    if (name === 'ownership') {
+      const base = (await page.getByTestId('transfer-base').textContent({ timeout: 30_000 })) ?? '';
+      check(
+        /This filter can use [\d,]+ of [\d,]+ parcels/.test(base),
+        `[${tag}] ownership base stated: ${base}`,
+      );
+    }
     if (name === 'out-of-area') {
       check(
         /Proxy/.test((await page.getByTestId('out-of-area-note').textContent()) ?? ''),
@@ -369,6 +426,30 @@ async function walk(viewport: (typeof VIEWPORTS)[number], dark: boolean): Promis
     await page.getByTestId('input-min-age').fill('15');
   }
 
+  // Invalid input clears the old rows; a jump clears the error and searches again.
+  await page.getByTestId('input-lat').fill('99');
+  await page.getByTestId('search-submit').click();
+  check(
+    (await page.getByTestId('search-form-error').count()) === 1 &&
+      (await page.getByTestId('results-stale').count()) === 1 &&
+      (await page.getByTestId('results-table').count()) === 0,
+    `[${tag}] invalid latitude shows an inline error and clears the old rows`,
+  );
+  await shot(page, tag, '05-map-invalid-input', false);
+  await page.getByTestId('place-el-cajon').click();
+  await page.getByTestId('results-total').waitFor({ timeout: 45_000 });
+  check(
+    (await page.getByTestId('search-form-error').count()) === 0 &&
+      (await page.getByTestId('input-lat').inputValue()) === '32.7948' &&
+      (await page.getByTestId('results-table').locator('tbody tr[data-testid^="row-"]').count()) >
+        0,
+    `[${tag}] jump to El Cajon clears the error and shows fresh rows`,
+  );
+  check(
+    (await page.locator('[data-testid^="apn-"]').count()) > 0,
+    `[${tag}] APN shown on every row`,
+  );
+
   await page.getByTestId('place-la-jolla').click();
   await page.getByTestId('results-total').waitFor({ timeout: 45_000 });
   check(
@@ -412,6 +493,9 @@ async function walk(viewport: (typeof VIEWPORTS)[number], dark: boolean): Promis
       `[${tag}] agent prompt 2: ${(await page.getByTestId('agent-result').count()) > 0 ? 'answered' : 'not answered'}`,
     );
     await page.waitForTimeout(2500);
+    notes.push(
+      `[${tag}] agent rows heading: ${await page.getByTestId('agent-rows-count').textContent()}`,
+    );
     await fullShot(page, viewport, '06-agent-permits');
   } else {
     await shot(page, tag, '06-agent', false);

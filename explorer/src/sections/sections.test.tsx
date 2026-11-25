@@ -6,13 +6,15 @@ import { AgentUnavailableError, askAgent } from '../lib/api';
 import { McpError } from '../lib/mcp';
 import type { AgentResponse, LeadRow, Manifest, PipelineRuns, Property } from '../lib/schemas';
 import { clearResourceCache } from '../lib/useResource';
-import AgentPanel from './AgentPanel';
+import { SQL_EXAMPLES } from '../lib/sqlExamples';
+import AgentPanel, { retrievedCount } from './AgentPanel';
 import Artifacts, { ManifestView, PublicationHistory, RECORDED_PROBES } from './Artifacts';
-import {
+import ExploreMap, {
   OUT_OF_AREA_NOTE,
   PropertyDetail,
   ResultsBody,
   leadArgs,
+  transferBaseSentence,
   yearsBetween,
 } from './ExploreMap';
 import { lastRunForSource } from './Records';
@@ -339,6 +341,166 @@ describe('Explore map filters', () => {
   });
 });
 
+describe('Explore map form', () => {
+  const lead = (apn: string, address: string, unit?: string): LeadRow => ({
+    apn,
+    address,
+    unit,
+    city: 'SAN DIEGO',
+    zip: '92101',
+    lat: 32.71,
+    lon: -117.16,
+    distanceMiles: 0.1,
+    roofYear: 1970,
+    roofAgeYears: 56,
+    roofBasis: 'year_built',
+    roofConfidence: 'medium',
+    openRoofPermits: 0,
+    longestOpenDays: null,
+    topOpenPermitId: null,
+    topOpenContractor: null,
+    topOpenLicenseNo: null,
+    ownerOccupied: false,
+    lastTransferDate: '1998-03-13',
+    useType: null,
+  });
+
+  const stubApi = (): ReturnType<typeof vi.fn<typeof fetch>> => {
+    const fetchMock = vi.fn<typeof fetch>(async (_url, init) => {
+      const params = (
+        JSON.parse(String(init?.body)) as {
+          params: { name: string; arguments: { center?: { lat: number } } };
+        }
+      ).params;
+      if (params.name === 'findRoofingLeads') {
+        const elCajon = params.arguments.center?.lat === 32.7948;
+        return rpcResponse({
+          content: [],
+          structuredContent: {
+            total: 2,
+            agedRoofCount: 2,
+            openPermitCount: 0,
+            asOf: '2026-11-25',
+            rows: elCajon
+              ? [lead('4880000100', '100 E MAIN ST')]
+              : [
+                  lead('5335000101', '700 FRONT ST', '4B'),
+                  lead('5335000102', '700 FRONT ST', '4C'),
+                ],
+          },
+        });
+      }
+      return rpcResponse({ content: [{ type: 'text', text: 'null' }] });
+    });
+    vi.stubGlobal('fetch', fetchMock);
+    return fetchMock;
+  };
+
+  it('shows the unit in the address and the APN on every row', async () => {
+    stubApi();
+    render(<ExploreMap />);
+    expect(await screen.findByTestId('row-5335000101')).toHaveTextContent('700 FRONT ST, Unit 4B');
+    expect(screen.getByTestId('row-5335000102')).toHaveTextContent('700 FRONT ST, Unit 4C');
+    expect(screen.getByTestId('apn-5335000101')).toHaveTextContent('APN 5335000101');
+    expect(screen.getByTestId('apn-5335000102')).toHaveTextContent('APN 5335000102');
+  });
+
+  it('clears old rows on invalid input, and a jump clears the error and searches again', async () => {
+    const fetchMock = stubApi();
+    render(<ExploreMap />);
+    await screen.findByTestId('row-5335000101');
+
+    await userEvent.clear(screen.getByTestId('input-lat'));
+    await userEvent.type(screen.getByTestId('input-lat'), '99');
+    await userEvent.click(screen.getByTestId('search-submit'));
+    expect(screen.getByTestId('search-form-error')).toHaveTextContent('outside San Diego County');
+    expect(screen.getByTestId('search-form-error')).toHaveTextContent('Nothing was searched.');
+    expect(screen.getByTestId('results-stale')).toBeInTheDocument();
+    expect(screen.queryByTestId('row-5335000101')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('results-table')).not.toBeInTheDocument();
+    expect(screen.getByTestId('explore-map')).toHaveAttribute('data-point-count', '0');
+
+    await userEvent.click(screen.getByTestId('place-el-cajon'));
+    expect(screen.queryByTestId('search-form-error')).not.toBeInTheDocument();
+    expect(screen.getByTestId('input-lat')).toHaveValue('32.7948');
+    expect(screen.getByTestId('input-lon')).toHaveValue('-116.9625');
+    expect(await screen.findByTestId('row-4880000100')).toHaveTextContent('100 E MAIN ST');
+    expect(screen.queryByTestId('results-stale')).not.toBeInTheDocument();
+    const centers = fetchMock.mock.calls
+      .map(
+        (c) =>
+          JSON.parse(String(c[1]?.body)) as {
+            params: { name: string; arguments: { center?: { lat: number } } };
+          },
+      )
+      .filter((b) => b.params.name === 'findRoofingLeads')
+      .map((b) => b.params.arguments.center?.lat);
+    expect(centers).not.toContain(99);
+    expect(centers.at(-1)).toBe(32.7948);
+  });
+
+  it('a jump also recovers from a bad radius by using the last good one', async () => {
+    stubApi();
+    render(<ExploreMap />);
+    await screen.findByTestId('row-5335000101');
+    await userEvent.clear(screen.getByTestId('input-radius'));
+    await userEvent.click(screen.getByTestId('search-submit'));
+    expect(screen.getByTestId('search-form-error')).toHaveTextContent('Radius must be');
+    await userEvent.click(screen.getByTestId('place-el-cajon'));
+    expect(screen.queryByTestId('search-form-error')).not.toBeInTheDocument();
+    expect(screen.getByTestId('input-radius')).toHaveValue(1);
+    expect(await screen.findByTestId('row-4880000100')).toBeInTheDocument();
+  });
+
+  it('states the usable base of the ownership filter from live numbers', () => {
+    expect(transferBaseSentence(93286, 1087462)).toBe(
+      'This filter can use 93,286 of 1,087,462 parcels (8.6%): the rest have a transfer date whose century is uncertain, or none at all.',
+    );
+  });
+});
+
+describe('agent row counts', () => {
+  it('says "showing X of Y retrieved" when the tools found more rows than were returned', async () => {
+    const ask = vi.fn().mockResolvedValue({
+      answer: 'Many.',
+      assumptions: [],
+      evidence: [{ tool: 'findRoofingLeads', sql: null, rowCount: 204, note: null }],
+      rows: [{ apn: '1' }, { apn: '2' }],
+      points: [],
+      model: 'm',
+      elapsedMs: 1,
+    });
+    render(<AgentPanel ask={ask} />);
+    await userEvent.click(screen.getByTestId('agent-example-open-permits'));
+    expect(await screen.findByTestId('agent-rows-count')).toHaveTextContent(
+      'Rows: showing 2 of 204 retrieved',
+    );
+  });
+
+  it('shows a plain count when nothing was left out', () => {
+    expect(
+      retrievedCount({
+        answer: '',
+        assumptions: [],
+        evidence: [{ tool: 't', rowCount: 2 }],
+        rows: [{ a: 1 }, { a: 2 }],
+        points: [],
+      }),
+    ).toBe(2);
+  });
+});
+
+describe('SQL examples', () => {
+  it('reads at a glance: one row per long-open permit with a named or "(none listed)" contractor', () => {
+    const longOpen = SQL_EXAMPLES.find((e) => e.id === 'long-open-permits')?.sql ?? '';
+    expect(longOpen).toMatch(/is_roofing AND is_open/);
+    expect(longOpen).toMatch(/GROUP BY address, open_since/);
+    expect(longOpen).toMatch(/'\(none listed\)'/);
+    expect(longOpen).toMatch(/ORDER BY days_open DESC/);
+    expect(SQL_EXAMPLES.filter((e) => !e.forbidden && !e.slow)).toHaveLength(5);
+  });
+});
+
 describe('lastRunForSource', () => {
   const runs: PipelineRuns = {
     runs: [
@@ -541,12 +703,53 @@ describe('Artifacts', () => {
     );
   });
 
+  it('prints the verdict as soon as two gateways match, while a slow one is still pending', async () => {
+    let releaseSlow: (response: Response) => void = () => undefined;
+    const fetchImpl = vi.fn<typeof fetch>(async (input) => {
+      const url = String(input);
+      if (url.includes('4everland.io')) {
+        return new Promise<Response>((resolve) => {
+          releaseSlow = resolve;
+        });
+      }
+      if (/latam\.orbitor|filebase/.test(url)) return new Response(small);
+      return new Response('gone', { status: 504 });
+    });
+    render(<ManifestView manifest={manifest} deps={{ fetchImpl, digest }} />);
+    await userEvent.click(screen.getByTestId('verify-coverage-json'));
+
+    await waitFor(() =>
+      expect(screen.getByTestId('verify-result-coverage-json-summary')).toHaveTextContent(
+        'Verified: bytes match the manifest on 2 public gateways (1 independent, 1 pinning-vendor). Still waiting on 1 slower gateway.',
+      ),
+    );
+    expect(screen.getByTestId('verify-result-coverage-json')).toHaveAttribute(
+      'data-complete',
+      'false',
+    );
+    expect(screen.getByTestId('verify-result-coverage-json-4everland.io')).toHaveAttribute(
+      'data-outcome',
+      'pending',
+    );
+
+    releaseSlow(new Response(small));
+    await waitFor(() =>
+      expect(screen.getByTestId('verify-result-coverage-json-summary')).toHaveTextContent(
+        /^Verified: bytes match the manifest on 3 public gateways \(2 independent, 1 pinning-vendor\)\.$/,
+      ),
+    );
+    expect(screen.getByTestId('verify-result-coverage-json')).toHaveAttribute(
+      'data-complete',
+      'true',
+    );
+  });
+
   it('does not claim verification when fewer than two gateways match', async () => {
     const fetchImpl = vi.fn<typeof fetch>().mockRejectedValue(new TypeError('Failed to fetch'));
     render(<ManifestView manifest={manifest} deps={{ fetchImpl, digest }} />);
     await userEvent.click(screen.getByTestId('verify-coverage-json'));
     expect(await screen.findByTestId('verify-result-coverage-json-summary')).toHaveTextContent(
-      'Not verified: bytes match the manifest on only 0 of 7 gateways tried',
+      'Not verified: bytes match the manifest on only 0 of 9 gateways tried',
     );
   });
 
@@ -634,7 +837,7 @@ describe('Artifacts', () => {
     );
     await userEvent.click(screen.getByTestId('check-resolves-2'));
     expect(await screen.findByTestId('resolve-result-2-summary')).toHaveTextContent(
-      'Resolves on 7 public gateways (3 independent, 2 pinning-vendor, 2 browser-only); no recorded digest',
+      'Resolves on 9 public gateways (5 independent, 2 pinning-vendor, 2 browser-only); no recorded digest',
     );
   });
 

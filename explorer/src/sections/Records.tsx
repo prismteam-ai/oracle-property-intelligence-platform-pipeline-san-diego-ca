@@ -1,6 +1,6 @@
 import { Card, ResourceView, SourceLink } from '../components/ui';
 import { getCoverage, getDatasetInfo, getPipelineRuns, queryAtlas } from '../lib/api';
-import { fmtInt, fmtTimestamp } from '../lib/format';
+import { fmtInt, fmtTimestamp, hasZone } from '../lib/format';
 import type { Coverage, DatasetInfo, PipelineRuns } from '../lib/schemas';
 import { useResource } from '../lib/useResource';
 import { licenceFor } from './RunSummary';
@@ -138,28 +138,38 @@ export function lastRunForSource(
   return { runId, finishedAt: run?.finished_at ?? null };
 }
 
-function CollectedAt({
-  source,
-  runs,
-}: {
-  source: DatasetInfo['sources'][number];
-  runs: PipelineRuns | null;
-}) {
+type SourceRow = DatasetInfo['sources'][number];
+
+/** When the loader fetched the source, exactly as the API states it. */
+function Fetched({ source }: { source: SourceRow }) {
+  const utc =
+    source.fetchedAtUtc ??
+    (source.fetchedAt && hasZone(source.fetchedAt) ? source.fetchedAt : null);
+  if (utc) return <>{fmtTimestamp(utc)}</>;
+  if (source.fetchedAt) {
+    return (
+      <>
+        {source.fetchedAt.slice(0, 19)}
+        <div className="muted small">loader local time; no zone recorded</div>
+      </>
+    );
+  }
+  return <span className="muted">not recorded</span>;
+}
+
+function SourceModified({ source }: { source: SourceRow }) {
+  const value = source.sourceLastModified ?? source.sourceUpdatedAt ?? source.lastModified ?? null;
+  if (!value) return <span className="muted">not recorded</span>;
+  return <>{hasZone(value) ? fmtTimestamp(value) : value}</>;
+}
+
+function RunFinished({ source, runs }: { source: SourceRow; runs: PipelineRuns | null }) {
   const run = lastRunForSource(source.rows, runs);
+  if (!run?.finishedAt) return <span className="muted">not recorded</span>;
   return (
     <>
-      {run?.finishedAt ? (
-        <>
-          {fmtTimestamp(run.finishedAt)}
-          <span className="muted small"> (run {run.runId}, from the run history)</span>
-        </>
-      ) : null}
-      {source.fetchedAt ? (
-        <div className={run?.finishedAt ? 'muted small' : undefined}>
-          {source.fetchedAt.slice(0, 19)} loader local time (no zone recorded)
-        </div>
-      ) : null}
-      {!run?.finishedAt && !source.fetchedAt ? '—' : null}
+      {fmtTimestamp(run.finishedAt)}
+      <div className="muted small">run {run.runId}, the last run that fetched rows</div>
     </>
   );
 }
@@ -176,8 +186,12 @@ function SourceTable({ info, runs }: { info: DatasetInfo; runs: PipelineRuns | n
               Rows fetched
             </th>
             <th scope="col" className="col-time">
-              Collected at
+              Fetched
             </th>
+            <th scope="col" className="col-time">
+              Run finished (UTC)
+            </th>
+            <th scope="col">Source last modified</th>
             <th scope="col">Provenance</th>
             <th scope="col">Licence</th>
           </tr>
@@ -187,8 +201,14 @@ function SourceTable({ info, runs }: { info: DatasetInfo; runs: PipelineRuns | n
             <tr key={s.name}>
               <td>{s.name}</td>
               <td className="num">{fmtInt(s.rows)}</td>
-              <td>
-                <CollectedAt source={s} runs={runs} />
+              <td data-testid="source-fetched">
+                <Fetched source={s} />
+              </td>
+              <td data-testid="source-run-finished">
+                <RunFinished source={s} runs={runs} />
+              </td>
+              <td data-testid="source-modified">
+                <SourceModified source={s} />
               </td>
               <td>
                 <SourceLink url={s.url} />
@@ -248,7 +268,7 @@ export default function Records() {
         </details>
       </Card>
 
-      <Card title="Per source: rows fetched, collection time, provenance" testId="card-per-source">
+      <Card title="Per source: rows fetched, times, provenance" testId="card-per-source">
         <ResourceView
           state={info.state}
           reload={info.reload}
@@ -259,6 +279,11 @@ export default function Records() {
             <SourceTable info={data} runs={runs.state.status === 'ok' ? runs.state.data : null} />
           )}
         </ResourceView>
+        <p className="muted small" data-testid="source-time-note">
+          Three different times, each labelled for what it is: when the loader fetched the source,
+          when the run that fetched it finished (from the run history, UTC), and when the publisher
+          last modified the source. “Not recorded” means the API does not return that value.
+        </p>
         <p className="muted small">
           Every loaded row also carries its own <code>source_id</code>,{' '}
           <code>source_record_id</code>, <code>source_url</code> and <code>fetched_at</code>; they
