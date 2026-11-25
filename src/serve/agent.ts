@@ -308,8 +308,7 @@ export async function askAgent(deps: AgentDeps, ask: AgentAsk): Promise<AgentAns
   const result = await generateText({
     model: deps.model,
     // The SDK now prefers `instructions`; left as written so this lint fix changes no behaviour.
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
-    system: systemPrompt(await getAtlasSchema(deps.store), deps.today, ask),
+    instructions: systemPrompt(await getAtlasSchema(deps.store), deps.today, ask),
     prompt: ask.question,
     tools: buildTools(deps.store, trace, deps.today),
     stopWhen: stepCountIs(MAX_STEPS),
@@ -324,7 +323,7 @@ export async function askAgent(deps: AgentDeps, ask: AgentAsk): Promise<AgentAns
 
     const retry = await generateText({
       model: deps.model,
-      system:
+      instructions:
         'Answer the question from the retrieved rows only. Plain text, no Markdown. One or two sentences of result, up to 8 rows starting with "- " (address, APN, permit number, contractor where present), then a line starting "Assumptions:" and, if something asked for is absent from the rows, a line starting "Missing data:". Never state anything the rows do not contain.',
       prompt: `Question: ${ask.question}\n\nTotal matches: ${total}. Retrieved rows (first ${Math.min(trace.rows.length, ROWS_TO_MODEL)}):\n${JSON.stringify(trace.rows.slice(0, ROWS_TO_MODEL))}`,
       maxOutputTokens: 1500,
