@@ -179,8 +179,12 @@ const VIEWS: readonly string[] = [
    ORDER BY r.run_id, s.source_id, s.entity`,
 ];
 
-const BBB_NOTE_DEFAULT =
-  'not collected: BBB publishes no bulk file; profile-page enrichment was not run in slice 1 (see SOURCES.md)';
+/**
+ * Why `bbb_rating` is empty. BBB has no bulk file, and its Terms of Use allow copying BBB content only
+ * for personal, non-commercial use, so no rating is collected. The reason travels with every row.
+ */
+export const BBB_NOTE_DEFAULT =
+  'not collected: BBB publishes no bulk file and its Terms of Use limit copying BBB content to personal, non-commercial use (see SOURCES.md)';
 
 /** Creates every table, view and macro. Safe to call on an existing database. */
 export async function migrate(db: Db): Promise<void> {
@@ -201,7 +205,7 @@ export async function migrate(db: Db): Promise<void> {
   await db.exec(
     dataTable(
       e.contractor,
-      `, bbb_rating VARCHAR, bbb_url VARCHAR, bbb_checked_at TIMESTAMP, bbb_note VARCHAR DEFAULT '${BBB_NOTE_DEFAULT}'`,
+      `, bbb_rating VARCHAR, bbb_url VARCHAR, bbb_checked_at TIMESTAMP, bbb_note VARCHAR`,
     ),
   );
   for (const sql of VIEWS) await db.exec(sql);

@@ -129,3 +129,18 @@ The pipeline must demonstrate that data is ingested on an ongoing basis (not a o
 - [Roofing CRM & Lead Identification UI](https://github.com/prismteam-ai/roofing-crm)
 - [Soofi XYZ Team Kit](https://github.com/soofi-xyz/soofi-xyz-team-kit)
 - [Elephant Oracle Skills](https://github.com/elephant-xyz/skills)
+
+---
+
+## Build status
+
+Slice 1 (the loader) is on the `build` branch. Start with:
+
+- [`docs/SLICE1-NOTES.md`](docs/SLICE1-NOTES.md): how to run it, what loaded, exact counts, what is missing.
+- [`SOURCES.md`](SOURCES.md): every source, with licence, measured speed and limits.
+
+```
+npm ci
+npm run pipeline     # load everything into data/oracle.duckdb
+npm test             # offline tests on recorded real rows
+```

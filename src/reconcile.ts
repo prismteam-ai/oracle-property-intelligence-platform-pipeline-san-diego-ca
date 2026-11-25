@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import type { Db } from './db.js';
+import { BBB_NOTE_DEFAULT, type Db } from './db.js';
 import type { Entities } from './entities.js';
 import { mergeStage, type MergeCounts } from './merge.js';
 
@@ -129,6 +129,11 @@ const DERIVED: readonly string[] = [
 
 export async function reconcile(db: Db, runId: number, entities: Entities): Promise<MergeCounts> {
   const contractorCounts = await mergeStage(db, runId, entities.contractor, CONTRACTOR_STAGE);
+  // A contractor without a rating always says why. Rows that gain a rating later keep their own note.
+  await db.exec(
+    'UPDATE contractor SET bbb_note = ? WHERE bbb_rating IS NULL AND bbb_note IS DISTINCT FROM ?',
+    [BBB_NOTE_DEFAULT, BBB_NOTE_DEFAULT],
+  );
   for (const sql of DERIVED) await db.exec(sql);
   return contractorCounts;
 }

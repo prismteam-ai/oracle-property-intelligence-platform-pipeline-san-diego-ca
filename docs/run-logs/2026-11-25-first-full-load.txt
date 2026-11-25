@@ -1,0 +1,23 @@
+
+run 1: ok
+source                       entity                    fetched  rejected  dupes  inserted  updated  unchanged  MB     sec  
+---------------------------  ------------------------  -------  --------  -----  --------  -------  ---------  -----  -----
+sandag_parcels               property                  1088570  1103      5      1087462   0        0          755.2  56.0 
+sandag_parcels               ownership                 1087467  0         5      1087462   0        0          0.0    0.0  
+sdcounty_permit_status       permit_status             1128036  0         0      1128036   0        0          176.6  81.8 
+sdcounty_permits             permit                    475198   2074      632    472492    0        0          478.3  131.2
+sdcounty_permit_contractors  permit_contractor_record  310350   20        16     310314    0        0          0.0    7.1  
+sdcity_permits               permit                    1272476  46        20     1272410   0        0          679.7  145.3
+sdcity_businesses            business                  60265    4         0      60261     0        0          0.0    9.0  
+cslb_license_master          cslb_license              246104   0         0      246104    0        0          78.4   309.7
+reconciled                   contractor                256944   0         0      256944    0        0          0.0    4.2  
+  sandag_parcels/property: fetch 25.7s, validate 27.1s; 29.37 MB/s
+  sandag_parcels/ownership: fetch 25.7s, validate 27.1s; 29.37 MB/s
+  sdcounty_permit_status/permit_status: fetch 70.1s, validate 9.3s; 2.52 MB/s
+  sdcounty_permits/permit: fetch 111.5s, validate 14.6s; 4.29 MB/s
+  sdcounty_permit_contractors/permit_contractor_record: reused 7 page file(s) from an earlier attempt today; fetch 0.8s, validate 4.0s
+  sdcity_permits/permit: fetch 67.2s, validate 69.6s; 10.12 MB/s
+  sdcity_businesses/business: reused sd_businesses_active_datasd.csv from an earlier attempt today; fetch 0.3s, validate 2.3s
+  cslb_license_master/cslb_license: fetch 298.2s, validate 9.4s; 0.26 MB/s
+  reconciled/contractor: built in SQL from cslb_license and permit_contractor_record
+exit 0
