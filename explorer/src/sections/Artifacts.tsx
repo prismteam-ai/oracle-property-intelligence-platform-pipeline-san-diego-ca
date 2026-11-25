@@ -688,6 +688,42 @@ function PublicationRow({
               ? ` · verified on ${publication.verifiedGateways} public gateways when published`
               : ' · not yet verified on public gateways'}
         </dd>
+        <dt>CAR</dt>
+        <dd data-testid={`car-${publication.runId}`}>
+          {publication.car ? (
+            <div className="stack-tight">
+              <span>
+                <code>{publication.car.name}</code>, {fmtBytes(publication.car.size)} (
+                {fmtInt(publication.car.size)} bytes)
+              </span>
+              <span className="cid-row">
+                CID <code className="hash">{publication.car.cid}</code>
+                <CopyButton value={publication.car.cid} label="Copy CID" />
+              </span>
+              <span className="cid-row">
+                SHA-256{' '}
+                <code className="hash" title={publication.car.sha256}>
+                  {publication.car.sha256.slice(0, 16)}…
+                </code>
+                <CopyButton value={publication.car.sha256} label="Copy SHA-256" />
+              </span>
+              <span className="gateway-links">
+                {CAR_GATEWAYS.map((g) => (
+                  <ExternalLink key={g.id} href={`${g.origin}/ipfs/${publication.car?.cid ?? ''}`}>
+                    Fetch from {g.id}
+                  </ExternalLink>
+                ))}
+              </span>
+              <span className="muted small">
+                Download by CID, check the SHA-256, then <code>ipfs dag import</code> it into any
+                node to get this exact snapshot. The page does not fetch it for you: it is{' '}
+                {fmtBytes(publication.car.size)}.
+              </span>
+            </div>
+          ) : (
+            <span className="muted">not published as a separate object for this run</span>
+          )}
+        </dd>
         <dt>Open</dt>
         <dd className="gateway-links">
           {GATEWAYS.map((g) => (
@@ -769,6 +805,11 @@ export function PublicationHistory({
     </div>
   );
 }
+
+/** Where the per-run CAR links point. Links only: the page never downloads a CAR. */
+const CAR_GATEWAYS = GATEWAYS.filter((g) =>
+  ['latam.orbitor.dev', 'ipfs.raribleuserdata.com'].includes(g.id),
+);
 
 /** Gateways asked to resolve the IPNS name: one independent, one pinning-vendor. */
 const IPNS_GATEWAYS = GATEWAYS.filter((g) =>

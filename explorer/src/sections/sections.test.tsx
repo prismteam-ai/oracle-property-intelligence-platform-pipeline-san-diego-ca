@@ -521,6 +521,43 @@ describe('permit totals and publication status', () => {
     });
   });
 
+  it("shows each run's CAR as links only, and says so when a run has none", () => {
+    const fetchMock = vi.fn<typeof fetch>();
+    vi.stubGlobal('fetch', fetchMock);
+    const sha = 'b8be4a88e985969db7544019873ec689e9eb2fa5c4f6b2818ca3ac9b4bee37bf';
+    render(
+      <PublicationHistory
+        manifest={null}
+        publications={[
+          {
+            runId: 6,
+            createdAt: '2026-11-25T17:39:55Z',
+            rootCid: 'bafyone',
+            car: { name: 'run-0006.car', cid: 'bafybeicarcarcar', size: 172439155, sha256: sha },
+          },
+          { runId: 3, createdAt: '2026-11-25T16:58:03Z', rootCid: 'bafytwo' },
+        ]}
+      />,
+    );
+    const car = within(screen.getByTestId('car-6'));
+    expect(screen.getByTestId('car-6')).toHaveTextContent(
+      'run-0006.car, 164 MB (172,439,155 bytes)',
+    );
+    expect(screen.getByTestId('car-6')).toHaveTextContent('bafybeicarcarcar');
+    expect(screen.getByTestId('car-6')).toHaveTextContent('b8be4a88e985969d…');
+    expect(screen.getByTestId('car-6')).toHaveTextContent('ipfs dag import');
+    expect(car.getByRole('link', { name: 'Fetch from latam.orbitor.dev' })).toHaveAttribute(
+      'href',
+      'https://latam.orbitor.dev/ipfs/bafybeicarcarcar',
+    );
+    expect(car.getByRole('link', { name: 'Fetch from ipfs.raribleuserdata.com' })).toHaveAttribute(
+      'href',
+      'https://ipfs.raribleuserdata.com/ipfs/bafybeicarcarcar',
+    );
+    expect(screen.getByTestId('car-3')).toHaveTextContent('not published as a separate object');
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
   it('says how many gateways verified a publish, and "not yet verified" for zero', () => {
     render(
       <PublicationHistory

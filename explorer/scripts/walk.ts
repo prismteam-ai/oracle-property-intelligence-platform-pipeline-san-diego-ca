@@ -327,6 +327,9 @@ async function walk(viewport: (typeof VIEWPORTS)[number], dark: boolean): Promis
   } else {
     notes.push(`[${tag}] IPNS card: ${await page.getByTestId('card-ipns').textContent()}`);
   }
+  notes.push(
+    `[${tag}] CAR rows: ${(await page.locator('[data-testid^="car-"]').allTextContents()).map((t) => t.slice(0, 90)).join(' | ')}`,
+  );
   const artifactErrors = consoleErrors.slice(errorsBeforeArtifacts);
   check(
     artifactErrors.length === 0,

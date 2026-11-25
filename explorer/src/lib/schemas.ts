@@ -231,6 +231,15 @@ export const publicationSchema = z.object({
   objects: num.optional(),
   bytes: num.optional(),
   verifiedGateways: num.optional(),
+  /** The run's CAR published as its own object; absent on older index entries. */
+  car: z
+    .object({
+      name: z.string(),
+      cid: z.string(),
+      size: num,
+      sha256: z.string(),
+    })
+    .nullish(),
 });
 export type Publication = z.infer<typeof publicationSchema>;
 
