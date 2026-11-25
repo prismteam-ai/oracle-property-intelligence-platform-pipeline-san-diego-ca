@@ -133,6 +133,28 @@ const DERIVED: readonly string[] = [
                                                     WHEN 'sdcounty_permits' THEN 'CN' END
    WHERE p.apn IS NULL AND p.address IS NOT NULL`,
 
+  // The City of San Diego lists some permits twice: once under the legacy number N and once as PMT-N
+  // after its move to Accela. They are one permit when the number matches and so does the applied date
+  // or the APN. The record further along (finalled, cancelled or expired, then issued, then pending) is
+  // kept as canonical, PMT-N on a tie; the other becomes its alias and is hidden from permit_enriched.
+  `CREATE OR REPLACE TABLE permit_alias AS
+   WITH pairs AS (
+     SELECT a.permit_uid AS legacy_uid, b.permit_uid AS accela_uid,
+            a.source_permit_id AS legacy_id, b.source_permit_id AS accela_id,
+            CASE WHEN a.status_group IN ('completed', 'cancelled', 'expired') THEN 3
+                 WHEN a.status_group = 'open' THEN 2 ELSE 1 END AS legacy_stage,
+            CASE WHEN b.status_group IN ('completed', 'cancelled', 'expired') THEN 3
+                 WHEN b.status_group = 'open' THEN 2 ELSE 1 END AS accela_stage
+     FROM permit a
+     JOIN permit b ON b.source_id = a.source_id AND b.source_permit_id = 'PMT-' || a.source_permit_id
+     WHERE a.source_id = 'sdcity_permits' AND (a.applied_date = b.applied_date OR a.apn = b.apn))
+   SELECT CASE WHEN legacy_stage > accela_stage THEN accela_uid ELSE legacy_uid END AS alias_uid,
+          CASE WHEN legacy_stage > accela_stage THEN legacy_uid ELSE accela_uid END AS canonical_uid,
+          CASE WHEN legacy_stage > accela_stage THEN accela_id ELSE legacy_id END AS alias_source_permit_id,
+          CASE WHEN legacy_stage > accela_stage THEN legacy_id ELSE accela_id END AS canonical_source_permit_id,
+          'same number with and without the PMT- prefix, and same applied date or APN' AS rule
+   FROM pairs`,
+
   // Cross-check for ambiguous two-digit years: is there a permit on the parcel just before the assumed year?
   `CREATE OR REPLACE TABLE property_year_check AS
    SELECT pr.apn,

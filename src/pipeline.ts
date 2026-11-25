@@ -83,17 +83,58 @@ async function recordStat(db: Db, runId: number, s: SourceStat): Promise<void> {
   ]);
 }
 
+/** Latest fetch time among the raw files a source was loaded from, as UTC ISO 8601 with Z. */
+function latestFetch(files: readonly { readonly fetchedAt: string }[]): string | null {
+  const times = files.map((f) => new Date(f.fetchedAt).toISOString()).sort();
+  return times.at(-1) ?? null;
+}
+
+/**
+ * Records, for every source and every run, when the source was last checked and when the data now
+ * loaded was fetched. A source skipped as "not modified" keeps its earlier fetch time.
+ */
+async function recordFetch(
+  db: Db,
+  runId: number,
+  sourceId: string,
+  stateToken: string | null,
+  fetchedAtUtc: string | null,
+  checkedAt: Date,
+): Promise<void> {
+  const Previous = z.object({ last_fetched_at_utc: z.string().nullable() });
+  const previous = await db.query(
+    Previous,
+    'SELECT last_fetched_at_utc FROM source_state WHERE source_id = ?',
+    [sourceId],
+  );
+  const fetched = fetchedAtUtc ?? previous[0]?.last_fetched_at_utc ?? null;
+  const checked = checkedAt.toISOString();
+  await db.exec('DELETE FROM source_state WHERE source_id = ?', [sourceId]);
+  await db.exec(
+    `INSERT INTO source_state (source_id, state_token, updated_run, updated_at, last_fetched_at_utc, last_checked_at_utc)
+     VALUES (?, ?, ?, ?::TIMESTAMP, ?, ?)`,
+    [sourceId, stateToken, runId, checked, fetched, checked],
+  );
+  await db.exec(
+    'UPDATE source SET last_fetched_at_utc = ?, last_checked_at_utc = ?, last_run_id = ? WHERE source_id = ?',
+    [fetched, checked, runId, sourceId],
+  );
+}
+
 async function registerSource(db: Db, adapter: SourceAdapter): Promise<void> {
   const i = adapter.info;
   await db.exec('DELETE FROM source WHERE source_id = ?', [i.id]);
-  await db.exec('INSERT INTO source VALUES (?, ?, ?, ?, ?, ?)', [
-    i.id,
-    i.name,
-    i.url,
-    i.licence,
-    i.limits,
-    i.changeDetection,
-  ]);
+  await db.exec(
+    'INSERT INTO source (source_id, name, url, licence, limits, change_detection) VALUES (?, ?, ?, ?, ?, ?)',
+    [i.id, i.name, i.url, i.licence, i.limits, i.changeDetection],
+  );
+  // Fetch times survive the re-registration: they live in source_state.
+  await db.exec(
+    `UPDATE source SET last_fetched_at_utc = s.last_fetched_at_utc, last_checked_at_utc = s.last_checked_at_utc,
+                       last_run_id = s.updated_run
+     FROM source_state s WHERE s.source_id = source.source_id AND source.source_id = ?`,
+    [i.id],
+  );
 }
 
 async function runAdapter(
@@ -220,14 +261,7 @@ async function runAdapter(
     log.info('merged', { source: sourceId, entity: spec.name, ...counts, rejected });
   }
 
-  if (fetched.stateToken !== null) {
-    await db.exec('DELETE FROM source_state WHERE source_id = ?', [sourceId]);
-    await db.exec('INSERT INTO source_state VALUES (?, ?, ?, now()::TIMESTAMP)', [
-      sourceId,
-      fetched.stateToken,
-      runId,
-    ]);
-  }
+  await recordFetch(db, runId, sourceId, fetched.stateToken, latestFetch(fetched.files), new Date());
   if (options.keepStage !== true) await rm(stageDir, { recursive: true, force: true });
   return stats;
 }
@@ -293,14 +327,21 @@ export async function runPipeline(options: RunOptions): Promise<RunSummary> {
     }
 
     await db.exec('DELETE FROM source WHERE source_id = ?', [RECONCILED_SOURCE_ID]);
-    await db.exec('INSERT INTO source VALUES (?, ?, ?, ?, ?, ?)', [
-      RECONCILED_SOURCE_ID,
-      'Reconciliation step (contractor identities built from CSLB master and county permit contractors)',
-      'local',
-      'derived',
-      'Derived from the sources above; each contractor row names the source record it came from.',
-      'derived',
-    ]);
+    await db.exec(
+      'INSERT INTO source (source_id, name, url, licence, limits, change_detection) VALUES (?, ?, ?, ?, ?, ?)',
+      [
+        RECONCILED_SOURCE_ID,
+        'Reconciliation step (contractor identities built from CSLB master and county permit contractors)',
+        'local',
+        'derived',
+        'Derived from the sources above; each contractor row names the source record it came from.',
+        'derived',
+      ],
+    );
+    await db.exec(
+      'UPDATE source SET last_fetched_at_utc = ?, last_checked_at_utc = ?, last_run_id = ? WHERE source_id = ?',
+      [startedAt.toISOString(), startedAt.toISOString(), runId, RECONCILED_SOURCE_ID],
+    );
     const reconcileStarted = Date.now();
     const c = await reconcile(db, runId, entities);
     const reconciled: SourceStat = {

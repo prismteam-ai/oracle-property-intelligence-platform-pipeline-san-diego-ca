@@ -5,7 +5,7 @@ import { mapLimit } from '../http.js';
 import {
   blankToNull,
   normalizeApn,
-  resolveMmddyy,
+  resolveTransferDate,
   resolveTwoDigitYear,
   toNumber,
   zip5,
@@ -291,8 +291,12 @@ export const sandagParcels: SourceAdapter = {
         );
         yield property;
         if (!property.ok) continue;
-        const transfer = resolveMmddyy(a.docdate, ctx.today);
         const ownerOccupied = a.ownerocc === 'Y';
+        const transfer = resolveTransferDate(a.docdate, ctx.today, {
+          ownerOccupied,
+          taxable: a.taxstat === 'T',
+          docType: blankToNull(a.doctype),
+        });
         yield validate(
           ctx.entities,
           'ownership',
@@ -307,8 +311,9 @@ export const sandagParcels: SourceAdapter = {
             owner_occupied: ownerOccupied,
             last_transfer_date_raw: blankToNull(a.docdate),
             last_transfer_date: transfer.date,
-            last_transfer_ambiguous: transfer.ambiguous,
+            last_transfer_ambiguous: transfer.confidence === 'ambiguous',
             last_transfer_rule: transfer.rule,
+            last_transfer_confidence: transfer.confidence,
             doc_type: blankToNull(a.doctype),
             doc_number: blankToNull(a.docnmbr),
             out_of_area: !ownerOccupied,

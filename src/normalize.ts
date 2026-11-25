@@ -216,3 +216,48 @@ export function countyCoordinate(
     note: `source coordinate outside San Diego County (${lat}, ${lon}); discarded`,
   };
 }
+
+export type TransferConfidence = 'certain' | 'resolved' | 'ambiguous';
+
+export interface ResolvedTransfer {
+  readonly date: string | null;
+  /** Null when there is no usable date. */
+  readonly confidence: TransferConfidence | null;
+  readonly rule: string;
+}
+
+/** Document-type codes the recorder extract uses on modern documents. */
+const TYPED_DOCUMENT = new Set(['1', '2', '3', '6']);
+
+/**
+ * Century of a parcel's last recorded document (MMDDYY). Three outcomes, each with its rule named:
+ *
+ *  certain    The digits allow one century: yy above the current yy is 19yy, and a 20yy date that would
+ *             fall in the future is 19yy.
+ *  resolved   yy at or below the current yy, read as 20yy because of independent evidence:
+ *             - `owner_occupied_exemption_20xx`: the parcel carries the owner-occupied flag (a
+ *               homeowner's exemption claimed by a living resident), so the owner cannot have taken
+ *               title a century ago.
+ *             - `typed_document_on_taxable_parcel_20xx`: a taxable parcel whose document has a modern
+ *               type code. In the loaded data, last documents dated 1927 to 1939 number 58 in thirteen
+ *               years (1 to 21 a year) against 11,000 to 85,000 a year for yy 00 to 26, and three in
+ *               four of the pre-1960 ones carry no type code at all.
+ *  ambiguous  Neither applies: a tax-exempt parcel (public agencies, churches and utilities do hold land
+ *             for a century) or a document with no type code. The date is still read as 20yy, flagged.
+ */
+export function resolveTransferDate(
+  raw: string | null | undefined,
+  today: string,
+  evidence: { readonly ownerOccupied: boolean; readonly taxable: boolean; readonly docType: string | null },
+): ResolvedTransfer {
+  const base = resolveMmddyy(raw, today);
+  if (base.date === null) return { date: null, confidence: null, rule: base.rule };
+  if (!base.ambiguous) return { date: base.date, confidence: 'certain', rule: base.rule };
+  if (evidence.ownerOccupied) {
+    return { date: base.date, confidence: 'resolved', rule: 'owner_occupied_exemption_20xx' };
+  }
+  if (evidence.taxable && evidence.docType !== null && TYPED_DOCUMENT.has(evidence.docType)) {
+    return { date: base.date, confidence: 'resolved', rule: 'typed_document_on_taxable_parcel_20xx' };
+  }
+  return { date: base.date, confidence: 'ambiguous', rule: 'yy_le_current_no_corroboration' };
+}

@@ -483,6 +483,136 @@ describe('full load, then idempotent re-run', () => {
     });
   });
 
+  it('shows a permit the city lists twice (N and PMT-N) once, with the other id as an alias', async () => {
+    await withDb(ws, async (db) => {
+      const Alias = z.object({
+        alias_source_permit_id: z.string(),
+        canonical_source_permit_id: z.string(),
+        rule: z.string(),
+      });
+      const aliases = await db.query(
+        Alias,
+        'SELECT alias_source_permit_id, canonical_source_permit_id, rule FROM permit_alias ORDER BY canonical_source_permit_id',
+      );
+      // Real pairs: for 2163994 both records are "Issued", so the PMT- record is kept; for 2350547 the
+      // legacy record is "Completed" and the PMT- record is a stale "Inspection Followup", so the
+      // legacy record is kept.
+      expect(aliases.map((a) => [a.canonical_source_permit_id, a.alias_source_permit_id])).toEqual([
+        ['2350547', 'PMT-2350547'],
+        ['PMT-2163994', '2163994'],
+      ]);
+      const Row = z.object({ source_permit_id: z.string(), alias_permit_id: z.string().nullable() });
+      const shown = await db.query(
+        Row,
+        `SELECT source_permit_id, alias_permit_id FROM permit_enriched
+         WHERE source_permit_id IN ('2163994', 'PMT-2163994', '2350547', 'PMT-2350547') ORDER BY 1`,
+      );
+      expect(shown).toEqual([
+        { source_permit_id: '2350547', alias_permit_id: 'PMT-2350547' },
+        { source_permit_id: 'PMT-2163994', alias_permit_id: '2163994' },
+      ]);
+      // Both source records are still in the permit table, with their provenance.
+      const { n } = await db.one(
+        N,
+        `SELECT count(*) AS n FROM permit WHERE source_permit_id IN ('2163994', 'PMT-2163994', '2350547', 'PMT-2350547')`,
+      );
+      expect(n).toBe(4);
+      const { n: enriched } = await db.one(N, 'SELECT count(*) AS n FROM permit_enriched');
+      const { n: all } = await db.one(N, 'SELECT count(*) AS n FROM permit');
+      expect(enriched).toBe(all - aliases.length);
+      // The restaurant shell is not a roofing permit under either id.
+      const { n: shell } = await db.one(
+        N,
+        `SELECT count(*) AS n FROM permit WHERE source_permit_id IN ('2163994', 'PMT-2163994', '256673') AND is_roofing`,
+      );
+      expect(shell).toBe(0);
+    });
+  });
+
+  it('grades every last-transfer date as certain, resolved by a named rule, or ambiguous', async () => {
+    await withDb(ws, async (db) => {
+      const Grade = z.object({
+        last_transfer_confidence: z.string().nullable(),
+        last_transfer_rule: z.string(),
+        n: z.coerce.number(),
+      });
+      const grades = await db.query(
+        Grade,
+        'SELECT last_transfer_confidence, last_transfer_rule, count(*) AS n FROM ownership GROUP BY ALL',
+      );
+      const rulesFor = (c: string | null): string[] =>
+        grades
+          .filter((g) => g.last_transfer_confidence === c)
+          .map((g) => g.last_transfer_rule)
+          .sort();
+      expect(rulesFor('certain')).toEqual(['yy_gt_current_19xx']);
+      expect(rulesFor('resolved')).toEqual([
+        'owner_occupied_exemption_20xx',
+        'typed_document_on_taxable_parcel_20xx',
+      ]);
+      for (const rule of rulesFor('ambiguous')) expect(rule).toBe('yy_le_current_no_corroboration');
+      const { n: undated } = await db.one(
+        N,
+        'SELECT count(*) AS n FROM ownership WHERE (last_transfer_date IS NULL) <> (last_transfer_confidence IS NULL)',
+      );
+      expect(undated).toBe(0);
+      const { n: flagMismatch } = await db.one(
+        N,
+        "SELECT count(*) AS n FROM ownership WHERE last_transfer_ambiguous <> coalesce(last_transfer_confidence = 'ambiguous', false)",
+      );
+      expect(flagMismatch).toBe(0);
+      // "Held 10+ years" can now use every certain or resolved date.
+      const { n: usable } = await db.one(
+        N,
+        "SELECT count(*) AS n FROM ownership WHERE last_transfer_confidence IN ('certain', 'resolved') AND last_transfer_date < current_date - INTERVAL 10 YEAR",
+      );
+      expect(usable).toBeGreaterThan(50);
+    });
+  });
+
+  it('records a UTC fetch time, with zone, for every source', async () => {
+    await withDb(ws, async (db) => {
+      const Source = z.object({
+        source_id: z.string(),
+        last_fetched_at_utc: z.string().nullable(),
+        last_checked_at_utc: z.string().nullable(),
+        last_run_id: z.number().nullable(),
+      });
+      const sources = await db.query(
+        Source,
+        'SELECT source_id, last_fetched_at_utc, last_checked_at_utc, last_run_id FROM source ORDER BY source_id',
+      );
+      expect(sources.map((s) => s.source_id)).toEqual([
+        'carlsbad_permits',
+        'cslb_license_master',
+        'reconciled',
+        'sandag_parcels',
+        'sdcity_businesses',
+        'sdcity_permits',
+        'sdcounty_permit_contractors',
+        'sdcounty_permit_status',
+        'sdcounty_permits',
+      ]);
+      const ISO_UTC = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?Z$/;
+      for (const s of sources) {
+        expect(s.last_fetched_at_utc, s.source_id).toMatch(ISO_UTC);
+        expect(s.last_checked_at_utc, s.source_id).toMatch(ISO_UTC);
+        expect(s.last_run_id, s.source_id).not.toBeNull();
+      }
+      const { n: states } = await db.one(
+        N,
+        'SELECT count(*) AS n FROM source_state WHERE last_fetched_at_utc IS NOT NULL',
+      );
+      expect(states).toBe(8); // every adapter, including the three county cursor sources
+      // Row timestamps are UTC: the newest fetched_at cannot be later than the real clock in UTC.
+      const { n: future } = await db.one(
+        N,
+        "SELECT count(*) AS n FROM permit WHERE fetched_at > (now() AT TIME ZONE 'UTC') + INTERVAL 5 MINUTE",
+      );
+      expect(future).toBe(0);
+    });
+  });
+
   it('reconciles permits to parcels on APN and contractors on licence number', async () => {
     await withDb(ws, async (db) => {
       const { n: matched } = await db.one(

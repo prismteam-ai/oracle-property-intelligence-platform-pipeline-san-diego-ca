@@ -16,7 +16,10 @@ export class Db {
   static async open(dbPath: string): Promise<Db> {
     if (dbPath !== ':memory:') await mkdir(path.dirname(dbPath), { recursive: true });
     const instance = await DuckDBInstance.create(dbPath);
-    return new Db(instance, await instance.connect());
+    const connection = await instance.connect();
+    // Every TIMESTAMP in this database is UTC. Without this, now() would be cast in the machine's zone.
+    await connection.run("SET TimeZone = 'UTC'");
+    return new Db(instance, connection);
   }
 
   async exec(sql: string, params: readonly SqlParam[] = []): Promise<void> {
@@ -88,6 +91,15 @@ const CONTROL_TABLES: readonly string[] = [
   `CREATE TABLE IF NOT EXISTS business_contractor (
      account_key VARCHAR, contractor_id VARCHAR, match_method VARCHAR, candidates INTEGER)`,
   `CREATE TABLE IF NOT EXISTS permit_apn_link (permit_uid VARCHAR, apn VARCHAR, match_method VARCHAR)`,
+  `CREATE TABLE IF NOT EXISTS permit_alias (
+     alias_uid VARCHAR, canonical_uid VARCHAR, alias_source_permit_id VARCHAR,
+     canonical_source_permit_id VARCHAR, rule VARCHAR)`,
+  // Fetch times as text, UTC, ISO 8601 with Z, so no reader has to guess a zone.
+  `ALTER TABLE source ADD COLUMN IF NOT EXISTS last_fetched_at_utc VARCHAR`,
+  `ALTER TABLE source ADD COLUMN IF NOT EXISTS last_checked_at_utc VARCHAR`,
+  `ALTER TABLE source ADD COLUMN IF NOT EXISTS last_run_id INTEGER`,
+  `ALTER TABLE source_state ADD COLUMN IF NOT EXISTS last_fetched_at_utc VARCHAR`,
+  `ALTER TABLE source_state ADD COLUMN IF NOT EXISTS last_checked_at_utc VARCHAR`,
   `CREATE TABLE IF NOT EXISTS property_year_check (
      apn VARCHAR, earliest_permit_date DATE, permit_near_year BOOLEAN)`,
 ];
@@ -103,6 +115,8 @@ const VIEWS: readonly string[] = [
    SELECT p.* REPLACE (coalesce(p.apn, al.apn) AS apn),
           CASE WHEN p.apn IS NOT NULL THEN 'source APN'
                WHEN al.apn IS NOT NULL THEN 'parcel matched on situs address' END AS apn_basis,
+          -- The other id of the same permit, when the source lists it twice (see permit_alias).
+          canon.alias_source_permit_id AS alias_permit_id,
           coalesce(p.closed_date, s.completed_date) AS effective_closed_date,
           CASE WHEN p.closed_date IS NOT NULL THEN 'source close date'
                WHEN s.completed_date IS NOT NULL THEN 'status history: last completed/finaled event' END AS closed_date_basis,
@@ -133,9 +147,12 @@ const VIEWS: readonly string[] = [
    FROM permit p
    LEFT JOIN permit_status_summary s ON s.permit_uid = p.permit_uid
    LEFT JOIN permit_apn_link al ON al.permit_uid = p.permit_uid
+   LEFT JOIN permit_alias canon ON canon.canonical_uid = p.permit_uid
    LEFT JOIN property pr ON pr.apn = coalesce(p.apn, al.apn)
    LEFT JOIN permit_contractor pc ON pc.permit_uid = p.permit_uid AND pc.is_primary
-   LEFT JOIN contractor c ON c.contractor_id = pc.contractor_id`,
+   LEFT JOIN contractor c ON c.contractor_id = pc.contractor_id
+   -- One row per real permit: the duplicate record of a pair is left out here (it stays in the permit table).
+   WHERE p.permit_uid NOT IN (SELECT alias_uid FROM permit_alias)`,
 
   // Roof age with its basis and confidence. The age threshold is the caller's parameter:
   //   SELECT * FROM roof_signal WHERE roof_age_years >= ?

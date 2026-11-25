@@ -10,6 +10,7 @@ import {
   normalizeLicense,
   normalizeName,
   resolveMmddyy,
+  resolveTransferDate,
   resolveTwoDigitYear,
   usDate,
   zip5,
@@ -245,5 +246,65 @@ describe('countyCoordinate: a bad geocode costs the coordinate, never the permit
       lon: null,
       note: 'source coordinate incomplete (32.7, null); discarded',
     });
+  });
+});
+
+describe('resolveTransferDate: the century of a last-recorded document, three outcomes', () => {
+  const today = '2026-11-25';
+  const taxableTyped = { ownerOccupied: false, taxable: true, docType: '1' };
+
+  it('is certain when the two digits allow only one century', () => {
+    // Real: APN 4982604500, docdate 013196.
+    expect(resolveTransferDate('013196', today, taxableTyped)).toEqual({
+      date: '1996-01-31',
+      confidence: 'certain',
+      rule: 'yy_gt_current_19xx',
+    });
+    expect(resolveTransferDate('122026', today, taxableTyped)).toEqual({
+      date: '1926-12-20',
+      confidence: 'certain',
+      rule: 'future_as_20xx_so_19xx',
+    });
+  });
+
+  it('resolves an owner-occupied parcel to 20yy and names the rule', () => {
+    // Real: APN 4982603900, docdate 081713, owner-occupied Y, doc type 3.
+    expect(
+      resolveTransferDate('081713', today, { ownerOccupied: true, taxable: true, docType: '3' }),
+    ).toEqual({
+      date: '2013-08-17',
+      confidence: 'resolved',
+      rule: 'owner_occupied_exemption_20xx',
+    });
+  });
+
+  it('resolves a taxable parcel with a typed document to 20yy and names the rule', () => {
+    expect(resolveTransferDate('062105', today, taxableTyped)).toEqual({
+      date: '2005-06-21',
+      confidence: 'resolved',
+      rule: 'typed_document_on_taxable_parcel_20xx',
+    });
+  });
+
+  it('leaves a tax-exempt parcel or an untyped document ambiguous, still dated and flagged', () => {
+    expect(
+      resolveTransferDate('062105', today, { ownerOccupied: false, taxable: false, docType: '1' }),
+    ).toEqual({
+      date: '2005-06-21',
+      confidence: 'ambiguous',
+      rule: 'yy_le_current_no_corroboration',
+    });
+    expect(
+      resolveTransferDate('062105', today, { ownerOccupied: false, taxable: true, docType: null }).confidence,
+    ).toBe('ambiguous');
+  });
+
+  it('gives no confidence where there is no date', () => {
+    expect(resolveTransferDate('000000', today, taxableTyped)).toEqual({
+      date: null,
+      confidence: null,
+      rule: 'unparseable',
+    });
+    expect(resolveTransferDate(null, today, taxableTyped).confidence).toBeNull();
   });
 });

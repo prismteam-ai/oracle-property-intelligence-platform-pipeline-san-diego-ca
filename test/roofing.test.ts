@@ -106,7 +106,7 @@ const REAL_REPAIR_AND_STRUCTURAL: readonly Case[] = [
     'roof_structural',
   ],
   [
-    'Wolf Residence Addition // New addition to single family residence. Includes new extension of den, new patio cover and roof framing.',
+    'Huynh Roof Structure Change // Replace the roof structure with trusses & electrical panel upgrade for extg sdu.',
     'roof structural',
     'roof_structural',
   ],
@@ -201,9 +201,21 @@ describe('classifyRoofing on real permit descriptions', () => {
     }
   });
 
-  it('lets an explicit reroof win when a permit covers both a reroof and solar', () => {
-    const result = classifyRoofing('REROOF 2,400 SF COMP SHINGLE AND INSTALL 6KW ROOF MOUNTED PV SYSTEM');
-    expect(result).toEqual({ roofingClass: 'reroof', isRoofing: true, rule: 'reroof_explicit' });
+  it('treats a reroof done for a solar job as roofing only when it says the whole roof was redone', () => {
+    expect(classifyRoofing('28SQRS FULL COMP SHINGLE REROOF FOR 6.48KW ROOF-MOUNT PV W// 16MODULES')).toEqual(
+      {
+        roofingClass: 'reroof',
+        isRoofing: true,
+        rule: 'reroof_explicit',
+      },
+    );
+    expect(
+      classifyRoofing('BONAS / 14SQRS COMP SHINGLE REROOF FOR ROOF-MOUNT PV / 8.91KW W// 22 MODULES'),
+    ).toEqual({
+      roofingClass: 'solar-on-roof',
+      isRoofing: false,
+      rule: 'solar_job_reroof_incidental',
+    });
   });
 
   it('classifies across the separate fields a source provides', () => {
@@ -256,19 +268,20 @@ const CARLSBAD: readonly Case[] = [
   ],
   [
     'RUSSELL: ROOF MOUNT SOLAR WITH 20 MODULES  7.30 KW.  AND REROOF 15 SQUARES COMP SHINGLE (E-REVIEW)',
-    'reroof',
-    'reroof_explicit',
+    'solar-on-roof',
+    'solar_job_reroof_incidental',
   ],
-  // ... but a partial reroof under the array is a repair: real roofing work that must not reset the roof's age.
+  // ... but a reroof that is only part of a solar job (no "FULL") is classed with the solar job, and a
+  // partial reroof with no solar is a repair: real roofing work that must not reset the roof's age.
   [
     '15SQRS PICTURE FRAME PARTIAL REROOF FOR 14.35KW ROOF-MOUNT PV W// 35MODULES & 35MICRO-INVERTERS (E-REVIEW)',
-    'roof repair',
-    'reroof_partial',
+    'solar-on-roof',
+    'solar_job_reroof_incidental',
   ],
   [
     '1300SQ FT PARTIAL LIFT & RELAY REROOF FOR 6.48KW ROOF-MOUNT PV ADDER W// 16MODULES  16MICRO-INVERTERS; 3.84KW ENERGY STORAGE (E-REVIEW)',
-    'roof repair',
-    'reroof_partial',
+    'solar-on-roof',
+    'solar_job_reroof_incidental',
   ],
   ['900SQFT LIFT & LAY PARTIAL REROOF (E-REVIEW)', 'roof repair', 'reroof_partial'],
   [
@@ -280,8 +293,8 @@ const CARLSBAD: readonly Case[] = [
   ['PICTURE FRAME RE-ROOF.  215 SF UL790. ASTM-1561. (E-REVIEW)', 'roof repair', 'reroof_partial'],
   [
     'PARTIAL RE-ROOF FOR FUTURE SOLAR. REMOVE EXISTING TILE. INSTALL 30# FELT  INSTALL COMPOSITION SHINGLES. BACKFILL TILE AROUND SOLAR ARRAY. (E-REVIEW)',
-    'roof repair',
-    'reroof_partial',
+    'solar-on-roof',
+    'solar_job_reroof_incidental',
   ],
   // Solar with no roofing work.
   [
@@ -371,8 +384,6 @@ const NOT_BUILDING_WORK: readonly (readonly [string, string, string, string])[] 
 
 describe('classifyPermitRoofing: the approval type is checked before the text', () => {
   it.each(NOT_BUILDING_WORK)('%s / %s is not roofing work', (type, title, scope, expectedRule) => {
-    // The text alone would have said roofing: that was the defect.
-    expect(classifyRoofing(type, title, scope).isRoofing).toBe(true);
     expect(classifyPermitRoofing(type, title, scope)).toEqual({
       roofingClass: 'other',
       isRoofing: false,
@@ -413,5 +424,149 @@ describe('classifyPermitRoofing: the approval type is checked before the text', 
       isRoofing: false,
       rule: null,
     });
+  });
+});
+
+/**
+ * The second pass of live-site defects. Real rows, each [approval type, title, scope, class, rule].
+ * `is_roofing` now needs a building-work type AND roofing evidence about the roof itself.
+ */
+const LIVE_DEFECTS: readonly (readonly [string | null, string, string, RoofingClass, string])[] = [
+  // City 256673: a planning review that was first in the long-open roofing list.
+  [
+    'Substantial Conformance Review',
+    'All Hollow Church SCR',
+    'La Jolla, J.O.#42-5130. Substantial Conformance Review for amendments to approved Conditional Use Permit No. 8410, amendment to Conditional Use Permit No. C-2560, and Coastal Development Permit No. 8409, to remove courtyard structure from scope, modifications to roof structure',
+    'other',
+    'approval_type_not_building_work',
+  ],
+  // City PMT-2163994: a new restaurant shell; the roof is part of a new building.
+  [
+    'Building Permit',
+    'General-Express- East Village Green Park',
+    'To construct a commercial shell space (restaurant) atop a proposed parking structure. Work includes an integrated roof structure connected to the parking structure stair well and vent',
+    'other',
+    'roof_mention_unclassified',
+  ],
+  // A vent through the roof on a plumbing permit.
+  [
+    'Plumbing Permit',
+    '5980 Fairmount Av Improvements',
+    'For installing a gas line and mechanical vent connections to future coffee roaster. Vent to penetrate through roof structure',
+    'other',
+    'trade_permit_not_building_work',
+  ],
+  // City PMT-3255927: the Electrical Pmt of a project whose building permit is the roof repair.
+  [
+    'Electrical Pmt',
+    'General-Express-Building Construction:1606/Fern',
+    'Building permit for roof repair on an existing commercial building. HRB #: 1276, District Contributor #: 1276-NC CED# 0517517',
+    'other',
+    'trade_permit_not_building_work',
+  ],
+  // City PMT-3375246 and PMT-3337990: solar permits that mention the reroof they wait on.
+  [
+    'Photovoltaic - SB 379',
+    '',
+    'This is an uninstall/reinstall project uninstall/reinstall of 3 (E) POWERXT 360-PD SOLAR MODULE AFTER RE-ROOFING',
+    'solar-on-roof',
+    'solar_job_reroof_incidental',
+  ],
+  [
+    'Photovoltaic - SB 379',
+    '',
+    'Removal and reinstall existing PV system to accommodate new roofing at existing location.',
+    'solar-on-roof',
+    'solar_job_reroof_incidental',
+  ],
+  // An addition whose new roof framing is incidental.
+  [
+    'Combination Building Permit',
+    'Wolf Residence Addition',
+    'New addition to single family residence. Includes new extension of den, new patio cover and roof framing.',
+    'other',
+    'roof_mention_unclassified',
+  ],
+  // A county new-building category: the roof-structure phrase describes the new building.
+  [
+    'New Primary Residential SFD-MH',
+    '1010 - RES - New Primary Residential Structure',
+    'Cross street: MARILLA Description of Work: *** BURN OUT*** REPAIR and MINOR REMODELING FOR FIRE DAMAGE ON EXISTING SFD as Follows: replacing 26x16 sub floor framing at Living Room; Repair 11 roof trusses;',
+    'other',
+    'new_construction_roof_incidental',
+  ],
+];
+
+const STILL_ROOFING: readonly (readonly [string | null, string, string, RoofingClass, string])[] = [
+  // The city files real reroofs under this "Mech/Elec/Plum" no-plan type (PMT-3277117).
+  [
+    'No-Plan - Residential - Combination Mech/Elec/Plum',
+    '',
+    'Re-roof - 32 squares like for like',
+    'reroof',
+    'reroof_explicit',
+  ],
+  // City PMT-3112859.
+  [
+    'Building Permit',
+    'Rapid Review-Standard-Building Construction:3006/Beech',
+    'For the proposed repair/replace in kind of roof framing due to fire damage at the (E) mixed use building.',
+    'roof structural',
+    'roof_structural',
+  ],
+  [
+    'Residential Alteration-Addn',
+    '',
+    'CROSS STREET: VISTA GRANDE DESCRIPTION OF WORK: ROOF STRUCTURE REPLACEMENT OVER GARAGE/NEW DRYWALL INSIDE GARAGE',
+    'roof structural',
+    'roof_structural',
+  ],
+  [
+    'Residential Alteration-Addn',
+    '',
+    'CROSS STREET: VIA DIEGO DESCRIPTION OF WORK: NEW ROOF STRUCTURE OVER EXISTING GARAGE FROM FLAT TO PITCHED',
+    'roof structural',
+    'roof_structural',
+  ],
+  // A real reroof filed under a county new-building category is kept.
+  [
+    'New Commercial Acc Structure',
+    '',
+    'CROSS STREET: KEEMO TERR DESCRIPTION OF WORK: RE-ROOF FROM SHAKE TO COMP SHING',
+    'reroof',
+    'reroof_explicit',
+  ],
+  // The cool-roof form names a shingle called "Landmark Solaris" and "solar reflectance": not a solar job.
+  [
+    'Commercial Alteration-Addn',
+    '',
+    'Cross street: RANCHWOOD DR Description of Work: 21,900 SQFT RE-ROOF (4 BUILDINGS) FOR EXISTING CONDO COMPLEX. Manufacturer: CERTAINTEED Brand and model: LANDMARK SOLARIS ESR-1389 Color (if cool roof required): solar reflectance 0.25',
+    'reroof',
+    'reroof_explicit',
+  ],
+];
+
+describe('is_roofing needs a building-work type and evidence about the roof itself', () => {
+  it.each(LIVE_DEFECTS)('not roofing: %s / %s', (type, title, scope, expectedClass, expectedRule) => {
+    expect(classifyPermitRoofing(type, title, scope)).toEqual({
+      roofingClass: expectedClass,
+      isRoofing: false,
+      rule: expectedRule,
+    });
+  });
+
+  it.each(STILL_ROOFING)('roofing: %s / %s', (type, title, scope, expectedClass, expectedRule) => {
+    expect(classifyPermitRoofing(type, title, scope)).toEqual({
+      roofingClass: expectedClass,
+      isRoofing: true,
+      rule: expectedRule,
+    });
+  });
+
+  it('refuses a type it does not recognise, and accepts a blank one', () => {
+    expect(classifyPermitRoofing('Special Event Approval', '', 'Tent on roof repair area').isRoofing).toBe(
+      false,
+    );
+    expect(classifyPermitRoofing(null, '', 'REROOF: LIFT & RELAY (E-REVIEW)').isRoofing).toBe(true);
   });
 });

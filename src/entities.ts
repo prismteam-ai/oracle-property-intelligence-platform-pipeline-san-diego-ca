@@ -161,11 +161,13 @@ function buildEntities(today: string) {
       last_transfer_date: 'DATE',
       last_transfer_ambiguous: 'BOOLEAN',
       last_transfer_rule: 'VARCHAR',
+      last_transfer_confidence: 'VARCHAR',
       doc_type: 'VARCHAR',
       doc_number: 'VARCHAR',
       out_of_area: 'BOOLEAN',
       out_of_area_basis: 'VARCHAR',
     },
+    lateColumns: ['last_transfer_confidence'],
     schema: z.strictObject({
       apn: f.apn,
       owner_name: f.text,
@@ -179,6 +181,9 @@ function buildEntities(today: string) {
       last_transfer_date: f.eventDate,
       last_transfer_ambiguous: f.bool,
       last_transfer_rule: f.requiredText,
+      // certain: the two digits allow one century. resolved: a named rule picked the century.
+      // ambiguous: nothing corroborates the reading. Null when there is no date.
+      last_transfer_confidence: z.enum(['certain', 'resolved', 'ambiguous']).nullable(),
       doc_type: f.text,
       doc_number: f.text,
       out_of_area: f.bool,

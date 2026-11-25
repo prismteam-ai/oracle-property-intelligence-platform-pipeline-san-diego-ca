@@ -29,6 +29,11 @@ const NOT_EQUIPMENT =
 // Real spellings include "photo voltaic", "Photovoltec" and "PVS".
 const SOLAR = '\\b(?:PHOTO ?VOLT\\w*|PVS?|SOLAR)\\b';
 const REROOF_WORD = '\\bRE-?\\s?ROOF(?:ING|ED|S)?\\b';
+// A solar system, as opposed to the "solar reflectance" and "solar ready" wording of cool-roof forms.
+const SOLAR_SYSTEM = '\\b(?:PHOTO ?VOLT\\w*|PVS?\\b|SOLAR\\b(?! REFLECT| READY))';
+const ROOF_MEMBER = '(?:TRUSS(?:ES)?|FRAMING|RAFTERS?|STRUCTUR\\w+|BEAMS?|JOISTS?|DIAPHRAGM)';
+const STRUCTURAL_VERB =
+  '(?:REPLAC\\w*|REPLCMNT|REPAIR\\w*|RE-?FRAM\\w*|REBUIL\\w*|RECONSTRUCT\\w*|REINFORC\\w*|STRENGTHEN\\w*|MODIF\\w*)';
 
 export const ROOFING_RULES: readonly Rule[] = [
   {
@@ -39,6 +44,17 @@ export const ROOFING_RULES: readonly Rule[] = [
     pattern: new RegExp(
       `\\bNO (?:NEW |ANY )?${REROOF_WORD}|\\b(?:NOT|W\\/O|WITHOUT|EXCLUD\\w*)(?: (?:TO|A|ANY|THE|INCLUDE|INCLUDES|INCLUDING))* ${REROOF_WORD}|${REROOF_WORD}[^.;:]{0,30}\\b(?:SEPARATE PERMIT|NOT INCLUDED|NOT A PART|BY OTHERS)\\b`,
     ),
+  },
+  {
+    // A solar job that touches the roof on the way: "UNINSTALL AND REINSTALL OF 14 SOLAR MODULES AFTER
+    // REROOFING", "PARTIAL LIFT & RELAY REROOF FOR 9.84KW ROOF-MOUNT PV". The permit is for the array.
+    // It counts as roofing only when it says the whole roof was redone ("FULL REROOF FOR PV").
+    name: 'solar_job_reroof_incidental',
+    roofingClass: 'solar-on-roof',
+    pattern: new RegExp(
+      `^(?=.*${SOLAR_SYSTEM})(?=.*(?:${REROOF_WORD}|\\bNEW ROOFING\\b|\\bROOF(?:ING)? REPLACEMENT\\b))`,
+    ),
+    unless: /\b(?:FULL|ENTIRE|COMPLETE|WHOLE)\b/,
   },
   {
     // "PICTURE FRAME PARTIAL REROOF FOR 14.35KW ROOF-MOUNT PV": only the area under the array is redone.
@@ -79,10 +95,15 @@ export const ROOFING_RULES: readonly Rule[] = [
       /\bROOF[- ]?(?:TOP|MOUNT(?:ED)?)\b[^.;]{0,60}\b(?:A\/?C|HVAC|UNITS?|RTU|MECHANICAL|ANTENNAS?|EQUIPMENT|CONDENS\w*|PACKAGE|FAU|HEAT PUMP|EXHAUST|FANS?|SIGNS?)\b|\b(?:A\/?C|HVAC|RTU|MECHANICAL|ANTENNAS?|EQUIPMENT|CONDENS\w*|PACKAGE UNITS?|HEAT PUMPS?|EXHAUST FANS?)\b[^.;]{0,40}\b(?:ON|AT|ONTO) (?:THE |EXISTING |\(E\) )?ROOF\b/,
   },
   {
+    // The roof structure itself must be the thing worked on: "REPLACE DAMAGED ROOF TRUSSES",
+    // "ROOF STRUCTURE REPLACEMENT OVER GARAGE", "NEW ROOF STRUCTURE OVER EXISTING DUPLEX", flat to
+    // pitched. A bare mention ("INTEGRATED ROOF STRUCTURE" of a new shell, "VENT TO PENETRATE THROUGH
+    // ROOF STRUCTURE", "NEW ROOF FRAMING" of an addition) is not roofing work and falls through.
     name: 'roof_structural',
     roofingClass: 'roof structural',
-    pattern:
-      /\bROOF (?:TRUSS(?:ES)?|FRAMING|RAFTERS?|STRUCTUR\w+|BEAMS?|JOISTS?|DIAPHRAGM)\b|\b(?:RAISE|RAISING|EXTEND\w*|ALTER\w*|MODIFY\w*|CHANGE\w*)\b[^.;]{0,20}\bROOF ?LINE\b|\bROOF (?:ADDITION|EXTENSION|CONVERSION)\b|\bROOF[- ]TO[- ]WALL\b|\b(?:FLAT|PITCHED) ROOF TO (?:A )?(?:FLAT|PITCHED)\b/,
+    pattern: new RegExp(
+      `\\b${STRUCTURAL_VERB}\\b[^.;,]{0,40}\\bROOF ${ROOF_MEMBER}\\b|\\bROOF ${ROOF_MEMBER}\\b[^.;,]{0,25}\\b${STRUCTURAL_VERB}\\b|\\bNEW ROOF STRUCTURE (?:OVER|FOR|ON) (?:AN? |THE )?(?:EXISTING|EXIST|EXTG|\\(E\\))|\\b(?:RAISE|RAISING|ALTER\\w*|MODIFY\\w*|CHANGE\\w*)\\b[^.;]{0,20}\\bROOF ?LINE\\b|\\b(?:FLAT|PITCHED) ROOF TO (?:A )?(?:FLAT|PITCHED)\\b|\\bROOF[^.;,]{0,30}\\bFROM FLAT TO PITCHED\\b`,
+    ),
   },
   {
     name: 'roof_repair',
@@ -120,17 +141,39 @@ const NON_ROOFING_TYPES: readonly { readonly name: string; readonly pattern: Reg
     pattern: /\bCONSTRUCTION CHANGE\b|\bDEFERRED DOCUMENT REVIEW\b/,
   },
   {
-    // Agreements, encroachments, right-of-way and traffic-control permits, land-use approvals, signs
-    // and demolition authorise something other than building a roof.
+    // A single-trade or solar permit. Its text is often the whole project's scope ("Building permit for
+    // roof repair ..." on the Electrical Pmt of that project); the roofing permit is the building permit.
+    // "No-Plan - Residential - Combination Mech/Elec/Plum" is not caught: the city files real reroofs there.
+    name: 'trade_permit_not_building_work',
+    pattern:
+      /^(?:ELECTRICAL|MECHANICAL|PLUMBING|FIRE)\b|\b(?:ELECTRICAL|MECHANICAL|PLUMBING) PMT\b|- (?:ELECTRICAL|MECHANICAL|PLUMBING)$|\bPHOTOVOLTAIC\b|\bPV\b|\bSOLAR\b/,
+  },
+  {
+    // Agreements, encroachments, right-of-way and traffic-control permits, planning and discretionary
+    // approvals (conformance reviews, use and development permits, maps), signs, grading and demolition
+    // authorise something other than building a roof.
     name: 'approval_type_not_building_work',
     pattern:
-      /\bAGREEMENT\b|\bENCROACH\w*|\bRIGHT[- ]OF[- ]WAY\b|\bROW PERMIT\b|\bTRAFFIC CONTROL\b|\bDEVELOPMENT PERMIT\b|\bUSE PERMIT\b|\bZONING\b|\bVARIANCE\b|\bSIGN PERMIT\b|\bDEMOLITION\b|\bGRADING\b|\b(?:TENTATIVE|PARCEL|FINAL) MAP\b|\bEASEMENT\b/,
+      /\bAGREEMENT\b|\bENCROACH\w*|\bRIGHT[- ]OF[- ]WAY\b|\bROW PERMIT\b|\bTRAFFIC CONTROL\b|\bDEVELOPMENT\b|\bUSE PERMIT\b|\bCONFORMANCE\b|\bREVIEW\b|\bZONING\b|\bVARIANCE\b|\bSIGN PERMIT\b|\bDEMOLITION\b|\bGRADING\b|\bMAP\b|\bEASEMENT\b/,
   },
 ];
 
+/** Types that are building or construction work. Anything else that is not blank is refused. */
+const BUILDING_WORK_TYPE =
+  /\bBUILDING\b|\bBLDG\b|\bCOMBINATION\b|\bALTERATION\b|\bADDN\b|\bSTRUCTURE\b|\bSTRUC\b|\bRESIDENTIAL\b|\bCOMMERCIAL\b|\bTRACT\b|\bMH PARK\b/;
+
 /**
- * Classification for a permit record: the approval type is checked first, then the text rules.
- * A non-roofing type that mentions a roof is classed `other` with the type rule recorded.
+ * County categories for new buildings. A real reroof is sometimes filed under them and is kept, but a
+ * roof-structure or roof-repair phrase there describes the new building, so the roof is incidental.
+ */
+const NEW_CONSTRUCTION_TYPE = /^NEW \b|\bTRACT\b|\bPARENT\b/;
+
+/**
+ * Classification for a permit record. `is_roofing` needs both halves:
+ *  1. the approval type is building or construction work (a blank type is accepted; a type that is
+ *     planning, an agreement, a single trade, solar, or simply unrecognised is not), and
+ *  2. the text rules find roofing work on the roof itself.
+ * When the type refuses a record whose text mentions a roof, the type rule is recorded.
  */
 export function classifyPermitRoofing(
   permitType: string | null | undefined,
@@ -138,9 +181,20 @@ export function classifyPermitRoofing(
 ): RoofingResult {
   const byText = classifyRoofing(permitType, ...parts);
   if (byText.rule === null) return byText;
-  const type = (permitType ?? '').toUpperCase();
+  const type = (permitType ?? '').toUpperCase().trim();
+  const refuse = (rule: string): RoofingResult => ({ roofingClass: 'other', isRoofing: false, rule });
   const excluded = NON_ROOFING_TYPES.find((t) => t.pattern.test(type));
-  return excluded === undefined ? byText : { roofingClass: 'other', isRoofing: false, rule: excluded.name };
+  if (excluded !== undefined) {
+    // Solar permits keep their own class; everything else refused by type becomes `other`.
+    return byText.roofingClass === 'solar-on-roof' ? byText : refuse(excluded.name);
+  }
+  if (type !== '' && !BUILDING_WORK_TYPE.test(type)) {
+    return byText.roofingClass === 'solar-on-roof' ? byText : refuse('approval_type_not_building_work');
+  }
+  if (NEW_CONSTRUCTION_TYPE.test(type) && byText.isRoofing && byText.roofingClass !== 'reroof') {
+    return refuse('new_construction_roof_incidental');
+  }
+  return byText;
 }
 
 export function classifyRoofing(...parts: readonly (string | null | undefined)[]): RoofingResult {
