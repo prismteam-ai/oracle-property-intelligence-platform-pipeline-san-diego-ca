@@ -572,3 +572,30 @@ describe('incremental windows', () => {
     });
   });
 });
+
+describe('raw files are reused only to resume, never to stand in for a new fetch', () => {
+  it('a second run on the same day and window sees a change made at the source in between', async () => {
+    const ws = await workspace();
+    try {
+      const first = await run(ws, ALL, false);
+      expect(stat(first, 'sdcounty_permits', 'permit').inserted).toBeGreaterThan(0);
+
+      const file = path.join(ws.fixtures, 'sdcounty_permits/permits.json');
+      const permits = z
+        .array(z.record(z.string(), z.unknown()))
+        .parse(JSON.parse(await readFile(file, 'utf8')));
+      const target = permits.find((p) => p['record_status'] === 'Issued');
+      if (target === undefined) throw new Error('fixture has no Issued permit');
+      target['record_status'] = 'Completed';
+      await writeFile(file, JSON.stringify(permits));
+
+      // Same clock, so the same run date and the same raw folder as the first run.
+      const second = await run(ws, ALL, false);
+      const p = stat(second, 'sdcounty_permits', 'permit');
+      expect({ inserted: p.inserted, updated: p.updated }).toEqual({ inserted: 0, updated: 1 });
+      expect(p.notes).not.toContain('reused');
+    } finally {
+      await rm(ws.dir, { recursive: true, force: true });
+    }
+  });
+});

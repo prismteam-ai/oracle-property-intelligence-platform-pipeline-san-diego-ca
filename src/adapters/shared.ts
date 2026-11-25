@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { createReadStream } from 'node:fs';
 import { mkdir, readFile, rename, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -64,11 +65,16 @@ export async function fetchSnapshotFiles(
   const dir = sourceDir(ctx, sourceId);
   let bytes = 0;
   const notes: string[] = [];
-  const raw = await mapLimit(files, 2, async (f) => {
-    const dest = path.join(dir, f.name);
+  const raw = await mapLimit(files, 2, async (f, i) => {
+    // A file is reused only if it is the same published version: its folder is named after its ETag.
+    // (A server that sends no ETag gets one download per run date.)
+    const version = heads[i]?.etag ?? heads[i]?.lastModified ?? null;
+    const versionDir =
+      version === null ? dir : path.join(dir, createHash('sha1').update(version).digest('hex').slice(0, 12));
+    const dest = path.join(versionDir, f.name);
     const existing = await fileIfExists(dest, f.url);
     if (existing !== null) {
-      notes.push(`reused ${f.name} from an earlier attempt today`);
+      notes.push(`reused ${f.name} (same published version, already on disk)`);
       return existing;
     }
     const started = Date.now();
@@ -86,6 +92,7 @@ export async function fetchSnapshotFiles(
 }
 
 const SocrataPage = z.array(z.record(z.string(), z.unknown()));
+const COMPLETE_MARKER = '_complete';
 
 /**
  * Socrata (SODA) sources. The window becomes a server-side filter on the dataset's change column,
@@ -101,7 +108,14 @@ export async function fetchSocrata(
     readonly pageSize: number;
   },
 ): Promise<FetchResult> {
-  const dir = path.join(sourceDir(ctx, opts.sourceId), windowLabel(ctx.window));
+  // Pages are reused only to resume a fetch that did not finish. A finished fetch leaves a marker,
+  // and the next run for the same window starts a new attempt folder, so it always sees current data.
+  const windowDir = path.join(sourceDir(ctx, opts.sourceId), windowLabel(ctx.window));
+  let attempt = 1;
+  while ((await fileIfExists(path.join(windowDir, `attempt-${attempt}`, COMPLETE_MARKER), '')) !== null) {
+    attempt++;
+  }
+  const dir = path.join(windowDir, `attempt-${attempt}`);
   const clauses: string[] = [];
   if (ctx.window.from !== null) clauses.push(`${opts.changeColumn} >= '${ctx.window.from}T00:00:00'`);
   if (ctx.window.to !== null) clauses.push(`${opts.changeColumn} < '${ctx.window.to}T00:00:00'`);
@@ -133,12 +147,13 @@ export async function fetchSocrata(
     ctx.log.info('socrata page', { source: opts.sourceId, page, rows });
     if (rows < opts.pageSize) break;
   }
+  await writeAtomic(path.join(dir, COMPLETE_MARKER), new Date().toISOString());
   return {
     files,
     bytes,
     skipped: null,
     stateToken: null,
-    notes: reused > 0 ? [`reused ${reused} page file(s) from an earlier attempt today`] : [],
+    notes: reused > 0 ? [`resumed an interrupted fetch: reused ${reused} page file(s)`] : [],
   };
 }
 
