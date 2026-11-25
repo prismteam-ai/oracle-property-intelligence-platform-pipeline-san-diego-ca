@@ -162,6 +162,24 @@ export function buildMcpServer(store: Store, today: () => string): McpServer {
   );
 
   server.registerTool(
+    'getPublicationHistory',
+    {
+      title: 'Publication history',
+      description:
+        'Every published run with its root CID, manifest CID, previous root CID and time. A new run is a new CID; earlier CIDs are never changed.',
+      inputSchema: {},
+      annotations: { readOnlyHint: true, openWorldHint: false },
+    },
+    async () => {
+      try {
+        return ok(await readArtifactJson(store, 'publications-index.json'));
+      } catch {
+        return fail('No publication history is present: nothing has been published yet.');
+      }
+    },
+  );
+
+  server.registerTool(
     'getArtifactManifest',
     {
       title: 'Published artifact manifest',

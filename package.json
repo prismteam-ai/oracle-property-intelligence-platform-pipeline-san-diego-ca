@@ -18,16 +18,25 @@
     "check": "npm run typecheck && npm run lint && npm run format:check && npm test",
     "serve": "tsx src/serve/devServer.ts",
     "build:lambda": "tsx scripts/build-lambda.ts",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "publish:ipfs": "tsx src/publish/cli.ts",
+    "verify:ipfs": "tsx src/publish/verifyCli.ts"
   },
   "dependencies": {
+    "@ai-sdk/anthropic": "^4.0.108",
     "@aws-lambda-powertools/logger": "^2.37.0",
     "@aws-lambda-powertools/metrics": "^2.37.0",
     "@aws-lambda-powertools/tracer": "^2.37.0",
     "@aws-sdk/client-s3": "^3.1177.0",
+    "@aws-sdk/client-ssm": "^3.1177.0",
     "@duckdb/node-api": "^2.0.1-r.1",
+    "@ipld/car": "^6.2.1",
+    "@ipld/unixfs": "^3.0.0",
     "@modelcontextprotocol/sdk": "^1.32.2",
+    "ai": "^7.0.181",
     "csv-parse": "^7.0.3",
+    "ipfs-car": "^3.1.0",
+    "multiformats": "^14.0.8",
     "zod": "^4.6.7"
   },
   "devDependencies": {

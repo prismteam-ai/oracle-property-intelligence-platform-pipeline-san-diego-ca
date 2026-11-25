@@ -22,7 +22,7 @@ export const SERVED_FILES: readonly string[] = [
 
 const manifestSchema = z.object({
   rootCid: z.string(),
-  objects: z.array(z.object({ name: z.string(), size: z.number(), sha256: z.string() })),
+  objects: z.array(z.object({ name: z.string(), size: z.number(), sha256: z.string().nullable() })),
 });
 
 async function sha256File(file: string): Promise<string> {
@@ -68,6 +68,9 @@ export async function hydrate(
   const started = Date.now();
   const base = prefix.replace(/\/+$/, '');
   const haveManifest = await download(s3, bucket, `${base}/manifest.json`, path.join(dir, 'manifest.json'));
+
+  // Optional: present once a run has been published.
+  await download(s3, bucket, `${base}/publications-index.json`, path.join(dir, 'publications-index.json'));
 
   let bytes = 0;
   await Promise.all(

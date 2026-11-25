@@ -4,6 +4,7 @@ import * as apigwv2 from 'aws-cdk-lib/aws-apigatewayv2';
 import * as integrations from 'aws-cdk-lib/aws-apigatewayv2-integrations';
 import * as cloudwatch from 'aws-cdk-lib/aws-cloudwatch';
 import * as cwActions from 'aws-cdk-lib/aws-cloudwatch-actions';
+import * as iam from 'aws-cdk-lib/aws-iam';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as logs from 'aws-cdk-lib/aws-logs';
 import * as s3 from 'aws-cdk-lib/aws-s3';
@@ -14,6 +15,8 @@ export interface OraclePipelineStackProps extends cdk.StackProps {
   projectName: string;
   /** Folder in the mirror bucket holding the run to serve, e.g. `san-diego/run-0003`. */
   artifactPrefix: string;
+  /** SSM SecureString parameter holding the model API key for the agent endpoint. */
+  agentKeyParameter?: string;
 }
 
 /**
@@ -24,7 +27,10 @@ export class OraclePipelineStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: OraclePipelineStackProps) {
     super(scope, id, {
       ...props,
-      env: { region: 'us-east-2', account: props.env?.account },
+      env: {
+        region: 'us-east-2',
+        ...(props.env?.account === undefined ? {} : { account: props.env.account }),
+      },
       tags: { project_name: props.projectName },
     });
 
@@ -60,9 +66,24 @@ export class OraclePipelineStack extends cdk.Stack {
         ARTIFACT_BUCKET: mirror.bucketName,
         ARTIFACT_PREFIX: props.artifactPrefix,
         HOME: '/tmp',
+        ...(props.agentKeyParameter ? { AGENT_KEY_PARAMETER: props.agentKeyParameter } : {}),
       },
     });
     mirror.grantRead(mcp);
+    if (props.agentKeyParameter) {
+      mcp.addToRolePolicy(
+        new iam.PolicyStatement({
+          actions: ['ssm:GetParameter'],
+          resources: [
+            this.formatArn({
+              service: 'ssm',
+              resource: 'parameter',
+              resourceName: props.agentKeyParameter.replace(/^\//, ''),
+            }),
+          ],
+        }),
+      );
+    }
 
     const httpApi = new apigwv2.HttpApi(this, 'HttpApi', {
       apiName: `${props.projectName}-api`,

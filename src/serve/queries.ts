@@ -54,12 +54,84 @@ const leadRow = z.object({
 });
 export type LeadRow = z.infer<typeof leadRow>;
 
+export interface JurisdictionCoverage {
+  code: string;
+  name: string;
+  parcels: number;
+  permitFeed: boolean;
+}
+
 export interface LeadSearchResult {
   total: number;
   agedRoofCount: number;
   openPermitCount: number;
   asOf: string;
+  /** Says plainly when part of the search area has no permit data, so a zero is never silent. */
+  coverageNote: string | null;
+  coverage: JurisdictionCoverage[];
   rows: LeadRow[];
+}
+
+/** Assessor jurisdiction codes on the parcel layer. */
+export const JURISDICTION_NAMES: Readonly<Record<string, string>> = {
+  SD: 'City of San Diego',
+  CN: 'unincorporated county',
+  CB: 'Carlsbad',
+  CV: 'Chula Vista',
+  OC: 'Oceanside',
+  ES: 'Escondido',
+  SM: 'San Marcos',
+  VS: 'Vista',
+  EN: 'Encinitas',
+  EC: 'El Cajon',
+  ST: 'Santee',
+  LM: 'La Mesa',
+  PW: 'Poway',
+  SO: 'Solana Beach',
+  CO: 'Coronado',
+  NC: 'National City',
+  LG: 'Lemon Grove',
+  IB: 'Imperial Beach',
+  DM: 'Del Mar',
+};
+
+/** A jurisdiction counts as having a permit feed once this many of its parcels carry permits. */
+const MIN_PERMITS_FOR_FEED = 500;
+const feedCache = new WeakMap<Store, Promise<ReadonlySet<string>>>();
+
+/** Which jurisdictions actually have permit data, read from the data itself, once per store. */
+export function permitFeedJurisdictions(store: Store): Promise<ReadonlySet<string>> {
+  let cached = feedCache.get(store);
+  if (!cached) {
+    cached = store
+      .query(
+        z.object({ jurisdiction: z.string() }),
+        `SELECT p.jurisdiction FROM permit m JOIN parcel p ON p.apn = m.apn
+         WHERE p.jurisdiction IS NOT NULL GROUP BY 1 HAVING count(*) >= ${MIN_PERMITS_FOR_FEED}`,
+      )
+      .then((rows) => new Set(rows.map((r) => r.jurisdiction)));
+    feedCache.set(store, cached);
+  }
+  return cached;
+}
+
+const listNames = (items: JurisdictionCoverage[]): string => {
+  const names = items.map((j) => j.name);
+  return names.length <= 1 ? (names[0] ?? '') : `${names.slice(0, -1).join(', ')} and ${names.at(-1)}`;
+};
+
+export function coverageNote(coverage: JurisdictionCoverage[]): string | null {
+  const total = coverage.reduce((sum, j) => sum + j.parcels, 0);
+  // A handful of stray parcels coded to another city is not a coverage gap worth a banner.
+  const material = (j: JurisdictionCoverage): boolean => j.parcels / Math.max(1, total) >= 0.01;
+  const without = coverage.filter((j) => !j.permitFeed && material(j));
+  if (without.length === 0) return null;
+  const withFeed = coverage.filter((j) => j.permitFeed && material(j));
+  const share = Math.round((without.reduce((sum, j) => sum + j.parcels, 0) / Math.max(1, total)) * 100);
+  if (withFeed.length === 0) {
+    return `No permit data is published for ${listNames(without)}, so open-permit filters return nothing here. Roof-age results are complete.`;
+  }
+  return `Permit data in this area covers ${listNames(withFeed)} only. ${listNames(without)} (${share}% of parcels in this radius) publish no bulk permit feed, so open permits there are not shown. Roof-age results are complete.`;
 }
 
 const SIGNAL_SQL: Record<LeadSearchInput['signal'], string> = {
@@ -166,8 +238,31 @@ export async function findRoofingLeads(
      LIMIT ${input.limit} OFFSET ${input.offset}`,
     named,
   );
+  const feeds = await permitFeedJurisdictions(store);
+  const inRadius = await store.queryNamed(
+    z.object({ code: z.string().nullable(), parcels: num }),
+    `${candidatesCte()}
+     SELECT jurisdiction AS code, count(*) AS parcels FROM near GROUP BY 1 ORDER BY parcels DESC`,
+    named,
+  );
+  const coverage: JurisdictionCoverage[] = inRadius
+    .filter((j): j is { code: string; parcels: number } => j.code !== null)
+    .map((j) => ({
+      code: j.code,
+      name: JURISDICTION_NAMES[j.code] ?? j.code,
+      parcels: j.parcels,
+      permitFeed: feeds.has(j.code),
+    }));
   const t = totals[0] ?? { total: 0, aged: 0, open: 0 };
-  return { total: t.total, agedRoofCount: t.aged, openPermitCount: t.open, asOf: today, rows };
+  return {
+    total: t.total,
+    agedRoofCount: t.aged,
+    openPermitCount: t.open,
+    asOf: today,
+    coverageNote: coverageNote(coverage),
+    coverage,
+    rows,
+  };
 }
 
 const provenance = z.object({
