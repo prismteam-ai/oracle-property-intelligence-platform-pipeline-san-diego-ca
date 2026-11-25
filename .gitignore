@@ -6,3 +6,5 @@ coverage/
 *.duckdb.wal
 .env*
 .venv/
+cdk.out/
+cdk-outputs.json
