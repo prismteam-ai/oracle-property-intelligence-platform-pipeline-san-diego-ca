@@ -2,6 +2,7 @@ import { webcrypto } from 'node:crypto';
 import { describe, expect, it, vi } from 'vitest';
 import {
   GATEWAYS,
+  OTHER_GATEWAYS,
   budgetFor,
   checkGateway,
   gatewayUrl,
@@ -151,11 +152,17 @@ describe('summarize and verdict', () => {
       'ipfs.hypha.coop:independent',
       'gateway.pinata.cloud:vendor',
       'ipfs.filebase.io:vendor',
-      '4everland.io:independent',
-      'storry.tv:independent',
-      'ipfs.io:browser',
-      'dweb.link:browser',
     ]);
+    // The four that do not serve this content to scripts are listed, never fetched.
+    expect(OTHER_GATEWAYS.map((g) => g.id)).toEqual([
+      '4everland.io',
+      'storry.tv',
+      'ipfs.io',
+      'dweb.link',
+    ]);
+    expect(
+      GATEWAYS.map((g) => g.id).filter((id) => OTHER_GATEWAYS.some((o) => o.id === id)),
+    ).toEqual([]);
   });
 
   it('counts public vendor gateways as evidence and says which kind matched', () => {

@@ -37,7 +37,7 @@ async function loadDerived(): Promise<Derived> {
 const HEADLINE: readonly { table: string; label: string; what: string }[] = [
   { table: 'property', label: 'Property', what: 'Parcels with assessor attributes' },
   { table: 'ownership', label: 'Ownership', what: 'Owner-occupancy and last transfer per parcel' },
-  { table: 'permit', label: 'Permit', what: 'Building permits from every loaded jurisdiction' },
+  { table: 'permit', label: 'Permits', what: 'Building permits from every loaded jurisdiction' },
   { table: 'contractor', label: 'Contractor', what: 'Reconciled on CSLB licence number' },
   { table: 'business', label: 'Business', what: 'Active business tax certificates' },
 ];
@@ -49,19 +49,52 @@ const OTHER_LABEL: Record<string, string> = {
   rejects: 'Rejected rows (kept, not loaded)',
 };
 
+const PUBLISHED_PERMITS = /^permit \(one row per permit/i;
+
+/**
+ * The permit figure to show. The coverage counts may carry both the raw source rows (`permit`)
+ * and the published one-row-per-permit count; the published count is the total, and the gap
+ * between the two is the number of duplicate listings that were reconciled.
+ */
+export function permitTotals(counts: Coverage['counts']): {
+  permits: number | null;
+  sourceRows: number | null;
+  duplicates: number | null;
+} {
+  const sourceRows = counts.find((c) => c.table === 'permit')?.rows ?? null;
+  const published = counts.find((c) => PUBLISHED_PERMITS.test(c.table))?.rows ?? null;
+  if (published === null) return { permits: sourceRows, sourceRows, duplicates: null };
+  return {
+    permits: published,
+    sourceRows,
+    duplicates: sourceRows === null ? null : sourceRows - published,
+  };
+}
+
 function Totals({ coverage, derived }: { coverage: Coverage; derived: Derived | null }) {
   const count = (table: string): number | null =>
     coverage.counts.find((c) => c.table === table)?.rows ?? null;
+  const permits = permitTotals(coverage.counts);
   const headline = new Set(HEADLINE.map((h) => h.table));
-  const others = coverage.counts.filter((c) => !headline.has(c.table));
+  const others = coverage.counts.filter(
+    (c) => !headline.has(c.table) && !PUBLISHED_PERMITS.test(c.table),
+  );
   return (
     <>
       <dl className="stat-grid" data-testid="record-totals">
         {HEADLINE.map((h) => (
           <div className="stat" key={h.table} data-testid={`total-${h.table}`}>
             <dt>{h.label}</dt>
-            <dd className="stat-value">{fmtInt(count(h.table))}</dd>
+            <dd className="stat-value">
+              {fmtInt(h.table === 'permit' ? permits.permits : count(h.table))}
+            </dd>
             <dd className="muted small">{h.what}</dd>
+            {h.table === 'permit' && permits.duplicates !== null ? (
+              <dd className="muted small" data-testid="permit-source-rows">
+                One row per permit. {fmtInt(permits.sourceRows)} source rows before reconciling{' '}
+                {fmtInt(permits.duplicates)} duplicate listings.
+              </dd>
+            ) : null}
             {h.table === 'contractor' ? (
               <dd className="small bbb-note" data-testid="bbb-note">
                 BBB rating:{' '}

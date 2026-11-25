@@ -41,7 +41,6 @@ export const BROWSER_ONLY_NOTE =
   'ipfs.io and dweb.link no longer serve scripts (HTTP 429) and challenge automated browsers; ' +
   'they are meant for interactive use. Open in a normal browser tab to check.';
 
-const SERVICE_WORKER_NOTE = BROWSER_ONLY_NOTE;
 const VENDOR_NOTE =
   'Run by a service this snapshot is pinned with, but public and anonymous: no key, no login. ' +
   'Counted as evidence and labelled separately from the independent gateways.';
@@ -55,17 +54,49 @@ const gw = (id: string, kind: GatewayKind, note: string | null): Gateway => ({
 });
 
 /** Public gateways. None is operated by this project. */
+/**
+ * The gateways the automatic check fetches from. All five are public and anonymous, send CORS
+ * headers and returned this project's content with the manifest digest when last checked.
+ */
 export const GATEWAYS: readonly Gateway[] = [
   gw('latam.orbitor.dev', 'independent', null),
   gw('ipfs.raribleuserdata.com', 'independent', null),
   gw('ipfs.hypha.coop', 'independent', null),
   gw('gateway.pinata.cloud', 'vendor', VENDOR_NOTE),
   gw('ipfs.filebase.io', 'vendor', VENDOR_NOTE),
-  // Kept so their real result is on show: at the time of writing neither had found this content.
-  gw('4everland.io', 'independent', null),
-  gw('storry.tv', 'independent', null),
-  gw('ipfs.io', 'browser', SERVICE_WORKER_NOTE),
-  gw('dweb.link', 'browser', SERVICE_WORKER_NOTE),
+];
+
+export interface OtherGateway {
+  id: string;
+  origin: string;
+  status: string;
+}
+
+/**
+ * Gateways the page never fetches from: listed as plain links with the reason, so nobody
+ * mistakes their absence from the check for a pass.
+ */
+export const OTHER_GATEWAYS: readonly OtherGateway[] = [
+  {
+    id: '4everland.io',
+    origin: 'https://4everland.io',
+    status: 'did not find this content when last checked',
+  },
+  {
+    id: 'storry.tv',
+    origin: 'https://storry.tv',
+    status: 'did not find this content when last checked',
+  },
+  {
+    id: 'ipfs.io',
+    origin: 'https://ipfs.io',
+    status: 'interactive browsers only; scripts get HTTP 429',
+  },
+  {
+    id: 'dweb.link',
+    origin: 'https://dweb.link',
+    status: 'interactive browsers only; scripts get HTTP 429',
+  },
 ];
 
 export const kindOf = (gatewayId: string): GatewayKind =>

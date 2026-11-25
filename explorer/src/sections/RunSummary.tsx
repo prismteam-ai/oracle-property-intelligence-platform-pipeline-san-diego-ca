@@ -227,6 +227,24 @@ function PermitCoverage({ statement }: { statement: string | undefined }) {
                 </tr>
               ))}
             </tbody>
+            <tfoot>
+              <tr data-testid="permit-coverage-total">
+                <th scope="row">Permits (one row per permit)</th>
+                <td className="num">
+                  {fmtInt(state.data.rows.reduce((sum, row) => sum + Number(row.permits), 0))}
+                </td>
+                <td className="num">
+                  {fmtInt(
+                    state.data.rows.reduce((sum, row) => sum + Number(row.roofing_permits), 0),
+                  )}
+                </td>
+                <td className="num">
+                  {fmtInt(
+                    state.data.rows.reduce((sum, row) => sum + Number(row.open_roofing_permits), 0),
+                  )}
+                </td>
+              </tr>
+            </tfoot>
           </table>
         </div>
       ) : null}

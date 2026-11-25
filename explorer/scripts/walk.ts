@@ -93,9 +93,24 @@ async function walk(viewport: (typeof VIEWPORTS)[number], dark: boolean): Promis
     return;
   }
 
+  const summaryPermitTotal =
+    (await page.getByTestId('permit-coverage-total').locator('td').first().textContent()) ?? '';
+
   // 2. Records by source
   await open(page, 'records');
   await page.getByTestId('record-totals').waitFor({ timeout: 30_000 });
+  const permitTotal =
+    (await page.getByTestId('total-permit').locator('.stat-value').textContent()) ?? '';
+  check(
+    permitTotal === summaryPermitTotal,
+    `[${tag}] permit total agrees across pages: Records ${permitTotal}, Run summary ${summaryPermitTotal}`,
+  );
+  notes.push(
+    `[${tag}] permit secondary line: ${await page
+      .getByTestId('permit-source-rows')
+      .textContent()
+      .catch(() => 'absent')}`,
+  );
   await page.getByTestId('source-table').waitFor();
   notes.push(
     `[${tag}] source times: ${(await page.getByTestId('source-table').locator('tbody tr').first().textContent()) ?? ''}`.slice(
@@ -165,6 +180,7 @@ async function walk(viewport: (typeof VIEWPORTS)[number], dark: boolean): Promis
   await shot(page, tag, '03-query-timeout', false);
 
   // 4. Artifacts
+  const errorsBeforeArtifacts = consoleErrors.length;
   await open(page, 'artifacts');
   await page.waitForFunction(
     () =>
@@ -289,6 +305,16 @@ async function walk(viewport: (typeof VIEWPORTS)[number], dark: boolean): Promis
     `[${tag}] publication history: ${((await page.getByTestId('card-publications').textContent()) ?? '').slice(0, 200)}`,
   );
   await fullShot(page, viewport, '04-artifacts-full');
+
+  const artifactErrors = consoleErrors.slice(errorsBeforeArtifacts);
+  check(
+    artifactErrors.length === 0,
+    `[${tag}] zero console errors on the artifacts page during verify and the earlier-root check${artifactErrors.length ? `: ${artifactErrors.slice(0, 3).join(' | ')}` : ''}`,
+  );
+  check(
+    (await page.getByTestId('other-gateways').locator('li').count()) === 4,
+    `[${tag}] the four other gateways are listed as links only`,
+  );
 
   // 5. Explore map
   await open(page, 'map');

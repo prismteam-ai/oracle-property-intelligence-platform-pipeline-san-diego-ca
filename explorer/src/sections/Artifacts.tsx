@@ -15,6 +15,7 @@ import {
   GATEWAYS,
   KIND_LABEL,
   LARGE_OBJECT_BYTES,
+  OTHER_GATEWAYS,
   OUTCOME_LABEL,
   budgetFor,
   checkGateway,
@@ -493,12 +494,30 @@ function GatewayList() {
             <strong>{g.id}</strong>
             <span className={`badge ${KIND_BADGE[g.kind]}`}>{KIND_LABEL[g.kind]}</span>
             <span className="muted small">
-              {g.servesHttp
-                ? 'public, anonymous; a script can read the bytes when the gateway has the content'
-                : 'no longer serves scripts; interactive use only'}
+              public, anonymous; a script can read the bytes and compare them
             </span>
           </div>
           {g.note ? <p className="small muted">{g.note}</p> : null}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/** Gateways left out of the automatic check, as plain links with the reason. Never fetched. */
+function OtherGateways({ rootCid }: { rootCid: string | null }) {
+  return (
+    <ul className="source-list" data-testid="other-gateways">
+      {OTHER_GATEWAYS.map((g) => (
+        <li key={g.id} className="source-item" data-testid={`other-gateway-${g.id}`}>
+          <div className="source-title">
+            {rootCid ? (
+              <ExternalLink href={gatewayUrl(g.origin, rootCid)}>{g.id}</ExternalLink>
+            ) : (
+              <strong>{g.id}</strong>
+            )}
+            <span className="muted small">{g.status}</span>
+          </div>
         </li>
       ))}
     </ul>
@@ -667,7 +686,9 @@ function PublicationRow({
           {publication.objects === undefined ? '' : ` in ${publication.objects} objects`}
           {publication.verifiedGateways === undefined
             ? ''
-            : ` · ${publication.verifiedGateways} gateways had it at the moment of publishing (use the check to see now)`}
+            : publication.verifiedGateways > 0
+              ? ` · verified on ${publication.verifiedGateways} public gateways when published`
+              : ' · not yet verified on public gateways'}
         </dd>
         <dt>Open</dt>
         <dd className="gateway-links">
@@ -872,14 +893,21 @@ export default function Artifacts() {
         ) : null}
       </Card>
 
-      <Card title="Public gateways used" testId="card-gateways">
+      <Card title="Gateways in the automatic check" testId="card-gateways">
         <p className="muted small">
           None of these is operated by this project. Each is public and anonymous, and each is
-          labelled by kind: independent, the public gateway of a pinning vendor, or browser-only. A
-          fetch that the browser refuses is reported as “Blocked by CORS” or “Network failure”,
-          never as a pass.
+          labelled by kind: independent, or the public gateway of a pinning vendor. A fetch that the
+          browser refuses is reported as “Blocked by CORS” or “Network failure”, never as a pass.
         </p>
         <GatewayList />
+      </Card>
+
+      <Card title="Other gateways" testId="card-other-gateways">
+        <p className="muted small">
+          Not part of the automatic check, and this page never fetches from them. The links open the
+          served root in a new tab so you can look for yourself.
+        </p>
+        <OtherGateways rootCid={served?.rootCid ?? null} />
       </Card>
     </div>
   );

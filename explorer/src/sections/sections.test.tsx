@@ -17,7 +17,7 @@ import ExploreMap, {
   transferBaseSentence,
   yearsBetween,
 } from './ExploreMap';
-import { lastRunForSource } from './Records';
+import { lastRunForSource, permitTotals } from './Records';
 import { QueryConsole, parseSchema, refusal } from './QueryLayer';
 import { RunHistory } from './RunSummary';
 
@@ -501,6 +501,38 @@ describe('SQL examples', () => {
   });
 });
 
+describe('permit totals and publication status', () => {
+  it('uses the one-row-per-permit count and derives the duplicate listings', () => {
+    expect(
+      permitTotals([
+        { table: 'permit', rows: 1756884 },
+        { table: 'permit (one row per permit, published)', rows: 1726127 },
+      ]),
+    ).toEqual({ permits: 1726127, sourceRows: 1756884, duplicates: 30757 });
+    expect(permitTotals([{ table: 'permit', rows: 10 }])).toEqual({
+      permits: 10,
+      sourceRows: 10,
+      duplicates: null,
+    });
+  });
+
+  it('says how many gateways verified a publish, and "not yet verified" for zero', () => {
+    render(
+      <PublicationHistory
+        manifest={null}
+        publications={[
+          { runId: 6, createdAt: '2026-11-25T17:39:55Z', rootCid: 'bafyone', verifiedGateways: 5 },
+          { runId: 3, createdAt: '2026-11-25T16:58:03Z', rootCid: 'bafytwo', verifiedGateways: 0 },
+        ]}
+      />,
+    );
+    const rows = within(screen.getByTestId('publication-history')).getAllByRole('listitem');
+    expect(rows[0]).toHaveTextContent('verified on 5 public gateways when published');
+    expect(rows[1]).toHaveTextContent('not yet verified on public gateways');
+    expect(rows[1]).not.toHaveTextContent('0 gateways');
+  });
+});
+
 describe('lastRunForSource', () => {
   const runs: PipelineRuns = {
     runs: [
@@ -649,14 +681,11 @@ describe('Artifacts', () => {
       'href',
       `https://gateway.pinata.cloud/ipfs/${manifest.rootCid}/coverage.json`,
     );
-    expect(row.getByRole('link', { name: '4everland.io' })).toHaveAttribute(
+    expect(row.getByRole('link', { name: 'ipfs.hypha.coop' })).toHaveAttribute(
       'href',
-      `https://4everland.io/ipfs/${manifest.rootCid}/coverage.json`,
+      `https://ipfs.hypha.coop/ipfs/${manifest.rootCid}/coverage.json`,
     );
-    expect(row.getByRole('link', { name: 'Open in ipfs.io' })).toHaveAttribute(
-      'href',
-      `https://ipfs.io/ipfs/${manifest.rootCid}/coverage.json`,
-    );
+    expect(row.queryByRole('link', { name: /ipfs\.io|dweb\.link|4everland|storry/ })).toBeNull();
   });
 
   it('keeps the full check of a large object behind an explicit button with a size warning', () => {
@@ -668,13 +697,11 @@ describe('Artifacts', () => {
     );
   });
 
-  it('verifies an object per gateway: match, mismatch, HTTP 429 and CORS failure', async () => {
+  it('verifies an object per gateway: match, mismatch, HTTP error and CORS failure', async () => {
     const fetchImpl = vi.fn<typeof fetch>(async (input, init) => {
       const url = String(input);
       if (/latam\.orbitor|pinata|filebase/.test(url)) return new Response(small);
-      if (url.includes('storry.tv')) return new Response('tampered');
-      if (url.includes('dweb.link')) return new Response('slow down', { status: 429 });
-      if (url.includes('ipfs.io')) throw new TypeError('Failed to fetch');
+      if (url.includes('raribleuserdata')) return new Response('tampered');
       if (init?.mode === 'no-cors') return new Response(null);
       throw new TypeError('Failed to fetch');
     });
@@ -688,11 +715,9 @@ describe('Artifacts', () => {
     expect(await outcome('latam.orbitor.dev')).toBe('match');
     expect(await outcome('gateway.pinata.cloud')).toBe('match');
     expect(await outcome('ipfs.filebase.io')).toBe('match');
-    expect(await outcome('storry.tv')).toBe('mismatch');
-    expect(await outcome('dweb.link')).toBe('http_error');
-    expect(await outcome('4everland.io')).toBe('cors_blocked');
-    expect(await outcome('ipfs.io')).toBe('network_error');
-    expect(screen.getByTestId('verify-result-coverage-json-4everland.io')).toHaveTextContent(
+    expect(await outcome('ipfs.raribleuserdata.com')).toBe('mismatch');
+    expect(await outcome('ipfs.hypha.coop')).toBe('cors_blocked');
+    expect(screen.getByTestId('verify-result-coverage-json-ipfs.hypha.coop')).toHaveTextContent(
       'Blocked by CORS',
     );
     expect(
@@ -703,11 +728,25 @@ describe('Artifacts', () => {
     );
   });
 
+  it('never fetches from the gateways outside the automatic check', async () => {
+    const fetchImpl = vi.fn<typeof fetch>(async () => new Response(small));
+    render(<ManifestView manifest={manifest} deps={{ fetchImpl, digest }} />);
+    await userEvent.click(screen.getByTestId('verify-coverage-json'));
+    await waitFor(() =>
+      expect(screen.getByTestId('verify-result-coverage-json-summary')).toHaveTextContent(
+        'Verified: bytes match the manifest on 5 public gateways (3 independent, 2 pinning-vendor).',
+      ),
+    );
+    const hosts = fetchImpl.mock.calls.map((c) => new URL(String(c[0])).host);
+    expect(hosts).toHaveLength(5);
+    expect(hosts.join(' ')).not.toMatch(/ipfs\.io|dweb\.link|4everland|storry/);
+  });
+
   it('prints the verdict as soon as two gateways match, while a slow one is still pending', async () => {
     let releaseSlow: (response: Response) => void = () => undefined;
     const fetchImpl = vi.fn<typeof fetch>(async (input) => {
       const url = String(input);
-      if (url.includes('4everland.io')) {
+      if (url.includes('ipfs.hypha.coop')) {
         return new Promise<Response>((resolve) => {
           releaseSlow = resolve;
         });
@@ -727,7 +766,7 @@ describe('Artifacts', () => {
       'data-complete',
       'false',
     );
-    expect(screen.getByTestId('verify-result-coverage-json-4everland.io')).toHaveAttribute(
+    expect(screen.getByTestId('verify-result-coverage-json-ipfs.hypha.coop')).toHaveAttribute(
       'data-outcome',
       'pending',
     );
@@ -749,7 +788,7 @@ describe('Artifacts', () => {
     render(<ManifestView manifest={manifest} deps={{ fetchImpl, digest }} />);
     await userEvent.click(screen.getByTestId('verify-coverage-json'));
     expect(await screen.findByTestId('verify-result-coverage-json-summary')).toHaveTextContent(
-      'Not verified: bytes match the manifest on only 0 of 9 gateways tried',
+      'Not verified: bytes match the manifest on only 0 of 5 gateways tried',
     );
   });
 
@@ -837,7 +876,7 @@ describe('Artifacts', () => {
     );
     await userEvent.click(screen.getByTestId('check-resolves-2'));
     expect(await screen.findByTestId('resolve-result-2-summary')).toHaveTextContent(
-      'Resolves on 9 public gateways (5 independent, 2 pinning-vendor, 2 browser-only); no recorded digest',
+      'Resolves on 5 public gateways (3 independent, 2 pinning-vendor); no recorded digest',
     );
   });
 
@@ -867,7 +906,13 @@ describe('Artifacts', () => {
     expect(await screen.findByTestId('publications-unavailable')).toHaveTextContent(
       'not deployed on this API yet',
     );
-    expect(screen.getByTestId('gateway-list')).toHaveTextContent('ipfs.io');
+    expect(screen.getByTestId('gateway-list')).toHaveTextContent('ipfs.hypha.coop');
+    expect(screen.getByTestId('other-gateway-ipfs.io')).toHaveTextContent(
+      'interactive browsers only; scripts get HTTP 429',
+    );
+    expect(screen.getByTestId('other-gateway-storry.tv')).toHaveTextContent(
+      'did not find this content when last checked',
+    );
   });
 });
 
