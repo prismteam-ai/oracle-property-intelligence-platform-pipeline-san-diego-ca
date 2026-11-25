@@ -87,6 +87,7 @@ const CONTROL_TABLES: readonly string[] = [
      candidates INTEGER, is_primary BOOLEAN)`,
   `CREATE TABLE IF NOT EXISTS business_contractor (
      account_key VARCHAR, contractor_id VARCHAR, match_method VARCHAR, candidates INTEGER)`,
+  `CREATE TABLE IF NOT EXISTS permit_apn_link (permit_uid VARCHAR, apn VARCHAR, match_method VARCHAR)`,
   `CREATE TABLE IF NOT EXISTS property_year_check (
      apn VARCHAR, earliest_permit_date DATE, permit_near_year BOOLEAN)`,
 ];
@@ -99,7 +100,9 @@ const VIEWS: readonly string[] = [
 
   // One row per permit with open duration, best location, primary contractor and BBB columns.
   `CREATE OR REPLACE VIEW permit_enriched AS
-   SELECT p.*,
+   SELECT p.* REPLACE (coalesce(p.apn, al.apn) AS apn),
+          CASE WHEN p.apn IS NOT NULL THEN 'source APN'
+               WHEN al.apn IS NOT NULL THEN 'parcel matched on situs address' END AS apn_basis,
           coalesce(p.closed_date, s.completed_date) AS effective_closed_date,
           CASE WHEN p.closed_date IS NOT NULL THEN 'source close date'
                WHEN s.completed_date IS NOT NULL THEN 'status history: last completed/finaled event' END AS closed_date_basis,
@@ -122,7 +125,8 @@ const VIEWS: readonly string[] = [
           c.bbb_rating, c.bbb_url, c.bbb_checked_at, c.bbb_note
    FROM permit p
    LEFT JOIN permit_status_summary s ON s.permit_uid = p.permit_uid
-   LEFT JOIN property pr ON pr.apn = p.apn
+   LEFT JOIN permit_apn_link al ON al.permit_uid = p.permit_uid
+   LEFT JOIN property pr ON pr.apn = coalesce(p.apn, al.apn)
    LEFT JOIN permit_contractor pc ON pc.permit_uid = p.permit_uid AND pc.is_primary
    LEFT JOIN contractor c ON c.contractor_id = pc.contractor_id`,
 
@@ -200,6 +204,13 @@ export async function migrate(db: Db): Promise<void> {
     e.business,
   ]) {
     await db.exec(dataTable(spec));
+    // Databases created before a column existed get it added in place.
+    const late: EntitySpec = spec;
+    for (const column of late.lateColumns ?? []) {
+      await db.exec(
+        `ALTER TABLE ${spec.table} ADD COLUMN IF NOT EXISTS ${column} ${late.columns[column] ?? 'VARCHAR'}`,
+      );
+    }
   }
   // BBB columns live outside the merged column set, so a contractor refresh never overwrites them.
   await db.exec(

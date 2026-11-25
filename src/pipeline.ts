@@ -5,6 +5,7 @@ import { cityBusinesses } from './adapters/cityBusinesses.js';
 import { cityPermits } from './adapters/cityPermits.js';
 import { countyPermitContractors, countyPermitStatus, countyPermits } from './adapters/countySocrata.js';
 import { cslbLicenses } from './adapters/cslbLicenses.js';
+import { carlsbadPermits } from './adapters/carlsbadPermits.js';
 import { sandagParcels } from './adapters/sandagParcels.js';
 import type { SourceAdapter } from './adapters/types.js';
 import { isoDate, type Paths, type Window } from './config.js';
@@ -22,6 +23,7 @@ export const ALL_ADAPTERS: readonly SourceAdapter[] = [
   countyPermits,
   countyPermitContractors,
   cityPermits,
+  carlsbadPermits,
   cityBusinesses,
   cslbLicenses,
 ];

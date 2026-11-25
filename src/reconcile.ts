@@ -117,12 +117,28 @@ const DERIVED: readonly string[] = [
      FROM business b JOIN contractor_name_index i ON i.name_norm = b.owner_name_norm)
    QUALIFY row_number() OVER (PARTITION BY account_key, contractor_id ORDER BY pref) = 1`,
 
+  // Permits that arrive without an APN (Carlsbad publishes none) are tied to a parcel when their street
+  // address equals exactly one parcel's situs address in the same jurisdiction. Ambiguous or missing
+  // matches stay unlinked rather than guessed.
+  `CREATE OR REPLACE TABLE permit_apn_link AS
+   WITH situs AS (
+     SELECT situs_juris, upper(situs_address) AS addr, min(apn) AS apn
+     FROM property WHERE situs_address IS NOT NULL
+     GROUP BY situs_juris, upper(situs_address) HAVING count(*) = 1)
+   SELECT p.permit_uid, s.apn, 'situs_address_exact_unique' AS match_method
+   FROM permit p
+   JOIN situs s ON s.addr = upper(p.address)
+               AND s.situs_juris = CASE p.source_id WHEN 'carlsbad_permits' THEN 'CB'
+                                                    WHEN 'sdcity_permits' THEN 'SD'
+                                                    WHEN 'sdcounty_permits' THEN 'CN' END
+   WHERE p.apn IS NULL AND p.address IS NOT NULL`,
+
   // Cross-check for ambiguous two-digit years: is there a permit on the parcel just before the assumed year?
   `CREATE OR REPLACE TABLE property_year_check AS
    SELECT pr.apn,
           min(coalesce(p.applied_date, p.issued_date)) AS earliest_permit_date,
           coalesce(bool_or(year(coalesce(p.applied_date, p.issued_date)) BETWEEN pr.year_effective - 3 AND pr.year_effective), false) AS permit_near_year
-   FROM property pr JOIN permit p ON p.apn = pr.apn
+   FROM property pr JOIN permit_enriched p ON p.apn = pr.apn
    WHERE pr.year_ambiguous AND pr.year_effective IS NOT NULL
    GROUP BY pr.apn`,
 ];

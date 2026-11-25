@@ -148,38 +148,139 @@ describe('full load, then idempotent re-run', () => {
     });
   });
 
-  it('rejects a permit whose coordinate lies outside the county, and one with an impossible date', async () => {
+  it('keeps a permit whose coordinate lies outside the county (coordinate nulled, reason recorded) and rejects one with an impossible date', async () => {
     const bad = await workspace();
     try {
       const file = path.join(bad.fixtures, 'sdcounty_permits/permits.json');
       const permits = z
         .array(z.record(z.string(), z.unknown()))
         .parse(JSON.parse(await readFile(file, 'utf8')));
-      const [a, b] = permits;
+      // A real permit whose parcel is in the fixture, given a Los Angeles coordinate.
+      const parcelText = await readFile(path.join(bad.fixtures, 'sandag_parcels/parcels.json'), 'utf8');
+      const a = permits.find((p) => {
+        const apn = typeof p['parcel_number'] === 'string' ? p['parcel_number'].replace(/-/g, '') : '';
+        return /^\d{10}$/.test(apn) && parcelText.includes(`"apn": "${apn}"`);
+      });
+      const b = permits.find((p) => p !== a);
       if (a === undefined || b === undefined) throw new Error('fixture too small');
-      a['geo_reference'] = { type: 'Point', coordinates: [-118.2437, 34.0522] }; // Los Angeles
+      a['geo_reference'] = { type: 'Point', coordinates: [-118.2437, 34.0522] };
       b['issued_date'] = '2099-01-01T00:00:00.000';
       await writeFile(file, JSON.stringify(permits));
       const summary = await run(bad, ALL, false);
-      expect(stat(summary, 'sdcounty_permits', 'permit').rejected).toBe(2);
+      expect(stat(summary, 'sdcounty_permits', 'permit').rejected).toBe(1);
       await withDb(bad, async (db) => {
         const Reason = z.object({ reason: z.string() });
         const reasons = (
-          await db.query(
-            Reason,
-            `SELECT reason FROM rejects WHERE source_id = 'sdcounty_permits' ORDER BY reason`,
-          )
+          await db.query(Reason, `SELECT reason FROM rejects WHERE source_id = 'sdcounty_permits'`)
         ).map((r) => r.reason);
-        expect(reasons).toEqual(['issued_date:date_in_future', 'lat:lat_outside_county']);
-        const { n } = await db.one(N, `SELECT count(*) AS n FROM permit WHERE source_record_id IN (?, ?)`, [
-          String(a['record_id']),
-          String(b['record_id']),
-        ]);
-        expect(n).toBe(0);
+        expect(reasons).toEqual(['issued_date:date_in_future']);
+
+        const Kept = z.object({
+          lat: z.number().nullable(),
+          lon: z.number().nullable(),
+          coord_note: z.string().nullable(),
+          apn: z.string().nullable(),
+          geo_lat: z.number().nullable(),
+          geo_basis: z.string().nullable(),
+        });
+        const kept = await db.one(
+          Kept,
+          `SELECT lat, lon, coord_note, apn, geo_lat, geo_basis FROM permit_enriched WHERE source_record_id = ?`,
+          [String(a['record_id'])],
+        );
+        expect(kept.lat).toBeNull();
+        expect(kept.lon).toBeNull();
+        expect(kept.coord_note).toBe(
+          'source coordinate outside San Diego County (34.0522, -118.2437); discarded',
+        );
+        // The permit still lands on the map, through its parcel.
+        expect(kept.apn).not.toBeNull();
+        expect(kept.geo_lat).not.toBeNull();
+        expect(kept.geo_basis).toBe('parcel centroid via APN');
+
+        const { n: rejected } = await db.one(
+          N,
+          `SELECT count(*) AS n FROM permit WHERE source_record_id = ?`,
+          [String(b['record_id'])],
+        );
+        expect(rejected).toBe(0);
+        const { n: noted } = await db.one(N, 'SELECT count(*) AS n FROM permit WHERE coord_note IS NOT NULL');
+        expect(noted).toBe(1);
+        const { n: outside } = await db.one(
+          N,
+          'SELECT count(*) AS n FROM permit WHERE lat NOT BETWEEN 32.5 AND 33.55 OR lon NOT BETWEEN -117.65 AND -116.05',
+        );
+        expect(outside).toBe(0);
       });
     } finally {
       await rm(bad.dir, { recursive: true, force: true });
     }
+  });
+
+  it('loads Carlsbad permits through the same boundary: roofing classes, open permits, snapshot date, parcel link', async () => {
+    await withDb(ws, async (db) => {
+      const Class = z.object({ roofing_class: z.string(), is_roofing: z.boolean(), n: z.coerce.number() });
+      const classes = await db.query(
+        Class,
+        `SELECT roofing_class, is_roofing, count(*) AS n FROM permit
+         WHERE source_id = 'carlsbad_permits' GROUP BY ALL ORDER BY roofing_class`,
+      );
+      const count = (c: string): number => classes.find((x) => x.roofing_class === c)?.n ?? 0;
+      expect(classes.reduce((t, c) => t + c.n, 0)).toBe(93);
+      expect(count('reroof')).toBeGreaterThan(20);
+      expect(count('roof repair')).toBeGreaterThan(5); // partial reroofs under solar arrays
+      expect(count('solar-on-roof')).toBeGreaterThan(5);
+      expect(classes.filter((c) => c.roofing_class === 'solar-on-roof').every((c) => !c.is_roofing)).toBe(
+        true,
+      );
+
+      const Open = z.object({
+        permit_uid: z.string(),
+        jurisdiction: z.string(),
+        status: z.string(),
+        status_as_of: z.string().nullable(),
+        days_open: z.coerce.number(),
+        geo_lat: z.number().nullable(),
+        source_url: z.string(),
+      });
+      const open = await db.query(
+        Open,
+        `SELECT permit_uid, jurisdiction, status, status_as_of, days_open, geo_lat, source_url
+         FROM permit_enriched WHERE source_id = 'carlsbad_permits' AND is_roofing AND is_open`,
+      );
+      expect(open.length).toBeGreaterThan(10);
+      for (const p of open) {
+        expect(p.jurisdiction).toBe('City of Carlsbad');
+        expect(p.status).toBe('Issued - Active');
+        expect(p.status_as_of).toBe('2024-01-14'); // the snapshot's last edit, not today
+        expect(p.geo_lat).not.toBeNull();
+        expect(p.source_url).toContain('PermitNum');
+      }
+
+      // Carlsbad publishes no APN; permits are tied to a parcel only on an exact, unique situs address.
+      const Link = z.object({
+        linked: z.coerce.number(),
+        wrong_city: z.coerce.number(),
+        far: z.coerce.number(),
+      });
+      const link = await db.one(
+        Link,
+        `SELECT count(*) AS linked,
+                count(*) FILTER (WHERE pr.situs_juris <> 'CB') AS wrong_city,
+                count(*) FILTER (WHERE haversine_miles(p.lat, p.lon, pr.lat, pr.lon) > 0.1) AS far
+         FROM permit_enriched p JOIN property pr ON pr.apn = p.apn
+         WHERE p.source_id = 'carlsbad_permits' AND p.apn_basis = 'parcel matched on situs address'`,
+      );
+      expect(link.linked).toBeGreaterThan(10);
+      expect(link.wrong_city).toBe(0);
+      expect(link.far).toBe(0); // the matched parcel sits where the permit's own coordinate is
+
+      const { n: roofFromCarlsbad } = await db.one(
+        N,
+        `SELECT count(*) AS n FROM roof_signal WHERE evidence_permit_uid LIKE 'carlsbad:%'`,
+      );
+      expect(roofFromCarlsbad).toBeGreaterThan(0);
+    });
   });
 
   it('skips snapshot sources whose ETag has not changed', async () => {

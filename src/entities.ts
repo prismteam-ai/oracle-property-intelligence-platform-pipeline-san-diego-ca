@@ -14,6 +14,11 @@ export interface EntitySpec<TSchema extends z.ZodObject = z.ZodObject> {
   readonly table: string;
   readonly key: readonly string[];
   readonly columns: Readonly<Record<string, DuckType>>;
+  /**
+   * Columns added after the first production load. They enter the row hash only when set, so adding
+   * one does not make every existing row look changed on the next run.
+   */
+  readonly lateColumns?: readonly string[];
   readonly schema: TSchema;
 }
 
@@ -214,7 +219,10 @@ function buildEntities(today: string) {
       lat: 'DOUBLE',
       lon: 'DOUBLE',
       source_updated_at: 'TIMESTAMP',
+      coord_note: 'VARCHAR',
+      status_as_of: 'DATE',
     },
+    lateColumns: ['coord_note', 'status_as_of'],
     schema: z.strictObject({
       permit_uid: f.requiredText,
       source_permit_id: f.requiredText,
@@ -244,6 +252,10 @@ function buildEntities(today: string) {
       lat: f.lat,
       lon: f.lon,
       source_updated_at: f.timestamp,
+      // Why a coordinate the source supplied was discarded (the permit itself is kept).
+      coord_note: f.text,
+      // For frozen snapshots: the date the status was true. Null means "as of fetched_at".
+      status_as_of: f.eventDate,
     }),
   } as const satisfies EntitySpec;
 

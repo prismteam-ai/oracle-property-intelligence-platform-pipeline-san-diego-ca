@@ -4,6 +4,7 @@ import { cityStatusGroup } from '../src/adapters/cityPermits.js';
 import { countyStatusGroup } from '../src/adapters/countySocrata.js';
 import {
   coordinate,
+  countyCoordinate,
   isoDatePart,
   normalizeApn,
   normalizeLicense,
@@ -163,5 +164,36 @@ describe('CSLB classifications', () => {
     expect(normalizeClassifications('C-39')).toBe('C39');
     expect(normalizeClassifications('C39| B')).toBe('B|C39');
     expect(normalizeClassifications('')).toBeNull();
+  });
+});
+
+describe('countyCoordinate: a bad geocode costs the coordinate, never the permit', () => {
+  it('passes a coordinate inside the county through untouched', () => {
+    expect(countyCoordinate(32.77124, -116.93181)).toEqual({ lat: 32.77124, lon: -116.93181, note: null });
+    expect(countyCoordinate('32.80628294', '-117.1205532')).toEqual({
+      lat: 32.80628294,
+      lon: -117.1205532,
+      note: null,
+    });
+  });
+  it('nulls a coordinate outside the county and records what it was (real county-permit geocodes)', () => {
+    // These two values are real: 105 and 46 county permits were geocoded to Texas and Pennsylvania.
+    expect(countyCoordinate(33.1272, -96.87502)).toEqual({
+      lat: null,
+      lon: null,
+      note: 'source coordinate outside San Diego County (33.1272, -96.87502); discarded',
+    });
+    expect(countyCoordinate(40.53515, -75.5815).note).toContain('(40.53515, -75.5815)');
+  });
+  it('treats blanks and zero placeholders as simply absent, with no note', () => {
+    expect(countyCoordinate(null, undefined)).toEqual({ lat: null, lon: null, note: null });
+    expect(countyCoordinate('0', '0')).toEqual({ lat: null, lon: null, note: null });
+  });
+  it('discards half a coordinate', () => {
+    expect(countyCoordinate(32.7, null)).toEqual({
+      lat: null,
+      lon: null,
+      note: 'source coordinate incomplete (32.7, null); discarded',
+    });
   });
 });

@@ -40,6 +40,8 @@ describe('entity contracts', () => {
       lat: 32.7,
       lon: -117.1,
       source_updated_at: null,
+      coord_note: null,
+      status_as_of: null,
     };
     const ok = (row: Record<string, unknown>): boolean => entities.permit.schema.safeParse(row).success;
     expect(ok(base)).toBe(true);

@@ -1,6 +1,6 @@
 import {
   blankToNull,
-  coordinate,
+  countyCoordinate,
   isoDatePart,
   normalizeApn,
   normalizeName,
@@ -98,6 +98,7 @@ export const cityPermits: SourceAdapter = {
         const group = cityStatusGroup(status);
         const holder = blankToNull(record['APPROVAL_PERMIT_HOLDER']);
         const apnRaw = blankToNull(record['GIS_APN']);
+        const located = countyCoordinate(record['GIS_LATITUDE'], record['GIS_LONGITUDE']);
         yield validate(
           ctx.entities,
           'permit',
@@ -127,9 +128,11 @@ export const cityPermits: SourceAdapter = {
             address: blankToNull(record['GIS_ADDRESS']),
             city: 'SAN DIEGO',
             zip: null,
-            lat: coordinate(record['GIS_LATITUDE']),
-            lon: coordinate(record['GIS_LONGITUDE']),
+            lat: located.lat,
+            lon: located.lon,
             source_updated_at: null,
+            coord_note: located.note,
+            status_as_of: null,
           },
           // The closed file outranks the active file if an approval appears in both.
           { sourceRecordId: id, sourceUrl: file.url, fetchedAt: file.fetchedAt, rank: fileIndex },

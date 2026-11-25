@@ -105,7 +105,11 @@ export async function mergeStage(
   const dataColumns = columns.filter((c) => !spec.key.includes(c));
   const keyOrder = spec.key.join(', ');
   const on = spec.key.map((k) => `t.${k} = s.${k}`).join(' AND ');
-  const hash = `md5(concat_ws('|', ${columns.map((c) => `coalesce(CAST(${c} AS VARCHAR), chr(1))`).join(', ')}))`;
+  const late = spec.lateColumns ?? [];
+  const hashed = columns.filter((c) => !late.includes(c));
+  // Late columns contribute only when set, which keeps hashes of rows loaded before they existed stable.
+  const lateTerms = late.map((c) => `, coalesce('|${c}=' || CAST(${c} AS VARCHAR), '')`).join('');
+  const hash = `md5(concat(concat_ws('|', ${hashed.map((c) => `coalesce(CAST(${c} AS VARCHAR), chr(1))`).join(', ')})${lateTerms}))`;
 
   await db.exec(`CREATE OR REPLACE TEMP TABLE _stage_raw AS ${stageSql}`);
   const staged = (await db.one(Count, 'SELECT count(*) AS n FROM _stage_raw')).n;

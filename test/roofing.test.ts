@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { carlsbadStatusGroup } from '../src/adapters/carlsbadPermits.js';
 import { ROOFING_RULES, classifyRoofing, type RoofingClass } from '../src/roofing.js';
 
 /**
@@ -216,5 +217,101 @@ describe('classifyRoofing on real permit descriptions', () => {
     const names = ROOFING_RULES.map((r) => r.name);
     expect(new Set(names).size).toBe(names.length);
     for (const [text] of REAL_REROOFS) expect(classifyRoofing(text)).toEqual(classifyRoofing(text));
+  });
+});
+
+/** Real descriptions recorded from the City of Carlsbad building-permit layer (test/fixtures/carlsbad_permits). */
+const CARLSBAD: readonly Case[] = [
+  ['REROOF: LIFT & RELAY (E-REVIEW)', 'reroof', 'reroof_explicit'],
+  [
+    'LIFT AND LAY TILE FULL REROOF. 3 000SF. 30 SQUARES. 6 ROOF FACES. CONCRETE TILE. (E-REVIEW)',
+    'reroof',
+    'reroof_explicit',
+  ],
+  [
+    'COMPOSITE SHINGLE REMOVE AND REPLACE FULL REROOF. 2 900SQFT. 29 SQUARES. COASTAL SLATE. CRRC:0676-0131A. (E-REVIEW)',
+    'reroof',
+    'reroof_explicit',
+  ],
+  [
+    '7723 CALLE MADERO; RE-ROOF (32 SQUARES) REMOVING EXISTING CONCRETE TILE INSTALLING ASPHALT SHINGLES (E-REVIEW)',
+    'reroof',
+    'reroof_explicit',
+  ],
+  // A full reroof done together with solar is still a reroof ...
+  [
+    '28SQRS FULL COMP SHINGLE REROOF FOR 6.48KW ROOF-MOUNT PV W// 16MODULES & 16MICRO-INVERTERS (E-REVIEW)',
+    'reroof',
+    'reroof_explicit',
+  ],
+  [
+    'PLATT / 20SQRS FULL LIFT & RELAY REROOF FOR ROOF-MOUNT PV / 4.92KW W// 12 MODULES & 12 MICRO-INVERTERS (E-REVIEW)',
+    'reroof',
+    'reroof_explicit',
+  ],
+  [
+    'MITCHELL / PICTURE FRAME TILE FULL REROOF. 700SQFT. 7 SQUARES ROOF MOUNTED INSTALLATION / 4.92KW W// 12 MODULES AND 12 MICRO INVERTERS (E-REVIEW)',
+    'reroof',
+    'reroof_explicit',
+  ],
+  [
+    'RUSSELL: ROOF MOUNT SOLAR WITH 20 MODULES  7.30 KW.  AND REROOF 15 SQUARES COMP SHINGLE (E-REVIEW)',
+    'reroof',
+    'reroof_explicit',
+  ],
+  // ... but a partial reroof under the array is a repair: real roofing work that must not reset the roof's age.
+  [
+    '15SQRS PICTURE FRAME PARTIAL REROOF FOR 14.35KW ROOF-MOUNT PV W// 35MODULES & 35MICRO-INVERTERS (E-REVIEW)',
+    'roof repair',
+    'reroof_partial',
+  ],
+  [
+    '1300SQ FT PARTIAL LIFT & RELAY REROOF FOR 6.48KW ROOF-MOUNT PV ADDER W// 16MODULES  16MICRO-INVERTERS; 3.84KW ENERGY STORAGE (E-REVIEW)',
+    'roof repair',
+    'reroof_partial',
+  ],
+  ['900SQFT LIFT & LAY PARTIAL REROOF (E-REVIEW)', 'roof repair', 'reroof_partial'],
+  [
+    'REROOF; PARTIAL COMP UNDER ARRAY/PICTURE FRAME TILE (20 SQUARES)  (E-REVIEW)',
+    'roof repair',
+    'reroof_partial',
+  ],
+  ['HERFURTH; REROOF; COMP UNDER ARRAY 7 SQUARES (E-REVIEW)', 'roof repair', 'reroof_partial'],
+  ['PICTURE FRAME RE-ROOF.  215 SF UL790. ASTM-1561. (E-REVIEW)', 'roof repair', 'reroof_partial'],
+  [
+    'PARTIAL RE-ROOF FOR FUTURE SOLAR. REMOVE EXISTING TILE. INSTALL 30# FELT  INSTALL COMPOSITION SHINGLES. BACKFILL TILE AROUND SOLAR ARRAY. (E-REVIEW)',
+    'roof repair',
+    'reroof_partial',
+  ],
+  // Solar with no roofing work.
+  [
+    'NEW 3.597DC KW ROOF MOUNTED PHOTOVOLTAIC SYSTEM W/ 11 MODS AND 11 MICRO INV (E-REVIEW)',
+    'solar-on-roof',
+    'solar_on_roof',
+  ],
+  ['SO; 14.4 KW SOLAR ROOF MOUNT  36 MODULES  2 BATTERIES (E-REVIEW)', 'solar-on-roof', 'solar_on_roof'],
+  ['REES / ROOF TOP SOLAR / 4.74KW W// 12 MODULES & 1 INVERTER (E-REVIEW)', 'solar-on-roof', 'solar_on_roof'],
+  [
+    'KAKADELA: 15 ROOF MOUNTED PV SOLAR PANELS  1 INVERTER  1 NEW SUB PANEL  SYSTEM SIZE 6 KW DC (E-REVIEW)',
+    'solar-on-roof',
+    'solar_on_roof',
+  ],
+];
+
+describe('classifyRoofing on real Carlsbad permit descriptions', () => {
+  it.each(CARLSBAD)('%s', (text, expectedClass, expectedRule) => {
+    const result = classifyRoofing(text);
+    expect({ c: result.roofingClass, rule: result.rule }).toEqual({ c: expectedClass, rule: expectedRule });
+    expect(result.isRoofing).toBe(expectedClass !== 'solar-on-roof');
+  });
+
+  it('groups Carlsbad statuses', () => {
+    expect(carlsbadStatusGroup('Issued - Active')).toBe('open');
+    expect(carlsbadStatusGroup('Closed - Finaled')).toBe('completed');
+    expect(carlsbadStatusGroup('Closed - Expired')).toBe('expired');
+    expect(carlsbadStatusGroup('Closed - Withdrawn')).toBe('cancelled');
+    expect(carlsbadStatusGroup('Closed - Error')).toBe('cancelled');
+    expect(carlsbadStatusGroup('Under Review - Active')).toBe('other');
+    expect(carlsbadStatusGroup('Approved - Ready to Issue')).toBe('other');
   });
 });

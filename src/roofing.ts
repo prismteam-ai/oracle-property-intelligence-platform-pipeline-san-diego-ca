@@ -20,6 +20,8 @@ interface Rule {
   readonly name: string;
   readonly roofingClass: RoofingClass;
   readonly pattern: RegExp;
+  /** The rule does not apply when this also matches. */
+  readonly unless?: RegExp;
 }
 
 const NOT_EQUIPMENT =
@@ -38,6 +40,18 @@ export const ROOFING_RULES: readonly Rule[] = [
       `\\bNO (?:NEW |ANY )?${REROOF_WORD}|\\b(?:NOT|W\\/O|WITHOUT|EXCLUD\\w*)(?: (?:TO|A|ANY|THE|INCLUDE|INCLUDES|INCLUDING))* ${REROOF_WORD}|${REROOF_WORD}[^.;:]{0,30}\\b(?:SEPARATE PERMIT|NOT INCLUDED|NOT A PART|BY OTHERS)\\b`,
     ),
   },
+  {
+    // "PICTURE FRAME PARTIAL REROOF FOR 14.35KW ROOF-MOUNT PV": only the area under the array is redone.
+    // Real roofing work, but it must not reset the roof's age, so it is classed as a repair.
+    name: 'reroof_partial',
+    roofingClass: 'roof repair',
+    // Solar installers also write "picture frame" or "under array" for the same thing.
+    pattern: new RegExp(
+      `\\b(?:PARTIAL|PICTURE FRAME|UNDER ARRAY)\\b[^.;:]{0,40}${REROOF_WORD}|${REROOF_WORD}[^.:]{0,30}\\b(?:PARTIAL|PICTURE FRAME|UNDER ARRAY)\\b`,
+    ),
+    // "PICTURE FRAME TILE FULL REROOF" says the whole roof was redone.
+    unless: /\bFULL\b/,
+  },
   { name: 'reroof_explicit', roofingClass: 'reroof', pattern: new RegExp(REROOF_WORD) },
   {
     name: 'roof_replacement',
@@ -50,7 +64,7 @@ export const ROOFING_RULES: readonly Rule[] = [
     name: 'roof_tear_off_or_overlay',
     roofingClass: 'reroof',
     pattern:
-      /\bTEAR[- ]?OFF\b|\bROOF(?:ING)? (?:OVERLAY|RECOVER)\b|\bNEW ROOF(?:ING)? (?:COVERING|MATERIALS?|SHINGLES?|TILES?|MEMBRANE)\b|\bNEW ROOFING\b/,
+      /\bTEAR[- ]?OFF\b|\bROOF(?:ING)? (?:OVERLAY|RECOVER)\b|\bNEW ROOF(?:ING)? (?:COVERING|MATERIALS?|SHINGLES?|TILES?|MEMBRANE)\b|\bNEW ROOFING\b|\bREMOVE (?:THE |ALL |EXISTING |\(E\) )*ROOF(?:ING)? (?:SYSTEM|COVERING|MATERIALS?|SHINGLES?|TILES?)\b/,
   },
   {
     // Checked before the repair/structural rules: "ROOF MOUNTED PV, REPAIR ROOF RAFTERS" is a solar permit.
@@ -101,7 +115,7 @@ export function classifyRoofing(...parts: readonly (string | null | undefined)[]
     .replace(/\s+/g, ' ');
   if (!text.includes('ROOF')) return { roofingClass: 'other', isRoofing: false, rule: null };
   for (const rule of ROOFING_RULES) {
-    if (rule.pattern.test(text)) {
+    if (rule.pattern.test(text) && rule.unless?.test(text) !== true) {
       return {
         roofingClass: rule.roofingClass,
         isRoofing: ROOFING_CLASSES.has(rule.roofingClass),

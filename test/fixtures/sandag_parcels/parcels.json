@@ -1,11 +1,8 @@
 {
  "features": [
   {
-   "centroid": {
-    "x": -117.19045496211595,
-    "y": 33.050520878180166
-   },
    "attributes": {
+    "objectid": 365,
     "year_effective": "98",
     "situs_zip": "92067     ",
     "asr_total": 9174900,
@@ -35,17 +32,17 @@
     "docnmbr": "016180",
     "situs_post_dir": "",
     "situs_community": "RANCHO SANTA FE",
-    "objectid": 365,
     "situs_address": 6682,
     "asr_land": 4080000
+   },
+   "centroid": {
+    "x": -117.19045496211595,
+    "y": 33.050520878180166
    }
   },
   {
-   "centroid": {
-    "x": -117.21525625730757,
-    "y": 33.020599516381125
-   },
    "attributes": {
+    "objectid": 61453,
     "year_effective": "92",
     "situs_zip": "92067     ",
     "asr_total": 3714227,
@@ -75,17 +72,17 @@
     "docnmbr": "457968",
     "situs_post_dir": "",
     "situs_community": "RANCHO SANTA FE",
-    "objectid": 61453,
     "situs_address": 5516,
     "asr_land": 2971382
+   },
+   "centroid": {
+    "x": -117.21525625730757,
+    "y": 33.020599516381125
    }
   },
   {
-   "centroid": {
-    "x": -117.01256230069134,
-    "y": 32.708471178936826
-   },
    "attributes": {
+    "objectid": 62493,
     "year_effective": "60",
     "situs_zip": "91977-5525",
     "asr_total": 205963,
@@ -115,17 +112,17 @@
     "docnmbr": "222564",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 62493,
     "situs_address": 721,
     "asr_land": 58125
+   },
+   "centroid": {
+    "x": -117.01256230069134,
+    "y": 32.708471178936826
    }
   },
   {
-   "centroid": {
-    "x": -116.99861422585745,
-    "y": 32.75375657659476
-   },
    "attributes": {
+    "objectid": 63165,
     "year_effective": "50",
     "situs_zip": "91977-1101",
     "asr_total": 882300,
@@ -155,17 +152,17 @@
     "docnmbr": "242326",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 63165,
     "situs_address": 9208,
     "asr_land": 627300
+   },
+   "centroid": {
+    "x": -116.99861422585745,
+    "y": 32.75375657659476
    }
   },
   {
-   "centroid": {
-    "x": -116.98771064593564,
-    "y": 32.75927275294973
-   },
    "attributes": {
+    "objectid": 70346,
     "year_effective": "85",
     "situs_zip": "91977-1304",
     "asr_total": 1346399,
@@ -195,17 +192,17 @@
     "docnmbr": "166026",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 70346,
     "situs_address": 4317,
     "asr_land": 557996
+   },
+   "centroid": {
+    "x": -116.98771064593564,
+    "y": 32.75927275294973
    }
   },
   {
-   "centroid": {
-    "x": -117.005205130598,
-    "y": 32.74413112955946
-   },
    "attributes": {
+    "objectid": 78681,
     "year_effective": "48",
     "situs_zip": "91977-2026",
     "asr_total": 655288,
@@ -235,17 +232,17 @@
     "docnmbr": "281394",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 78681,
     "situs_address": 8825,
     "asr_land": 348894
+   },
+   "centroid": {
+    "x": -117.005205130598,
+    "y": 32.74413112955946
    }
   },
   {
-   "centroid": {
-    "x": -116.99820472010241,
-    "y": 32.74479949053145
-   },
    "attributes": {
+    "objectid": 78754,
     "year_effective": "55",
     "situs_zip": "91977-2424",
     "asr_total": 341628,
@@ -275,17 +272,17 @@
     "docnmbr": "019921",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 78754,
     "situs_address": 9312,
     "asr_land": 208238
+   },
+   "centroid": {
+    "x": -116.99820472010241,
+    "y": 32.74479949053145
    }
   },
   {
-   "centroid": {
-    "x": -116.98431393078792,
-    "y": 32.73724841070547
-   },
    "attributes": {
+    "objectid": 86426,
     "year_effective": "65",
     "situs_zip": "91977-3013",
     "asr_total": 471006,
@@ -315,17 +312,17 @@
     "docnmbr": "008985",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 86426,
     "situs_address": 3027,
     "asr_land": 138157
+   },
+   "centroid": {
+    "x": -116.98431393078792,
+    "y": 32.73724841070547
    }
   },
   {
-   "centroid": {
-    "x": -117.00369924921537,
-    "y": 32.70342853183899
-   },
    "attributes": {
+    "objectid": 88617,
     "year_effective": "61",
     "situs_zip": "91977-5813",
     "asr_total": 656925,
@@ -355,17 +352,17 @@
     "docnmbr": "360888",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 88617,
     "situs_address": 9109,
     "asr_land": 436111
+   },
+   "centroid": {
+    "x": -117.00369924921537,
+    "y": 32.70342853183899
    }
   },
   {
-   "centroid": {
-    "x": -116.9775294029977,
-    "y": 32.74264808519082
-   },
    "attributes": {
+    "objectid": 116249,
     "year_effective": "60",
     "situs_zip": "91977-3132",
     "asr_total": 218235,
@@ -395,17 +392,17 @@
     "docnmbr": "906908",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 116249,
     "situs_address": 10041,
     "asr_land": 98286
+   },
+   "centroid": {
+    "x": -116.9775294029977,
+    "y": 32.74264808519082
    }
   },
   {
-   "centroid": {
-    "x": -117.00221848817324,
-    "y": 32.703140540023846
-   },
    "attributes": {
+    "objectid": 117925,
     "year_effective": "70",
     "situs_zip": "91977-5849",
     "asr_total": 497188,
@@ -435,17 +432,17 @@
     "docnmbr": "207925",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 117925,
     "situs_address": 9140,
     "asr_land": 355136
+   },
+   "centroid": {
+    "x": -117.00221848817324,
+    "y": 32.703140540023846
    }
   },
   {
-   "centroid": {
-    "x": -117.00281623810518,
-    "y": 32.7025553603745
-   },
    "attributes": {
+    "objectid": 117930,
     "year_effective": "61",
     "situs_zip": "91977-5821",
     "asr_total": 240950,
@@ -475,17 +472,17 @@
     "docnmbr": "117950",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 117930,
     "situs_address": 9127,
     "asr_land": 91781
+   },
+   "centroid": {
+    "x": -117.00281623810518,
+    "y": 32.7025553603745
    }
   },
   {
-   "centroid": {
-    "x": -117.01053372966645,
-    "y": 32.73517333984993
-   },
    "attributes": {
+    "objectid": 121308,
     "year_effective": "80",
     "situs_zip": "91977-2504",
     "asr_total": 684737,
@@ -515,17 +512,17 @@
     "docnmbr": "292877",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 121308,
     "situs_address": 2722,
     "asr_land": 273894
+   },
+   "centroid": {
+    "x": -117.01053372966645,
+    "y": 32.73517333984993
    }
   },
   {
-   "centroid": {
-    "x": -117.01184312026152,
-    "y": 32.73264797333524
-   },
    "attributes": {
+    "objectid": 126043,
     "year_effective": "74",
     "situs_zip": "91977-3205",
     "asr_total": 211617,
@@ -555,17 +552,17 @@
     "docnmbr": "203899",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 126043,
     "situs_address": 2430,
     "asr_land": 109728
+   },
+   "centroid": {
+    "x": -117.01184312026152,
+    "y": 32.73264797333524
    }
   },
   {
-   "centroid": {
-    "x": -117.00972159217613,
-    "y": 32.73320879118581
-   },
    "attributes": {
+    "objectid": 126051,
     "year_effective": "59",
     "situs_zip": "91977-3208",
     "asr_total": 453567,
@@ -595,17 +592,17 @@
     "docnmbr": "484208",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 126051,
     "situs_address": 2537,
     "asr_land": 171619
+   },
+   "centroid": {
+    "x": -117.00972159217613,
+    "y": 32.73320879118581
    }
   },
   {
-   "centroid": {
-    "x": -117.0002165608396,
-    "y": 32.71126352624642
-   },
    "attributes": {
+    "objectid": 126788,
     "year_effective": "64",
     "situs_zip": "91977-5003",
     "asr_total": 406236,
@@ -635,17 +632,17 @@
     "docnmbr": "553436",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 126788,
     "situs_address": 752,
     "asr_land": 192039
+   },
+   "centroid": {
+    "x": -117.0002165608396,
+    "y": 32.71126352624642
    }
   },
   {
-   "centroid": {
-    "x": -116.99953952262406,
-    "y": 32.714161106339795
-   },
    "attributes": {
+    "objectid": 126843,
     "year_effective": "72",
     "situs_zip": "91977-4904",
     "asr_total": 60018,
@@ -675,17 +672,17 @@
     "docnmbr": "320686",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 126843,
     "situs_address": 923,
     "asr_land": 16222
+   },
+   "centroid": {
+    "x": -116.99953952262406,
+    "y": 32.714161106339795
    }
   },
   {
-   "centroid": {
-    "x": -116.9806666914312,
-    "y": 32.754128678451224
-   },
    "attributes": {
+    "objectid": 134559,
     "year_effective": "48",
     "situs_zip": "91977-1317",
     "asr_total": 385089,
@@ -715,17 +712,17 @@
     "docnmbr": "906347",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 134559,
     "situs_address": 4238,
     "asr_land": 141663
+   },
+   "centroid": {
+    "x": -116.9806666914312,
+    "y": 32.754128678451224
    }
   },
   {
-   "centroid": {
-    "x": -116.97715575282011,
-    "y": 32.73941193468746
-   },
    "attributes": {
+    "objectid": 144314,
     "year_effective": "68",
     "situs_zip": "91977-3102",
     "asr_total": 500139,
@@ -755,17 +752,17 @@
     "docnmbr": "285792",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 144314,
     "situs_address": 10044,
     "asr_land": 175047
+   },
+   "centroid": {
+    "x": -116.97715575282011,
+    "y": 32.73941193468746
    }
   },
   {
-   "centroid": {
-    "x": -116.98559235649527,
-    "y": 32.72121872238295
-   },
    "attributes": {
+    "objectid": 149400,
     "year_effective": "79",
     "situs_zip": "91977-4646",
     "asr_total": 513166,
@@ -795,17 +792,17 @@
     "docnmbr": "197991",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 149400,
     "situs_address": 1640,
     "asr_land": 210271
+   },
+   "centroid": {
+    "x": -116.98559235649527,
+    "y": 32.72121872238295
    }
   },
   {
-   "centroid": {
-    "x": -116.98559694579694,
-    "y": 32.72094418469306
-   },
    "attributes": {
+    "objectid": 149402,
     "year_effective": "79",
     "situs_zip": "91977-4646",
     "asr_total": 467283,
@@ -835,17 +832,17 @@
     "docnmbr": "215800",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 149402,
     "situs_address": 1630,
     "asr_land": 301865
+   },
+   "centroid": {
+    "x": -116.98559694579694,
+    "y": 32.72094418469306
    }
   },
   {
-   "centroid": {
-    "x": -116.9856207059506,
-    "y": 32.71956841583963
-   },
    "attributes": {
+    "objectid": 149420,
     "year_effective": "91",
     "situs_zip": "91977-4663",
     "asr_total": 574481,
@@ -875,17 +872,17 @@
     "docnmbr": "301397",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 149420,
     "situs_address": 1518,
     "asr_land": 184400
+   },
+   "centroid": {
+    "x": -116.9856207059506,
+    "y": 32.71956841583963
    }
   },
   {
-   "centroid": {
-    "x": -116.99702827761571,
-    "y": 32.712335580782295
-   },
    "attributes": {
+    "objectid": 157891,
     "year_effective": "77",
     "situs_zip": "91977-4951",
     "asr_total": 1229100,
@@ -915,17 +912,17 @@
     "docnmbr": "020082",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 157891,
     "situs_address": 829,
     "asr_land": 550800
+   },
+   "centroid": {
+    "x": -116.99702827761571,
+    "y": 32.712335580782295
    }
   },
   {
-   "centroid": {
-    "x": -116.97656417003523,
-    "y": 32.718134210050636
-   },
    "attributes": {
+    "objectid": 177479,
     "year_effective": "61",
     "situs_zip": "91977-5402",
     "asr_total": 109983,
@@ -955,17 +952,17 @@
     "docnmbr": "905002",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 177479,
     "situs_address": 10317,
     "asr_land": 33424
+   },
+   "centroid": {
+    "x": -116.97656417003523,
+    "y": 32.718134210050636
    }
   },
   {
-   "centroid": {
-    "x": -117.00109568555071,
-    "y": 32.71271390267675
-   },
    "attributes": {
+    "objectid": 177794,
     "year_effective": "61",
     "situs_zip": "91977-4905",
     "asr_total": 414151,
@@ -995,17 +992,17 @@
     "docnmbr": "605436",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 177794,
     "situs_address": 840,
     "asr_land": 165108
+   },
+   "centroid": {
+    "x": -117.00109568555071,
+    "y": 32.71271390267675
    }
   },
   {
-   "centroid": {
-    "x": -116.92770963855352,
-    "y": 32.855132992878985
-   },
    "attributes": {
+    "objectid": 187969,
     "year_effective": "26",
     "situs_zip": "92040-3005",
     "asr_total": 40464,
@@ -1035,17 +1032,17 @@
     "docnmbr": "673227",
     "situs_post_dir": "",
     "situs_community": "LAKESIDE",
-    "objectid": 187969,
     "situs_address": 9717,
     "asr_land": 16464
+   },
+   "centroid": {
+    "x": -116.92770963855352,
+    "y": 32.855132992878985
    }
   },
   {
-   "centroid": {
-    "x": -116.99801648870375,
-    "y": 32.70449374077227
-   },
    "attributes": {
+    "objectid": 202210,
     "year_effective": "65",
     "situs_zip": "91977-5914",
     "asr_total": 1472425,
@@ -1075,17 +1072,17 @@
     "docnmbr": "387006",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 202210,
     "situs_address": 412,
     "asr_land": 848966
+   },
+   "centroid": {
+    "x": -116.99801648870375,
+    "y": 32.70449374077227
    }
   },
   {
-   "centroid": {
-    "x": -116.99721246062546,
-    "y": 32.705015157525075
-   },
    "attributes": {
+    "objectid": 202222,
     "year_effective": "77",
     "situs_zip": "91977-5952",
     "asr_total": 1601462,
@@ -1115,17 +1112,17 @@
     "docnmbr": "745327",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 202222,
     "situs_address": 437,
     "asr_land": 847833
+   },
+   "centroid": {
+    "x": -116.99721246062546,
+    "y": 32.705015157525075
    }
   },
   {
-   "centroid": {
-    "x": -116.98691363646934,
-    "y": 32.73669471094075
-   },
    "attributes": {
+    "objectid": 202580,
     "year_effective": "48",
     "situs_zip": "91977-3441",
     "asr_total": 518896,
@@ -1155,17 +1152,17 @@
     "docnmbr": "103061",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 202580,
     "situs_address": 2810,
     "asr_land": 227368
+   },
+   "centroid": {
+    "x": -116.98691363646934,
+    "y": 32.73669471094075
    }
   },
   {
-   "centroid": {
-    "x": -116.98757518796467,
-    "y": 32.73674725947768
-   },
    "attributes": {
+    "objectid": 202581,
     "year_effective": "65",
     "situs_zip": "91977-3441",
     "asr_total": 136672,
@@ -1195,17 +1192,17 @@
     "docnmbr": "539961",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 202581,
     "situs_address": 2806,
     "asr_land": 40735
+   },
+   "centroid": {
+    "x": -116.98757518796467,
+    "y": 32.73674725947768
    }
   },
   {
-   "centroid": {
-    "x": -117.00153007599192,
-    "y": 32.70117126011892
-   },
    "attributes": {
+    "objectid": 203745,
     "year_effective": "00",
     "situs_zip": "91977-5810",
     "asr_total": 5850572,
@@ -1235,17 +1232,17 @@
     "docnmbr": "907175",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 203745,
     "situs_address": 325,
     "asr_land": 52553
+   },
+   "centroid": {
+    "x": -117.00153007599192,
+    "y": 32.70117126011892
    }
   },
   {
-   "centroid": {
-    "x": -117.00146503711169,
-    "y": 32.71182764464608
-   },
    "attributes": {
+    "objectid": 203766,
     "year_effective": "70",
     "situs_zip": "91977-4948",
     "asr_total": 712672,
@@ -1275,17 +1272,17 @@
     "docnmbr": "031203",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 203766,
     "situs_address": 807,
     "asr_land": 462277
+   },
+   "centroid": {
+    "x": -117.00146503711169,
+    "y": 32.71182764464608
    }
   },
   {
-   "centroid": {
-    "x": -117.00580735915838,
-    "y": 32.71918979196153
-   },
    "attributes": {
+    "objectid": 223044,
     "year_effective": "50",
     "situs_zip": "91977-3939",
     "asr_total": 616983,
@@ -1315,17 +1312,17 @@
     "docnmbr": "119590",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 223044,
     "situs_address": 8980,
     "asr_land": 400498
+   },
+   "centroid": {
+    "x": -117.00580735915838,
+    "y": 32.71918979196153
    }
   },
   {
-   "centroid": {
-    "x": -116.98755445548241,
-    "y": 32.72124542148511
-   },
    "attributes": {
+    "objectid": 232177,
     "year_effective": "90",
     "situs_zip": "91977-4624",
     "asr_total": 463901,
@@ -1355,17 +1352,17 @@
     "docnmbr": "494039",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 232177,
     "situs_address": 1640,
     "asr_land": 156809
+   },
+   "centroid": {
+    "x": -116.98755445548241,
+    "y": 32.72124542148511
    }
   },
   {
-   "centroid": {
-    "x": -117.00562138346568,
-    "y": 32.70617996356118
-   },
    "attributes": {
+    "objectid": 234367,
     "year_effective": "58",
     "situs_zip": "91977-5806",
     "asr_total": 579556,
@@ -1395,17 +1392,17 @@
     "docnmbr": "528436",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 234367,
     "situs_address": 9003,
     "asr_land": 302886
+   },
+   "centroid": {
+    "x": -117.00562138346568,
+    "y": 32.70617996356118
    }
   },
   {
-   "centroid": {
-    "x": -116.99203681350241,
-    "y": 32.715409180882375
-   },
    "attributes": {
+    "objectid": 235182,
     "year_effective": "75",
     "situs_zip": "91977-4415",
     "asr_total": 80999,
@@ -1435,17 +1432,17 @@
     "docnmbr": "404701",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 235182,
     "situs_address": 1021,
     "asr_land": 20231
+   },
+   "centroid": {
+    "x": -116.99203681350241,
+    "y": 32.715409180882375
    }
   },
   {
-   "centroid": {
-    "x": -116.99338159030607,
-    "y": 32.71270549108899
-   },
    "attributes": {
+    "objectid": 235218,
     "year_effective": "79",
     "situs_zip": "91977-5106",
     "asr_total": 212720,
@@ -1475,17 +1472,17 @@
     "docnmbr": "075153",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 235218,
     "situs_address": 842,
     "asr_land": 106361
+   },
+   "centroid": {
+    "x": -116.99338159030607,
+    "y": 32.71270549108899
    }
   },
   {
-   "centroid": {
-    "x": -117.00617536282692,
-    "y": 32.69898747736412
-   },
    "attributes": {
+    "objectid": 247956,
     "year_effective": "71",
     "situs_zip": "91977-6413",
     "asr_total": 99377,
@@ -1515,17 +1512,17 @@
     "docnmbr": "908870",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 247956,
     "situs_address": 168,
     "asr_land": 36965
+   },
+   "centroid": {
+    "x": -117.00617536282692,
+    "y": 32.69898747736412
    }
   },
   {
-   "centroid": {
-    "x": -116.99373195144209,
-    "y": 32.712159123346176
-   },
    "attributes": {
+    "objectid": 265197,
     "year_effective": "55",
     "situs_zip": "91977-5115",
     "asr_total": 730000,
@@ -1555,17 +1552,17 @@
     "docnmbr": "180391",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 265197,
     "situs_address": 821,
     "asr_land": 556191
+   },
+   "centroid": {
+    "x": -116.99373195144209,
+    "y": 32.712159123346176
    }
   },
   {
-   "centroid": {
-    "x": -117.00777333482236,
-    "y": 32.742096840552236
-   },
    "attributes": {
+    "objectid": 314976,
     "year_effective": "58",
     "situs_zip": "91977-2618",
     "asr_total": 806310,
@@ -1595,17 +1592,17 @@
     "docnmbr": "061237",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 314976,
     "situs_address": 8806,
     "asr_land": 494190
+   },
+   "centroid": {
+    "x": -117.00777333482236,
+    "y": 32.742096840552236
    }
   },
   {
-   "centroid": {
-    "x": -117.00612395213103,
-    "y": 32.70715972935156
-   },
    "attributes": {
+    "objectid": 321040,
     "year_effective": "58",
     "situs_zip": "91977-5809",
     "asr_total": 870190,
@@ -1635,17 +1632,17 @@
     "docnmbr": "167878",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 321040,
     "situs_address": 532,
     "asr_land": 530604
+   },
+   "centroid": {
+    "x": -117.00612395213103,
+    "y": 32.70715972935156
    }
   },
   {
-   "centroid": {
-    "x": -116.99907131481659,
-    "y": 32.71051615705905
-   },
    "attributes": {
+    "objectid": 323616,
     "year_effective": "55",
     "situs_zip": "91977-5025",
     "asr_total": 253937,
@@ -1675,17 +1672,17 @@
     "docnmbr": "257570",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 323616,
     "situs_address": 728,
     "asr_land": 90101
+   },
+   "centroid": {
+    "x": -116.99907131481659,
+    "y": 32.71051615705905
    }
   },
   {
-   "centroid": {
-    "x": -116.99862636886127,
-    "y": 32.70304763717498
-   },
    "attributes": {
+    "objectid": 323655,
     "year_effective": "77",
     "situs_zip": "91977-5936",
     "asr_total": 807839,
@@ -1715,17 +1712,17 @@
     "docnmbr": "295282",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 323655,
     "situs_address": 329,
     "asr_land": 481813
+   },
+   "centroid": {
+    "x": -116.99862636886127,
+    "y": 32.70304763717498
    }
   },
   {
-   "centroid": {
-    "x": -116.99463781076909,
-    "y": 32.71174953072096
-   },
    "attributes": {
+    "objectid": 323974,
     "year_effective": "64",
     "situs_zip": "91977-5130",
     "asr_total": 759899,
@@ -1755,17 +1752,17 @@
     "docnmbr": "082693",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 323974,
     "situs_address": 9508,
     "asr_land": 569967
+   },
+   "centroid": {
+    "x": -116.99463781076909,
+    "y": 32.71174953072096
    }
   },
   {
-   "centroid": {
-    "x": -116.98600666273086,
-    "y": 32.72109120812735
-   },
    "attributes": {
+    "objectid": 326646,
     "year_effective": "81",
     "situs_zip": "91977-4637",
     "asr_total": 294181,
@@ -1795,17 +1792,17 @@
     "docnmbr": "159296",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 326646,
     "situs_address": 1635,
     "asr_land": 133969
+   },
+   "centroid": {
+    "x": -116.98600666273086,
+    "y": 32.72109120812735
    }
   },
   {
-   "centroid": {
-    "x": -116.92484179858933,
-    "y": 32.77570409122974
-   },
    "attributes": {
+    "objectid": 329239,
     "year_effective": "80",
     "situs_zip": "92019-3605",
     "asr_total": 1528139,
@@ -1835,17 +1832,17 @@
     "docnmbr": "331199",
     "situs_post_dir": "",
     "situs_community": "EL CAJON",
-    "objectid": 329239,
     "situs_address": 1770,
     "asr_land": 848966
+   },
+   "centroid": {
+    "x": -116.92484179858933,
+    "y": 32.77570409122974
    }
   },
   {
-   "centroid": {
-    "x": -116.99112392185286,
-    "y": 32.705026564181935
-   },
    "attributes": {
+    "objectid": 330162,
     "year_effective": "75",
     "situs_zip": "91977-6044",
     "asr_total": 390953,
@@ -1875,17 +1872,17 @@
     "docnmbr": "127674",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 330162,
     "situs_address": 9623,
     "asr_land": 188800
+   },
+   "centroid": {
+    "x": -116.99112392185286,
+    "y": 32.705026564181935
    }
   },
   {
-   "centroid": {
-    "x": -116.99667002033455,
-    "y": 32.70514225116626
-   },
    "attributes": {
+    "objectid": 336588,
     "year_effective": "61",
     "situs_zip": "91977-6027",
     "asr_total": 839861,
@@ -1915,17 +1912,17 @@
     "docnmbr": "118906",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 336588,
     "situs_address": 438,
     "asr_land": 238130
+   },
+   "centroid": {
+    "x": -116.99667002033455,
+    "y": 32.70514225116626
    }
   },
   {
-   "centroid": {
-    "x": -116.99599921493625,
-    "y": 32.7049113496062
-   },
    "attributes": {
+    "objectid": 336596,
     "year_effective": "62",
     "situs_zip": "91977-6028",
     "asr_total": 64975,
@@ -1955,17 +1952,17 @@
     "docnmbr": "509769",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 336596,
     "situs_address": 423,
     "asr_land": 17403
+   },
+   "centroid": {
+    "x": -116.99599921493625,
+    "y": 32.7049113496062
    }
   },
   {
-   "centroid": {
-    "x": -116.99661356300403,
-    "y": 32.707161322485945
-   },
    "attributes": {
+    "objectid": 336618,
     "year_effective": "60",
     "situs_zip": "91977-6029",
     "asr_total": 392605,
@@ -1995,17 +1992,17 @@
     "docnmbr": "364044",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 336618,
     "situs_address": 542,
     "asr_land": 167065
+   },
+   "centroid": {
+    "x": -116.99661356300403,
+    "y": 32.707161322485945
    }
   },
   {
-   "centroid": {
-    "x": -116.9841035584812,
-    "y": 32.71648456214944
-   },
    "attributes": {
+    "objectid": 341983,
     "year_effective": "91",
     "situs_zip": "91977-4659",
     "asr_total": 1043000,
@@ -2035,17 +2032,17 @@
     "docnmbr": "253910",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 341983,
     "situs_address": 1217,
     "asr_land": 600000
+   },
+   "centroid": {
+    "x": -116.9841035584812,
+    "y": 32.71648456214944
    }
   },
   {
-   "centroid": {
-    "x": -116.97830963227331,
-    "y": 32.737296541427966
-   },
    "attributes": {
+    "objectid": 348527,
     "year_effective": "70",
     "situs_zip": "91977-3101",
     "asr_total": 1045500,
@@ -2075,17 +2072,17 @@
     "docnmbr": "174154",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 348527,
     "situs_address": 10009,
     "asr_land": 765000
+   },
+   "centroid": {
+    "x": -116.97830963227331,
+    "y": 32.737296541427966
    }
   },
   {
-   "centroid": {
-    "x": -116.97786053324174,
-    "y": 32.73703550476536
-   },
    "attributes": {
+    "objectid": 348529,
     "year_effective": "70",
     "situs_zip": "91977-3101",
     "asr_total": 709205,
@@ -2115,17 +2112,17 @@
     "docnmbr": "422377",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 348529,
     "situs_address": 10025,
     "asr_land": 327956
+   },
+   "centroid": {
+    "x": -116.97786053324174,
+    "y": 32.73703550476536
    }
   },
   {
-   "centroid": {
-    "x": -117.02175232019344,
-    "y": 32.720670511378536
-   },
    "attributes": {
+    "objectid": 350821,
     "year_effective": "60",
     "situs_zip": "91977-3739",
     "asr_total": 749930,
@@ -2155,17 +2152,17 @@
     "docnmbr": "803506",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 350821,
     "situs_address": 1533,
     "asr_land": 432972
+   },
+   "centroid": {
+    "x": -117.02175232019344,
+    "y": 32.720670511378536
    }
   },
   {
-   "centroid": {
-    "x": -117.00409709678088,
-    "y": 32.710286898670844
-   },
    "attributes": {
+    "objectid": 357112,
     "year_effective": "59",
     "situs_zip": "91977-4835",
     "asr_total": 554449,
@@ -2195,17 +2192,17 @@
     "docnmbr": "992929",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 357112,
     "situs_address": 743,
     "asr_land": 298550
+   },
+   "centroid": {
+    "x": -117.00409709678088,
+    "y": 32.710286898670844
    }
   },
   {
-   "centroid": {
-    "x": -116.97277084799363,
-    "y": 32.74930258061574
-   },
    "attributes": {
+    "objectid": 364410,
     "year_effective": "61",
     "situs_zip": "91977-1733",
     "asr_total": 635416,
@@ -2235,17 +2232,17 @@
     "docnmbr": "902235",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 364410,
     "situs_address": 10231,
     "asr_land": 382618
+   },
+   "centroid": {
+    "x": -116.97277084799363,
+    "y": 32.74930258061574
    }
   },
   {
-   "centroid": {
-    "x": -116.97740193947651,
-    "y": 32.738010646582595
-   },
    "attributes": {
+    "objectid": 365704,
     "year_effective": "74",
     "situs_zip": "91977-3125",
     "asr_total": 91131,
@@ -2275,17 +2272,17 @@
     "docnmbr": "363178",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 365704,
     "situs_address": 10043,
     "asr_land": 28719
+   },
+   "centroid": {
+    "x": -116.97740193947651,
+    "y": 32.738010646582595
    }
   },
   {
-   "centroid": {
-    "x": -117.01578938061488,
-    "y": 32.718924984986046
-   },
    "attributes": {
+    "objectid": 366615,
     "year_effective": "60",
     "situs_zip": "91977-3737",
     "asr_total": 253574,
@@ -2315,17 +2312,17 @@
     "docnmbr": "415308",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 366615,
     "situs_address": 8439,
     "asr_land": 115260
+   },
+   "centroid": {
+    "x": -117.01578938061488,
+    "y": 32.718924984986046
    }
   },
   {
-   "centroid": {
-    "x": -116.90847946478468,
-    "y": 32.783664924665665
-   },
    "attributes": {
+    "objectid": 373238,
     "year_effective": "69",
     "situs_zip": "92019-3531",
     "asr_total": 1125927,
@@ -2355,17 +2352,17 @@
     "docnmbr": "283447",
     "situs_post_dir": "",
     "situs_community": "EL CAJON",
-    "objectid": 373238,
     "situs_address": 840,
     "asr_land": 487861
+   },
+   "centroid": {
+    "x": -116.90847946478468,
+    "y": 32.783664924665665
    }
   },
   {
-   "centroid": {
-    "x": -117.02035776740992,
-    "y": 32.70723126213284
-   },
    "attributes": {
+    "objectid": 381404,
     "year_effective": "60",
     "situs_zip": "91977-5520",
     "asr_total": 558659,
@@ -2395,17 +2392,17 @@
     "docnmbr": "613954",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 381404,
     "situs_address": 750,
     "asr_land": 282722
+   },
+   "centroid": {
+    "x": -117.02035776740992,
+    "y": 32.70723126213284
    }
   },
   {
-   "centroid": {
-    "x": -116.97695097206909,
-    "y": 32.73574731352462
-   },
    "attributes": {
+    "objectid": 405392,
     "year_effective": "77",
     "situs_zip": "91977-6921",
     "asr_total": 480102,
@@ -2435,17 +2432,17 @@
     "docnmbr": "371481",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 405392,
     "situs_address": 10051,
     "asr_land": 206813
+   },
+   "centroid": {
+    "x": -116.97695097206909,
+    "y": 32.73574731352462
    }
   },
   {
-   "centroid": {
-    "x": -116.98137436104442,
-    "y": 32.72930968645746
-   },
    "attributes": {
+    "objectid": 406172,
     "year_effective": "76",
     "situs_zip": "91977-7014",
     "asr_total": 793830,
@@ -2475,17 +2472,17 @@
     "docnmbr": "352296",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 406172,
     "situs_address": 2244,
     "asr_land": 379556
+   },
+   "centroid": {
+    "x": -116.98137436104442,
+    "y": 32.72930968645746
    }
   },
   {
-   "centroid": {
-    "x": -116.98329574125898,
-    "y": 32.73385141461321
-   },
    "attributes": {
+    "objectid": 417249,
     "year_effective": "77",
     "situs_zip": "91977-6738",
     "asr_total": 231078,
@@ -2515,17 +2512,17 @@
     "docnmbr": "587760",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 417249,
     "situs_address": 2633,
     "asr_land": 90969
+   },
+   "centroid": {
+    "x": -116.98329574125898,
+    "y": 32.73385141461321
    }
   },
   {
-   "centroid": {
-    "x": -116.98205474923431,
-    "y": 32.730379100985104
-   },
    "attributes": {
+    "objectid": 417379,
     "year_effective": "73",
     "situs_zip": "91977-7020",
     "asr_total": 411339,
@@ -2555,17 +2552,17 @@
     "docnmbr": "327286",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 417379,
     "situs_address": 9930,
     "asr_land": 135601
+   },
+   "centroid": {
+    "x": -116.98205474923431,
+    "y": 32.730379100985104
    }
   },
   {
-   "centroid": {
-    "x": -116.97974569544402,
-    "y": 32.73438843665638
-   },
    "attributes": {
+    "objectid": 417462,
     "year_effective": "78",
     "situs_zip": "91977-6819",
     "asr_total": 246514,
@@ -2595,17 +2592,17 @@
     "docnmbr": "208624",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 417462,
     "situs_address": 2811,
     "asr_land": 91385
+   },
+   "centroid": {
+    "x": -116.97974569544402,
+    "y": 32.73438843665638
    }
   },
   {
-   "centroid": {
-    "x": -117.00256565040782,
-    "y": 32.69809799747568
-   },
    "attributes": {
+    "objectid": 438520,
     "year_effective": "81",
     "situs_zip": "91977-6421",
     "asr_total": 424693,
@@ -2635,17 +2632,17 @@
     "docnmbr": "412537",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 438520,
     "situs_address": 9111,
     "asr_land": 188170
+   },
+   "centroid": {
+    "x": -117.00256565040782,
+    "y": 32.69809799747568
    }
   },
   {
-   "centroid": {
-    "x": -117.01532787803191,
-    "y": 32.69751652704515
-   },
    "attributes": {
+    "objectid": 440169,
     "year_effective": "81",
     "situs_zip": "91977-6204",
     "asr_total": 790499,
@@ -2675,17 +2672,17 @@
     "docnmbr": "123282",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 440169,
     "situs_address": 8512,
     "asr_land": 475380
+   },
+   "centroid": {
+    "x": -117.01532787803191,
+    "y": 32.69751652704515
    }
   },
   {
-   "centroid": {
-    "x": -117.01516999791643,
-    "y": 32.69756097026276
-   },
    "attributes": {
+    "objectid": 440170,
     "year_effective": "81",
     "situs_zip": "91977-6204",
     "asr_total": 703800,
@@ -2715,17 +2712,17 @@
     "docnmbr": "127562",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 440170,
     "situs_address": 8516,
     "asr_land": 525300
+   },
+   "centroid": {
+    "x": -117.01516999791643,
+    "y": 32.69756097026276
    }
   },
   {
-   "centroid": {
-    "x": -116.91313532809163,
-    "y": 32.85434782572515
-   },
    "attributes": {
+    "objectid": 446854,
     "year_effective": "73",
     "situs_zip": "92040-4236",
     "asr_total": 414101,
@@ -2755,17 +2752,17 @@
     "docnmbr": "787098",
     "situs_post_dir": "",
     "situs_community": "LAKESIDE",
-    "objectid": 446854,
     "situs_address": 9622,
     "asr_land": 168909
+   },
+   "centroid": {
+    "x": -116.91313532809163,
+    "y": 32.85434782572515
    }
   },
   {
-   "centroid": {
-    "x": -117.01818181025577,
-    "y": 32.69360007309965
-   },
    "attributes": {
+    "objectid": 452453,
     "year_effective": "77",
     "situs_zip": "91977-6301",
     "asr_total": 174370,
@@ -2795,17 +2792,17 @@
     "docnmbr": "611015",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 452453,
     "situs_address": 8338,
     "asr_land": 59990
+   },
+   "centroid": {
+    "x": -117.01818181025577,
+    "y": 32.69360007309965
    }
   },
   {
-   "centroid": {
-    "x": -117.01627185627075,
-    "y": 32.69637874794597
-   },
    "attributes": {
+    "objectid": 456576,
     "year_effective": "79",
     "situs_zip": "91977-6209",
     "asr_total": 297730,
@@ -2835,17 +2832,17 @@
     "docnmbr": "248558",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 456576,
     "situs_address": 174,
     "asr_land": 78414
+   },
+   "centroid": {
+    "x": -117.01627185627075,
+    "y": 32.69637874794597
    }
   },
   {
-   "centroid": {
-    "x": -116.9819087462771,
-    "y": 32.71945495454927
-   },
    "attributes": {
+    "objectid": 463401,
     "year_effective": "82",
     "situs_zip": "91977-6509",
     "asr_total": 284333,
@@ -2875,17 +2872,17 @@
     "docnmbr": "639855",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 463401,
     "situs_address": 10004,
     "asr_land": 71069
+   },
+   "centroid": {
+    "x": -116.9819087462771,
+    "y": 32.71945495454927
    }
   },
   {
-   "centroid": {
-    "x": -116.97936130328594,
-    "y": 32.717242445211696
-   },
    "attributes": {
+    "objectid": 463458,
     "year_effective": "89",
     "situs_zip": "91977-6535",
     "asr_total": 308107,
@@ -2915,17 +2912,17 @@
     "docnmbr": "011199",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 463458,
     "situs_address": 10268,
     "asr_land": 96834
+   },
+   "centroid": {
+    "x": -116.97936130328594,
+    "y": 32.717242445211696
    }
   },
   {
-   "centroid": {
-    "x": -116.96588767915122,
-    "y": 32.73473891787889
-   },
    "attributes": {
+    "objectid": 494255,
     "year_effective": "78",
     "situs_zip": "91978-1120",
     "asr_total": 416818,
@@ -2955,17 +2952,17 @@
     "docnmbr": "053743",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 494255,
     "situs_address": 3022,
     "asr_land": 145885
+   },
+   "centroid": {
+    "x": -116.96588767915122,
+    "y": 32.73473891787889
    }
   },
   {
-   "centroid": {
-    "x": -116.99898151692977,
-    "y": 32.74149131427046
-   },
    "attributes": {
+    "objectid": 522419,
     "year_effective": "48",
     "situs_zip": "91977-2735",
     "asr_total": 143263,
@@ -2995,17 +2992,17 @@
     "docnmbr": "110974",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 522419,
     "situs_address": 3246,
     "asr_land": 132651
+   },
+   "centroid": {
+    "x": -116.99898151692977,
+    "y": 32.74149131427046
    }
   },
   {
-   "centroid": {
-    "x": -117.00852004294326,
-    "y": 32.73128177433071
-   },
    "attributes": {
+    "objectid": 538135,
     "year_effective": "93",
     "situs_zip": "91977-3359",
     "asr_total": 226130,
@@ -3035,17 +3032,17 @@
     "docnmbr": "383096",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 538135,
     "situs_address": 2295,
     "asr_land": 88395
+   },
+   "centroid": {
+    "x": -117.00852004294326,
+    "y": 32.73128177433071
    }
   },
   {
-   "centroid": {
-    "x": -116.98058128220717,
-    "y": 32.733677596062186
-   },
    "attributes": {
+    "objectid": 541044,
     "year_effective": "79",
     "situs_zip": "91977-6824",
     "asr_total": 220346,
@@ -3075,17 +3072,17 @@
     "docnmbr": "713329",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 541044,
     "situs_address": 2703,
     "asr_land": 61192
+   },
+   "centroid": {
+    "x": -116.98058128220717,
+    "y": 32.733677596062186
    }
   },
   {
-   "centroid": {
-    "x": -117.00346696176064,
-    "y": 32.7250941252085
-   },
    "attributes": {
+    "objectid": 544016,
     "year_effective": "00",
     "situs_zip": "91977     ",
     "asr_total": 190740,
@@ -3115,17 +3112,17 @@
     "docnmbr": "287035",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 544016,
     "situs_address": 0,
     "asr_land": 190740
+   },
+   "centroid": {
+    "x": -117.00346696176064,
+    "y": 32.7250941252085
    }
   },
   {
-   "centroid": {
-    "x": -116.73412024760256,
-    "y": 33.34151306075751
-   },
    "attributes": {
+    "objectid": 572797,
     "year_effective": "60",
     "situs_zip": "92086-9616",
     "asr_total": 761758,
@@ -3155,17 +3152,17 @@
     "docnmbr": "720765",
     "situs_post_dir": "",
     "situs_community": "WARNER SPRINGS",
-    "objectid": 572797,
     "situs_address": 34680,
     "asr_land": 112306
+   },
+   "centroid": {
+    "x": -116.73412024760256,
+    "y": 33.34151306075751
    }
   },
   {
-   "centroid": {
-    "x": -116.98658908840072,
-    "y": 32.7198418837805
-   },
    "attributes": {
+    "objectid": 614995,
     "year_effective": "00",
     "situs_zip": "91977     ",
     "asr_total": 33209,
@@ -3195,17 +3192,17 @@
     "docnmbr": "091544",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 614995,
     "situs_address": 0,
     "asr_land": 33209
+   },
+   "centroid": {
+    "x": -116.98658908840072,
+    "y": 32.7198418837805
    }
   },
   {
-   "centroid": {
-    "x": -116.95444103071227,
-    "y": 32.81793327139604
-   },
    "attributes": {
+    "objectid": 643072,
     "year_effective": "76",
     "situs_zip": "92021-3069",
     "asr_total": 45900000,
@@ -3235,17 +3232,17 @@
     "docnmbr": "080850",
     "situs_post_dir": "",
     "situs_community": "EL CAJON",
-    "objectid": 643072,
     "situs_address": 425,
     "asr_land": 20400000
+   },
+   "centroid": {
+    "x": -116.95444103071227,
+    "y": 32.81793327139604
    }
   },
   {
-   "centroid": {
-    "x": -116.99760726753217,
-    "y": 32.74280698836336
-   },
    "attributes": {
+    "objectid": 703113,
     "year_effective": "00",
     "situs_zip": "91977-2700",
     "asr_total": 509545,
@@ -3275,17 +3272,17 @@
     "docnmbr": "112549",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 703113,
     "situs_address": 9392,
     "asr_land": 189796
+   },
+   "centroid": {
+    "x": -116.99760726753217,
+    "y": 32.74280698836336
    }
   },
   {
-   "centroid": {
-    "x": -116.97586155118951,
-    "y": 32.72832560379869
-   },
    "attributes": {
+    "objectid": 925158,
     "year_effective": "03",
     "situs_zip": "91977-3466",
     "asr_total": 502639,
@@ -3315,17 +3312,17 @@
     "docnmbr": "107842",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 925158,
     "situs_address": 10148,
     "asr_land": 229941
+   },
+   "centroid": {
+    "x": -116.97586155118951,
+    "y": 32.72832560379869
    }
   },
   {
-   "centroid": {
-    "x": -117.01328074408907,
-    "y": 32.72632892202243
-   },
    "attributes": {
+    "objectid": 1028594,
     "year_effective": "04",
     "situs_zip": "91977-3581",
     "asr_total": 428642,
@@ -3355,17 +3352,17 @@
     "docnmbr": "521027",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 1028594,
     "situs_address": 2047,
     "asr_land": 53869
+   },
+   "centroid": {
+    "x": -117.01328074408907,
+    "y": 32.72632892202243
    }
   },
   {
-   "centroid": {
-    "x": -117.00528290677634,
-    "y": 32.7276040943581
-   },
    "attributes": {
+    "objectid": 1044230,
     "year_effective": "  ",
     "situs_zip": "91977-3536",
     "asr_total": 200000,
@@ -3395,17 +3392,17 @@
     "docnmbr": "395421",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 1044230,
     "situs_address": 9013,
     "asr_land": 200000
+   },
+   "centroid": {
+    "x": -117.00528290677634,
+    "y": 32.7276040943581
    }
   },
   {
-   "centroid": {
-    "x": -117.01067264265055,
-    "y": 32.71168814884554
-   },
    "attributes": {
+    "objectid": 43401,
     "year_effective": "58",
     "situs_zip": "91977-4812",
     "asr_total": 174587,
@@ -3435,17 +3432,17 @@
     "docnmbr": "044106",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 43401,
     "situs_address": 8736,
     "asr_land": 69951
+   },
+   "centroid": {
+    "x": -117.01067264265055,
+    "y": 32.71168814884554
    }
   },
   {
-   "centroid": {
-    "x": -117.01086368824234,
-    "y": 32.71169097166128
-   },
    "attributes": {
+    "objectid": 43402,
     "year_effective": "58",
     "situs_zip": "91977-4812",
     "asr_total": 271179,
@@ -3475,17 +3472,17 @@
     "docnmbr": "669225",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 43402,
     "situs_address": 8728,
     "asr_land": 63948
+   },
+   "centroid": {
+    "x": -117.01086368824234,
+    "y": 32.71169097166128
    }
   },
   {
-   "centroid": {
-    "x": -117.01106033854784,
-    "y": 32.71169326231661
-   },
    "attributes": {
+    "objectid": 43403,
     "year_effective": "58",
     "situs_zip": "91977-4812",
     "asr_total": 155387,
@@ -3515,17 +3512,17 @@
     "docnmbr": "197376",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 43403,
     "situs_address": 8720,
     "asr_land": 40769
+   },
+   "centroid": {
+    "x": -117.01106033854784,
+    "y": 32.71169326231661
    }
   },
   {
-   "centroid": {
-    "x": -117.01125954063268,
-    "y": 32.711696118396716
-   },
    "attributes": {
+    "objectid": 43404,
     "year_effective": "58",
     "situs_zip": "91977-4812",
     "asr_total": 585642,
@@ -3555,17 +3552,17 @@
     "docnmbr": "817119",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 43404,
     "situs_address": 8712,
     "asr_land": 278876
+   },
+   "centroid": {
+    "x": -117.01125954063268,
+    "y": 32.711696118396716
    }
   },
   {
-   "centroid": {
-    "x": -117.0114865251964,
-    "y": 32.711711427081404
-   },
    "attributes": {
+    "objectid": 43405,
     "year_effective": "58",
     "situs_zip": "91977-4812",
     "asr_total": 244278,
@@ -3595,17 +3592,17 @@
     "docnmbr": "192912",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 43405,
     "situs_address": 8704,
     "asr_land": 81420
+   },
+   "centroid": {
+    "x": -117.0114865251964,
+    "y": 32.711711427081404
    }
   },
   {
-   "centroid": {
-    "x": -117.0113142921793,
-    "y": 32.71124241973748
-   },
    "attributes": {
+    "objectid": 43406,
     "year_effective": "58",
     "situs_zip": "91977-4813",
     "asr_total": 458426,
@@ -3635,17 +3632,17 @@
     "docnmbr": "392956",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 43406,
     "situs_address": 8711,
     "asr_land": 122787
+   },
+   "centroid": {
+    "x": -117.0113142921793,
+    "y": 32.71124241973748
    }
   },
   {
-   "centroid": {
-    "x": -117.01109371018127,
-    "y": 32.71123484327139
-   },
    "attributes": {
+    "objectid": 43407,
     "year_effective": "58",
     "situs_zip": "91977-4813",
     "asr_total": 754800,
@@ -3675,17 +3672,17 @@
     "docnmbr": "325175",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 43407,
     "situs_address": 8719,
     "asr_land": 510000
+   },
+   "centroid": {
+    "x": -117.01109371018127,
+    "y": 32.71123484327139
    }
   },
   {
-   "centroid": {
-    "x": -117.01089126900084,
-    "y": 32.71123292186086
-   },
    "attributes": {
+    "objectid": 43408,
     "year_effective": "58",
     "situs_zip": "91977-4813",
     "asr_total": 197649,
@@ -3715,17 +3712,17 @@
     "docnmbr": "269757",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 43408,
     "situs_address": 8727,
     "asr_land": 74269
+   },
+   "centroid": {
+    "x": -117.01089126900084,
+    "y": 32.71123292186086
    }
   },
   {
-   "centroid": {
-    "x": -117.01069133331545,
-    "y": 32.71123106746469
-   },
    "attributes": {
+    "objectid": 43409,
     "year_effective": "58",
     "situs_zip": "91977-4813",
     "asr_total": 477882,
@@ -3755,17 +3752,17 @@
     "docnmbr": "428080",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 43409,
     "situs_address": 8735,
     "asr_land": 140782
+   },
+   "centroid": {
+    "x": -117.01069133331545,
+    "y": 32.71123106746469
    }
   },
   {
-   "centroid": {
-    "x": -117.00947599676013,
-    "y": 32.711676628266495
-   },
    "attributes": {
+    "objectid": 43410,
     "year_effective": "58",
     "situs_zip": "91977-4812",
     "asr_total": 400109,
@@ -3795,17 +3792,17 @@
     "docnmbr": "167128",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 43410,
     "situs_address": 8784,
     "asr_land": 142249
+   },
+   "centroid": {
+    "x": -117.00947599676013,
+    "y": 32.711676628266495
    }
   },
   {
-   "centroid": {
-    "x": -117.00968704513795,
-    "y": 32.711676614170244
-   },
    "attributes": {
+    "objectid": 43411,
     "year_effective": "58",
     "situs_zip": "91977-4812",
     "asr_total": 475831,
@@ -3835,17 +3832,17 @@
     "docnmbr": "386826",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 43411,
     "situs_address": 8776,
     "asr_land": 145615
+   },
+   "centroid": {
+    "x": -117.00968704513795,
+    "y": 32.711676614170244
    }
   },
   {
-   "centroid": {
-    "x": -117.00988422128607,
-    "y": 32.711679822606776
-   },
    "attributes": {
+    "objectid": 43412,
     "year_effective": "58",
     "situs_zip": "91977-4812",
     "asr_total": 61911,
@@ -3875,17 +3872,17 @@
     "docnmbr": "316140",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 43412,
     "situs_address": 8768,
     "asr_land": 18585
+   },
+   "centroid": {
+    "x": -117.00988422128607,
+    "y": 32.711679822606776
    }
   },
   {
-   "centroid": {
-    "x": -117.01008330261635,
-    "y": 32.71168157404444
-   },
    "attributes": {
+    "objectid": 43413,
     "year_effective": "58",
     "situs_zip": "91977-4812",
     "asr_total": 287639,
@@ -3915,17 +3912,17 @@
     "docnmbr": "198464",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 43413,
     "situs_address": 8760,
     "asr_land": 156297
+   },
+   "centroid": {
+    "x": -117.01008330261635,
+    "y": 32.71168157404444
    }
   },
   {
-   "centroid": {
-    "x": -117.01028011617463,
-    "y": 32.711684182818274
-   },
    "attributes": {
+    "objectid": 43414,
     "year_effective": "58",
     "situs_zip": "91977-4812",
     "asr_total": 790500,
@@ -3955,17 +3952,17 @@
     "docnmbr": "342134",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 43414,
     "situs_address": 8752,
     "asr_land": 484500
+   },
+   "centroid": {
+    "x": -117.01028011617463,
+    "y": 32.711684182818274
    }
   },
   {
-   "centroid": {
-    "x": -117.01047916190772,
-    "y": 32.71168674783331
-   },
    "attributes": {
+    "objectid": 43415,
     "year_effective": "58",
     "situs_zip": "91977-4812",
     "asr_total": 461674,
@@ -3995,17 +3992,17 @@
     "docnmbr": "455993",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 43415,
     "situs_address": 8744,
     "asr_land": 213080
+   },
+   "centroid": {
+    "x": -117.01047916190772,
+    "y": 32.71168674783331
    }
   },
   {
-   "centroid": {
-    "x": -117.01049462376741,
-    "y": 32.7112281123934
-   },
    "attributes": {
+    "objectid": 43416,
     "year_effective": "58",
     "situs_zip": "91977-4813",
     "asr_total": 425116,
@@ -4035,17 +4032,17 @@
     "docnmbr": "523957",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 43416,
     "situs_address": 8743,
     "asr_land": 125032
+   },
+   "centroid": {
+    "x": -117.01049462376741,
+    "y": 32.7112281123934
    }
   },
   {
-   "centroid": {
-    "x": -117.01029306785593,
-    "y": 32.71122613438935
-   },
    "attributes": {
+    "objectid": 43417,
     "year_effective": "80",
     "situs_zip": "91977-4813",
     "asr_total": 757701,
@@ -4075,17 +4072,17 @@
     "docnmbr": "357060",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 43417,
     "situs_address": 8751,
     "asr_land": 487093
+   },
+   "centroid": {
+    "x": -117.01029306785593,
+    "y": 32.71122613438935
    }
   },
   {
-   "centroid": {
-    "x": -117.01009145647559,
-    "y": 32.711224736413556
-   },
    "attributes": {
+    "objectid": 43418,
     "year_effective": "58",
     "situs_zip": "91977-4813",
     "asr_total": 398852,
@@ -4115,17 +4112,17 @@
     "docnmbr": "022747",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 43418,
     "situs_address": 8759,
     "asr_land": 206813
+   },
+   "centroid": {
+    "x": -117.01009145647559,
+    "y": 32.711224736413556
    }
   },
   {
-   "centroid": {
-    "x": -117.00988988534634,
-    "y": 32.71122193087664
-   },
    "attributes": {
+    "objectid": 43419,
     "year_effective": "58",
     "situs_zip": "91977-4813",
     "asr_total": 687341,
@@ -4155,17 +4152,17 @@
     "docnmbr": "571200",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 43419,
     "situs_address": 8767,
     "asr_land": 312429
+   },
+   "centroid": {
+    "x": -117.00988988534634,
+    "y": 32.71122193087664
    }
   },
   {
-   "centroid": {
-    "x": -117.00968998899405,
-    "y": 32.71122093565216
-   },
    "attributes": {
+    "objectid": 43420,
     "year_effective": "58",
     "situs_zip": "91977-4813",
     "asr_total": 503105,
@@ -4195,17 +4192,17 @@
     "docnmbr": "196698",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 43420,
     "situs_address": 8775,
     "asr_land": 249037
+   },
+   "centroid": {
+    "x": -117.00968998899405,
+    "y": 32.71122093565216
    }
   },
   {
-   "centroid": {
-    "x": -117.00948371719696,
-    "y": 32.71121523259149
-   },
    "attributes": {
+    "objectid": 43421,
     "year_effective": "58",
     "situs_zip": "91977-4813",
     "asr_total": 219888,
@@ -4235,17 +4232,17 @@
     "docnmbr": "321266",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 43421,
     "situs_address": 8783,
     "asr_land": 98946
+   },
+   "centroid": {
+    "x": -117.00948371719696,
+    "y": 32.71121523259149
    }
   },
   {
-   "centroid": {
-    "x": -117.00902854091484,
-    "y": 32.71052931208944
-   },
    "attributes": {
+    "objectid": 63295,
     "year_effective": "58",
     "situs_zip": "91977-4805",
     "asr_total": 220862,
@@ -4275,17 +4272,17 @@
     "docnmbr": "002488",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 63295,
     "situs_address": 755,
     "asr_land": 72510
+   },
+   "centroid": {
+    "x": -117.00902854091484,
+    "y": 32.71052931208944
    }
   },
   {
-   "centroid": {
-    "x": -117.0090331942458,
-    "y": 32.71036226108279
-   },
    "attributes": {
+    "objectid": 63296,
     "year_effective": "58",
     "situs_zip": "91977-4805",
     "asr_total": 321957,
@@ -4315,17 +4312,17 @@
     "docnmbr": "198118",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 63296,
     "situs_address": 747,
     "asr_land": 128253
+   },
+   "centroid": {
+    "x": -117.0090331942458,
+    "y": 32.71036226108279
    }
   },
   {
-   "centroid": {
-    "x": -117.0090388035411,
-    "y": 32.71019383092197
-   },
    "attributes": {
+    "objectid": 63297,
     "year_effective": "58",
     "situs_zip": "91977-4805",
     "asr_total": 213469,
@@ -4355,17 +4352,17 @@
     "docnmbr": "267371",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 63297,
     "situs_address": 739,
     "asr_land": 57460
+   },
+   "centroid": {
+    "x": -117.0090388035411,
+    "y": 32.71019383092197
    }
   },
   {
-   "centroid": {
-    "x": -117.00904403350413,
-    "y": 32.71002743072886
-   },
    "attributes": {
+    "objectid": 63298,
     "year_effective": "58",
     "situs_zip": "91977-4805",
     "asr_total": 203004,
@@ -4395,17 +4392,17 @@
     "docnmbr": "090168",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 63298,
     "situs_address": 731,
     "asr_land": 58202
+   },
+   "centroid": {
+    "x": -117.00904403350413,
+    "y": 32.71002743072886
    }
   },
   {
-   "centroid": {
-    "x": -117.00905012608884,
-    "y": 32.70986115182493
-   },
    "attributes": {
+    "objectid": 63299,
     "year_effective": "58",
     "situs_zip": "91977-4805",
     "asr_total": 212389,
@@ -4435,17 +4432,17 @@
     "docnmbr": "516564",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 63299,
     "situs_address": 723,
     "asr_land": 54603
+   },
+   "centroid": {
+    "x": -117.00905012608884,
+    "y": 32.70986115182493
    }
   },
   {
-   "centroid": {
-    "x": -117.00906597190388,
-    "y": 32.70968670307918
-   },
    "attributes": {
+    "objectid": 63300,
     "year_effective": "58",
     "situs_zip": "91977-4805",
     "asr_total": 355476,
@@ -4475,17 +4472,17 @@
     "docnmbr": "347709",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 63300,
     "situs_address": 715,
     "asr_land": 177738
+   },
+   "centroid": {
+    "x": -117.00906597190388,
+    "y": 32.70968670307918
    }
   },
   {
-   "centroid": {
-    "x": -117.00898857218414,
-    "y": 32.711843378589656
-   },
    "attributes": {
+    "objectid": 63317,
     "year_effective": "58",
     "situs_zip": "91977-4803",
     "asr_total": 78644,
@@ -4515,17 +4512,17 @@
     "docnmbr": "902500",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 63317,
     "situs_address": 859,
     "asr_land": 23535
+   },
+   "centroid": {
+    "x": -117.00898857218414,
+    "y": 32.711843378589656
    }
   },
   {
-   "centroid": {
-    "x": -117.00899360921946,
-    "y": 32.71167291497141
-   },
    "attributes": {
+    "objectid": 63318,
     "year_effective": "58",
     "situs_zip": "91977-4803",
     "asr_total": 72396,
@@ -4555,17 +4552,17 @@
     "docnmbr": "382896",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 63318,
     "situs_address": 851,
     "asr_land": 17526
+   },
+   "centroid": {
+    "x": -117.00899360921946,
+    "y": 32.71167291497141
    }
   },
   {
-   "centroid": {
-    "x": -117.0089990154493,
-    "y": 32.7115059275967
-   },
    "attributes": {
+    "objectid": 63319,
     "year_effective": "58",
     "situs_zip": "91977-4803",
     "asr_total": 216868,
@@ -4595,17 +4592,17 @@
     "docnmbr": "320174",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 63319,
     "situs_address": 843,
     "asr_land": 76237
+   },
+   "centroid": {
+    "x": -117.0089990154493,
+    "y": 32.7115059275967
    }
   },
   {
-   "centroid": {
-    "x": -117.0090035012438,
-    "y": 32.71134165028451
-   },
    "attributes": {
+    "objectid": 63320,
     "year_effective": "58",
     "situs_zip": "91977-4803",
     "asr_total": 315224,
@@ -4635,17 +4632,17 @@
     "docnmbr": "401878",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 63320,
     "situs_address": 835,
     "asr_land": 131342
+   },
+   "centroid": {
+    "x": -117.0090035012438,
+    "y": 32.71134165028451
    }
   },
   {
-   "centroid": {
-    "x": -117.0090085927259,
-    "y": 32.71117671075323
-   },
    "attributes": {
+    "objectid": 63321,
     "year_effective": "58",
     "situs_zip": "91977-4803",
     "asr_total": 466505,
@@ -4675,17 +4672,17 @@
     "docnmbr": "341564",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 63321,
     "situs_address": 827,
     "asr_land": 352724
+   },
+   "centroid": {
+    "x": -117.0090085927259,
+    "y": 32.71117671075323
    }
   },
   {
-   "centroid": {
-    "x": -117.00901360133983,
-    "y": 32.71101451744011
-   },
    "attributes": {
+    "objectid": 63322,
     "year_effective": "58",
     "situs_zip": "91977-4803",
     "asr_total": 568910,
@@ -4715,17 +4712,17 @@
     "docnmbr": "211987",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 63322,
     "situs_address": 819,
     "asr_land": 334654
+   },
+   "centroid": {
+    "x": -117.00901360133983,
+    "y": 32.71101451744011
    }
   },
   {
-   "centroid": {
-    "x": -117.00901804389663,
-    "y": 32.71085435979023
-   },
    "attributes": {
+    "objectid": 63323,
     "year_effective": "58",
     "situs_zip": "91977-4803",
     "asr_total": 320278,
@@ -4755,17 +4752,17 @@
     "docnmbr": "217890",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 63323,
     "situs_address": 811,
     "asr_land": 188401
+   },
+   "centroid": {
+    "x": -117.00901804389663,
+    "y": 32.71085435979023
    }
   },
   {
-   "centroid": {
-    "x": -117.0090240050913,
-    "y": 32.71069356500504
-   },
    "attributes": {
+    "objectid": 63324,
     "year_effective": "58",
     "situs_zip": "91977-4803",
     "asr_total": 62850,
@@ -4795,17 +4792,17 @@
     "docnmbr": "369103",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 63324,
     "situs_address": 803,
     "asr_land": 17877
+   },
+   "centroid": {
+    "x": -117.0090240050913,
+    "y": 32.71069356500504
    }
   },
   {
-   "centroid": {
-    "x": -117.00992839289938,
-    "y": 32.710220392399435
-   },
    "attributes": {
+    "objectid": 80678,
     "year_effective": "58",
     "situs_zip": "91977-4801",
     "asr_total": 452792,
@@ -4835,17 +4832,17 @@
     "docnmbr": "179879",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 80678,
     "situs_address": 8740,
     "asr_land": 165304
+   },
+   "centroid": {
+    "x": -117.00992839289938,
+    "y": 32.710220392399435
    }
   },
   {
-   "centroid": {
-    "x": -117.01012849087755,
-    "y": 32.710224340727976
-   },
    "attributes": {
+    "objectid": 80679,
     "year_effective": "58",
     "situs_zip": "91977-4801",
     "asr_total": 430591,
@@ -4875,17 +4872,17 @@
     "docnmbr": "339186",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 80679,
     "situs_address": 8732,
     "asr_land": 244271
+   },
+   "centroid": {
+    "x": -117.01012849087755,
+    "y": 32.710224340727976
    }
   },
   {
-   "centroid": {
-    "x": -117.01032760102869,
-    "y": 32.71022908949439
-   },
    "attributes": {
+    "objectid": 80680,
     "year_effective": "58",
     "situs_zip": "91977-4801",
     "asr_total": 183163,
@@ -4915,17 +4912,17 @@
     "docnmbr": "042682",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 80680,
     "situs_address": 8724,
     "asr_land": 55206
+   },
+   "centroid": {
+    "x": -117.01032760102869,
+    "y": 32.71022908949439
    }
   },
   {
-   "centroid": {
-    "x": -117.01052510954779,
-    "y": 32.71023376367444
-   },
    "attributes": {
+    "objectid": 80681,
     "year_effective": "58",
     "situs_zip": "91977-4801",
     "asr_total": 85338,
@@ -4955,17 +4952,17 @@
     "docnmbr": "907179",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 80681,
     "situs_address": 8716,
     "asr_land": 18585
+   },
+   "centroid": {
+    "x": -117.01052510954779,
+    "y": 32.71023376367444
    }
   },
   {
-   "centroid": {
-    "x": -117.01072508298309,
-    "y": 32.710237381790506
-   },
    "attributes": {
+    "objectid": 80682,
     "year_effective": "58",
     "situs_zip": "91977-4801",
     "asr_total": 634841,
@@ -4995,17 +4992,17 @@
     "docnmbr": "184595",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 80682,
     "situs_address": 8708,
     "asr_land": 483691
+   },
+   "centroid": {
+    "x": -117.01072508298309,
+    "y": 32.710237381790506
    }
   },
   {
-   "centroid": {
-    "x": -117.0109561645754,
-    "y": 32.71025349870453
-   },
    "attributes": {
+    "objectid": 80683,
     "year_effective": "58",
     "situs_zip": "91977-4801",
     "asr_total": 252476,
@@ -5035,17 +5032,17 @@
     "docnmbr": "905330",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 80683,
     "situs_address": 8700,
     "asr_land": 97538
+   },
+   "centroid": {
+    "x": -117.0109561645754,
+    "y": 32.71025349870453
    }
   },
   {
-   "centroid": {
-    "x": -117.01077605266357,
-    "y": 32.70979372314751
-   },
    "attributes": {
+    "objectid": 80684,
     "year_effective": "58",
     "situs_zip": "91977-4802",
     "asr_total": 215762,
@@ -5075,17 +5072,17 @@
     "docnmbr": "471272",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 80684,
     "situs_address": 8705,
     "asr_land": 79316
+   },
+   "centroid": {
+    "x": -117.01077605266357,
+    "y": 32.70979372314751
    }
   },
   {
-   "centroid": {
-    "x": -117.0105415616836,
-    "y": 32.709782272015794
-   },
    "attributes": {
+    "objectid": 80685,
     "year_effective": "58",
     "situs_zip": "91977-4802",
     "asr_total": 513758,
@@ -5115,17 +5112,17 @@
     "docnmbr": "602104",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 80685,
     "situs_address": 8713,
     "asr_land": 260497
+   },
+   "centroid": {
+    "x": -117.0105415616836,
+    "y": 32.709782272015794
    }
   },
   {
-   "centroid": {
-    "x": -117.01034317022969,
-    "y": 32.70977763779464
-   },
    "attributes": {
+    "objectid": 80686,
     "year_effective": "58",
     "situs_zip": "91977-4802",
     "asr_total": 790704,
@@ -5155,17 +5152,17 @@
     "docnmbr": "045245",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 80686,
     "situs_address": 8721,
     "asr_land": 468180
+   },
+   "centroid": {
+    "x": -117.01034317022969,
+    "y": 32.70977763779464
    }
   },
   {
-   "centroid": {
-    "x": -117.01014561824859,
-    "y": 32.709773781405445
-   },
    "attributes": {
+    "objectid": 80687,
     "year_effective": "58",
     "situs_zip": "91977-4802",
     "asr_total": 240753,
@@ -5195,17 +5192,17 @@
     "docnmbr": "243134",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 80687,
     "situs_address": 8729,
     "asr_land": 72667
+   },
+   "centroid": {
+    "x": -117.01014561824859,
+    "y": 32.709773781405445
    }
   },
   {
-   "centroid": {
-    "x": -117.00994564563656,
-    "y": 32.70976943863274
-   },
    "attributes": {
+    "objectid": 80688,
     "year_effective": "58",
     "situs_zip": "91977-4802",
     "asr_total": 80299,
@@ -5235,17 +5232,17 @@
     "docnmbr": "439453",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 80688,
     "situs_address": 8737,
     "asr_land": 18585
+   },
+   "centroid": {
+    "x": -117.00994564563656,
+    "y": 32.70976943863274
    }
   },
   {
-   "centroid": {
-    "x": -117.00951882629867,
-    "y": 32.71021319221076
-   },
    "attributes": {
+    "objectid": 80689,
     "year_effective": "58",
     "situs_zip": "91977-4801",
     "asr_total": 179179,
@@ -5275,17 +5272,17 @@
     "docnmbr": "221584",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 80689,
     "situs_address": 8756,
     "asr_land": 69441
+   },
+   "centroid": {
+    "x": -117.00951882629867,
+    "y": 32.71021319221076
    }
   },
   {
-   "centroid": {
-    "x": -117.00972972968621,
-    "y": 32.710215445073544
-   },
    "attributes": {
+    "objectid": 80690,
     "year_effective": "58",
     "situs_zip": "91977-4801",
     "asr_total": 441309,
@@ -5315,17 +5312,17 @@
     "docnmbr": "179962",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 80690,
     "situs_address": 8748,
     "asr_land": 135611
+   },
+   "centroid": {
+    "x": -117.00972972968621,
+    "y": 32.710215445073544
    }
   },
   {
-   "centroid": {
-    "x": -117.00974293751193,
-    "y": 32.70976365221169
-   },
    "attributes": {
+    "objectid": 80691,
     "year_effective": "58",
     "situs_zip": "91977-4802",
     "asr_total": 783000,
@@ -5355,17 +5352,17 @@
     "docnmbr": "222672",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 80691,
     "situs_address": 8745,
     "asr_land": 489378
+   },
+   "centroid": {
+    "x": -117.00974293751193,
+    "y": 32.70976365221169
    }
   },
   {
-   "centroid": {
-    "x": -117.00953172931669,
-    "y": 32.70975791904927
-   },
    "attributes": {
+    "objectid": 80692,
     "year_effective": "58",
     "situs_zip": "91977-4802",
     "asr_total": 163335,
@@ -5395,17 +5392,17 @@
     "docnmbr": "832577",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 80692,
     "situs_address": 8753,
     "asr_land": 91468
+   },
+   "centroid": {
+    "x": -117.00953172931669,
+    "y": 32.70975791904927
    }
   },
   {
-   "centroid": {
-    "x": -117.0046005876231,
-    "y": 32.71024333986954
-   },
    "attributes": {
+    "objectid": 113192,
     "year_effective": "59",
     "situs_zip": "91977-4808",
     "asr_total": 662747,
@@ -5435,17 +5432,17 @@
     "docnmbr": "186467",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 113192,
     "situs_address": 9044,
     "asr_land": 341622
+   },
+   "centroid": {
+    "x": -117.0046005876231,
+    "y": 32.71024333986954
    }
   },
   {
-   "centroid": {
-    "x": -117.00485161997851,
-    "y": 32.71024809072871
-   },
    "attributes": {
+    "objectid": 113193,
     "year_effective": "59",
     "situs_zip": "91977-4808",
     "asr_total": 130614,
@@ -5475,17 +5472,17 @@
     "docnmbr": "098593",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 113193,
     "situs_address": 9036,
     "asr_land": 56598
+   },
+   "centroid": {
+    "x": -117.00485161997851,
+    "y": 32.71024809072871
    }
   },
   {
-   "centroid": {
-    "x": -117.00509225658311,
-    "y": 32.710253410442796
-   },
    "attributes": {
+    "objectid": 113194,
     "year_effective": "59",
     "situs_zip": "91977-4808",
     "asr_total": 742544,
@@ -5515,17 +5512,17 @@
     "docnmbr": "056734",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 113194,
     "situs_address": 9028,
     "asr_land": 526834
+   },
+   "centroid": {
+    "x": -117.00509225658311,
+    "y": 32.710253410442796
    }
   },
   {
-   "centroid": {
-    "x": -117.00533408104671,
-    "y": 32.71025937431452
-   },
    "attributes": {
+    "objectid": 113195,
     "year_effective": "59",
     "situs_zip": "91977-4808",
     "asr_total": 568598,
@@ -5555,17 +5552,17 @@
     "docnmbr": "441345",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 113195,
     "situs_address": 9020,
     "asr_land": 319215
+   },
+   "centroid": {
+    "x": -117.00533408104671,
+    "y": 32.71025937431452
    }
   },
   {
-   "centroid": {
-    "x": -117.0055763897764,
-    "y": 32.710265156583816
-   },
    "attributes": {
+    "objectid": 113196,
     "year_effective": "59",
     "situs_zip": "91977-4808",
     "asr_total": 195871,
@@ -5595,17 +5592,17 @@
     "docnmbr": "492575",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 113196,
     "situs_address": 9012,
     "asr_land": 62418
+   },
+   "centroid": {
+    "x": -117.0055763897764,
+    "y": 32.710265156583816
    }
   },
   {
-   "centroid": {
-    "x": -117.00583360417217,
-    "y": 32.71027368625169
-   },
    "attributes": {
+    "objectid": 113197,
     "year_effective": "59",
     "situs_zip": "91977-4808",
     "asr_total": 483570,
@@ -5635,17 +5632,17 @@
     "docnmbr": "282082",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 113197,
     "situs_address": 9004,
     "asr_land": 203214
+   },
+   "centroid": {
+    "x": -117.00583360417217,
+    "y": 32.71027368625169
    }
   },
   {
-   "centroid": {
-    "x": -117.00597465481637,
-    "y": 32.70973281785021
-   },
    "attributes": {
+    "objectid": 113198,
     "year_effective": "59",
     "situs_zip": "91977-4809",
     "asr_total": 700536,
@@ -5675,17 +5672,17 @@
     "docnmbr": "222922",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 113198,
     "situs_address": 9003,
     "asr_land": 276020
+   },
+   "centroid": {
+    "x": -117.00597465481637,
+    "y": 32.70973281785021
    }
   },
   {
-   "centroid": {
-    "x": -117.0057410295846,
-    "y": 32.70976239628275
-   },
    "attributes": {
+    "objectid": 113199,
     "year_effective": "59",
     "situs_zip": "91977-4809",
     "asr_total": 59319,
@@ -5715,17 +5712,17 @@
     "docnmbr": "910169",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 113199,
     "situs_address": 9011,
     "asr_land": 19995
+   },
+   "centroid": {
+    "x": -117.0057410295846,
+    "y": 32.70976239628275
    }
   },
   {
-   "centroid": {
-    "x": -117.00551101820221,
-    "y": 32.709757067681785
-   },
    "attributes": {
+    "objectid": 113200,
     "year_effective": "59",
     "situs_zip": "91977-4809",
     "asr_total": 130596,
@@ -5755,17 +5752,17 @@
     "docnmbr": "307273",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 113200,
     "situs_address": 9019,
     "asr_land": 39324
+   },
+   "centroid": {
+    "x": -117.00551101820221,
+    "y": 32.709757067681785
    }
   },
   {
-   "centroid": {
-    "x": -117.0052806217135,
-    "y": 32.709751556771344
-   },
    "attributes": {
+    "objectid": 113201,
     "year_effective": "59",
     "situs_zip": "91977-4809",
     "asr_total": 509631,
@@ -5795,17 +5792,17 @@
     "docnmbr": "045479",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 113201,
     "situs_address": 9027,
     "asr_land": 265894
+   },
+   "centroid": {
+    "x": -117.0052806217135,
+    "y": 32.709751556771344
    }
   },
   {
-   "centroid": {
-    "x": -117.00505018247046,
-    "y": 32.70974589342604
-   },
    "attributes": {
+    "objectid": 113202,
     "year_effective": "59",
     "situs_zip": "91977-4809",
     "asr_total": 174643,
@@ -5835,17 +5832,17 @@
     "docnmbr": "098854",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 113202,
     "situs_address": 9035,
     "asr_land": 72765
+   },
+   "centroid": {
+    "x": -117.00505018247046,
+    "y": 32.70974589342604
    }
   },
   {
-   "centroid": {
-    "x": -117.00482430608702,
-    "y": 32.7097403936884
-   },
    "attributes": {
+    "objectid": 113203,
     "year_effective": "59",
     "situs_zip": "91977-4809",
     "asr_total": 482979,
@@ -5875,17 +5872,17 @@
     "docnmbr": "109946",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 113203,
     "situs_address": 9043,
     "asr_land": 371397
+   },
+   "centroid": {
+    "x": -117.00482430608702,
+    "y": 32.7097403936884
    }
   },
   {
-   "centroid": {
-    "x": -117.00459999814419,
-    "y": 32.709731644796875
-   },
    "attributes": {
+    "objectid": 113204,
     "year_effective": "59",
     "situs_zip": "91977-4809",
     "asr_total": 612763,
@@ -5915,17 +5912,17 @@
     "docnmbr": "589052",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 113204,
     "situs_address": 9051,
     "asr_land": 331223
+   },
+   "centroid": {
+    "x": -117.00459999814419,
+    "y": 32.709731644796875
    }
   },
   {
-   "centroid": {
-    "x": -117.00693637182019,
-    "y": 32.710913417531614
-   },
    "attributes": {
+    "objectid": 184294,
     "year_effective": "75",
     "situs_zip": "91977-4811",
     "asr_total": 1034677,
@@ -5955,17 +5952,17 @@
     "docnmbr": "271792",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184294,
     "situs_address": 943,
     "asr_land": 636724
+   },
+   "centroid": {
+    "x": -117.00693637182019,
+    "y": 32.710913417531614
    }
   },
   {
-   "centroid": {
-    "x": -117.00706826734114,
-    "y": 32.71025424868775
-   },
    "attributes": {
+    "objectid": 184296,
     "year_effective": "95",
     "situs_zip": "91977-4860",
     "asr_total": 938298,
@@ -5995,17 +5992,17 @@
     "docnmbr": "593056",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184296,
     "situs_address": 919,
     "asr_land": 369632
+   },
+   "centroid": {
+    "x": -117.00706826734114,
+    "y": 32.71025424868775
    }
   },
   {
-   "centroid": {
-    "x": -117.00687570450066,
-    "y": 32.71004257299226
-   },
    "attributes": {
+    "objectid": 184297,
     "year_effective": "58",
     "situs_zip": "91977-4811",
     "asr_total": 142022,
@@ -6035,17 +6032,17 @@
     "docnmbr": "704942",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184297,
     "situs_address": 917,
     "asr_land": 69280
+   },
+   "centroid": {
+    "x": -117.00687570450066,
+    "y": 32.71004257299226
    }
   },
   {
-   "centroid": {
-    "x": -117.00715062759001,
-    "y": 32.71131522781609
-   },
    "attributes": {
+    "objectid": 184298,
     "year_effective": "48",
     "situs_zip": "91977-4811",
     "asr_total": 64055,
@@ -6075,17 +6072,17 @@
     "docnmbr": "321264",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184298,
     "situs_address": 963,
     "asr_land": 22353
+   },
+   "centroid": {
+    "x": -117.00715062759001,
+    "y": 32.71131522781609
    }
   },
   {
-   "centroid": {
-    "x": -117.00681766836264,
-    "y": 32.711316795018114
-   },
    "attributes": {
+    "objectid": 184299,
     "year_effective": "72",
     "situs_zip": "91977-4811",
     "asr_total": 69916,
@@ -6115,17 +6112,17 @@
     "docnmbr": "240514",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184299,
     "situs_address": 955,
     "asr_land": 19995
+   },
+   "centroid": {
+    "x": -117.00681766836264,
+    "y": 32.711316795018114
    }
   },
   {
-   "centroid": {
-    "x": -117.00659782501162,
-    "y": 32.711316749552964
-   },
    "attributes": {
+    "objectid": 184300,
     "year_effective": "72",
     "situs_zip": "91977-4811",
     "asr_total": 315978,
@@ -6155,17 +6152,17 @@
     "docnmbr": "478382",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184300,
     "situs_address": 959,
     "asr_land": 157989
+   },
+   "centroid": {
+    "x": -117.00659782501162,
+    "y": 32.711316749552964
    }
   },
   {
-   "centroid": {
-    "x": -117.00705833176868,
-    "y": 32.71041926116066
-   },
    "attributes": {
+    "objectid": 184301,
     "year_effective": "95",
     "situs_zip": "91977-4861",
     "asr_total": 307303,
@@ -6195,17 +6192,17 @@
     "docnmbr": "915145",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184301,
     "situs_address": 929,
     "asr_land": 74738
+   },
+   "centroid": {
+    "x": -117.00705833176868,
+    "y": 32.71041926116066
    }
   },
   {
-   "centroid": {
-    "x": -117.00706498471571,
-    "y": 32.71058281690138
-   },
    "attributes": {
+    "objectid": 184302,
     "year_effective": "73",
     "situs_zip": "91977-4811",
     "asr_total": 223682,
@@ -6235,17 +6232,17 @@
     "docnmbr": "024214",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184302,
     "situs_address": 935,
     "asr_land": 79941
+   },
+   "centroid": {
+    "x": -117.00706498471571,
+    "y": 32.71058281690138
    }
   },
   {
-   "centroid": {
-    "x": -117.00706230895557,
-    "y": 32.710746978625295
-   },
    "attributes": {
+    "objectid": 184303,
     "year_effective": "81",
     "situs_zip": "91977-4811",
     "asr_total": 352710,
@@ -6275,17 +6272,17 @@
     "docnmbr": "123522",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184303,
     "situs_address": 939,
     "asr_land": 133451
+   },
+   "centroid": {
+    "x": -117.00706230895557,
+    "y": 32.710746978625295
    }
   },
   {
-   "centroid": {
-    "x": -117.00666985976117,
-    "y": 32.71182472071412
-   },
    "attributes": {
+    "objectid": 184304,
     "year_effective": "60",
     "situs_zip": "91977-4811",
     "asr_total": 273864,
@@ -6315,17 +6312,17 @@
     "docnmbr": "462858",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184304,
     "situs_address": 969,
     "asr_land": 77473
+   },
+   "centroid": {
+    "x": -117.00666985976117,
+    "y": 32.71182472071412
    }
   },
   {
-   "centroid": {
-    "x": -117.00717240766586,
-    "y": 32.711635039374414
-   },
    "attributes": {
+    "objectid": 184305,
     "year_effective": "61",
     "situs_zip": "91977-4811",
     "asr_total": 207853,
@@ -6355,17 +6352,17 @@
     "docnmbr": "218862",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184305,
     "situs_address": 975,
     "asr_land": 79941
+   },
+   "centroid": {
+    "x": -117.00717240766586,
+    "y": 32.711635039374414
    }
   },
   {
-   "centroid": {
-    "x": -117.00784110664594,
-    "y": 32.711963966664285
-   },
    "attributes": {
+    "objectid": 184306,
     "year_effective": "70",
     "situs_zip": "91977-4810",
     "asr_total": 379231,
@@ -6395,17 +6392,17 @@
     "docnmbr": "055368",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184306,
     "situs_address": 984,
     "asr_land": 146394
+   },
+   "centroid": {
+    "x": -117.00784110664594,
+    "y": 32.711963966664285
    }
   },
   {
-   "centroid": {
-    "x": -117.00785500791731,
-    "y": 32.711382754376025
-   },
    "attributes": {
+    "objectid": 184307,
     "year_effective": "57",
     "situs_zip": "91977-4810",
     "asr_total": 285165,
@@ -6435,17 +6432,17 @@
     "docnmbr": "364882",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184307,
     "situs_address": 962,
     "asr_land": 110059
+   },
+   "centroid": {
+    "x": -117.00785500791731,
+    "y": 32.711382754376025
    }
   },
   {
-   "centroid": {
-    "x": -117.00786113678866,
-    "y": 32.7110284617978
-   },
    "attributes": {
+    "objectid": 184308,
     "year_effective": "59",
     "situs_zip": "91977-4810",
     "asr_total": 482981,
@@ -6475,17 +6472,17 @@
     "docnmbr": "374788",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184308,
     "situs_address": 950,
     "asr_land": 226035
+   },
+   "centroid": {
+    "x": -117.00786113678866,
+    "y": 32.7110284617978
    }
   },
   {
-   "centroid": {
-    "x": -117.00785766833988,
-    "y": 32.71117055841577
-   },
    "attributes": {
+    "objectid": 184309,
     "year_effective": "59",
     "situs_zip": "91977-4810",
     "asr_total": 580286,
@@ -6515,17 +6512,17 @@
     "docnmbr": "363381",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184309,
     "situs_address": 954,
     "asr_land": 290143
+   },
+   "centroid": {
+    "x": -117.00785766833988,
+    "y": 32.71117055841577
    }
   },
   {
-   "centroid": {
-    "x": -117.00772814930569,
-    "y": 32.70984738796548
-   },
    "attributes": {
+    "objectid": 184310,
     "year_effective": "59",
     "situs_zip": "91977-4810",
     "asr_total": 643580,
@@ -6555,17 +6552,17 @@
     "docnmbr": "106124",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184310,
     "situs_address": 902,
     "asr_land": 220654
+   },
+   "centroid": {
+    "x": -117.00772814930569,
+    "y": 32.70984738796548
    }
   },
   {
-   "centroid": {
-    "x": -117.00784966803087,
-    "y": 32.71174923242399
-   },
    "attributes": {
+    "objectid": 184311,
     "year_effective": "59",
     "situs_zip": "91977     ",
     "asr_total": 261272,
@@ -6595,17 +6592,17 @@
     "docnmbr": "248827",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184311,
     "situs_address": 976,
     "asr_land": 169061
+   },
+   "centroid": {
+    "x": -117.00784966803087,
+    "y": 32.71174923242399
    }
   },
   {
-   "centroid": {
-    "x": -117.00785019974519,
-    "y": 32.71160353161862
-   },
    "attributes": {
+    "objectid": 184312,
     "year_effective": "70",
     "situs_zip": "91977-4810",
     "asr_total": 331973,
@@ -6635,17 +6632,17 @@
     "docnmbr": "248827",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184312,
     "situs_address": 970,
     "asr_land": 153690
+   },
+   "centroid": {
+    "x": -117.00785019974519,
+    "y": 32.71160353161862
    }
   },
   {
-   "centroid": {
-    "x": -117.00771455862031,
-    "y": 32.710711608682
-   },
    "attributes": {
+    "objectid": 184313,
     "year_effective": "83",
     "situs_zip": "91977-4858",
     "asr_total": 333220,
@@ -6675,17 +6672,17 @@
     "docnmbr": "458879",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184313,
     "situs_address": 940,
     "asr_land": 156809
+   },
+   "centroid": {
+    "x": -117.00771455862031,
+    "y": 32.710711608682
    }
   },
   {
-   "centroid": {
-    "x": -117.00771860842329,
-    "y": 32.71087547318779
-   },
    "attributes": {
+    "objectid": 184314,
     "year_effective": "83",
     "situs_zip": "91977-4859",
     "asr_total": 498886,
@@ -6715,17 +6712,17 @@
     "docnmbr": "063097",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184314,
     "situs_address": 948,
     "asr_land": 119729
+   },
+   "centroid": {
+    "x": -117.00771860842329,
+    "y": 32.71087547318779
    }
   },
   {
-   "centroid": {
-    "x": -117.00804547967518,
-    "y": 32.71085033755848
-   },
    "attributes": {
+    "objectid": 184315,
     "year_effective": "81",
     "situs_zip": "91977     ",
     "asr_total": 334527,
@@ -6755,17 +6752,17 @@
     "docnmbr": "393539",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184315,
     "situs_address": 942,
     "asr_land": 163344
+   },
+   "centroid": {
+    "x": -117.00804547967518,
+    "y": 32.71085033755848
    }
   },
   {
-   "centroid": {
-    "x": -117.00804904728933,
-    "y": 32.71057028678919
-   },
    "attributes": {
+    "objectid": 184316,
     "year_effective": "75",
     "situs_zip": "91977-4810",
     "asr_total": 652027,
@@ -6795,17 +6792,17 @@
     "docnmbr": "371532",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184316,
     "situs_address": 932,
     "asr_land": 252845
+   },
+   "centroid": {
+    "x": -117.00804904728933,
+    "y": 32.71057028678919
    }
   },
   {
-   "centroid": {
-    "x": -117.00770344351515,
-    "y": 32.71051095716117
-   },
    "attributes": {
+    "objectid": 184317,
     "year_effective": "59",
     "situs_zip": "91977-4810",
     "asr_total": 389819,
@@ -6835,17 +6832,17 @@
     "docnmbr": "575096",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184317,
     "situs_address": 930,
     "asr_land": 237282
+   },
+   "centroid": {
+    "x": -117.00770344351515,
+    "y": 32.71051095716117
    }
   },
   {
-   "centroid": {
-    "x": -117.0079466909569,
-    "y": 32.71010013504171
-   },
    "attributes": {
+    "objectid": 184318,
     "year_effective": "84",
     "situs_zip": "91977-4850",
     "asr_total": 2130600,
@@ -6875,17 +6872,17 @@
     "docnmbr": "253021",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184318,
     "situs_address": 914,
     "asr_land": 321557
+   },
+   "centroid": {
+    "x": -117.0079466909569,
+    "y": 32.71010013504171
    }
   },
   {
-   "centroid": {
-    "x": -117.0070475514413,
-    "y": 32.71381095616693
-   },
    "attributes": {
+    "objectid": 184319,
     "year_effective": "00",
     "situs_zip": "91977-4839",
     "asr_total": 74864,
@@ -6915,17 +6912,17 @@
     "docnmbr": "293652",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184319,
     "situs_address": 1057,
     "asr_land": 24943
+   },
+   "centroid": {
+    "x": -117.0070475514413,
+    "y": 32.71381095616693
    }
   },
   {
-   "centroid": {
-    "x": -117.00704865009729,
-    "y": 32.71361992299309
-   },
    "attributes": {
+    "objectid": 184320,
     "year_effective": "56",
     "situs_zip": "91977-4839",
     "asr_total": 387530,
@@ -6955,17 +6952,17 @@
     "docnmbr": "459425",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184320,
     "situs_address": 1049,
     "asr_land": 164181
+   },
+   "centroid": {
+    "x": -117.00704865009729,
+    "y": 32.71361992299309
    }
   },
   {
-   "centroid": {
-    "x": -117.00704044026155,
-    "y": 32.71343024422089
-   },
    "attributes": {
+    "objectid": 184321,
     "year_effective": "53",
     "situs_zip": "91977-4839",
     "asr_total": 150024,
@@ -6995,17 +6992,17 @@
     "docnmbr": "100727",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184321,
     "situs_address": 1043,
     "asr_land": 65226
+   },
+   "centroid": {
+    "x": -117.00704044026155,
+    "y": 32.71343024422089
    }
   },
   {
-   "centroid": {
-    "x": -117.00717958701932,
-    "y": 32.712576639333925
-   },
    "attributes": {
+    "objectid": 184322,
     "year_effective": "60",
     "situs_zip": "91977-4862",
     "asr_total": 867000,
@@ -7035,17 +7032,17 @@
     "docnmbr": "240615",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184322,
     "situs_address": 1009,
     "asr_land": 541875
+   },
+   "centroid": {
+    "x": -117.00717958701932,
+    "y": 32.712576639333925
    }
   },
   {
-   "centroid": {
-    "x": -117.00717902230603,
-    "y": 32.712387308967806
-   },
    "attributes": {
+    "objectid": 184323,
     "year_effective": "77",
     "situs_zip": "91977-4864",
     "asr_total": 976003,
@@ -7075,17 +7072,17 @@
     "docnmbr": "198310",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184323,
     "situs_address": 1005,
     "asr_land": 331223
+   },
+   "centroid": {
+    "x": -117.00717902230603,
+    "y": 32.712387308967806
    }
   },
   {
-   "centroid": {
-    "x": -117.00693830889068,
-    "y": 32.7139950997284
-   },
    "attributes": {
+    "objectid": 184324,
     "year_effective": "63",
     "situs_zip": "91977-4855",
     "asr_total": 567495,
@@ -7115,17 +7112,17 @@
     "docnmbr": "031121",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184324,
     "situs_address": 1059,
     "asr_land": 312796
+   },
+   "centroid": {
+    "x": -117.00693830889068,
+    "y": 32.7139950997284
    }
   },
   {
-   "centroid": {
-    "x": -117.0071933070224,
-    "y": 32.71404132389042
-   },
    "attributes": {
+    "objectid": 184325,
     "year_effective": "80",
     "situs_zip": "91977-4856",
     "asr_total": 552038,
@@ -7155,17 +7152,17 @@
     "docnmbr": "602539",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184325,
     "situs_address": 1063,
     "asr_land": 432972
+   },
+   "centroid": {
+    "x": -117.0071933070224,
+    "y": 32.71404132389042
    }
   },
   {
-   "centroid": {
-    "x": -117.00783176596245,
-    "y": 32.71293270423992
-   },
    "attributes": {
+    "objectid": 184326,
     "year_effective": "45",
     "situs_zip": "91977-4838",
     "asr_total": 397556,
@@ -7195,17 +7192,17 @@
     "docnmbr": "070319",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184326,
     "situs_address": 1020,
     "asr_land": 142469
+   },
+   "centroid": {
+    "x": -117.00783176596245,
+    "y": 32.71293270423992
    }
   },
   {
-   "centroid": {
-    "x": -117.00792497175313,
-    "y": 32.71324581239295
-   },
    "attributes": {
+    "objectid": 184327,
     "year_effective": "75",
     "situs_zip": "91977-4857",
     "asr_total": 78645,
@@ -7235,17 +7232,17 @@
     "docnmbr": "906032",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184327,
     "situs_address": 1034,
     "asr_land": 26122
+   },
+   "centroid": {
+    "x": -117.00792497175313,
+    "y": 32.71324581239295
    }
   },
   {
-   "centroid": {
-    "x": -117.00768897278661,
-    "y": 32.71318653651667
-   },
    "attributes": {
+    "objectid": 184328,
     "year_effective": "60",
     "situs_zip": "91977-4838",
     "asr_total": 177928,
@@ -7275,17 +7272,17 @@
     "docnmbr": "331622",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184328,
     "situs_address": 1032,
     "asr_land": 79633
+   },
+   "centroid": {
+    "x": -117.00768897278661,
+    "y": 32.71318653651667
    }
   },
   {
-   "centroid": {
-    "x": -117.0078363917146,
-    "y": 32.7138840676776
-   },
    "attributes": {
+    "objectid": 184329,
     "year_effective": "49",
     "situs_zip": "91977-4838",
     "asr_total": 185757,
@@ -7315,17 +7312,17 @@
     "docnmbr": "601500",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184329,
     "situs_address": 1060,
     "asr_land": 109273
+   },
+   "centroid": {
+    "x": -117.0078363917146,
+    "y": 32.7138840676776
    }
   },
   {
-   "centroid": {
-    "x": -117.00783765273073,
-    "y": 32.71345472286637
-   },
    "attributes": {
+    "objectid": 184330,
     "year_effective": "48",
     "situs_zip": "91977-4838",
     "asr_total": 606299,
@@ -7355,17 +7352,17 @@
     "docnmbr": "168047",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184330,
     "situs_address": 1042,
     "asr_land": 306635
+   },
+   "centroid": {
+    "x": -117.00783765273073,
+    "y": 32.71345472286637
    }
   },
   {
-   "centroid": {
-    "x": -117.00783745821886,
-    "y": 32.713656104210834
-   },
    "attributes": {
+    "objectid": 184331,
     "year_effective": "59",
     "situs_zip": "91977-4838",
     "asr_total": 185425,
@@ -7395,17 +7392,17 @@
     "docnmbr": "009670",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 184331,
     "situs_address": 1048,
     "asr_land": 73435
+   },
+   "centroid": {
+    "x": -117.00783745821886,
+    "y": 32.713656104210834
    }
   },
   {
-   "centroid": {
-    "x": -117.00770363027944,
-    "y": 32.71239941210935
-   },
    "attributes": {
+    "objectid": 186066,
     "year_effective": "46",
     "situs_zip": "91977-4838",
     "asr_total": 272108,
@@ -7435,17 +7432,17 @@
     "docnmbr": "202136",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 186066,
     "situs_address": 1000,
     "asr_land": 135601
+   },
+   "centroid": {
+    "x": -117.00770363027944,
+    "y": 32.71239941210935
    }
   },
   {
-   "centroid": {
-    "x": -117.00773735281342,
-    "y": 32.712637124624564
-   },
    "attributes": {
+    "objectid": 186067,
     "year_effective": "44",
     "situs_zip": "91977-4838",
     "asr_total": 514683,
@@ -7475,17 +7472,17 @@
     "docnmbr": "012702",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 186067,
     "situs_address": 1006,
     "asr_land": 411750
+   },
+   "centroid": {
+    "x": -117.00773735281342,
+    "y": 32.712637124624564
    }
   },
   {
-   "centroid": {
-    "x": -117.00804877258321,
-    "y": 32.71266630684507
-   },
    "attributes": {
+    "objectid": 186068,
     "year_effective": "79",
     "situs_zip": "91977-4838",
     "asr_total": 810737,
@@ -7515,17 +7512,17 @@
     "docnmbr": "022740",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 186068,
     "situs_address": 1014,
     "asr_land": 272289
+   },
+   "centroid": {
+    "x": -117.00804877258321,
+    "y": 32.71266630684507
    }
   },
   {
-   "centroid": {
-    "x": -117.00582993453304,
-    "y": 32.70871591888317
-   },
    "attributes": {
+    "objectid": 201403,
     "year_effective": "58",
     "situs_zip": "91977-5605",
     "asr_total": 338082,
@@ -7555,17 +7552,17 @@
     "docnmbr": "015510",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 201403,
     "situs_address": 9004,
     "asr_land": 100354
+   },
+   "centroid": {
+    "x": -117.00582993453304,
+    "y": 32.70871591888317
    }
   },
   {
-   "centroid": {
-    "x": -117.00602949234583,
-    "y": 32.70871847209793
-   },
    "attributes": {
+    "objectid": 201404,
     "year_effective": "58",
     "situs_zip": "91977-5603",
     "asr_total": 361625,
@@ -7595,17 +7592,17 @@
     "docnmbr": "296384",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 201404,
     "situs_address": 8954,
     "asr_land": 173278
+   },
+   "centroid": {
+    "x": -117.00602949234583,
+    "y": 32.70871847209793
    }
   },
   {
-   "centroid": {
-    "x": -117.00622699097997,
-    "y": 32.708720467389355
-   },
    "attributes": {
+    "objectid": 201405,
     "year_effective": "58",
     "situs_zip": "91977-5603",
     "asr_total": 406053,
@@ -7635,17 +7632,17 @@
     "docnmbr": "840124",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 201405,
     "situs_address": 8946,
     "asr_land": 217529
+   },
+   "centroid": {
+    "x": -117.00622699097997,
+    "y": 32.708720467389355
    }
   },
   {
-   "centroid": {
-    "x": -117.00642693419634,
-    "y": 32.708722128593
-   },
    "attributes": {
+    "objectid": 201406,
     "year_effective": "58",
     "situs_zip": "91977-5603",
     "asr_total": 448807,
@@ -7675,17 +7672,17 @@
     "docnmbr": "172881",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 201406,
     "situs_address": 8938,
     "asr_land": 200959
+   },
+   "centroid": {
+    "x": -117.00642693419634,
+    "y": 32.708722128593
    }
   },
   {
-   "centroid": {
-    "x": -117.0066297265387,
-    "y": 32.70872435315373
-   },
    "attributes": {
+    "objectid": 201407,
     "year_effective": "58",
     "situs_zip": "91977-5603",
     "asr_total": 769373,
@@ -7715,17 +7712,17 @@
     "docnmbr": "098563",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 201407,
     "situs_address": 8930,
     "asr_land": 227479
+   },
+   "centroid": {
+    "x": -117.0066297265387,
+    "y": 32.70872435315373
    }
   },
   {
-   "centroid": {
-    "x": -117.00682789841377,
-    "y": 32.708727007792326
-   },
    "attributes": {
+    "objectid": 201408,
     "year_effective": "58",
     "situs_zip": "91977-5603",
     "asr_total": 258181,
@@ -7755,17 +7752,17 @@
     "docnmbr": "150522",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 201408,
     "situs_address": 8922,
     "asr_land": 119158
+   },
+   "centroid": {
+    "x": -117.00682789841377,
+    "y": 32.708727007792326
    }
   },
   {
-   "centroid": {
-    "x": -117.00702819856342,
-    "y": 32.70872891722732
-   },
    "attributes": {
+    "objectid": 201409,
     "year_effective": "58",
     "situs_zip": "91977-5603",
     "asr_total": 60026,
@@ -7795,17 +7792,17 @@
     "docnmbr": "201065",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 201409,
     "situs_address": 8914,
     "asr_land": 18585
+   },
+   "centroid": {
+    "x": -117.00702819856342,
+    "y": 32.70872891722732
    }
   },
   {
-   "centroid": {
-    "x": -117.00724502223476,
-    "y": 32.70873233693337
-   },
    "attributes": {
+    "objectid": 201410,
     "year_effective": "58",
     "situs_zip": "91977-5603",
     "asr_total": 199266,
@@ -7835,17 +7832,17 @@
     "docnmbr": "258716",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 201410,
     "situs_address": 8906,
     "asr_land": 52326
+   },
+   "centroid": {
+    "x": -117.00724502223476,
+    "y": 32.70873233693337
    }
   },
   {
-   "centroid": {
-    "x": -117.00724746133605,
-    "y": 32.708274644824975
-   },
    "attributes": {
+    "objectid": 201411,
     "year_effective": "58",
     "situs_zip": "91977-5604",
     "asr_total": 167848,
@@ -7875,17 +7872,17 @@
     "docnmbr": "905946",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 201411,
     "situs_address": 8905,
     "asr_land": 62572
+   },
+   "centroid": {
+    "x": -117.00724746133605,
+    "y": 32.708274644824975
    }
   },
   {
-   "centroid": {
-    "x": -117.00703438044621,
-    "y": 32.70828051513283
-   },
    "attributes": {
+    "objectid": 201412,
     "year_effective": "58",
     "situs_zip": "91977-5604",
     "asr_total": 832320,
@@ -7915,17 +7912,17 @@
     "docnmbr": "047835",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 201412,
     "situs_address": 8913,
     "asr_land": 468180
+   },
+   "centroid": {
+    "x": -117.00703438044621,
+    "y": 32.70828051513283
    }
   },
   {
-   "centroid": {
-    "x": -117.00683770770799,
-    "y": 32.70828359337531
-   },
    "attributes": {
+    "objectid": 201413,
     "year_effective": "58",
     "situs_zip": "91977-5604",
     "asr_total": 84615,
@@ -7955,17 +7952,17 @@
     "docnmbr": "902749",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 201413,
     "situs_address": 8921,
     "asr_land": 18585
+   },
+   "centroid": {
+    "x": -117.00683770770799,
+    "y": 32.70828359337531
    }
   },
   {
-   "centroid": {
-    "x": -117.00664004211394,
-    "y": 32.70828591923943
-   },
    "attributes": {
+    "objectid": 201414,
     "year_effective": "58",
     "situs_zip": "91977-5604",
     "asr_total": 858330,
@@ -7995,17 +7992,17 @@
     "docnmbr": "150178",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 201414,
     "situs_address": 8929,
     "asr_land": 520200
+   },
+   "centroid": {
+    "x": -117.00664004211394,
+    "y": 32.70828591923943
    }
   },
   {
-   "centroid": {
-    "x": -117.0064414773379,
-    "y": 32.708285972452
-   },
    "attributes": {
+    "objectid": 201415,
     "year_effective": "58",
     "situs_zip": "91977-5604",
     "asr_total": 62617,
@@ -8035,17 +8032,17 @@
     "docnmbr": "906657",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 201415,
     "situs_address": 8937,
     "asr_land": 18585
+   },
+   "centroid": {
+    "x": -117.0064414773379,
+    "y": 32.708285972452
    }
   },
   {
-   "centroid": {
-    "x": -117.00624314045643,
-    "y": 32.7082844731071
-   },
    "attributes": {
+    "objectid": 201416,
     "year_effective": "58",
     "situs_zip": "91977-5604",
     "asr_total": 60026,
@@ -8075,17 +8072,17 @@
     "docnmbr": "907702",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 201416,
     "situs_address": 8945,
     "asr_land": 18585
+   },
+   "centroid": {
+    "x": -117.00624314045643,
+    "y": 32.7082844731071
    }
   },
   {
-   "centroid": {
-    "x": -117.00604325950991,
-    "y": 32.70828255925883
-   },
    "attributes": {
+    "objectid": 201417,
     "year_effective": "58",
     "situs_zip": "91977-5604",
     "asr_total": 301441,
@@ -8115,17 +8112,17 @@
     "docnmbr": "540578",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 201417,
     "situs_address": 8953,
     "asr_land": 125600
+   },
+   "centroid": {
+    "x": -117.00604325950991,
+    "y": 32.70828255925883
    }
   },
   {
-   "centroid": {
-    "x": -117.00584086906083,
-    "y": 32.70828127787987
-   },
    "attributes": {
+    "objectid": 201418,
     "year_effective": "58",
     "situs_zip": "91977-5606",
     "asr_total": 355025,
@@ -8155,17 +8152,17 @@
     "docnmbr": "026093",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 201418,
     "situs_address": 9003,
     "asr_land": 187560
+   },
+   "centroid": {
+    "x": -117.00584086906083,
+    "y": 32.70828127787987
    }
   },
   {
-   "centroid": {
-    "x": -117.00461492024806,
-    "y": 32.70870578213221
-   },
    "attributes": {
+    "objectid": 201419,
     "year_effective": "58",
     "situs_zip": "91977-5605",
     "asr_total": 479667,
@@ -8195,17 +8192,17 @@
     "docnmbr": "593331",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 201419,
     "situs_address": 9052,
     "asr_land": 213184
+   },
+   "centroid": {
+    "x": -117.00461492024806,
+    "y": 32.70870578213221
    }
   },
   {
-   "centroid": {
-    "x": -117.00483181397864,
-    "y": 32.70870654678963
-   },
    "attributes": {
+    "objectid": 201420,
     "year_effective": "58",
     "situs_zip": "91977-5605",
     "asr_total": 239134,
@@ -8235,17 +8232,17 @@
     "docnmbr": "901741",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 201420,
     "situs_address": 9044,
     "asr_land": 110370
+   },
+   "centroid": {
+    "x": -117.00483181397864,
+    "y": 32.70870654678963
    }
   },
   {
-   "centroid": {
-    "x": -117.0050305351917,
-    "y": 32.7087080248146
-   },
    "attributes": {
+    "objectid": 201421,
     "year_effective": "58",
     "situs_zip": "91977-5605",
     "asr_total": 246819,
@@ -8275,17 +8272,17 @@
     "docnmbr": "110784",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 201421,
     "situs_address": 9036,
     "asr_land": 61674
+   },
+   "centroid": {
+    "x": -117.0050305351917,
+    "y": 32.7087080248146
    }
   },
   {
-   "centroid": {
-    "x": -117.00522968062641,
-    "y": 32.70871003784968
-   },
    "attributes": {
+    "objectid": 201422,
     "year_effective": "58",
     "situs_zip": "91977-5605",
     "asr_total": 263308,
@@ -8315,17 +8312,17 @@
     "docnmbr": "550678",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 201422,
     "situs_address": 9028,
     "asr_land": 131654
+   },
+   "centroid": {
+    "x": -117.00522968062641,
+    "y": 32.70871003784968
    }
   },
   {
-   "centroid": {
-    "x": -117.00543124774607,
-    "y": 32.70871242010543
-   },
    "attributes": {
+    "objectid": 201423,
     "year_effective": "58",
     "situs_zip": "91977-5605",
     "asr_total": 793825,
@@ -8355,17 +8352,17 @@
     "docnmbr": "225401",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 201423,
     "situs_address": 9020,
     "asr_land": 338598
+   },
+   "centroid": {
+    "x": -117.00543124774607,
+    "y": 32.70871242010543
    }
   },
   {
-   "centroid": {
-    "x": -117.00563198848177,
-    "y": 32.708714456886575
-   },
    "attributes": {
+    "objectid": 201424,
     "year_effective": "58",
     "situs_zip": "91977-5605",
     "asr_total": 477880,
@@ -8395,17 +8392,17 @@
     "docnmbr": "544405",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 201424,
     "situs_address": 9012,
     "asr_land": 233450
+   },
+   "centroid": {
+    "x": -117.00563198848177,
+    "y": 32.708714456886575
    }
   },
   {
-   "centroid": {
-    "x": -117.00564088421908,
-    "y": 32.70827969588672
-   },
    "attributes": {
+    "objectid": 201425,
     "year_effective": "58",
     "situs_zip": "91977-5606",
     "asr_total": 62381,
@@ -8435,17 +8432,17 @@
     "docnmbr": "631254",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 201425,
     "situs_address": 9011,
     "asr_land": 18585
+   },
+   "centroid": {
+    "x": -117.00564088421908,
+    "y": 32.70827969588672
    }
   },
   {
-   "centroid": {
-    "x": -117.00544417383385,
-    "y": 32.708278453541205
-   },
    "attributes": {
+    "objectid": 201426,
     "year_effective": "14",
     "situs_zip": "91977-5606",
     "asr_total": 287800,
@@ -8475,17 +8472,17 @@
     "docnmbr": "201796",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 201426,
     "situs_address": 9019,
     "asr_land": 60429
+   },
+   "centroid": {
+    "x": -117.00544417383385,
+    "y": 32.708278453541205
    }
   },
   {
-   "centroid": {
-    "x": -117.00524426567728,
-    "y": 32.70827705705975
-   },
    "attributes": {
+    "objectid": 201427,
     "year_effective": "58",
     "situs_zip": "91977-5606",
     "asr_total": 829260,
@@ -8515,17 +8512,17 @@
     "docnmbr": "062202",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 201427,
     "situs_address": 9027,
     "asr_land": 510000
+   },
+   "centroid": {
+    "x": -117.00524426567728,
+    "y": 32.70827705705975
    }
   },
   {
-   "centroid": {
-    "x": -117.00504517723343,
-    "y": 32.70827528853221
-   },
    "attributes": {
+    "objectid": 201428,
     "year_effective": "58",
     "situs_zip": "91977-5606",
     "asr_total": 206812,
@@ -8555,17 +8552,17 @@
     "docnmbr": "502297",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 201428,
     "situs_address": 9035,
     "asr_land": 64621
+   },
+   "centroid": {
+    "x": -117.00504517723343,
+    "y": 32.70827528853221
    }
   },
   {
-   "centroid": {
-    "x": -117.00484641817557,
-    "y": 32.70827401929093
-   },
    "attributes": {
+    "objectid": 201429,
     "year_effective": "58",
     "situs_zip": "91977-5606",
     "asr_total": 256726,
@@ -8595,17 +8592,17 @@
     "docnmbr": "149397",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 201429,
     "situs_address": 9043,
     "asr_land": 131654
+   },
+   "centroid": {
+    "x": -117.00484641817557,
+    "y": 32.70827401929093
    }
   },
   {
-   "centroid": {
-    "x": -117.00462698991598,
-    "y": 32.70827041762548
-   },
    "attributes": {
+    "objectid": 201430,
     "year_effective": "58",
     "situs_zip": "91977-5606",
     "asr_total": 239856,
@@ -8635,17 +8632,17 @@
     "docnmbr": "323782",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 201430,
     "situs_address": 9051,
     "asr_land": 68461
+   },
+   "centroid": {
+    "x": -117.00462698991598,
+    "y": 32.70827041762548
    }
   },
   {
-   "centroid": {
-    "x": -117.0112017190993,
-    "y": 32.7109719485348
-   },
    "attributes": {
+    "objectid": 203535,
     "year_effective": "58",
     "situs_zip": "91977-4814",
     "asr_total": 457928,
@@ -8675,17 +8672,17 @@
     "docnmbr": "033092",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 203535,
     "situs_address": 8702,
     "asr_land": 177261
+   },
+   "centroid": {
+    "x": -117.0112017190993,
+    "y": 32.7109719485348
    }
   },
   {
-   "centroid": {
-    "x": -117.01095068327048,
-    "y": 32.71095933215786
-   },
    "attributes": {
+    "objectid": 203536,
     "year_effective": "58",
     "situs_zip": "91977-4814",
     "asr_total": 811821,
@@ -8715,17 +8712,17 @@
     "docnmbr": "129455",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 203536,
     "situs_address": 8710,
     "asr_land": 207106
+   },
+   "centroid": {
+    "x": -117.01095068327048,
+    "y": 32.71095933215786
    }
   },
   {
-   "centroid": {
-    "x": -117.01074332530126,
-    "y": 32.710955607684426
-   },
    "attributes": {
+    "objectid": 203537,
     "year_effective": "58",
     "situs_zip": "91977-4814",
     "asr_total": 415180,
@@ -8755,17 +8752,17 @@
     "docnmbr": "066681",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 203537,
     "situs_address": 8718,
     "asr_land": 187560
+   },
+   "centroid": {
+    "x": -117.01074332530126,
+    "y": 32.710955607684426
    }
   },
   {
-   "centroid": {
-    "x": -117.01054016779617,
-    "y": 32.71095216162819
-   },
    "attributes": {
+    "objectid": 203538,
     "year_effective": "58",
     "situs_zip": "91977-4814",
     "asr_total": 699642,
@@ -8795,17 +8792,17 @@
     "docnmbr": "361208",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 203538,
     "situs_address": 8726,
     "asr_land": 341622
+   },
+   "centroid": {
+    "x": -117.01054016779617,
+    "y": 32.71095216162819
    }
   },
   {
-   "centroid": {
-    "x": -117.01033201926158,
-    "y": 32.71094874549193
-   },
    "attributes": {
+    "objectid": 203539,
     "year_effective": "58",
     "situs_zip": "91977-4814",
     "asr_total": 836400,
@@ -8835,17 +8832,17 @@
     "docnmbr": "164724",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 203539,
     "situs_address": 8734,
     "asr_land": 510000
+   },
+   "centroid": {
+    "x": -117.01033201926158,
+    "y": 32.71094874549193
    }
   },
   {
-   "centroid": {
-    "x": -117.0101239643318,
-    "y": 32.71094524521473
-   },
    "attributes": {
+    "objectid": 203540,
     "year_effective": "58",
     "situs_zip": "91977-4814",
     "asr_total": 347722,
@@ -8875,17 +8872,17 @@
     "docnmbr": "465560",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 203540,
     "situs_address": 8742,
     "asr_land": 187453
+   },
+   "centroid": {
+    "x": -117.0101239643318,
+    "y": 32.71094524521473
    }
   },
   {
-   "centroid": {
-    "x": -117.00991910775973,
-    "y": 32.71094182980316
-   },
    "attributes": {
+    "objectid": 203541,
     "year_effective": "58",
     "situs_zip": "91977-4814",
     "asr_total": 62381,
@@ -8915,17 +8912,17 @@
     "docnmbr": "498654",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 203541,
     "situs_address": 8750,
     "asr_land": 18585
+   },
+   "centroid": {
+    "x": -117.00991910775973,
+    "y": 32.71094182980316
    }
   },
   {
-   "centroid": {
-    "x": -117.01104655538005,
-    "y": 32.710526634649185
-   },
    "attributes": {
+    "objectid": 203542,
     "year_effective": "58",
     "situs_zip": "91977-4815",
     "asr_total": 742148,
@@ -8955,17 +8952,17 @@
     "docnmbr": "165326",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 203542,
     "situs_address": 8709,
     "asr_land": 357341
+   },
+   "centroid": {
+    "x": -117.01104655538005,
+    "y": 32.710526634649185
    }
   },
   {
-   "centroid": {
-    "x": -117.01080711865391,
-    "y": 32.71051504612868
-   },
    "attributes": {
+    "objectid": 203543,
     "year_effective": "58",
     "situs_zip": "91977-4815",
     "asr_total": 83799,
@@ -8995,17 +8992,17 @@
     "docnmbr": "134414",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 203543,
     "situs_address": 8717,
     "asr_land": 23535
+   },
+   "centroid": {
+    "x": -117.01080711865391,
+    "y": 32.71051504612868
    }
   },
   {
-   "centroid": {
-    "x": -117.01059086141363,
-    "y": 32.71051057506508
-   },
    "attributes": {
+    "objectid": 203544,
     "year_effective": "58",
     "situs_zip": "91977-4815",
     "asr_total": 221003,
@@ -9035,17 +9032,17 @@
     "docnmbr": "500242",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 203544,
     "situs_address": 8725,
     "asr_land": 106406
+   },
+   "centroid": {
+    "x": -117.01059086141363,
+    "y": 32.71051057506508
    }
   },
   {
-   "centroid": {
-    "x": -117.01037457476293,
-    "y": 32.71050683024202
-   },
    "attributes": {
+    "objectid": 203545,
     "year_effective": "58",
     "situs_zip": "91977-4815",
     "asr_total": 274054,
@@ -9075,17 +9072,17 @@
     "docnmbr": "172953",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 203545,
     "situs_address": 8733,
     "asr_land": 98753
+   },
+   "centroid": {
+    "x": -117.01037457476293,
+    "y": 32.71050683024202
    }
   },
   {
-   "centroid": {
-    "x": -117.0101599980118,
-    "y": 32.71050158819533
-   },
    "attributes": {
+    "objectid": 203546,
     "year_effective": "58",
     "situs_zip": "91977-4815",
     "asr_total": 453444,
@@ -9115,17 +9112,17 @@
     "docnmbr": "461427",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 203546,
     "situs_address": 8741,
     "asr_land": 129712
+   },
+   "centroid": {
+    "x": -117.0101599980118,
+    "y": 32.71050158819533
    }
   },
   {
-   "centroid": {
-    "x": -117.00994541618017,
-    "y": 32.71049725130809
-   },
    "attributes": {
+    "objectid": 203547,
     "year_effective": "58",
     "situs_zip": "91977-4815",
     "asr_total": 87017,
@@ -9155,17 +9152,17 @@
     "docnmbr": "150808",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 203547,
     "situs_address": 8749,
     "asr_land": 18585
+   },
+   "centroid": {
+    "x": -117.00994541618017,
+    "y": 32.71049725130809
    }
   },
   {
-   "centroid": {
-    "x": -117.00971256984268,
-    "y": 32.7109386636215
-   },
    "attributes": {
+    "objectid": 203548,
     "year_effective": "58",
     "situs_zip": "91977-4814",
     "asr_total": 345903,
@@ -9195,17 +9192,17 @@
     "docnmbr": "223983",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 203548,
     "situs_address": 8758,
     "asr_land": 153734
+   },
+   "centroid": {
+    "x": -117.00971256984268,
+    "y": 32.7109386636215
    }
   },
   {
-   "centroid": {
-    "x": -117.00949588067516,
-    "y": 32.71093716107477
-   },
    "attributes": {
+    "objectid": 203549,
     "year_effective": "58",
     "situs_zip": "91977-4814",
     "asr_total": 714000,
@@ -9235,17 +9232,17 @@
     "docnmbr": "165023",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 203549,
     "situs_address": 8766,
     "asr_land": 530400
+   },
+   "centroid": {
+    "x": -117.00949588067516,
+    "y": 32.71093716107477
    }
   },
   {
-   "centroid": {
-    "x": -117.00972967308424,
-    "y": 32.71049198581646
-   },
    "attributes": {
+    "objectid": 203550,
     "year_effective": "58",
     "situs_zip": "91977-4815",
     "asr_total": 703579,
@@ -9275,17 +9272,17 @@
     "docnmbr": "049924",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 203550,
     "situs_address": 8757,
     "asr_land": 450291
+   },
+   "centroid": {
+    "x": -117.00972967308424,
+    "y": 32.71049198581646
    }
   },
   {
-   "centroid": {
-    "x": -117.00951012747382,
-    "y": 32.710485001470396
-   },
    "attributes": {
+    "objectid": 203551,
     "year_effective": "58",
     "situs_zip": "91977-4815",
     "asr_total": 291581,
@@ -9315,17 +9312,17 @@
     "docnmbr": "174712",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 203551,
     "situs_address": 8765,
     "asr_land": 131342
+   },
+   "centroid": {
+    "x": -117.00951012747382,
+    "y": 32.710485001470396
    }
   },
   {
-   "centroid": {
-    "x": -117.0064676155625,
-    "y": 32.710249970252605
-   },
    "attributes": {
+    "objectid": 206579,
     "year_effective": "42",
     "situs_zip": "91977-4817",
     "asr_total": 465328,
@@ -9355,17 +9352,17 @@
     "docnmbr": "147047",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 206579,
     "situs_address": 922,
     "asr_land": 333824
+   },
+   "centroid": {
+    "x": -117.0064676155625,
+    "y": 32.710249970252605
    }
   },
   {
-   "centroid": {
-    "x": -117.00628703501384,
-    "y": 32.71285932620168
-   },
    "attributes": {
+    "objectid": 206580,
     "year_effective": "60",
     "situs_zip": "91977-4818",
     "asr_total": 176750,
@@ -9395,17 +9392,17 @@
     "docnmbr": "907038",
     "situs_post_dir": "",
     "situs_community": "SPRING VALLEY",
-    "objectid": 206580,
     "situs_address": 1020,
     "asr_land": 75189
+   },
+   "centroid": {
+    "x": -117.00628703501384,
+    "y": 32.71285932620168
    }
   },
   {
-   "centroid": {
-    "x": -117.16003947331944,
-    "y": 32.73582406043804
-   },
    "attributes": {
+    "objectid": 23354,
     "year_effective": null,
     "situs_zip": null,
     "asr_total": null,
@@ -9435,17 +9432,17 @@
     "docnmbr": null,
     "situs_post_dir": null,
     "situs_community": null,
-    "objectid": 23354,
     "situs_address": null,
     "asr_land": null
+   },
+   "centroid": {
+    "x": -117.16003947331944,
+    "y": 32.73582406043804
    }
   },
   {
-   "centroid": {
-    "x": -117.160041892142,
-    "y": 32.73603094022754
-   },
    "attributes": {
+    "objectid": 23355,
     "year_effective": null,
     "situs_zip": null,
     "asr_total": null,
@@ -9475,9 +9472,2212 @@
     "docnmbr": null,
     "situs_post_dir": null,
     "situs_community": null,
-    "objectid": 23355,
     "situs_address": null,
     "asr_land": null
+   },
+   "centroid": {
+    "x": -117.160041892142,
+    "y": 32.73603094022754
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 349151,
+    "year_effective": "78",
+    "situs_zip": "92009-9216",
+    "asr_total": 884623,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "25510321",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "040320",
+    "ownerocc": "Y",
+    "apn": "2551032100",
+    "unitqty": 1,
+    "SHAPE__Area": 16722.292725502164,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "AVE",
+    "total_lvg_area": 2119,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "004",
+    "baths": "025",
+    "situs_juris": "CB",
+    "situs_street": "JACARANDA",
+    "asr_impr": 333545,
+    "docnmbr": "171932",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 2816,
+    "asr_land": 551078
+   },
+   "centroid": {
+    "x": -117.24986361444961,
+    "y": 33.06833305658782
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 359154,
+    "year_effective": "86",
+    "situs_zip": "92009-4322",
+    "asr_total": 364118,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "21556202",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "110",
+    "docdate": "120120",
+    "ownerocc": "Y",
+    "apn": "2155620200",
+    "unitqty": 1,
+    "SHAPE__Area": 9606.44546381196,
+    "acreage": null,
+    "pool": "Y",
+    "situs_suffix": "ST",
+    "total_lvg_area": 2030,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "004",
+    "baths": "025",
+    "situs_juris": "CB",
+    "situs_street": "LA GOLONDRINA",
+    "asr_impr": 263497,
+    "docnmbr": "767858",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 2610,
+    "asr_land": 100621
+   },
+   "centroid": {
+    "x": -117.24847642379885,
+    "y": 33.11249622586009
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 442607,
+    "year_effective": "77",
+    "situs_zip": "92009-8340",
+    "asr_total": 536383,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "25506505",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "110",
+    "docdate": "020801",
+    "ownerocc": "Y",
+    "apn": "2550650500",
+    "unitqty": 1,
+    "SHAPE__Area": 8392.686591216507,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "CIR",
+    "total_lvg_area": 1542,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "003",
+    "baths": "020",
+    "situs_juris": "CB",
+    "situs_street": "QUEBRADA",
+    "asr_impr": 259739,
+    "docnmbr": "074282",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3107,
+    "asr_land": 276644
+   },
+   "centroid": {
+    "x": -117.24082881825721,
+    "y": 33.07732358537724
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 445319,
+    "year_effective": "75",
+    "situs_zip": "92009-8305",
+    "asr_total": 1966356,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "22314038",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "111623",
+    "ownerocc": "Y",
+    "apn": "2231403800",
+    "unitqty": 1,
+    "SHAPE__Area": 9194.870643404221,
+    "acreage": null,
+    "pool": "Y",
+    "situs_suffix": "PL",
+    "total_lvg_area": 2484,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "004",
+    "baths": "025",
+    "situs_juris": "CB",
+    "situs_street": "AZAHAR",
+    "asr_impr": 312120,
+    "docnmbr": "319690",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3316,
+    "asr_land": 1654236
+   },
+   "centroid": {
+    "x": -117.23960598470315,
+    "y": 33.08285360190678
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 445338,
+    "year_effective": "75",
+    "situs_zip": "92009-8302",
+    "asr_total": 835266,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "22314049",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "053013",
+    "ownerocc": "Y",
+    "apn": "2231404900",
+    "unitqty": 1,
+    "SHAPE__Area": 10955.023120319656,
+    "acreage": null,
+    "pool": "Y",
+    "situs_suffix": "PL",
+    "total_lvg_area": 2484,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "004",
+    "baths": "025",
+    "situs_juris": "CB",
+    "situs_street": "AZAHAR",
+    "asr_impr": 270046,
+    "docnmbr": "340546",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3212,
+    "asr_land": 565220
+   },
+   "centroid": {
+    "x": -117.23931633666643,
+    "y": 33.08457133329059
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 445423,
+    "year_effective": "78",
+    "situs_zip": "92009-8210",
+    "asr_total": 382892,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "25505202",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "110",
+    "docdate": "043025",
+    "ownerocc": "Y",
+    "apn": "2550520200",
+    "unitqty": 1,
+    "SHAPE__Area": 8061.922314034578,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "ST",
+    "total_lvg_area": 2122,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "2",
+    "bedrooms": "004",
+    "baths": "020",
+    "situs_juris": "CB",
+    "situs_street": "GABACHO",
+    "asr_impr": 279387,
+    "docnmbr": "112595",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 7813,
+    "asr_land": 103505
+   },
+   "centroid": {
+    "x": -117.24715719821812,
+    "y": 33.079614949331834
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 445484,
+    "year_effective": "79",
+    "situs_zip": "92009-8236",
+    "asr_total": 964357,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "21626051",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "081117",
+    "ownerocc": "Y",
+    "apn": "2162605100",
+    "unitqty": 1,
+    "SHAPE__Area": 9826.775492059009,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "WAY",
+    "total_lvg_area": 1906,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "003",
+    "baths": "020",
+    "situs_juris": "CB",
+    "situs_street": "PRIMAVERA",
+    "asr_impr": 384291,
+    "docnmbr": "366622",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 7646,
+    "asr_land": 580066
+   },
+   "centroid": {
+    "x": -117.24728931721799,
+    "y": 33.08272658253982
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 445508,
+    "year_effective": "79",
+    "situs_zip": "92009-8206",
+    "asr_total": 1269690,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "21626040",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "042321",
+    "ownerocc": "Y",
+    "apn": "2162604000",
+    "unitqty": 1,
+    "SHAPE__Area": 7366.56768735078,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "CT",
+    "total_lvg_area": 2452,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "004",
+    "baths": "025",
+    "situs_juris": "CB",
+    "situs_street": "CORTINA",
+    "asr_impr": 320183,
+    "docnmbr": "314556",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 7637,
+    "asr_land": 949507
+   },
+   "centroid": {
+    "x": -117.24686292691852,
+    "y": 33.08271986132875
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 445856,
+    "year_effective": "78",
+    "situs_zip": "92009-9128",
+    "asr_total": 404954,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "25509128",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "110",
+    "docdate": "060514",
+    "ownerocc": "Y",
+    "apn": "2550912800",
+    "unitqty": 1,
+    "SHAPE__Area": 6444.932128568293,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "LN",
+    "total_lvg_area": 2119,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "2",
+    "bedrooms": "004",
+    "baths": "020",
+    "situs_juris": "CB",
+    "situs_street": "LA PLANCHA",
+    "asr_impr": 210499,
+    "docnmbr": "231361",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 2417,
+    "asr_land": 194455
+   },
+   "centroid": {
+    "x": -117.25600134483732,
+    "y": 33.071714665423
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 447747,
+    "year_effective": "78",
+    "situs_zip": "92009-9130",
+    "asr_total": 268084,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "25509101",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "110",
+    "docdate": "032086",
+    "ownerocc": "Y",
+    "apn": "2550910100",
+    "unitqty": 1,
+    "SHAPE__Area": 7457.737553752002,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "LN",
+    "total_lvg_area": 1620,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "004",
+    "baths": "020",
+    "situs_juris": "CB",
+    "situs_street": "LA PLUMA",
+    "asr_impr": 177252,
+    "docnmbr": "106752",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 2417,
+    "asr_land": 90832
+   },
+   "centroid": {
+    "x": -117.25621299401237,
+    "y": 33.07093482631578
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 453691,
+    "year_effective": "78",
+    "situs_zip": "92009-8137",
+    "asr_total": 2002770,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "21618007",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "052224",
+    "ownerocc": null,
+    "apn": "2161800700",
+    "unitqty": 1,
+    "SHAPE__Area": 9630.37474128838,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "WAY",
+    "total_lvg_area": 2125,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "004",
+    "baths": "025",
+    "situs_juris": "CB",
+    "situs_street": "NUEVA CASTILLA",
+    "asr_impr": 442170,
+    "docnmbr": "128846",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 7634,
+    "asr_land": 1560600
+   },
+   "centroid": {
+    "x": -117.25414793022685,
+    "y": 33.08542237848779
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 470759,
+    "year_effective": "84",
+    "situs_zip": "92009-8039",
+    "asr_total": 1274912,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "21635107",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "100314",
+    "ownerocc": "Y",
+    "apn": "2163510700",
+    "unitqty": 1,
+    "SHAPE__Area": 14122.361763811989,
+    "acreage": null,
+    "pool": "Y",
+    "situs_suffix": "ST",
+    "total_lvg_area": 3309,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "005",
+    "baths": "040",
+    "situs_juris": "CB",
+    "situs_street": "ROCIO",
+    "asr_impr": 416797,
+    "docnmbr": "430042",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 7722,
+    "asr_land": 858115
+   },
+   "centroid": {
+    "x": -117.25631905054429,
+    "y": 33.083080216671284
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 476716,
+    "year_effective": "78",
+    "situs_zip": "92009-8532",
+    "asr_total": 929745,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "21649215",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "042726",
+    "ownerocc": "Y",
+    "apn": "2164921500",
+    "unitqty": 1,
+    "SHAPE__Area": 9557.43350449927,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "CT",
+    "total_lvg_area": 2562,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "004",
+    "baths": "025",
+    "situs_juris": "CB",
+    "situs_street": "VUELTA",
+    "asr_impr": 570253,
+    "docnmbr": "117545",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 2120,
+    "asr_land": 359492
+   },
+   "centroid": {
+    "x": -117.2619057837672,
+    "y": 33.08066569464574
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 588786,
+    "year_effective": "79",
+    "situs_zip": "92009-7713",
+    "asr_total": 422472,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "22320016",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "172",
+    "docdate": "090199",
+    "ownerocc": "Y",
+    "apn": "2232001659",
+    "unitqty": 1,
+    "SHAPE__Area": 189632.5951997402,
+    "acreage": null,
+    "pool": " ",
+    "situs_suffix": "CIR",
+    "total_lvg_area": 1849,
+    "situs_suite": "",
+    "asr_landuse": 17,
+    "doctype": "1",
+    "bedrooms": "003",
+    "baths": "025",
+    "situs_juris": "CB",
+    "situs_street": "VIVIENDA",
+    "asr_impr": 288055,
+    "docnmbr": "605622",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3319,
+    "asr_land": 134417
+   },
+   "centroid": {
+    "x": -117.23738411505728,
+    "y": 33.083820109586995
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 588822,
+    "year_effective": "79",
+    "situs_zip": "92009-7715",
+    "asr_total": 773698,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "20",
+    "apn_8": "22320015",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "172",
+    "docdate": "083024",
+    "ownerocc": "Y",
+    "apn": "2232001529",
+    "unitqty": 1,
+    "SHAPE__Area": 228819.32600075204,
+    "acreage": null,
+    "pool": " ",
+    "situs_suffix": "PL",
+    "total_lvg_area": 1849,
+    "situs_suite": "",
+    "asr_landuse": 17,
+    "doctype": "1",
+    "bedrooms": "003",
+    "baths": "025",
+    "situs_juris": "CB",
+    "situs_street": "CUESTA",
+    "asr_impr": 280254,
+    "docnmbr": "233972",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3341,
+    "asr_land": 493444
+   },
+   "centroid": {
+    "x": -117.23690963683732,
+    "y": 33.0827278594651
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 588849,
+    "year_effective": "79",
+    "situs_zip": "92009-8203",
+    "asr_total": 851156,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "21623061",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "062315",
+    "ownerocc": "Y",
+    "apn": "2162306100",
+    "unitqty": 1,
+    "SHAPE__Area": 12321.79174345229,
+    "acreage": null,
+    "pool": "Y",
+    "situs_suffix": "",
+    "total_lvg_area": 1788,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "003",
+    "baths": "025",
+    "situs_juris": "CB",
+    "situs_street": "CALLE MADERO",
+    "asr_impr": 569161,
+    "docnmbr": "324932",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 7710,
+    "asr_land": 281995
+   },
+   "centroid": {
+    "x": -117.2481430014046,
+    "y": 33.08194659880757
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 588860,
+    "year_effective": "80",
+    "situs_zip": "92009-8204",
+    "asr_total": 1334486,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "21623034",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "120221",
+    "ownerocc": null,
+    "apn": "2162303400",
+    "unitqty": 1,
+    "SHAPE__Area": 7961.229082563806,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "",
+    "total_lvg_area": 2331,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "004",
+    "baths": "030",
+    "situs_juris": "CB",
+    "situs_street": "CALLE MADERO",
+    "asr_impr": 318733,
+    "docnmbr": "821659",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 7723,
+    "asr_land": 1015753
+   },
+   "centroid": {
+    "x": -117.24877803966892,
+    "y": 33.08146487811334
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 593628,
+    "year_effective": "88",
+    "situs_zip": "92009-8638",
+    "asr_total": 534452,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "22337119",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "110",
+    "docdate": "031820",
+    "ownerocc": "Y",
+    "apn": "2233711900",
+    "unitqty": 1,
+    "SHAPE__Area": 7978.58786833922,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "",
+    "total_lvg_area": 2585,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "004",
+    "baths": "025",
+    "situs_juris": "CB",
+    "situs_street": "CALLE GAVANZO",
+    "asr_impr": 316459,
+    "docnmbr": "139969",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3541,
+    "asr_land": 217993
+   },
+   "centroid": {
+    "x": -117.2277750770319,
+    "y": 33.079289056191456
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 593759,
+    "year_effective": "85",
+    "situs_zip": "92009-9304",
+    "asr_total": 270148,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "25515124",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "110",
+    "docdate": "050319",
+    "ownerocc": "Y",
+    "apn": "2551512400",
+    "unitqty": 1,
+    "SHAPE__Area": 5573.346129368779,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "",
+    "total_lvg_area": 1604,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "3",
+    "bedrooms": "003",
+    "baths": "025",
+    "situs_juris": "CB",
+    "situs_street": "CALLE POSADA",
+    "asr_impr": 168319,
+    "docnmbr": "905311",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 7914,
+    "asr_land": 101829
+   },
+   "centroid": {
+    "x": -117.24007103900982,
+    "y": 33.07031845989006
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 595672,
+    "year_effective": "87",
+    "situs_zip": "92009-9301",
+    "asr_total": 1591200,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "25520009",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "111924",
+    "ownerocc": null,
+    "apn": "2552000900",
+    "unitqty": 1,
+    "SHAPE__Area": 9835.54526413575,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "",
+    "total_lvg_area": 1634,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "003",
+    "baths": "020",
+    "situs_juris": "CB",
+    "situs_street": "AVENIDA ANACAPA",
+    "asr_impr": 428400,
+    "docnmbr": "321248",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3270,
+    "asr_land": 1162800
+   },
+   "centroid": {
+    "x": -117.2384563643188,
+    "y": 33.06875337833032
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 595720,
+    "year_effective": "87",
+    "situs_zip": "92009-9301",
+    "asr_total": 1542463,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "25520040",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "111224",
+    "ownerocc": "Y",
+    "apn": "2552004000",
+    "unitqty": 1,
+    "SHAPE__Area": 9687.19158093225,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "",
+    "total_lvg_area": 2308,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "2",
+    "bedrooms": "004",
+    "baths": "030",
+    "situs_juris": "CB",
+    "situs_street": "AVENIDA ANACAPA",
+    "asr_impr": 254370,
+    "docnmbr": "313731",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3259,
+    "asr_land": 1288093
+   },
+   "centroid": {
+    "x": -117.23957634296355,
+    "y": 33.06801244416438
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 595742,
+    "year_effective": "86",
+    "situs_zip": "92009-9310",
+    "asr_total": 543140,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "25519236",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "110",
+    "docdate": "051419",
+    "ownerocc": "Y",
+    "apn": "2551923600",
+    "unitqty": 1,
+    "SHAPE__Area": 4931.901569420186,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "",
+    "total_lvg_area": 1898,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "2",
+    "bedrooms": "003",
+    "baths": "025",
+    "situs_juris": "CB",
+    "situs_street": "CALLE VALLARTA",
+    "asr_impr": 277113,
+    "docnmbr": "180659",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3217,
+    "asr_land": 266027
+   },
+   "centroid": {
+    "x": -117.24318946555336,
+    "y": 33.06779458266407
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 638949,
+    "year_effective": "88",
+    "situs_zip": "92009-8926",
+    "asr_total": 1341456,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "22331221",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "082820",
+    "ownerocc": null,
+    "apn": "2233122100",
+    "unitqty": 1,
+    "SHAPE__Area": 8396.272609040983,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "",
+    "total_lvg_area": 2585,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "004",
+    "baths": "025",
+    "situs_juris": "CB",
+    "situs_street": "SITIO BORDE",
+    "asr_impr": 425070,
+    "docnmbr": "495770",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3479,
+    "asr_land": 916386
+   },
+   "centroid": {
+    "x": -117.2251435561586,
+    "y": 33.07486638389994
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 691985,
+    "year_effective": "99",
+    "situs_zip": "92009-9518",
+    "asr_total": 997157,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "26447124",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "092506",
+    "ownerocc": "Y",
+    "apn": "2644712400",
+    "unitqty": 1,
+    "SHAPE__Area": 9069.46319482205,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "",
+    "total_lvg_area": 2823,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "004",
+    "baths": "030",
+    "situs_juris": "CB",
+    "situs_street": "PASEO ANCHO",
+    "asr_impr": 480111,
+    "docnmbr": "681213",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3447,
+    "asr_land": 517046
+   },
+   "centroid": {
+    "x": -117.23429473577629,
+    "y": 33.06501518137549
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 695058,
+    "year_effective": "01",
+    "situs_zip": "92009-6996",
+    "asr_total": 835067,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "25528320",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "070918",
+    "ownerocc": "Y",
+    "apn": "2552832000",
+    "unitqty": 1,
+    "SHAPE__Area": 11437.029692170903,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "",
+    "total_lvg_area": 2722,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "6",
+    "bedrooms": "003",
+    "baths": "035",
+    "situs_juris": "CB",
+    "situs_street": "CAMINO SERBAL",
+    "asr_impr": 527680,
+    "docnmbr": "330456",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 2899,
+    "asr_land": 307387
+   },
+   "centroid": {
+    "x": -117.24901635908182,
+    "y": 33.07748586102957
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 695124,
+    "year_effective": "02",
+    "situs_zip": "92009-2900",
+    "asr_total": 1302171,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "25529051",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "071117",
+    "ownerocc": "Y",
+    "apn": "2552905100",
+    "unitqty": 1,
+    "SHAPE__Area": 8552.442376147006,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "",
+    "total_lvg_area": 2915,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "004",
+    "baths": "035",
+    "situs_juris": "CB",
+    "situs_street": "CAMINO SERBAL",
+    "asr_impr": 591897,
+    "docnmbr": "311500",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 2984,
+    "asr_land": 710274
+   },
+   "centroid": {
+    "x": -117.2441065128352,
+    "y": 33.07685486799742
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 695141,
+    "year_effective": "02",
+    "situs_zip": "92009-2903",
+    "asr_total": 1420550,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "25529023",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "122920",
+    "ownerocc": "Y",
+    "apn": "2552902300",
+    "unitqty": 1,
+    "SHAPE__Area": 9060.530657786117,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "",
+    "total_lvg_area": 3193,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "004",
+    "baths": "030",
+    "situs_juris": "CB",
+    "situs_street": "SITIO ABETO",
+    "asr_impr": 645166,
+    "docnmbr": "842454",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 7890,
+    "asr_land": 775384
+   },
+   "centroid": {
+    "x": -117.24547651239752,
+    "y": 33.0766673451955
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 740404,
+    "year_effective": "03",
+    "situs_zip": "92009-9539",
+    "asr_total": 1632780,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "26461023",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "031621",
+    "ownerocc": "Y",
+    "apn": "2646102300",
+    "unitqty": 1,
+    "SHAPE__Area": 8370.863255939654,
+    "acreage": null,
+    "pool": "Y",
+    "situs_suffix": "",
+    "total_lvg_area": 4040,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "005",
+    "baths": "045",
+    "situs_juris": "CB",
+    "situs_street": "AVENIDA DE SUENO",
+    "asr_impr": 836302,
+    "docnmbr": "204899",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3270,
+    "asr_land": 796478
+   },
+   "centroid": {
+    "x": -117.23804822107343,
+    "y": 33.06387292027321
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 741403,
+    "year_effective": "03",
+    "situs_zip": "92009-9537",
+    "asr_total": 1243408,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "26461036",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "071503",
+    "ownerocc": "Y",
+    "apn": "2646103600",
+    "unitqty": 1,
+    "SHAPE__Area": 8369.196412523346,
+    "acreage": null,
+    "pool": "Y",
+    "situs_suffix": "",
+    "total_lvg_area": 3802,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "005",
+    "baths": "035",
+    "situs_juris": "CB",
+    "situs_street": "AVENIDA DE SUENO",
+    "asr_impr": 891322,
+    "docnmbr": "840923",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3218,
+    "asr_land": 352086
+   },
+   "centroid": {
+    "x": -117.24045912224116,
+    "y": 33.06293662351796
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 791773,
+    "year_effective": "88",
+    "situs_zip": "92009-8916",
+    "asr_total": 431723,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "22331146",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "110",
+    "docdate": "062420",
+    "ownerocc": "Y",
+    "apn": "2233114600",
+    "unitqty": 1,
+    "SHAPE__Area": 9748.277151273018,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "",
+    "total_lvg_area": 1643,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "2",
+    "bedrooms": "004",
+    "baths": "020",
+    "situs_juris": "CB",
+    "situs_street": "SITIO BAYA",
+    "asr_impr": 191877,
+    "docnmbr": "330282",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3479,
+    "asr_land": 239846
+   },
+   "centroid": {
+    "x": -117.23060410183783,
+    "y": 33.07533107553682
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 791832,
+    "year_effective": "95",
+    "situs_zip": "92009-9326",
+    "asr_total": 1804053,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "25523023",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "080322",
+    "ownerocc": null,
+    "apn": "2552302300",
+    "unitqty": 1,
+    "SHAPE__Area": 7231.306021747916,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "",
+    "total_lvg_area": 2655,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "004",
+    "baths": "030",
+    "situs_juris": "CB",
+    "situs_street": "CAMINO CORONADO",
+    "asr_impr": 477543,
+    "docnmbr": "316100",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3332,
+    "asr_land": 1326510
+   },
+   "centroid": {
+    "x": -117.23473008179039,
+    "y": 33.07192023469245
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 791836,
+    "year_effective": "97",
+    "situs_zip": "92009-9332",
+    "asr_total": 1075310,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "25523027",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "122321",
+    "ownerocc": "Y",
+    "apn": "2552302700",
+    "unitqty": 1,
+    "SHAPE__Area": 7794.598651278459,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "",
+    "total_lvg_area": 2915,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "2",
+    "bedrooms": "003",
+    "baths": "030",
+    "situs_juris": "CB",
+    "situs_street": "CALLE JALISCO",
+    "asr_impr": 500144,
+    "docnmbr": "864281",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 7914,
+    "asr_land": 575166
+   },
+   "centroid": {
+    "x": -117.23500026344004,
+    "y": 33.07173284913137
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 791870,
+    "year_effective": "95",
+    "situs_zip": "92009-9324",
+    "asr_total": 1867194,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "25523110",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "092425",
+    "ownerocc": null,
+    "apn": "2552311000",
+    "unitqty": 1,
+    "SHAPE__Area": 19363.566378416515,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "",
+    "total_lvg_area": 2655,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "2",
+    "bedrooms": "004",
+    "baths": "030",
+    "situs_juris": "CB",
+    "situs_street": "AVENIDA ANACAPA",
+    "asr_impr": 449209,
+    "docnmbr": "265916",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3324,
+    "asr_land": 1417985
+   },
+   "centroid": {
+    "x": -117.2347261780557,
+    "y": 33.07069624638417
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 791879,
+    "year_effective": "85",
+    "situs_zip": "92009-9307",
+    "asr_total": 610740,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "25515108",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "031219",
+    "ownerocc": "Y",
+    "apn": "2551510800",
+    "unitqty": 1,
+    "SHAPE__Area": 8117.0632727576485,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "",
+    "total_lvg_area": 1917,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "004",
+    "baths": "030",
+    "situs_juris": "CB",
+    "situs_street": "CALLE SAN FELIPE",
+    "asr_impr": 427526,
+    "docnmbr": "088233",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 7914,
+    "asr_land": 183214
+   },
+   "centroid": {
+    "x": -117.24125898405524,
+    "y": 33.07034136344304
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 793814,
+    "year_effective": "96",
+    "situs_zip": "92009-9325",
+    "asr_total": 1165201,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "25523130",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "101821",
+    "ownerocc": "Y",
+    "apn": "2552313000",
+    "unitqty": 1,
+    "SHAPE__Area": 7166.504006133457,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "",
+    "total_lvg_area": 2915,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "2",
+    "bedrooms": "003",
+    "baths": "030",
+    "situs_juris": "CB",
+    "situs_street": "CALLE SAN BLAS",
+    "asr_impr": 643412,
+    "docnmbr": "722797",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3330,
+    "asr_land": 521789
+   },
+   "centroid": {
+    "x": -117.23358904157352,
+    "y": 33.069347931504076
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 793817,
+    "year_effective": "95",
+    "situs_zip": "92009-9325",
+    "asr_total": 928989,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "25523133",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "110",
+    "docdate": "091213",
+    "ownerocc": "Y",
+    "apn": "2552313300",
+    "unitqty": 1,
+    "SHAPE__Area": 6099.891252745175,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "",
+    "total_lvg_area": 2348,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "2",
+    "bedrooms": "004",
+    "baths": "025",
+    "situs_juris": "CB",
+    "situs_street": "CALLE SAN BLAS",
+    "asr_impr": 637877,
+    "docnmbr": "563768",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3324,
+    "asr_land": 291112
+   },
+   "centroid": {
+    "x": -117.23427089378903,
+    "y": 33.069298161116606
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 793828,
+    "year_effective": "95",
+    "situs_zip": "92009-9325",
+    "asr_total": 1472792,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "25523144",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "031821",
+    "ownerocc": "Y",
+    "apn": "2552314400",
+    "unitqty": 1,
+    "SHAPE__Area": 13353.621834300133,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "",
+    "total_lvg_area": 3217,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "005",
+    "baths": "040",
+    "situs_juris": "CB",
+    "situs_street": "CALLE SAN BLAS",
+    "asr_impr": 602691,
+    "docnmbr": "210364",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3301,
+    "asr_land": 870101
+   },
+   "centroid": {
+    "x": -117.23644920015015,
+    "y": 33.06882588433395
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 800140,
+    "year_effective": "79",
+    "situs_zip": "92009-7702",
+    "asr_total": 609083,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "22320031",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "172",
+    "docdate": "080408",
+    "ownerocc": "Y",
+    "apn": "2232003103",
+    "unitqty": 1,
+    "SHAPE__Area": 359828.2746585199,
+    "acreage": null,
+    "pool": " ",
+    "situs_suffix": "CT",
+    "total_lvg_area": 1474,
+    "situs_suite": "",
+    "asr_landuse": 17,
+    "doctype": "2",
+    "bedrooms": "003",
+    "baths": "020",
+    "situs_juris": "CB",
+    "situs_street": "CARVALLO",
+    "asr_impr": 116012,
+    "docnmbr": "416219",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3206,
+    "asr_land": 493071
+   },
+   "centroid": {
+    "x": -117.23802069225982,
+    "y": 33.0856043164571
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 832032,
+    "year_effective": "77",
+    "situs_zip": "92009-9113",
+    "asr_total": 360895,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "25507039",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "110",
+    "docdate": "073195",
+    "ownerocc": "Y",
+    "apn": "2550703900",
+    "unitqty": 1,
+    "SHAPE__Area": 8913.067406037864,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "AVE",
+    "total_lvg_area": 2119,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "004",
+    "baths": "020",
+    "situs_juris": "CB",
+    "situs_street": "JACARANDA",
+    "asr_impr": 199058,
+    "docnmbr": "328047",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 2506,
+    "asr_land": 161837
+   },
+   "centroid": {
+    "x": -117.25558422483164,
+    "y": 33.06787387101592
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 832110,
+    "year_effective": "78",
+    "situs_zip": "92009-9219",
+    "asr_total": 912963,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "25509217",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "101818",
+    "ownerocc": "Y",
+    "apn": "2550921700",
+    "unitqty": 1,
+    "SHAPE__Area": 10130.940476307685,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "LN",
+    "total_lvg_area": 1620,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "004",
+    "baths": "020",
+    "situs_juris": "CB",
+    "situs_street": "LA DUELA",
+    "asr_impr": 188165,
+    "docnmbr": "434854",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 2610,
+    "asr_land": 724798
+   },
+   "centroid": {
+    "x": -117.25298890614576,
+    "y": 33.07279110750021
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 841776,
+    "year_effective": "96",
+    "situs_zip": "92009-9323",
+    "asr_total": 531848,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "25524002",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "110",
+    "docdate": "122314",
+    "ownerocc": "Y",
+    "apn": "2552400200",
+    "unitqty": 1,
+    "SHAPE__Area": 9032.960059672216,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "",
+    "total_lvg_area": 2592,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "2",
+    "bedrooms": "004",
+    "baths": "025",
+    "situs_juris": "CB",
+    "situs_street": "CORTE VERSO",
+    "asr_impr": 362413,
+    "docnmbr": "566218",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3333,
+    "asr_land": 169435
+   },
+   "centroid": {
+    "x": -117.23484374310459,
+    "y": 33.073555671255676
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 841777,
+    "year_effective": "96",
+    "situs_zip": "92009-9323",
+    "asr_total": 1032467,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "25524003",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "010213",
+    "ownerocc": "Y",
+    "apn": "2552400300",
+    "unitqty": 1,
+    "SHAPE__Area": 9063.640791741185,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "",
+    "total_lvg_area": 2740,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "004",
+    "baths": "030",
+    "situs_juris": "CB",
+    "situs_street": "CORTE VERSO",
+    "asr_impr": 498874,
+    "docnmbr": "000923",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3329,
+    "asr_land": 533593
+   },
+   "centroid": {
+    "x": -117.23504642437672,
+    "y": 33.07357529886106
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 841817,
+    "year_effective": "95",
+    "situs_zip": "92009-9322",
+    "asr_total": 858879,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "25524052",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "110",
+    "docdate": "112404",
+    "ownerocc": "Y",
+    "apn": "2552405200",
+    "unitqty": 1,
+    "SHAPE__Area": 9578.246972287181,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "",
+    "total_lvg_area": 2740,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "2",
+    "bedrooms": "004",
+    "baths": "030",
+    "situs_juris": "CB",
+    "situs_street": "CORTE ESPLENDOR",
+    "asr_impr": 459402,
+    "docnmbr": "114167",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3333,
+    "asr_land": 399477
+   },
+   "centroid": {
+    "x": -117.23491245992687,
+    "y": 33.07274208199162
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 841818,
+    "year_effective": "95",
+    "situs_zip": "92009-9322",
+    "asr_total": 1137242,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "25524053",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "032922",
+    "ownerocc": "Y",
+    "apn": "2552405300",
+    "unitqty": 1,
+    "SHAPE__Area": 9891.766892322477,
+    "acreage": null,
+    "pool": "Y",
+    "situs_suffix": "",
+    "total_lvg_area": 2592,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "004",
+    "baths": "025",
+    "situs_juris": "CB",
+    "situs_street": "CORTE ESPLENDOR",
+    "asr_impr": 588708,
+    "docnmbr": "137805",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3329,
+    "asr_land": 548534
+   },
+   "centroid": {
+    "x": -117.23513193585649,
+    "y": 33.0726638824284
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 888779,
+    "year_effective": "04",
+    "situs_zip": "92009-8959",
+    "asr_total": 2049742,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "22368022",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "112",
+    "docdate": "030514",
+    "ownerocc": "Y",
+    "apn": "2236802200",
+    "unitqty": 1,
+    "SHAPE__Area": 17587.693371386646,
+    "acreage": null,
+    "pool": "Y",
+    "situs_suffix": "",
+    "total_lvg_area": 4817,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "005",
+    "baths": "045",
+    "situs_juris": "CB",
+    "situs_street": "CALLE PALMITO",
+    "asr_impr": 1161521,
+    "docnmbr": "088246",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3541,
+    "asr_land": 888221
+   },
+   "centroid": {
+    "x": -117.2224893419557,
+    "y": 33.07967178733137
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 891270,
+    "year_effective": "96",
+    "situs_zip": "92009-9328",
+    "asr_total": 1351903,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "25524152",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "072722",
+    "ownerocc": "Y",
+    "apn": "2552415200",
+    "unitqty": 1,
+    "SHAPE__Area": 8281.091640934632,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "",
+    "total_lvg_area": 2003,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "004",
+    "baths": "020",
+    "situs_juris": "CB",
+    "situs_street": "AVENIDA OBERTURA",
+    "asr_impr": 317697,
+    "docnmbr": "306306",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3324,
+    "asr_land": 1034206
+   },
+   "centroid": {
+    "x": -117.23775805011763,
+    "y": 33.0721150049279
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 891845,
+    "year_effective": "99",
+    "situs_zip": "92009-8708",
+    "asr_total": 623455,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "25527035",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "110",
+    "docdate": "030220",
+    "ownerocc": "Y",
+    "apn": "2552703500",
+    "unitqty": 1,
+    "SHAPE__Area": 8702.914947522442,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "",
+    "total_lvg_area": 3080,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "005",
+    "baths": "035",
+    "situs_juris": "CB",
+    "situs_street": "CALLE PINABETE",
+    "asr_impr": 343627,
+    "docnmbr": "106064",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 7804,
+    "asr_land": 279828
+   },
+   "centroid": {
+    "x": -117.2572243637039,
+    "y": 33.07953316223137
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 891859,
+    "year_effective": "00",
+    "situs_zip": "92009-9354",
+    "asr_total": 2403296,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "25527045",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "031224",
+    "ownerocc": "Y",
+    "apn": "2552704500",
+    "unitqty": 1,
+    "SHAPE__Area": 10029.440225496093,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "",
+    "total_lvg_area": 2950,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "004",
+    "baths": "030",
+    "situs_juris": "CB",
+    "situs_street": "CAMINO ROBLEDO",
+    "asr_impr": 538913,
+    "docnmbr": "061217",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 2296,
+    "asr_land": 1864383
+   },
+   "centroid": {
+    "x": -117.25650167063736,
+    "y": 33.079876562898896
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 894489,
+    "year_effective": "98",
+    "situs_zip": "92009-8939",
+    "asr_total": 953872,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "26449302",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "110",
+    "docdate": "112216",
+    "ownerocc": "Y",
+    "apn": "2644930200",
+    "unitqty": 1,
+    "SHAPE__Area": 25808.05071029707,
+    "acreage": 0.59,
+    "pool": "Y",
+    "situs_suffix": "",
+    "total_lvg_area": 3866,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "2",
+    "bedrooms": "005",
+    "baths": "045",
+    "situs_juris": "CB",
+    "situs_street": "AVENIDA PANTERA",
+    "asr_impr": 628144,
+    "docnmbr": "638856",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3518,
+    "asr_land": 325728
+   },
+   "centroid": {
+    "x": -117.23077439279601,
+    "y": 33.06585091593859
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 914627,
+    "year_effective": "99",
+    "situs_zip": "92009-8679",
+    "asr_total": 642605,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "22338201",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "103024",
+    "ownerocc": "Y",
+    "apn": "2233820100",
+    "unitqty": 1,
+    "SHAPE__Area": 4546.089107718529,
+    "acreage": null,
+    "pool": "Y",
+    "situs_suffix": "",
+    "total_lvg_area": 1758,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "004",
+    "baths": "025",
+    "situs_juris": "CB",
+    "situs_street": "CALLE LOMAS",
+    "asr_impr": 273290,
+    "docnmbr": "298359",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 7804,
+    "asr_land": 369315
+   },
+   "centroid": {
+    "x": -117.23757179570315,
+    "y": 33.07683593802739
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 936998,
+    "year_effective": "03",
+    "situs_zip": "92009-9535",
+    "asr_total": 1192081,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "26462119",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "102803",
+    "ownerocc": "Y",
+    "apn": "2646211900",
+    "unitqty": 1,
+    "SHAPE__Area": 8732.428266434921,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "",
+    "total_lvg_area": 3802,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "005",
+    "baths": "035",
+    "situs_juris": "CB",
+    "situs_street": "AVENIDA DEL ALBA",
+    "asr_impr": 793275,
+    "docnmbr": "310347",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3218,
+    "asr_land": 398806
+   },
+   "centroid": {
+    "x": -117.2424419524942,
+    "y": 33.0646474916545
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 937025,
+    "year_effective": "03",
+    "situs_zip": "92009-9541",
+    "asr_total": 1041556,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "26462204",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "082924",
+    "ownerocc": "Y",
+    "apn": "2646220400",
+    "unitqty": 1,
+    "SHAPE__Area": 12168.716565716104,
+    "acreage": null,
+    "pool": "Y",
+    "situs_suffix": "",
+    "total_lvg_area": 3265,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "2",
+    "bedrooms": "004",
+    "baths": "035",
+    "situs_juris": "CB",
+    "situs_street": "AVENIDA LA CIMA",
+    "asr_impr": 672240,
+    "docnmbr": "231511",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3259,
+    "asr_land": 369316
+   },
+   "centroid": {
+    "x": -117.23905479959714,
+    "y": 33.064187507675584
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 937064,
+    "year_effective": "03",
+    "situs_zip": "92009-9535",
+    "asr_total": 1070075,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "26462243",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "073108",
+    "ownerocc": "Y",
+    "apn": "2646224300",
+    "unitqty": 1,
+    "SHAPE__Area": 8068.719996154465,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "",
+    "total_lvg_area": 2922,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "2",
+    "bedrooms": "003",
+    "baths": "025",
+    "situs_juris": "CB",
+    "situs_street": "AVENIDA DEL ALBA",
+    "asr_impr": 690403,
+    "docnmbr": "410479",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3270,
+    "asr_land": 379672
+   },
+   "centroid": {
+    "x": -117.23994987450239,
+    "y": 33.06524546544221
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 937127,
+    "year_effective": "03",
+    "situs_zip": "92009-9549",
+    "asr_total": 2484179,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "26463102",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "113",
+    "docdate": "021622",
+    "ownerocc": "Y",
+    "apn": "2646310200",
+    "unitqty": 1,
+    "SHAPE__Area": 10244.96235985374,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "",
+    "total_lvg_area": 3377,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "004",
+    "baths": "040",
+    "situs_juris": "CB",
+    "situs_street": "AVENIDA ARAGON",
+    "asr_impr": 938467,
+    "docnmbr": "073349",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 3259,
+    "asr_land": 1545712
+   },
+   "centroid": {
+    "x": -117.2411026984856,
+    "y": 33.06657980374949
+   }
+  },
+  {
+   "attributes": {
+    "objectid": 955272,
+    "year_effective": "06",
+    "situs_zip": "92009-1704",
+    "asr_total": 2014390,
+    "situs_fraction": "",
+    "nucleus_zone_cd": "10",
+    "apn_8": "21323203",
+    "taxstat": "T",
+    "situs_pre_dir": "",
+    "nucleus_use_cd": "111",
+    "docdate": "050421",
+    "ownerocc": null,
+    "apn": "2132320300",
+    "unitqty": 1,
+    "SHAPE__Area": 11389.127225859707,
+    "acreage": null,
+    "pool": "N",
+    "situs_suffix": "RD",
+    "total_lvg_area": 4164,
+    "situs_suite": "",
+    "asr_landuse": 11,
+    "doctype": "1",
+    "bedrooms": "004",
+    "baths": "045",
+    "situs_juris": "CB",
+    "situs_street": "LAPIS",
+    "asr_impr": 744699,
+    "docnmbr": "343053",
+    "situs_post_dir": "",
+    "situs_community": "CARLSBAD",
+    "situs_address": 2417,
+    "asr_land": 1269691
+   },
+   "centroid": {
+    "x": -117.25417302793888,
+    "y": 33.11218919079467
    }
   }
  ]

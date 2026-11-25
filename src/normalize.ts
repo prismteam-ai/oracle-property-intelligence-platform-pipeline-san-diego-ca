@@ -1,3 +1,5 @@
+import { COUNTY_BBOX } from './config.js';
+
 /** Pure normalisation helpers shared by all adapters. No I/O, so every rule here is unit-tested. */
 
 export function blankToNull(value: string | null | undefined): string | null {
@@ -173,4 +175,44 @@ export function zip5(raw: string | null | undefined): string | null {
 
 export function truncate(value: string | null, max: number): string | null {
   return value !== null && value.length > max ? value.slice(0, max) : value;
+}
+
+export interface LocatedPoint {
+  readonly lat: number | null;
+  readonly lon: number | null;
+  /** Set when the source supplied a coordinate that was discarded, saying why and what it was. */
+  readonly note: string | null;
+}
+
+/**
+ * A permit's own coordinate is optional: the parcel centroid can stand in for it. So a coordinate that
+ * falls outside San Diego County (a bad geocode; real examples resolve to Texas and New Jersey) is
+ * dropped and the permit is kept, with the discarded value recorded. A half-present pair is treated
+ * the same way.
+ */
+export function countyCoordinate(
+  rawLat: string | number | null | undefined,
+  rawLon: string | number | null | undefined,
+): LocatedPoint {
+  const lat = coordinate(rawLat);
+  const lon = coordinate(rawLon);
+  if (lat === null && lon === null) return { lat: null, lon: null, note: null };
+  if (lat === null || lon === null) {
+    return {
+      lat: null,
+      lon: null,
+      note: `source coordinate incomplete (${String(lat)}, ${String(lon)}); discarded`,
+    };
+  }
+  const inside =
+    lat >= COUNTY_BBOX.minLat &&
+    lat <= COUNTY_BBOX.maxLat &&
+    lon >= COUNTY_BBOX.minLon &&
+    lon <= COUNTY_BBOX.maxLon;
+  if (inside) return { lat, lon, note: null };
+  return {
+    lat: null,
+    lon: null,
+    note: `source coordinate outside San Diego County (${lat}, ${lon}); discarded`,
+  };
 }

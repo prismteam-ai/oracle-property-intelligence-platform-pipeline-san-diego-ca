@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import {
   blankToNull,
-  coordinate,
+  countyCoordinate,
   isoDatePart,
   normalizeApn,
   normalizeLicense,
@@ -117,6 +117,10 @@ export const countyPermits: SourceAdapter = socrataAdapter(
         record,
       );
     const point = Point.safeParse(record['geo_reference']);
+    const located = countyCoordinate(
+      point.success ? point.data.coordinates[1] : null,
+      point.success ? point.data.coordinates[0] : null,
+    );
     const description = blankToNull(str(record, 'use'));
     const scope = blankToNull(str(record, 'primary_scope_code'));
     const category = blankToNull(str(record, 'record_category'));
@@ -154,9 +158,11 @@ export const countyPermits: SourceAdapter = socrataAdapter(
         address: blankToNull(str(record, 'street_address')),
         city: blankToNull(str(record, 'city')),
         zip: zip5(str(record, 'zip_code')),
-        lat: point.success ? coordinate(point.data.coordinates[1]) : null,
-        lon: point.success ? coordinate(point.data.coordinates[0]) : null,
+        lat: located.lat,
+        lon: located.lon,
         source_updated_at: timestamp(str(record, 'last_updated')),
+        coord_note: located.note,
+        status_as_of: null,
       },
       {
         sourceRecordId: id,

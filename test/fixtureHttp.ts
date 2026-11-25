@@ -11,8 +11,8 @@ import type { HeadInfo, HttpClient } from '../src/http.js';
  */
 
 const Records = z.array(z.record(z.string(), z.unknown()));
-const Parcels = z.object({
-  features: z.array(z.looseObject({ attributes: z.looseObject({ objectid: z.number() }) })),
+const Features = z.object({
+  features: z.array(z.looseObject({ attributes: z.record(z.string(), z.unknown()) })),
 });
 
 const SOCRATA: Readonly<Record<string, string>> = {
@@ -60,19 +60,20 @@ export function createFixtureHttp(fixtureDir: string): FixtureHttp {
     return JSON.stringify(rows.slice(offset, offset + limit));
   };
 
-  const arcgis = async (url: URL): Promise<string> => {
-    if (!url.pathname.endsWith('/query')) return read('sandag_parcels/layer.json');
-    const { features } = Parcels.parse(JSON.parse(await read('sandag_parcels/parcels.json')));
+  /** An ArcGIS layer: layer metadata, the max-id statistic, and object-id range pages. */
+  const arcgis = async (url: URL, dir: string, file: string, idField: string): Promise<string> => {
+    if (!url.pathname.endsWith('/query')) return read(`${dir}/layer.json`);
+    const { features } = Features.parse(JSON.parse(await read(`${dir}/${file}`)));
+    const idOf = (f: (typeof features)[number]): number => z.number().parse(f.attributes[idField]);
     if (url.searchParams.has('outStatistics')) {
-      const mx = Math.max(0, ...features.map((f) => f.attributes.objectid));
-      return JSON.stringify({ features: [{ attributes: { mx } }] });
+      return JSON.stringify({ features: [{ attributes: { mx: Math.max(0, ...features.map(idOf)) } }] });
     }
-    const range = /objectid > (\d+) AND objectid <= (\d+)/.exec(url.searchParams.get('where') ?? '');
-    if (range === null) throw new Error(`fixture http: unsupported parcel query ${url.search}`);
+    const range = new RegExp(`${idField} > (\\d+) AND ${idField} <= (\\d+)`).exec(
+      url.searchParams.get('where') ?? '',
+    );
+    if (range === null) throw new Error(`fixture http: unsupported layer query ${url.search}`);
     const [low, high] = [Number(range[1]), Number(range[2])];
-    return JSON.stringify({
-      features: features.filter((f) => f.attributes.objectid > low && f.attributes.objectid <= high),
-    });
+    return JSON.stringify({ features: features.filter((f) => idOf(f) > low && idOf(f) <= high) });
   };
 
   return {
@@ -83,7 +84,10 @@ export function createFixtureHttp(fixtureDir: string): FixtureHttp {
       if (url.hostname === 'data.sandiegocounty.gov') {
         return socrata(url, path.basename(url.pathname, '.json'));
       }
-      if (url.hostname === 'geo.sandag.org') return arcgis(url);
+      if (url.hostname === 'geo.sandag.org') return arcgis(url, 'sandag_parcels', 'parcels.json', 'objectid');
+      if (url.hostname === 'services.arcgis.com') {
+        return arcgis(url, 'carlsbad_permits', 'permits.json', 'OBJECTID');
+      }
       throw new Error(`fixture http: unexpected request ${rawUrl}`);
     },
     async head(rawUrl: string): Promise<HeadInfo> {
