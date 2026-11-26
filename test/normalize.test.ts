@@ -3,6 +3,7 @@ import { normalizeClassifications } from '../src/adapters/cslbLicenses.js';
 import { cityStatusGroup } from '../src/adapters/cityPermits.js';
 import { countyStatusGroup } from '../src/adapters/countySocrata.js';
 import {
+  cityPermitHolder,
   coordinate,
   countyCoordinate,
   isoDatePart,
@@ -306,5 +307,77 @@ describe('resolveTransferDate: the century of a last-recorded document, three ou
       rule: 'unparseable',
     });
     expect(resolveTransferDate(null, today, taxableTyped).confidence).toBeNull();
+  });
+});
+
+// Holder strings below are real values of APPROVAL_PERMIT_HOLDER in the City of San Diego files.
+describe('cityPermitHolder', () => {
+  it('keeps one copy when the firm is listed twice', () => {
+    expect(cityPermitHolder('Elor Energy, Elor Energy')).toEqual({
+      name: 'Elor Energy',
+      nameNorm: 'ELOR ENERGY',
+    });
+    expect(cityPermitHolder('Crest Construction , Crest Construction')).toEqual({
+      name: 'Crest Construction',
+      nameNorm: 'CREST CONSTRUCTION',
+    });
+    expect(cityPermitHolder('SolarCity, SolarCity').nameNorm).toBe('SOLARCITY');
+  });
+  it('does not split on the comma before a legal form', () => {
+    expect(cityPermitHolder('Haaland Builders Inc., Haaland Builders Inc.')).toEqual({
+      name: 'Haaland Builders Inc.',
+      nameNorm: 'HAALAND BUILDERS',
+    });
+    expect(cityPermitHolder('Lennar Homes of California, LLC')).toEqual({
+      name: 'Lennar Homes of California, LLC',
+      nameNorm: 'LENNAR HOMES OF CALIFORNIA',
+    });
+    expect(cityPermitHolder('Western Fire Protection, Inc, Western Fire Protection')).toEqual({
+      name: 'Western Fire Protection, Inc',
+      nameNorm: 'WESTERN FIRE PROTECTION',
+    });
+    expect(cityPermitHolder('Sunrun, Inc., Daniel Altman')).toEqual({
+      name: 'Sunrun, Inc., Daniel Altman',
+      nameNorm: 'SUNRUN',
+    });
+  });
+  it('treats two spellings that normalise to the same name as one firm', () => {
+    expect(cityPermitHolder('Symons Fire Protection Inc., Symons Fire Protection')).toEqual({
+      name: 'Symons Fire Protection Inc.',
+      nameNorm: 'SYMONS FIRE PROTECTION',
+    });
+  });
+  it('keeps the text and matches on the firm when the second part is a contact person', () => {
+    expect(cityPermitHolder('Johnson Controls, Jim Sevick')).toEqual({
+      name: 'Johnson Controls, Jim Sevick',
+      nameNorm: 'JOHNSON CONTROLS',
+    });
+    expect(cityPermitHolder('California Delta Mechanical , Matt Drivinghawk').nameNorm).toBe(
+      'CALIFORNIA DELTA MECHANICAL',
+    );
+  });
+  it('drops parts that carry no name', () => {
+    expect(cityPermitHolder('Brookfield Homes, , Brookfield Homes')).toEqual({
+      name: 'Brookfield Homes',
+      nameNorm: 'BROOKFIELD HOMES',
+    });
+    expect(cityPermitHolder('WEST COAST APPLIANCE, ,,,,,,,,,,,,,,,,')).toEqual({
+      name: 'WEST COAST APPLIANCE',
+      nameNorm: 'WEST COAST APPLIANCE',
+    });
+  });
+  it('leaves a name with three or more different parts as published', () => {
+    const raw = 'West Coast Heating, Air Conditioning, & Solar';
+    expect(cityPermitHolder(raw)).toEqual({ name: raw, nameNorm: normalizeName(raw) });
+    const listed = 'ASI HEATING, AIR, & SOLAR, JESSE OBER';
+    expect(cityPermitHolder(listed)).toEqual({ name: listed, nameNorm: normalizeName(listed) });
+  });
+  it('passes a plain name and an empty value through unchanged', () => {
+    expect(cityPermitHolder('Baker Electric Solar')).toEqual({
+      name: 'Baker Electric Solar',
+      nameNorm: 'BAKER ELECTRIC SOLAR',
+    });
+    expect(cityPermitHolder('   ')).toEqual({ name: null, nameNorm: null });
+    expect(cityPermitHolder(null)).toEqual({ name: null, nameNorm: null });
   });
 });

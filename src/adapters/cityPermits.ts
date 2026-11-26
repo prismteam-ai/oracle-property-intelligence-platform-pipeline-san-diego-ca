@@ -1,9 +1,9 @@
 import {
   blankToNull,
+  cityPermitHolder,
   countyCoordinate,
   isoDatePart,
   normalizeApn,
-  normalizeName,
   toNumber,
   truncate,
 } from '../normalize.js';
@@ -98,7 +98,7 @@ export const cityPermits: SourceAdapter = {
         const roofing = classifyPermitRoofing(type, title, scope);
         const status = blankToNull(record['APPROVAL_STATUS']);
         const group = cityStatusGroup(status);
-        const holder = blankToNull(record['APPROVAL_PERMIT_HOLDER']);
+        const holder = cityPermitHolder(record['APPROVAL_PERMIT_HOLDER']);
         const apnRaw = blankToNull(record['GIS_APN']);
         const located = countyCoordinate(record['GIS_LATITUDE'], record['GIS_LONGITUDE']);
         yield validate(
@@ -125,8 +125,8 @@ export const cityPermits: SourceAdapter = {
             closed_date: closed.value,
             expire_date: expire.value,
             valuation: toNumber(record['APPROVAL_VALUATION']),
-            holder_name: holder,
-            holder_name_norm: normalizeName(holder),
+            holder_name: holder.name,
+            holder_name_norm: holder.nameNorm,
             address: blankToNull(record['GIS_ADDRESS']),
             city: 'SAN DIEGO',
             zip: null,

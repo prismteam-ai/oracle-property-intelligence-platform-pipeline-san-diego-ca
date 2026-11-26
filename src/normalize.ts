@@ -54,6 +54,55 @@ export function normalizeName(raw: string | null | undefined): string | null {
   return key === '' ? null : key;
 }
 
+const isLegalFormOnly = (part: string): boolean =>
+  NAME_SUFFIXES.has(part.toUpperCase().replace(/[.\s]/g, ''));
+
+export interface PermitHolder {
+  /** Name to show. */
+  readonly name: string | null;
+  /** Key used to match the holder to a licensed contractor. */
+  readonly nameNorm: string | null;
+}
+
+/**
+ * City of San Diego `APPROVAL_PERMIT_HOLDER` is two fields joined by a comma: the firm, then a
+ * second entry that is usually the same firm again ("Elor Energy, Elor Energy") and otherwise a
+ * contact person or a variant spelling ("Johnson Controls, Jim Sevick"). Of 1,097,315 holders in
+ * run 7, 596,473 had the comma; where the two parts differed and only one of them was a licensed
+ * contractor's name, it was the first part about 24 times in 25 (149,312 rows against 6,271).
+ *
+ *  - parts that are the same name (after the usual name normalisation): one copy is kept;
+ *  - exactly two different parts: the text is kept as published, the match key is the first part;
+ *  - anything else (three or more different parts) is left as it was: no guess.
+ *
+ * A comma before a legal form ("Sunrun, Inc., Daniel Altman") does not start a new part, and
+ * parts with no letter or digit ("WEST COAST APPLIANCE, ,,,,") are dropped.
+ */
+export function cityPermitHolder(raw: string | null | undefined): PermitHolder {
+  const value = blankToNull(raw);
+  if (value === null) return { name: null, nameNorm: null };
+  const parts: string[] = [];
+  for (const piece of value.split(',')) {
+    const part = piece.trim();
+    if (!/[A-Za-z0-9]/.test(part)) continue;
+    const last = parts.length - 1;
+    if (last >= 0 && isLegalFormOnly(part)) parts[last] = `${parts[last] ?? ''}, ${part}`;
+    else parts.push(part);
+  }
+  const whole: PermitHolder = { name: value, nameNorm: normalizeName(value) };
+  const first = parts[0];
+  if (first === undefined) return whole;
+  const keys = parts.map((part) => normalizeName(part));
+  if (keys.every((key) => key === keys[0])) return { name: first, nameNorm: keys[0] ?? null };
+  const half = parts.length / 2;
+  if (Number.isInteger(half) && keys.slice(0, half).join('|') === keys.slice(half).join('|')) {
+    const once = parts.slice(0, half).join(', ');
+    return { name: once, nameNorm: normalizeName(once) };
+  }
+  if (parts.length === 2) return { name: value, nameNorm: keys[0] ?? whole.nameNorm };
+  return whole;
+}
+
 /** CSLB licence numbers are 1 to 8 digits. Leading zeros are not significant. */
 export function normalizeLicense(raw: string | null | undefined): string | null {
   const value = blankToNull(raw);
