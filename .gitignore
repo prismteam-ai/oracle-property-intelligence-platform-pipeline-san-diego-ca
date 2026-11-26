@@ -8,3 +8,4 @@ coverage/
 .venv/
 cdk.out/
 cdk-outputs.json
+explorer/public/*.mp4
