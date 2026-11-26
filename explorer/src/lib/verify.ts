@@ -7,8 +7,9 @@ export interface Gateway {
   id: string;
   origin: string;
   /**
-   * independent: a public gateway with no relation to this project.
-   * vendor: the public, anonymous gateway of a service the snapshot is pinned with.
+   * independent: a public gateway with no relation to this project, on its own infrastructure.
+   * vendor: a public, anonymous gateway answered by a service the snapshot is pinned with: the
+   *   service's own gateway, or a third party's gateway that the service hosts.
    * browser: answers scripts with HTTP 429 and serves only through its in-page service worker.
    */
   kind: GatewayKind;
@@ -43,7 +44,12 @@ export const BROWSER_ONLY_NOTE =
 
 const VENDOR_NOTE =
   'Run by a service this snapshot is pinned with, but public and anonymous: no key, no login. ' +
-  'Counted as evidence and labelled separately from the independent gateways.';
+  'Shown as evidence, labelled separately, and not counted towards the two independent gateways.';
+
+const HOSTED_BY_VENDOR_NOTE =
+  'Rarible\u2019s gateway, but hosted by Filebase (a DNS alias of s3.filebase.com that answers with ' +
+  '\u201cServer: Filebase\u201d), one of the two services this snapshot is pinned with. It is therefore ' +
+  'classed with the pinning vendors, not as independent.';
 
 const gw = (id: string, kind: GatewayKind, note: string | null): Gateway => ({
   id,
@@ -53,18 +59,39 @@ const gw = (id: string, kind: GatewayKind, note: string | null): Gateway => ({
   note,
 });
 
-/** Public gateways. None is operated by this project. */
 /**
- * The gateways the automatic check fetches from. All five are public and anonymous, send CORS
- * headers and returned this project's content with the manifest digest when last checked.
+ * The gateways the automatic check fetches from. None is operated by this project. All are public
+ * and anonymous, send CORS headers and returned this project's content with the manifest digest
+ * when last checked (26 Nov 2026). The command-line check (`npm run verify:ipfs`) uses these and
+ * two more independent ones.
  */
 export const GATEWAYS: readonly Gateway[] = [
   gw('latam.orbitor.dev', 'independent', null),
-  gw('ipfs.raribleuserdata.com', 'independent', null),
+  gw('gateway.pinit.io', 'independent', null),
+  gw('ipfs.aleph.cloud', 'independent', null),
+  gw('ipfs.thegraph.com', 'independent', null),
   gw('ipfs.hypha.coop', 'independent', null),
   gw('gateway.pinata.cloud', 'vendor', VENDOR_NOTE),
   gw('ipfs.filebase.io', 'vendor', VENDOR_NOTE),
+  gw('ipfs.raribleuserdata.com', 'vendor', HOSTED_BY_VENDOR_NOTE),
 ];
+
+/** How many independent gateways must return matching bytes before an object counts as verified. */
+export const REQUIRED_INDEPENDENT = 2;
+
+/**
+ * Large objects are downloaded in full, one gateway after another, so they go to a shorter list:
+ * three independent gateways and the two pinning vendors' own.
+ */
+export const LARGE_OBJECT_GATEWAYS: readonly Gateway[] = GATEWAYS.filter((g) =>
+  [
+    'latam.orbitor.dev',
+    'gateway.pinit.io',
+    'ipfs.aleph.cloud',
+    'gateway.pinata.cloud',
+    'ipfs.filebase.io',
+  ].includes(g.id),
+);
 
 export interface OtherGateway {
   id: string;
@@ -96,6 +123,11 @@ export const OTHER_GATEWAYS: readonly OtherGateway[] = [
     id: 'dweb.link',
     origin: 'https://dweb.link',
     status: 'interactive browsers only; scripts get HTTP 429',
+  },
+  {
+    id: 'w3s.link',
+    origin: 'https://w3s.link',
+    status: 'scripts get HTTP 429',
   },
 ];
 
@@ -325,7 +357,7 @@ export interface VerifySummary {
   /** Browser-only gateways that did answer a script; normally zero. */
   browser: number;
   attempted: number;
-  /** The demo bar: the same bytes from at least two public gateways. */
+  /** The bar: the same bytes from at least two independent gateways. Vendor gateways do not count. */
   verified: boolean;
 }
 
@@ -341,7 +373,7 @@ export function summarize(checks: readonly GatewayCheck[], needDigest = true): V
     vendor: count('vendor'),
     browser: count('browser'),
     attempted: checks.length,
-    verified: good.length >= 2,
+    verified: count('independent') >= REQUIRED_INDEPENDENT,
   };
 }
 
@@ -353,14 +385,15 @@ export function verdict(checks: readonly GatewayCheck[], needDigest = true): str
   const split = `(${s.independent} independent, ${s.vendor} pinning-vendor${
     s.browser > 0 ? `, ${s.browser} browser-only` : ''
   })`;
+  const need = `${REQUIRED_INDEPENDENT} independent gateways are required`;
   if (needDigest) {
     return s.verified
       ? `Verified: bytes match the manifest on ${plural(s.matched, 'public gateway')} ${split}.`
-      : `Not verified: bytes match the manifest on only ${s.matched} of ${plural(s.attempted, 'gateway')} tried ${split}.`;
+      : `Not verified: bytes match the manifest on only ${s.matched} of ${plural(s.attempted, 'gateway')} tried ${split}; ${need}.`;
   }
   return s.verified
     ? `Resolves on ${plural(s.matched, 'public gateway')} ${split}; no recorded digest to compare with.`
-    : `Resolves on only ${s.matched} of ${plural(s.attempted, 'gateway')} tried ${split}.`;
+    : `Resolves on only ${s.matched} of ${plural(s.attempted, 'gateway')} tried ${split}; ${need}.`;
 }
 
 export const OUTCOME_LABEL: Record<CheckOutcome, string> = {

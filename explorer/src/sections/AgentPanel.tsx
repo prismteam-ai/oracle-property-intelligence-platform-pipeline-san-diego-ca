@@ -95,6 +95,17 @@ function Answer({
         )}
       </section>
 
+      {response.notes.length > 0 ? (
+        <section aria-label="Notes on the retrieved rows">
+          <h4>Notes on the retrieved rows</h4>
+          <ul className="bullets" data-testid="agent-notes">
+            {response.notes.map((n) => (
+              <li key={n}>{n}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
       <section aria-label="Evidence">
         <h4>Evidence: the tool calls behind the answer</h4>
         {response.evidence.length === 0 ? (

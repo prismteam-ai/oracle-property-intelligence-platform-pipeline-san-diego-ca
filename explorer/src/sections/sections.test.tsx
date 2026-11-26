@@ -469,6 +469,7 @@ describe('agent row counts', () => {
     const ask = vi.fn().mockResolvedValue({
       answer: 'Many.',
       assumptions: [],
+      notes: [],
       evidence: [{ tool: 'findRoofingLeads', sql: null, rowCount: 204, note: null }],
       rows: [{ apn: '1' }, { apn: '2' }],
       points: [],
@@ -487,6 +488,7 @@ describe('agent row counts', () => {
       retrievedCount({
         answer: '',
         assumptions: [],
+        notes: [],
         evidence: [{ tool: 't', rowCount: 2 }],
         rows: [{ a: 1 }, { a: 2 }],
         points: [],
@@ -550,10 +552,11 @@ describe('permit totals and publication status', () => {
       'href',
       'https://latam.orbitor.dev/ipfs/bafybeicarcarcar',
     );
-    expect(car.getByRole('link', { name: 'Fetch from ipfs.raribleuserdata.com' })).toHaveAttribute(
+    expect(car.getByRole('link', { name: 'Fetch from gateway.pinit.io' })).toHaveAttribute(
       'href',
-      'https://ipfs.raribleuserdata.com/ipfs/bafybeicarcarcar',
+      'https://gateway.pinit.io/ipfs/bafybeicarcarcar',
     );
+    expect(car.getAllByRole('link')).toHaveLength(2);
     expect(screen.getByTestId('car-3')).toHaveTextContent('not published as a separate object');
     expect(fetchMock).not.toHaveBeenCalled();
   });
@@ -572,6 +575,41 @@ describe('permit totals and publication status', () => {
     expect(rows[0]).toHaveTextContent('verified on 5 public gateways when published');
     expect(rows[1]).toHaveTextContent('not yet verified on public gateways');
     expect(rows[1]).not.toHaveTextContent('0 gateways');
+    expect(rows[0]).not.toHaveTextContent('independent)');
+  });
+
+  it('adds how many of the verifying gateways were independent when the run records it', () => {
+    render(
+      <PublicationHistory
+        manifest={null}
+        publications={[
+          {
+            runId: 8,
+            createdAt: '2026-11-26T10:00:00Z',
+            rootCid: 'bafyeight',
+            verifiedGateways: 7,
+            verifiedIndependentGateways: 4,
+          },
+          {
+            runId: 7,
+            createdAt: '2026-11-26T09:00:00Z',
+            rootCid: 'bafyseven',
+            verifiedGateways: 3,
+            verifiedIndependentGateways: 0,
+          },
+          { runId: 6, createdAt: '2026-11-25T17:39:55Z', rootCid: 'bafysix', verifiedGateways: 5 },
+        ]}
+      />,
+    );
+    const rows = within(screen.getByTestId('publication-history')).getAllByRole('listitem');
+    expect(rows[0]).toHaveTextContent(
+      'verified on 7 public gateways when published (4 independent)',
+    );
+    expect(rows[1]).toHaveTextContent(
+      'verified on 3 public gateways when published (0 independent)',
+    );
+    expect(rows[2]).toHaveTextContent('verified on 5 public gateways when published');
+    expect(rows[2]).not.toHaveTextContent('independent)');
   });
 });
 
@@ -727,7 +765,13 @@ describe('Artifacts', () => {
       'href',
       `https://ipfs.hypha.coop/ipfs/${manifest.rootCid}/coverage.json`,
     );
-    expect(row.queryByRole('link', { name: /ipfs\.io|dweb\.link|4everland|storry/ })).toBeNull();
+    expect(row.getByRole('link', { name: 'gateway.pinit.io' })).toHaveAttribute(
+      'href',
+      `https://gateway.pinit.io/ipfs/${manifest.rootCid}/coverage.json`,
+    );
+    expect(
+      row.queryByRole('link', { name: /ipfs\.io|dweb\.link|4everland|storry|w3s\.link/ }),
+    ).toBeNull();
   });
 
   it('keeps the full check of a large object behind an explicit button with a size warning', () => {
@@ -735,7 +779,7 @@ describe('Artifacts', () => {
     expect(screen.queryByTestId('verify-query-table-parquet')).not.toBeInTheDocument();
     expect(screen.getByTestId('large-warning-query-table-parquet')).toHaveTextContent('64.0 MB');
     expect(screen.getByTestId('verify-full-query-table-parquet')).toHaveTextContent(
-      'Download and verify in full',
+      'Download and verify in full (64.0 MB × 5 gateways)',
     );
   });
 
@@ -759,15 +803,112 @@ describe('Artifacts', () => {
     expect(await outcome('ipfs.filebase.io')).toBe('match');
     expect(await outcome('ipfs.raribleuserdata.com')).toBe('mismatch');
     expect(await outcome('ipfs.hypha.coop')).toBe('cors_blocked');
+    expect(await outcome('gateway.pinit.io')).toBe('cors_blocked');
+    expect(await outcome('ipfs.aleph.cloud')).toBe('cors_blocked');
+    expect(await outcome('ipfs.thegraph.com')).toBe('cors_blocked');
     expect(screen.getByTestId('verify-result-coverage-json-ipfs.hypha.coop')).toHaveTextContent(
       'Blocked by CORS',
     );
     expect(
       screen.getByTestId('verify-result-coverage-json-gateway.pinata.cloud-kind'),
     ).toHaveTextContent('Pinning-vendor public gateway');
-    expect(screen.getByTestId('verify-result-coverage-json-summary')).toHaveTextContent(
-      'Verified: bytes match the manifest on 3 public gateways (1 independent, 2 pinning-vendor).',
+    expect(
+      screen.getByTestId('verify-result-coverage-json-ipfs.raribleuserdata.com-kind'),
+    ).toHaveTextContent('Pinning-vendor public gateway');
+    expect(
+      screen.getByTestId('verify-result-coverage-json-latam.orbitor.dev-kind'),
+    ).toHaveTextContent('Independent');
+    // One independent match plus two vendor matches is below the bar of two independent.
+    await waitFor(() =>
+      expect(screen.getByTestId('verify-result-coverage-json-summary')).toHaveTextContent(
+        'Not verified: bytes match the manifest on only 3 of 8 gateways tried (1 independent, 2 pinning-vendor); 2 independent gateways are required.',
+      ),
     );
+  });
+
+  it('verifies on two independent gateways and not on the three vendor gateways alone', async () => {
+    const serveFrom =
+      (pattern: RegExp) =>
+      async (input: Parameters<typeof fetch>[0]): Promise<Response> =>
+        pattern.test(String(input)) ? new Response(small) : new Response('gone', { status: 504 });
+
+    const independent = vi.fn<typeof fetch>(serveFrom(/latam\.orbitor|gateway\.pinit/));
+    const first = render(
+      <ManifestView manifest={manifest} deps={{ fetchImpl: independent, digest }} />,
+    );
+    await userEvent.click(screen.getByTestId('verify-coverage-json'));
+    await waitFor(() =>
+      expect(screen.getByTestId('verify-result-coverage-json-summary')).toHaveTextContent(
+        /^Verified: bytes match the manifest on 2 public gateways \(2 independent, 0 pinning-vendor\)\.$/,
+      ),
+    );
+    first.unmount();
+
+    const vendors = vi.fn<typeof fetch>(serveFrom(/pinata|filebase|raribleuserdata/));
+    render(<ManifestView manifest={manifest} deps={{ fetchImpl: vendors, digest }} />);
+    await userEvent.click(screen.getByTestId('verify-coverage-json'));
+    await waitFor(() =>
+      expect(screen.getByTestId('verify-result-coverage-json-summary')).toHaveTextContent(
+        'Not verified: bytes match the manifest on only 3 of 8 gateways tried (0 independent, 3 pinning-vendor); 2 independent gateways are required.',
+      ),
+    );
+    expect(
+      screen.getByTestId('verify-result-coverage-json-ipfs.raribleuserdata.com'),
+    ).toHaveAttribute('data-outcome', 'match');
+  });
+
+  it('shows a root named "/" as the directory root, with its digest and what it was taken over', async () => {
+    const carSha = 'ef'.repeat(32);
+    const digestOf = 'run-0008.car: the CAR of this directory, 172,439,155 bytes';
+    const run8: Manifest = {
+      ...manifest,
+      runId: 8,
+      objects: manifest.objects.map((o) =>
+        o.name === '' ? { ...o, name: '/', sha256: carSha, digestOf } : o,
+      ),
+    };
+    const fetchImpl = vi.fn<typeof fetch>(async () => new Response('<html>listing</html>'));
+    render(<ManifestView manifest={run8} deps={{ fetchImpl, digest }} />);
+    const row = within(screen.getByTestId('object-root'));
+    expect(row.getByText('Directory root (the snapshot)')).toBeInTheDocument();
+    expect(row.getByText('directory')).toBeInTheDocument();
+    expect(row.getByTestId('sha-root')).toHaveTextContent(carSha);
+    expect(row.getByTestId('digest-of-root')).toHaveTextContent(`of ${digestOf}`);
+    expect(screen.getByTestId('object-root')).not.toHaveTextContent('a directory is a DAG node');
+    for (const origin of ['https://latam.orbitor.dev', 'https://ipfs.filebase.io']) {
+      expect(row.getByRole('link', { name: origin.replace('https://', '') })).toHaveAttribute(
+        'href',
+        `${origin}/ipfs/${run8.rootCid}/`,
+      );
+    }
+    // A file keeps its plain digest, with no "of ..." text.
+    expect(screen.queryByTestId('digest-of-coverage-json')).not.toBeInTheDocument();
+
+    // The digest is of the CAR, not of what a gateway returns for the directory, so the check
+    // shows reachability only and must not call the listing a mismatch.
+    expect(row.getByTestId('verify-root')).toHaveTextContent('Check it resolves');
+    await userEvent.click(row.getByTestId('verify-root'));
+    await waitFor(() =>
+      expect(screen.getByTestId('verify-result-root-summary')).toHaveTextContent(
+        'Resolves on 8 public gateways (5 independent, 3 pinning-vendor); no recorded digest to compare with.',
+      ),
+    );
+    expect(screen.getByTestId('verify-result-root-latam.orbitor.dev')).toHaveAttribute(
+      'data-outcome',
+      'resolved',
+    );
+    expect(String(fetchImpl.mock.calls[0]?.[0])).toBe(
+      `https://latam.orbitor.dev/ipfs/${run8.rootCid}/`,
+    );
+  });
+
+  it('still shows an older root named "" with no digest', () => {
+    render(<ManifestView manifest={manifest} />);
+    const root = screen.getByTestId('object-root');
+    expect(root).toHaveTextContent('Directory root (the snapshot)');
+    expect(root).toHaveTextContent('none: a directory is a DAG node');
+    expect(screen.queryByTestId('sha-root')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('digest-of-root')).not.toBeInTheDocument();
   });
 
   it('never fetches from the gateways outside the automatic check', async () => {
@@ -776,15 +917,15 @@ describe('Artifacts', () => {
     await userEvent.click(screen.getByTestId('verify-coverage-json'));
     await waitFor(() =>
       expect(screen.getByTestId('verify-result-coverage-json-summary')).toHaveTextContent(
-        'Verified: bytes match the manifest on 5 public gateways (3 independent, 2 pinning-vendor).',
+        'Verified: bytes match the manifest on 8 public gateways (5 independent, 3 pinning-vendor).',
       ),
     );
     const hosts = fetchImpl.mock.calls.map((c) => new URL(String(c[0])).host);
-    expect(hosts).toHaveLength(5);
-    expect(hosts.join(' ')).not.toMatch(/ipfs\.io|dweb\.link|4everland|storry/);
+    expect(hosts).toHaveLength(8);
+    expect(hosts.join(' ')).not.toMatch(/ipfs\.io|dweb\.link|4everland|storry|w3s\.link/);
   });
 
-  it('prints the verdict as soon as two gateways match, while a slow one is still pending', async () => {
+  it('prints the verdict as soon as two independent gateways match, while a slow one is still pending', async () => {
     let releaseSlow: (response: Response) => void = () => undefined;
     const fetchImpl = vi.fn<typeof fetch>(async (input) => {
       const url = String(input);
@@ -793,7 +934,7 @@ describe('Artifacts', () => {
           releaseSlow = resolve;
         });
       }
-      if (/latam\.orbitor|filebase/.test(url)) return new Response(small);
+      if (/latam\.orbitor|gateway\.pinit|filebase/.test(url)) return new Response(small);
       return new Response('gone', { status: 504 });
     });
     render(<ManifestView manifest={manifest} deps={{ fetchImpl, digest }} />);
@@ -801,7 +942,7 @@ describe('Artifacts', () => {
 
     await waitFor(() =>
       expect(screen.getByTestId('verify-result-coverage-json-summary')).toHaveTextContent(
-        'Verified: bytes match the manifest on 2 public gateways (1 independent, 1 pinning-vendor). Still waiting on 1 slower gateway.',
+        'Verified: bytes match the manifest on 3 public gateways (2 independent, 1 pinning-vendor). Still waiting on 1 slower gateway.',
       ),
     );
     expect(screen.getByTestId('verify-result-coverage-json')).toHaveAttribute(
@@ -816,7 +957,7 @@ describe('Artifacts', () => {
     releaseSlow(new Response(small));
     await waitFor(() =>
       expect(screen.getByTestId('verify-result-coverage-json-summary')).toHaveTextContent(
-        /^Verified: bytes match the manifest on 3 public gateways \(2 independent, 1 pinning-vendor\)\.$/,
+        /^Verified: bytes match the manifest on 4 public gateways \(3 independent, 1 pinning-vendor\)\.$/,
       ),
     );
     expect(screen.getByTestId('verify-result-coverage-json')).toHaveAttribute(
@@ -825,12 +966,12 @@ describe('Artifacts', () => {
     );
   });
 
-  it('does not claim verification when fewer than two gateways match', async () => {
+  it('does not claim verification when fewer than two independent gateways match', async () => {
     const fetchImpl = vi.fn<typeof fetch>().mockRejectedValue(new TypeError('Failed to fetch'));
     render(<ManifestView manifest={manifest} deps={{ fetchImpl, digest }} />);
     await userEvent.click(screen.getByTestId('verify-coverage-json'));
     expect(await screen.findByTestId('verify-result-coverage-json-summary')).toHaveTextContent(
-      'Not verified: bytes match the manifest on only 0 of 5 gateways tried',
+      'Not verified: bytes match the manifest on only 0 of 8 gateways tried (0 independent, 0 pinning-vendor); 2 independent gateways are required.',
     );
   });
 
@@ -918,7 +1059,7 @@ describe('Artifacts', () => {
     );
     await userEvent.click(screen.getByTestId('check-resolves-2'));
     expect(await screen.findByTestId('resolve-result-2-summary')).toHaveTextContent(
-      'Resolves on 5 public gateways (3 independent, 2 pinning-vendor); no recorded digest',
+      'Resolves on 8 public gateways (5 independent, 3 pinning-vendor); no recorded digest',
     );
   });
 
@@ -951,10 +1092,11 @@ describe('Artifacts', () => {
     await userEvent.click(screen.getByTestId('ipns-resolve'));
     await waitFor(() =>
       expect(screen.getByTestId('ipns-result-summary')).toHaveTextContent(
-        'Verified: bytes match the manifest on 2 public gateways (1 independent, 1 pinning-vendor).',
+        'Verified: bytes match the manifest on 3 public gateways (2 independent, 1 pinning-vendor).',
       ),
     );
     expect(fetchImpl.mock.calls.map((c) => String(c[0])).sort()).toEqual([
+      `https://gateway.pinit.io/ipns/${name}/coverage.json`,
       `https://ipfs.filebase.io/ipns/${name}/coverage.json`,
       `https://latam.orbitor.dev/ipns/${name}/coverage.json`,
     ]);
@@ -1002,6 +1144,13 @@ describe('Artifacts', () => {
       'not deployed on this API yet',
     );
     expect(screen.getByTestId('gateway-list')).toHaveTextContent('ipfs.hypha.coop');
+    expect(screen.getByTestId('gateway-ipfs.raribleuserdata.com')).toHaveTextContent(
+      'Pinning-vendor public gateway',
+    );
+    expect(screen.getByTestId('gateway-ipfs.raribleuserdata.com')).toHaveTextContent(
+      'hosted by Filebase',
+    );
+    expect(screen.getByTestId('other-gateway-w3s.link')).toHaveTextContent('scripts get HTTP 429');
     expect(screen.getByTestId('other-gateway-ipfs.io')).toHaveTextContent(
       'interactive browsers only; scripts get HTTP 429',
     );
@@ -1015,6 +1164,7 @@ describe('AgentPanel', () => {
   const response: AgentResponse = {
     answer: 'There are 2 matching properties.',
     assumptions: ['Roof age is a proxy from the assessor year.'],
+    notes: [],
     evidence: [
       { tool: 'queryAtlas', sql: 'SELECT apn FROM parcel', rowCount: 2, note: 'radius filter' },
     ],
@@ -1059,6 +1209,31 @@ describe('AgentPanel', () => {
     expect(await screen.findByTestId('agent-map')).toHaveAttribute('data-point-count', '2');
   });
 
+  it('lists the notes on the retrieved rows when the service sends any', async () => {
+    const notes = ['Two of the rows share one address.', 'Contractor is missing on 1 open permit.'];
+    const ask = vi.fn().mockResolvedValue({ ...response, notes });
+    render(<AgentPanel ask={ask} />);
+    await userEvent.click(screen.getByTestId('agent-example-aged-roofs'));
+    const list = await screen.findByTestId('agent-notes');
+    expect(
+      within(list)
+        .getAllByRole('listitem')
+        .map((li) => li.textContent),
+    ).toEqual(notes);
+    expect(
+      screen.getByRole('heading', { name: 'Notes on the retrieved rows' }),
+    ).toBeInTheDocument();
+  });
+
+  it('shows no notes section when there are no notes', async () => {
+    const ask = vi.fn().mockResolvedValue(response);
+    render(<AgentPanel ask={ask} />);
+    await userEvent.click(screen.getByTestId('agent-example-aged-roofs'));
+    await screen.findByTestId('agent-answer');
+    expect(screen.queryByTestId('agent-notes')).not.toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'Notes on the retrieved rows' })).toBeNull();
+  });
+
   it('says clearly when the agent endpoint is not available yet (404)', async () => {
     const ask = vi.fn().mockRejectedValue(new AgentUnavailableError());
     render(<AgentPanel ask={ask} />);
@@ -1093,6 +1268,7 @@ describe('askAgent', () => {
     await expect(askAgent({ question: 'q' }, { fetchImpl: ok })).resolves.toMatchObject({
       answer: 'hi',
       assumptions: [],
+      notes: [],
       evidence: [],
       rows: [],
       points: [],

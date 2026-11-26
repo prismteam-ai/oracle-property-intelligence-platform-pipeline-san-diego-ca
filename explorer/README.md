@@ -75,20 +75,22 @@ The URL hash selects the section, so each one can be linked and opened directly.
 "Verify now" fetches the object in the browser from every listed gateway, hashes the bytes with
 WebCrypto and compares size and SHA-256 with the manifest. Each gateway carries a visible kind:
 
-| Kind                          | Gateways in the automatic check                                    |
-| ----------------------------- | ------------------------------------------------------------------ |
-| Independent                   | `latam.orbitor.dev`, `ipfs.raribleuserdata.com`, `ipfs.hypha.coop` |
-| Pinning-vendor public gateway | `gateway.pinata.cloud`, `ipfs.filebase.io`                         |
+| Kind                                       | Gateways in the automatic check                                                                        |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| Independent                                | `latam.orbitor.dev`, `gateway.pinit.io`, `ipfs.aleph.cloud`, `ipfs.thegraph.com`, `ipfs.hypha.coop`    |
+| Answered by a pinning vendor (not counted) | `gateway.pinata.cloud`, `ipfs.filebase.io`, `ipfs.raribleuserdata.com` (Rarible's, hosted by Filebase) |
 
-Four more gateways are listed under "Other gateways" as plain links with a one-line status and are
+Five more gateways are listed under "Other gateways" as plain links with a one-line status and are
 never fetched by the page: `4everland.io` and `storry.tv` (did not find this content when last
-checked), `ipfs.io` and `dweb.link` (interactive browsers only; scripts get HTTP 429). A full
-verify therefore produces no console errors.
+checked), `ipfs.io`, `dweb.link` and `w3s.link` (scripts get HTTP 429). A full verify therefore
+produces no console errors.
 
-A gateway counts as evidence when it is public and anonymous, so the vendor gateways count and are
-labelled as such. An object is verified when at least two gateways return matching bytes, and the
-verdict says how many of each kind, e.g. "Verified: bytes match the manifest on 5 public gateways (3 independent, 2 pinning-vendor)". Objects over 20 MB are only checked after pressing an explicit
-button that states the size; they are fetched one gateway at a time.
+An object is verified when at least two independent gateways return matching bytes. The vendor
+gateways are public and anonymous, so they are fetched and shown, labelled as such, but they do not
+count towards the two. The verdict says how many of each kind, e.g. "Verified: bytes match the
+manifest on 8 public gateways (5 independent, 3 pinning-vendor)". Objects over 20 MB are only
+checked after pressing an explicit button that states the size; they go to five of the gateways
+(three independent, two vendor), one at a time.
 
 Every gateway is fetched in parallel and each result is shown as it arrives. A gateway has 12
 seconds to answer for objects under 1 MB (12 seconds to start answering for objects up to 20 MB;

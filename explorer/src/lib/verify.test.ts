@@ -2,10 +2,13 @@ import { webcrypto } from 'node:crypto';
 import { describe, expect, it, vi } from 'vitest';
 import {
   GATEWAYS,
+  LARGE_OBJECT_GATEWAYS,
   OTHER_GATEWAYS,
+  REQUIRED_INDEPENDENT,
   budgetFor,
   checkGateway,
   gatewayUrl,
+  kindOf,
   summarize,
   verdict,
   type GatewayCheck,
@@ -148,32 +151,53 @@ describe('summarize and verdict', () => {
   it('lists the gateways by kind, independent first', () => {
     expect(GATEWAYS.map((g) => `${g.id}:${g.kind}`)).toEqual([
       'latam.orbitor.dev:independent',
-      'ipfs.raribleuserdata.com:independent',
+      'gateway.pinit.io:independent',
+      'ipfs.aleph.cloud:independent',
+      'ipfs.thegraph.com:independent',
       'ipfs.hypha.coop:independent',
       'gateway.pinata.cloud:vendor',
       'ipfs.filebase.io:vendor',
+      'ipfs.raribleuserdata.com:vendor',
     ]);
-    // The four that do not serve this content to scripts are listed, never fetched.
+    // The five that do not serve this content to scripts are listed, never fetched.
     expect(OTHER_GATEWAYS.map((g) => g.id)).toEqual([
       '4everland.io',
       'storry.tv',
       'ipfs.io',
       'dweb.link',
+      'w3s.link',
     ]);
     expect(
       GATEWAYS.map((g) => g.id).filter((id) => OTHER_GATEWAYS.some((o) => o.id === id)),
     ).toEqual([]);
   });
 
-  it('counts public vendor gateways as evidence and says which kind matched', () => {
+  it('classes the Filebase-hosted Rarible gateway as a pinning vendor', () => {
+    expect(kindOf('ipfs.raribleuserdata.com')).toBe('vendor');
+    expect(kindOf('gateway.pinata.cloud')).toBe('vendor');
+    expect(kindOf('ipfs.filebase.io')).toBe('vendor');
+    expect(kindOf('gateway.pinit.io')).toBe('independent');
+  });
+
+  it('sends large objects to three independent gateways and the two vendors’ own', () => {
+    expect(LARGE_OBJECT_GATEWAYS.map((g) => `${g.id}:${g.kind}`)).toEqual([
+      'latam.orbitor.dev:independent',
+      'gateway.pinit.io:independent',
+      'ipfs.aleph.cloud:independent',
+      'gateway.pinata.cloud:vendor',
+      'ipfs.filebase.io:vendor',
+    ]);
+  });
+
+  it('shows vendor matches as evidence but does not count them towards the bar', () => {
     const checks = [
       check('latam.orbitor.dev', 'match'),
-      check('4everland.io', 'cors_blocked'),
-      check('storry.tv', 'http_error'),
+      check('gateway.pinit.io', 'cors_blocked'),
+      check('ipfs.aleph.cloud', 'http_error'),
       check('gateway.pinata.cloud', 'match'),
       check('ipfs.filebase.io', 'match'),
-      check('ipfs.io', 'network_error'),
-      check('dweb.link', 'network_error'),
+      check('ipfs.thegraph.com', 'network_error'),
+      check('ipfs.hypha.coop', 'network_error'),
     ];
     expect(summarize(checks)).toEqual({
       matched: 3,
@@ -181,40 +205,84 @@ describe('summarize and verdict', () => {
       vendor: 2,
       browser: 0,
       attempted: 7,
+      verified: false,
+    });
+    expect(verdict(checks)).toBe(
+      'Not verified: bytes match the manifest on only 3 of 7 gateways tried (1 independent, 2 pinning-vendor); 2 independent gateways are required.',
+    );
+  });
+
+  it('is verified once two independent gateways match, and says which kind matched', () => {
+    expect(REQUIRED_INDEPENDENT).toBe(2);
+    const checks = [
+      check('latam.orbitor.dev', 'match'),
+      check('gateway.pinit.io', 'match'),
+      check('ipfs.aleph.cloud', 'http_error'),
+      check('gateway.pinata.cloud', 'match'),
+      check('ipfs.filebase.io', 'match'),
+      check('ipfs.thegraph.com', 'network_error'),
+      check('ipfs.hypha.coop', 'network_error'),
+    ];
+    expect(summarize(checks)).toEqual({
+      matched: 4,
+      independent: 2,
+      vendor: 2,
+      browser: 0,
+      attempted: 7,
       verified: true,
     });
     expect(verdict(checks)).toBe(
-      'Verified: bytes match the manifest on 3 public gateways (1 independent, 2 pinning-vendor).',
+      'Verified: bytes match the manifest on 4 public gateways (2 independent, 2 pinning-vendor).',
     );
   });
 
-  it('reads 5 public gateways when all three independent and both vendor gateways match', () => {
+  it('does not verify on vendor gateways alone, however many match', () => {
     const checks = [
-      check('latam.orbitor.dev', 'match'),
-      check('ipfs.raribleuserdata.com', 'match'),
-      check('ipfs.hypha.coop', 'match'),
       check('gateway.pinata.cloud', 'match'),
       check('ipfs.filebase.io', 'match'),
-      check('4everland.io', 'timeout'),
-      check('storry.tv', 'http_error'),
+      check('ipfs.raribleuserdata.com', 'match'),
     ];
+    expect(summarize(checks)).toEqual({
+      matched: 3,
+      independent: 0,
+      vendor: 3,
+      browser: 0,
+      attempted: 3,
+      verified: false,
+    });
     expect(verdict(checks)).toBe(
-      'Verified: bytes match the manifest on 5 public gateways (3 independent, 2 pinning-vendor).',
+      'Not verified: bytes match the manifest on only 3 of 3 gateways tried (0 independent, 3 pinning-vendor); 2 independent gateways are required.',
     );
   });
 
-  it('needs two matching gateways and never counts a failure', () => {
-    const checks = [check('latam.orbitor.dev', 'match'), check('storry.tv', 'http_error')];
+  it('reads 8 public gateways when all five independent and all three vendor gateways match', () => {
+    const checks = GATEWAYS.map((g) => check(g.id, 'match'));
+    expect(verdict(checks)).toBe(
+      'Verified: bytes match the manifest on 8 public gateways (5 independent, 3 pinning-vendor).',
+    );
+  });
+
+  it('needs two matching independent gateways and never counts a failure', () => {
+    const checks = [check('latam.orbitor.dev', 'match'), check('ipfs.hypha.coop', 'http_error')];
     expect(summarize(checks).verified).toBe(false);
     expect(verdict(checks)).toBe(
-      'Not verified: bytes match the manifest on only 1 of 2 gateways tried (1 independent, 0 pinning-vendor).',
+      'Not verified: bytes match the manifest on only 1 of 2 gateways tried (1 independent, 0 pinning-vendor); 2 independent gateways are required.',
     );
   });
 
-  it('counts "resolved" only when no digest is expected', () => {
-    const checks = [check('latam.orbitor.dev', 'resolved'), check('ipfs.filebase.io', 'resolved')];
+  it('counts "resolved" only when no digest is expected, and still needs two independent', () => {
+    const mixed = [check('latam.orbitor.dev', 'resolved'), check('ipfs.filebase.io', 'resolved')];
+    expect(summarize(mixed).verified).toBe(false);
+    expect(summarize(mixed, false).verified).toBe(false);
+    expect(verdict(mixed, false)).toBe(
+      'Resolves on only 2 of 2 gateways tried (1 independent, 1 pinning-vendor); 2 independent gateways are required.',
+    );
+
+    const checks = [...mixed, check('gateway.pinit.io', 'resolved')];
     expect(summarize(checks).verified).toBe(false);
     expect(summarize(checks, false).verified).toBe(true);
-    expect(verdict(checks, false)).toMatch(/^Resolves on 2 public gateways \(1 independent, 1/);
+    expect(verdict(checks, false)).toBe(
+      'Resolves on 3 public gateways (2 independent, 1 pinning-vendor); no recorded digest to compare with.',
+    );
   });
 });

@@ -193,6 +193,8 @@ export const manifestObjectSchema = z.object({
   size: num,
   codec: z.string(),
   sha256: z.string().nullable(),
+  /** From run 8: what a directory's digest was taken over (its CAR). Absent for files. */
+  digestOf: z.string().optional(),
 });
 export type ManifestObject = z.infer<typeof manifestObjectSchema>;
 
@@ -231,6 +233,8 @@ export const publicationSchema = z.object({
   objects: num.optional(),
   bytes: num.optional(),
   verifiedGateways: num.optional(),
+  /** Of those, the ones that are not a pinning vendor's. Recorded from run 8 on. */
+  verifiedIndependentGateways: num.optional(),
   /** The run's CAR published as its own object; absent on older index entries. */
   car: z
     .object({
@@ -269,6 +273,8 @@ export const publicationHistorySchema = z.union([
 export const agentResponseSchema = z.object({
   answer: z.string(),
   assumptions: z.array(z.string()).default([]),
+  /** Remarks computed from the rows by the service, not written by the model. */
+  notes: z.array(z.string()).default([]),
   evidence: z
     .array(
       z.object({

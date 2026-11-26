@@ -14,6 +14,7 @@ import { useResource } from '../lib/useResource';
 import {
   BROWSER_ONLY_NOTE,
   GATEWAYS,
+  LARGE_OBJECT_GATEWAYS,
   KIND_LABEL,
   LARGE_OBJECT_BYTES,
   OTHER_GATEWAYS,
@@ -33,8 +34,11 @@ import {
 /** A small object every run contains; used to prove an older root still resolves. */
 const PROBE_OBJECT = 'coverage.json';
 
+/** The directory root is named `/` from run 8 on, and was an empty string before. */
+export const isRootName = (name: string): boolean => name === '' || name === '/';
+
 export const slug = (name: string): string =>
-  name === '' ? 'root' : name.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '');
+  isRootName(name) ? 'root' : name.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '');
 
 const outcomeClass = (check: GatewayCheck): string =>
   check.outcome === 'match' || check.outcome === 'resolved'
@@ -43,7 +47,7 @@ const outcomeClass = (check: GatewayCheck): string =>
       ? 'badge-danger'
       : 'badge-warn';
 
-const HTTP_GATEWAYS = GATEWAYS.filter((g) => g.servesHttp);
+const HTTP_GATEWAYS = LARGE_OBJECT_GATEWAYS.filter((g) => g.servesHttp);
 
 const yesNo = (value: boolean | null): string => (value === null ? 'n/a' : value ? 'yes' : 'NO');
 
@@ -218,7 +222,9 @@ function ObjectRow({
     void verifyEverywhere(
       rootCid,
       object.name,
-      { size: isDirectory ? null : object.size, sha256: object.sha256 },
+      // A directory's digest (from run 8) is of its CAR, not of what a gateway returns for the
+      // path, so there is nothing to compare the response with: reachability only.
+      { size: isDirectory ? null : object.size, sha256: isDirectory ? null : object.sha256 },
       {
         ...deps,
         onProgress: (bytes) =>
@@ -252,7 +258,7 @@ function ObjectRow({
     <li className="object" data-testid={`object-${id}`}>
       <div className="object-head">
         <div className="object-name">
-          <strong>{object.name === '' ? 'Directory root (the snapshot)' : object.name}</strong>
+          <strong>{isRootName(object.name) ? 'Directory root (the snapshot)' : object.name}</strong>
           <span className="badge badge-neutral">{object.codec}</span>
           <span className="muted">
             {fmtBytes(object.size)} · {fmtInt(object.size)} bytes
@@ -294,9 +300,17 @@ function ObjectRow({
         <dt>SHA-256</dt>
         <dd>
           {object.sha256 ? (
-            <code className="hash" data-testid={`sha-${id}`}>
-              {object.sha256}
-            </code>
+            <>
+              <code className="hash" data-testid={`sha-${id}`}>
+                {object.sha256}
+              </code>
+              {object.digestOf ? (
+                <span className="muted small" data-testid={`digest-of-${id}`}>
+                  {' '}
+                  of {object.digestOf}
+                </span>
+              ) : null}
+            </>
           ) : (
             <span className="muted">
               none: a directory is a DAG node, not a byte stream; its CID covers every member
@@ -459,7 +473,7 @@ export function ManifestView({ manifest, deps }: { manifest: Manifest; deps?: Ch
         <ul className="objects">
           {manifest.objects.map((o) => (
             <ObjectRow
-              key={o.name || 'root'}
+              key={slug(o.name)}
               object={o}
               rootCid={manifest.rootCid}
               deps={deps}
@@ -534,6 +548,16 @@ export const RECORDED_PROBES: Readonly<
     size: 3115,
     sha256: '475574b1c11d004dbe7f242161faf2720d981b32f420232d2e8e3ba218fe7567',
     recordedIn: 'publications/san-diego/run-0003/manifest.json',
+  },
+  bafybeih5vicdja4prbknofmxzln67pu5vg2saifog4qonlknv43nmwxsea: {
+    size: 3252,
+    sha256: '1a16d39c8ac87eeee20f395b6d75ec3f60174298d5f058a16ce1a14f4f45be35',
+    recordedIn: 'publications/san-diego/run-0006/manifest.json',
+  },
+  bafybeievgzncrw5djebyd3zcx2o5cd6guwamfk7l7qo7rfppxtznvmayhi: {
+    size: 3345,
+    sha256: '4a9417889f54a216eb9bb348c2b16de4fa302c6c7064f5e0d72dd42e759ed83f',
+    recordedIn: 'publications/san-diego/run-0007/manifest.json',
   },
 };
 
@@ -685,7 +709,11 @@ function PublicationRow({
           {publication.verifiedGateways === undefined
             ? ''
             : publication.verifiedGateways > 0
-              ? ` · verified on ${publication.verifiedGateways} public gateways when published`
+              ? ` · verified on ${publication.verifiedGateways} public gateways when published${
+                  publication.verifiedIndependentGateways === undefined
+                    ? ''
+                    : ` (${publication.verifiedIndependentGateways} independent)`
+                }`
               : ' · not yet verified on public gateways'}
         </dd>
         <dt>CAR</dt>
@@ -808,12 +836,12 @@ export function PublicationHistory({
 
 /** Where the per-run CAR links point. Links only: the page never downloads a CAR. */
 const CAR_GATEWAYS = GATEWAYS.filter((g) =>
-  ['latam.orbitor.dev', 'ipfs.raribleuserdata.com'].includes(g.id),
+  ['latam.orbitor.dev', 'gateway.pinit.io'].includes(g.id),
 );
 
-/** Gateways asked to resolve the IPNS name: one independent, one pinning-vendor. */
+/** Gateways asked to resolve the IPNS name: two independent, one pinning-vendor. */
 const IPNS_GATEWAYS = GATEWAYS.filter((g) =>
-  ['latam.orbitor.dev', 'ipfs.filebase.io'].includes(g.id),
+  ['latam.orbitor.dev', 'gateway.pinit.io', 'ipfs.filebase.io'].includes(g.id),
 );
 
 export const ipnsUrl = (origin: string, name: string, path = PROBE_OBJECT): string =>
@@ -1079,8 +1107,11 @@ export default function Artifacts() {
       <Card title="Gateways in the automatic check" testId="card-gateways">
         <p className="muted small">
           None of these is operated by this project. Each is public and anonymous, and each is
-          labelled by kind: independent, or the public gateway of a pinning vendor. A fetch that the
-          browser refuses is reported as “Blocked by CORS” or “Network failure”, never as a pass.
+          labelled by kind: independent, or answered by a pinning vendor (its own public gateway, or
+          a third party’s gateway that it hosts). An object counts as verified only when two
+          independent gateways return bytes that match the manifest; vendor gateways are shown but
+          not counted. A fetch that the browser refuses is reported as “Blocked by CORS” or “Network
+          failure”, never as a pass.
         </p>
         <GatewayList />
       </Card>
