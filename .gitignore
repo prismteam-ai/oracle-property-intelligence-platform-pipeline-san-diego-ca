@@ -9,3 +9,5 @@ coverage/
 cdk.out/
 cdk-outputs.json
 explorer/public/*.mp4
+# The Elephant CLI sample keeps its transformed records in per-parcel data/ folders.
+!elephant/san-diego/output/*/data/

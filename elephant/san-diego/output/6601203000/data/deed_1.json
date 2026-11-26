@@ -1,0 +1,1 @@
+{"instrument_number":"904845","source_http_request":{"url":"https://geo.sandag.org/server/rest/services/Hosted/Parcels/FeatureServer/0/query","method":"GET","multiValueQueryString":{"where":["apn='6601203000'"],"outFields":["*"],"returnCentroid":["true"],"outSR":["4326"],"f":["json"]}},"request_identifier":"6601203000"}
