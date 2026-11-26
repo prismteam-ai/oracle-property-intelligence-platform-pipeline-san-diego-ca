@@ -1,0 +1,119 @@
+{
+  "schema": "oracle-artifact-manifest/1",
+  "county": "San Diego County, CA",
+  "countySlug": "san-diego",
+  "runId": 8,
+  "createdAt": "2026-11-26T15:27:46.914Z",
+  "rootCid": "bafybeid7km7o4pmbmjrgfjcqhtnidciy4ewj5glket3bfodqb454bg42ru",
+  "previousRootCid": "bafybeievgzncrw5djebyd3zcx2o5cd6guwamfk7l7qo7rfppxtznvmayhi",
+  "objects": [
+    {
+      "name": "/",
+      "cid": "bafybeid7km7o4pmbmjrgfjcqhtnidciy4ewj5glket3bfodqb454bg42ru",
+      "size": 172929163,
+      "codec": "directory",
+      "sha256": "166cbf3da95d7c8e38476ad3b8a5d1e7a9d699e02cf555294d78141ebd2eb3bd",
+      "digestOf": "run-0008.car: the CAR of the DAG rooted at this CID (a directory has no byte stream of its own)"
+    },
+    {
+      "name": "query-table.parquet",
+      "cid": "bafybeifqfwazjgopjk5jtsgeak7e6qy25zdw4rph2qfmjysrzs5mtiiide",
+      "size": 29885904,
+      "sha256": "ce68a4b86b5fc8c6c2dea42d64b730bcf2be1600c336c60058c1478b91748d83",
+      "codec": "file"
+    },
+    {
+      "name": "permits.parquet",
+      "cid": "bafybeievlmwqvg2gln43zacgomx6ozndb7hyygcz2djazpe4hbvn3k3qji",
+      "size": 129358407,
+      "sha256": "6de7134ef51098ba34455316f2997380d3b9dfeccf0381bc659afbfa7a5843bb",
+      "codec": "file"
+    },
+    {
+      "name": "contractors.parquet",
+      "cid": "bafybeiabdv7r63ajc4rfkul5ieb66owltfdzhxakk6cvvrllvp737h4rl4",
+      "size": 10200100,
+      "sha256": "bd1dfccca6782bcbf97fff37fcf0c26878718b264e189f7e8ef48fbb40f0e4fb",
+      "codec": "file"
+    },
+    {
+      "name": "businesses.parquet",
+      "cid": "bafybeihhfutpp3ggg34osuzkdafkbie4tixi4qfslbihupejdxppgoream",
+      "size": 3154508,
+      "sha256": "d6ec9758db005a373fb85af6e327ee5c979e8a82482872e19560893f08de0bed",
+      "codec": "file"
+    },
+    {
+      "name": "places.parquet",
+      "cid": "bafkreieu3ruqmovshmtwsnav3neigzia7dcrxppf66jm3j3tsxsyytdkdi",
+      "size": 4258,
+      "sha256": "94dc69063ab23b27693415db48836500f8c51bbde5f792cda77395e58c4c6a1a",
+      "codec": "file"
+    },
+    {
+      "name": "run-history.json",
+      "cid": "bafkreibmpg77pn2iy2ym2xn4nnpj2ilnhzapucot4ptfry2vfjibxjxpee",
+      "size": 41895,
+      "sha256": "2c79bff7b748c6b0cd5dbc6b5e9d216d3e40fa09d3e3e658e3552a501ba6ef21",
+      "codec": "file"
+    },
+    {
+      "name": "sources.json",
+      "cid": "bafkreig64qngqp3fojqnn6havuacslvsvalcqitcku5mibnyysjt6w5vfe",
+      "size": 7161,
+      "sha256": "dee41a683f657260d6f8e0ad00292eb2a816282262553ac405b8c4933f5bb529",
+      "codec": "file"
+    },
+    {
+      "name": "coverage.json",
+      "cid": "bafkreiexkslykew22fcoyqu4r5uonnacdw3roout5jpv6yvv6cjh25cawy",
+      "size": 3456,
+      "sha256": "9754978512dad144ec429c8f68e6b4021db7173a93ea5f5f62b5f0927d7440b6",
+      "codec": "file"
+    },
+    {
+      "name": "samples/long-open-roofing-permits.csv",
+      "cid": "bafkreiaxii5d3crw3p6d33mo3mod7phhpreepky3pemx4umbhlm6srtruy",
+      "size": 149074,
+      "sha256": "17423a3d8a36dbfc3ded8edb1c3fbce77c4847ab1b79197e51813ad9e94671a6",
+      "codec": "file"
+    },
+    {
+      "name": "samples/aged-roofs-sample.csv",
+      "cid": "bafkreieovgaurh5re77ucijhdjodxn4bwgsp6d4viz4lc3shilftm2t2ry",
+      "size": 124400,
+      "sha256": "8ea981489fb127ff4121271a5c3bb781b1a4ff0f954678b16e4742cb366a7a8e",
+      "codec": "file"
+    }
+  ],
+  "car": {
+    "name": "run-0008.car",
+    "size": 172989540,
+    "sha256": "166cbf3da95d7c8e38476ad3b8a5d1e7a9d699e02cf555294d78141ebd2eb3bd",
+    "rootCid": "bafybeid7km7o4pmbmjrgfjcqhtnidciy4ewj5glket3bfodqb454bg42ru"
+  },
+  "ipns": {
+    "name": "k51qzi5uqu5dh1gc755a3y657z3u4xk3v2ytqn82wjjbn9hzzavi7uzgsilcur",
+    "label": "oracle-query-table-san-diego",
+    "resolvedCid": "bafybeid7km7o4pmbmjrgfjcqhtnidciy4ewj5glket3bfodqb454bg42ru",
+    "sequence": 2,
+    "updatedAt": "2026-11-26T15:28:40.800Z",
+    "note": "Moved to the root of this run before the manifest was written. A later publication moves it again; the root CID is the snapshot."
+  },
+  "origins": [],
+  "pins": [
+    {
+      "provider": "filebase",
+      "cid": "bafybeid7km7o4pmbmjrgfjcqhtnidciy4ewj5glket3bfodqb454bg42ru",
+      "ok": true,
+      "detail": "imported CAR as san-diego/run-0008-54bg42ru.car in bucket oracle-open-data-san-diego-rv"
+    },
+    {
+      "provider": "pinata",
+      "cid": null,
+      "ok": true,
+      "detail": "pinned 10 files individually; every CID equals the manifest"
+    }
+  ],
+  "gatewayPattern": "https://<gateway>/ipfs/<cid>  (directory members: /ipfs/<rootCid>/<name>)"
+}

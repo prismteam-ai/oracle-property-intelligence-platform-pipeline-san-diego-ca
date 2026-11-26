@@ -1,0 +1,126 @@
+{
+  "county": "San Diego County, CA",
+  "countySlug": "san-diego",
+  "fips": "06073",
+  "runId": 8,
+  "asOf": "2026-11-26T15:27:46.914Z",
+  "bbox": {
+    "minLat": 32.5,
+    "maxLat": 33.55,
+    "minLon": -117.65,
+    "maxLon": -116.05
+  },
+  "counts": [
+    {
+      "table": "property",
+      "rows": 1087462
+    },
+    {
+      "table": "ownership",
+      "rows": 1087462
+    },
+    {
+      "table": "permit",
+      "rows": 1757151
+    },
+    {
+      "table": "permit_status_history",
+      "rows": 1128203
+    },
+    {
+      "table": "permit_contractor_record",
+      "rows": 310358
+    },
+    {
+      "table": "cslb_license",
+      "rows": 246230
+    },
+    {
+      "table": "contractor",
+      "rows": 257069
+    },
+    {
+      "table": "business",
+      "rows": 60276
+    },
+    {
+      "table": "rejects",
+      "rows": 8989
+    },
+    {
+      "table": "permit (one row per permit, published)",
+      "rows": 1726394
+    }
+  ],
+  "roofing": {
+    "roofingPermits": 25205,
+    "openRoofingPermits": 1169,
+    "openFiveYearsPlus": 251,
+    "openRoofingPermitsWithoutParcel": 31,
+    "parcelsWithRoofYear": 1026319,
+    "parcelsRoofFromPermit": 15395
+  },
+  "rejects": [
+    {
+      "source": "sandag_parcels",
+      "entity": "property",
+      "reason": "apn:missing",
+      "rows": 6618
+    },
+    {
+      "source": "sdcounty_permits",
+      "entity": "permit",
+      "reason": "lat:lat_outside_county",
+      "rows": 1814
+    },
+    {
+      "source": "sdcounty_permits",
+      "entity": "permit",
+      "reason": "lon:lon_outside_county",
+      "rows": 259
+    },
+    {
+      "source": "sdcounty_permit_contractors",
+      "entity": "permit_contractor_record",
+      "reason": "contractor_id:no_license_and_no_name",
+      "rows": 120
+    },
+    {
+      "source": "sdcity_permits",
+      "entity": "permit",
+      "reason": "expire_date:date_in_future",
+      "rows": 84
+    },
+    {
+      "source": "sdcity_permits",
+      "entity": "permit",
+      "reason": "lat:lat_outside_county",
+      "rows": 54
+    },
+    {
+      "source": "sdcity_businesses",
+      "entity": "business",
+      "reason": "business_start_date:date_out_of_range",
+      "rows": 24
+    },
+    {
+      "source": "sdcity_permits",
+      "entity": "permit",
+      "reason": "lon:lon_outside_county",
+      "rows": 10
+    },
+    {
+      "source": "sdcounty_permits",
+      "entity": "permit",
+      "reason": "issued_date:date_in_future",
+      "rows": 6
+    }
+  ],
+  "limitations": [
+    "Permit data in this run covers: City of San Diego (1,267,709); County of San Diego (unincorporated) (448,808); City of Carlsbad (9,877). Cities not listed publish no bulk permit feed that the pipeline could use (see SOURCES.md), so open-permit results there are empty.",
+    "Owner name and mailing address are not loaded: no county-wide public source has them, and the two city layers that do (Oceanside, El Cajon) were left out as homeowner personal data; out-of-area owner is a proxy (parcel not flagged owner-occupied) and over-counts.",
+    "BBB ratings are not collected: there is no bulk source and BBB terms limit copying. Each contractor row carries the reason.",
+    "Roof age is a proxy: the last completed roofing permit where one exists (high confidence), otherwise the assessor effective year (medium, or low where a two-digit year is ambiguous).",
+    "Roofing class comes from text rules over permit descriptions; roof-mounted solar is classed separately and excluded."
+  ]
+}

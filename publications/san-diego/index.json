@@ -3,9 +3,9 @@
   "ipns": {
     "name": "k51qzi5uqu5dh1gc755a3y657z3u4xk3v2ytqn82wjjbn9hzzavi7uzgsilcur",
     "label": "oracle-query-table-san-diego",
-    "resolvedCid": "bafybeievgzncrw5djebyd3zcx2o5cd6guwamfk7l7qo7rfppxtznvmayhi",
-    "sequence": 1,
-    "updatedAt": "2026-11-25T19:40:16.426Z"
+    "resolvedCid": "bafybeid7km7o4pmbmjrgfjcqhtnidciy4ewj5glket3bfodqb454bg42ru",
+    "sequence": 2,
+    "updatedAt": "2026-11-26T15:28:40.800Z"
   },
   "runs": [
     {
@@ -54,6 +54,23 @@
         "cid": "bafybeihotboun4o2gowa646vwnd7p6y7ivrr65negjowibe3bs7nz4pwvq",
         "size": 172413857,
         "sha256": "f247b7a7d1495b45b278e1964c4177e29600a3ea89873132eb264b41d60a58e0"
+      }
+    },
+    {
+      "rootCid": "bafybeid7km7o4pmbmjrgfjcqhtnidciy4ewj5glket3bfodqb454bg42ru",
+      "verifiedGateways": 10,
+      "verifiedIndependentGateways": 7,
+      "runId": 8,
+      "createdAt": "2026-11-26T15:27:46.914Z",
+      "manifestCid": "bafkreiexnxyhnojsttyod3xbznwpmsmrfsd5fp6yjn2nsrtcntdjqqa724",
+      "previousRootCid": "bafybeievgzncrw5djebyd3zcx2o5cd6guwamfk7l7qo7rfppxtznvmayhi",
+      "objects": 10,
+      "bytes": 172929163,
+      "car": {
+        "name": "run-0008.car",
+        "cid": "bafybeibgred3ysexyy4e2g2ntpmvsgug26qcujpjhqfbatla72yu5qwbvy",
+        "size": 172989540,
+        "sha256": "166cbf3da95d7c8e38476ad3b8a5d1e7a9d699e02cf555294d78141ebd2eb3bd"
       }
     }
   ]
