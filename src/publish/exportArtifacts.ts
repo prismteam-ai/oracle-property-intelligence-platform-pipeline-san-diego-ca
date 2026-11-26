@@ -198,7 +198,7 @@ const AGED_ROOF_SAMPLE_SQL = `
   ORDER BY roof_age_years DESC LIMIT 500`;
 
 export const LIMITATIONS: readonly string[] = [
-  'Owner name and mailing address are not in any public San Diego source; out-of-area owner is a proxy (parcel not flagged owner-occupied) and over-counts.',
+  'Owner name and mailing address are not loaded: no county-wide public source has them, and the two city layers that do (Oceanside, El Cajon) were left out as homeowner personal data; out-of-area owner is a proxy (parcel not flagged owner-occupied) and over-counts.',
   'BBB ratings are not collected: there is no bulk source and BBB terms limit copying. Each contractor row carries the reason.',
   'Roof age is a proxy: the last completed roofing permit where one exists (high confidence), otherwise the assessor effective year (medium, or low where a two-digit year is ambiguous).',
   'Roofing class comes from text rules over permit descriptions; roof-mounted solar is classed separately and excluded.',
