@@ -5,7 +5,13 @@ import { DuckDBInstance } from '@duckdb/node-api';
 import { MockLanguageModelV4 } from 'ai/test';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { ARTIFACTS } from '../src/publish/exportArtifacts.js';
-import { askAgent } from '../src/serve/agent.js';
+import {
+  LONG_OPEN_YEARS,
+  STALE_OPEN_BEFORE_YEAR,
+  askAgent,
+  staleOpenPermitNote,
+  systemPrompt,
+} from '../src/serve/agent.js';
 import { findRoofingLeads, getOracleProperty, queryAtlas } from '../src/serve/queries.js';
 import { Store } from '../src/serve/store.js';
 
@@ -34,7 +40,11 @@ async function buildFixture(dir: string): Promise<void> {
       ('4920000300', '300 C AVE', NULL, 'EL CAJON', '92020', 'EC', 32.7948, -116.9625, '111', 1, 1400, 400000,
         1970, FALSE, 1970, 'year_built', 'medium', 'assessor effective year', NULL, TRUE, FALSE, 'owner-occupied flag',
         DATE '1999-01-01', TRUE, NULL, NULL, NULL, 'not in public data', 0, NULL::DATE, NULL, NULL, NULL, NULL, 0, NULL::DATE,
-        'sandag_parcels', '4920000300', 'https://example.test/parcel/4920000300', TIMESTAMP '2026-11-25 16:00:00', 6)
+        'sandag_parcels', '4920000300', 'https://example.test/parcel/4920000300', TIMESTAMP '2026-11-25 16:00:00', 6),
+      ('4920000400', '400 D AVE', NULL, 'EL CAJON', '92020', 'EC', 32.7958, -116.9635, '111', 1, 1400, 400000,
+        1960, FALSE, 1970, 'last_roofing_permit', 'high', 'completed reroof permit', 'sdcounty:R9', TRUE, FALSE, 'owner-occupied flag',
+        NULL::DATE, FALSE, NULL, NULL, NULL, 'not in public data', 0, NULL::DATE, NULL, NULL, NULL, NULL, 1, DATE '1970-06-01',
+        'sandag_parcels', '4920000400', 'https://example.test/parcel/4920000400', TIMESTAMP '2026-11-25 16:00:00', 6)
     ) AS t(apn, address, unit, city, zip, jurisdiction, lat, lon, use_code, units, living_area_sqft, assessed_total,
       year_built, year_built_ambiguous, roof_year, roof_basis, roof_confidence, roof_confidence_reason,
       roof_evidence_permit_uid, owner_occupied, out_of_area, out_of_area_basis, last_transfer_date,
@@ -145,6 +155,21 @@ describe('serving queries over Parquet', () => {
     expect(lower.total).toBe(2);
   });
 
+  it('ranks a roof dated by a permit ahead of a year-built proxy of the same age', async () => {
+    const elCajon = { lat: 32.7948, lon: -116.9625 };
+    const search = { center: elCajon, signal: 'aged_roof' };
+    // Both roofs date from 1970; the year-built parcel is the nearer one.
+    const nearest = await findRoofingLeads(store, { ...search, sort: 'distance' }, TODAY);
+    expect(nearest.rows.map((r) => [r.apn, r.roofAgeYears, r.roofBasis])).toEqual([
+      ['4920000300', 56, 'year_built'],
+      ['4920000400', 56, 'last_roofing_permit'],
+    ]);
+    const oldest = await findRoofingLeads(store, { ...search, sort: 'roof_age' }, TODAY);
+    expect(oldest.rows.map((r) => r.apn)).toEqual(['4920000400', '4920000300']);
+    const scored = await findRoofingLeads(store, { ...search, sort: 'score' }, TODAY);
+    expect(scored.rows.map((r) => r.apn)).toEqual(['4920000400', '4920000300']);
+  });
+
   it('filters on ownership unchanged for N years and skips ambiguous dates', async () => {
     const ten = await findRoofingLeads(store, { center: PIN, minYearsSinceTransfer: 10 }, TODAY);
     expect(ten.rows.map((r) => r.apn)).toEqual(['5330000100']);
@@ -207,6 +232,27 @@ describe('agent loop, replayed with a scripted model', () => {
     expect(out.points).toEqual([{ apn: '5330000200', lat: 32.717, lon: -117.162, label: '200 B ST' }]);
     expect(out.assumptions).toEqual(['radius 1 mile', 'open means issued and not finalled']);
     expect(out.answer).not.toMatch(/Check failed/);
+    // The one open permit dates from 2018: nothing to flag.
+    expect(out.notes).toEqual([]);
+  });
+
+  it('flags open permits from before 2005 in the notes, whatever the model wrote', async () => {
+    // The row is shaped like a county legacy record: an open permit issued in 1992.
+    const model = scriptedModel(
+      'queryData',
+      {
+        sql: "SELECT apn, lat, lon, address, 'PDS1992-C-9204551' AS permit_id, TRUE AS is_open, DATE '1992-08-14' AS open_since FROM parcel WHERE apn = '5330000200'",
+        purpose: 'one long-open permit',
+      },
+      '1 property has an open roofing permit, open since 1992.\nAssumptions: none.',
+    );
+    const out = await askAgent(
+      { store, model, modelName: 'scripted', today: TODAY },
+      { question: 'open roofing permits that have been open for many years?', center: PIN },
+    );
+    expect(out.notes).toEqual([
+      '1 of the 1 retrieved rows has an open permit opened before 2005 (oldest: permit PDS1992-C-9204551, opened 1992): probably never finalled in the source system, not active jobs.',
+    ]);
   });
 
   it('flags a parcel number the tools never returned', async () => {
@@ -254,5 +300,37 @@ describe('agent loop, replayed with a scripted model', () => {
     );
     expect(out.answer).toMatch(/could not retrieve data/);
     expect(out.answer).not.toMatch(/4,000/);
+  });
+});
+
+describe('agent defaults for long-open permits', () => {
+  it('reads "many years" as five years or more, and lets a stated number replace it', () => {
+    expect(LONG_OPEN_YEARS).toBe(5);
+    const prompt = systemPrompt('schema', TODAY, { question: 'open for many years?' });
+    expect(prompt).toContain('means open 5+ years, so pass minOpenYears=5');
+    expect(prompt).toContain('a number of years the user states always replaces this default');
+    expect(prompt).not.toMatch(/open 2\+ years/);
+  });
+
+  it('counts permits opened before the cut-off year and names the oldest', () => {
+    expect(STALE_OPEN_BEFORE_YEAR).toBe(2005);
+    const days = (from: string): number => Math.round((Date.parse(TODAY) - Date.parse(from)) / 86_400_000);
+    const rows = [
+      { apn: '1', longestOpenDays: days('1998-03-02'), topOpenPermitId: 'PDS1998-C-1' },
+      { apn: '2', longestOpenDays: days('1992-08-14'), topOpenPermitId: 'PDS1992-C-2' },
+      { apn: '3', longestOpenDays: days('2019-01-10'), topOpenPermitId: 'PMT-3' },
+      { apn: '4', longestOpenDays: null, topOpenPermitId: null },
+    ];
+    expect(staleOpenPermitNote(rows, TODAY)).toBe(
+      '2 of the 4 retrieved rows have open permits opened before 2005 (oldest: permit PDS1992-C-2, opened 1992): probably never finalled in the source system, not active jobs.',
+    );
+  });
+
+  it('says nothing when every open permit is recent, closed, or the rows carry no dates', () => {
+    const days = (from: string): number => Math.round((Date.parse(TODAY) - Date.parse(from)) / 86_400_000);
+    expect(staleOpenPermitNote([{ apn: '1', longestOpenDays: days('2005-01-01') }], TODAY)).toBeNull();
+    expect(staleOpenPermitNote([{ apn: '1', is_open: false, open_since: '1994-02-01' }], TODAY)).toBeNull();
+    expect(staleOpenPermitNote([{ apn: '1', address: '100 A ST' }], TODAY)).toBeNull();
+    expect(staleOpenPermitNote([], TODAY)).toBeNull();
   });
 });

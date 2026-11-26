@@ -171,10 +171,13 @@ const STATUS_SQL: Record<LeadSearchInput['permitStatus'], string> = {
   closed: '(roof_permits > 0 AND open_roof_permits = 0)',
 };
 
+/** At equal roof age (or equal score) a roof dated by a permit ranks ahead of a year-built proxy. */
+const PERMIT_EVIDENCE_FIRST = "(roof_basis = 'last_roofing_permit') DESC";
+
 const SORT_SQL: Record<LeadSearchInput['sort'], string> = {
-  score: 'rank_score DESC, distance_miles',
+  score: `rank_score DESC, ${PERMIT_EVIDENCE_FIRST}, distance_miles`,
   distance: 'distance_miles',
-  roof_age: 'roof_age_years DESC NULLS LAST, distance_miles',
+  roof_age: `roof_age_years DESC NULLS LAST, ${PERMIT_EVIDENCE_FIRST}, distance_miles`,
   open_days: 'longest_open_days DESC NULLS LAST, distance_miles',
 };
 

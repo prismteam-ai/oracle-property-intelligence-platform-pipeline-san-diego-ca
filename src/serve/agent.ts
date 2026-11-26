@@ -27,6 +27,8 @@ export interface AgentEvidence {
 export interface AgentAnswer {
   answer: string;
   assumptions: string[];
+  /** Deterministic remarks about the retrieved rows, written by code and not by the model. */
+  notes: string[];
   evidence: AgentEvidence[];
   rows: Record<string, unknown>[];
   points: { apn: string; lat: number; lon: number; label: string | null }[];
@@ -38,7 +40,14 @@ const ROWS_TO_MODEL = 25;
 const ROWS_TO_CLIENT = 200;
 const MAX_STEPS = 8;
 const DEFAULT_ROOF_AGE = 15;
-const LONG_OPEN_YEARS = 2;
+/** What "open for many years" or "long-open" means when the user gives no number. */
+export const LONG_OPEN_YEARS = 5;
+/**
+ * An open permit issued before this year is almost certainly a record that was never finalled in
+ * the source system (the county's legacy permits from the 1990s), not a job still in progress.
+ */
+export const STALE_OPEN_BEFORE_YEAR = 2005;
+export const STALE_OPEN_LABEL = 'probably never finalled in the source system';
 
 type Row = Record<string, unknown>;
 
@@ -85,6 +94,49 @@ export function extractAssumptions(text: string): string[] {
   return items.map((item) => item.replace(/\.$/, '')).filter((item) => item.length > 0);
 }
 
+const DAY_MS = 86_400_000;
+
+/** The date a row's open permit was opened, from whichever field the row carries. */
+function openedAt(row: Row, todayMs: number): number | null {
+  const days = row['longestOpenDays'];
+  if (typeof days === 'number') return todayMs - days * DAY_MS;
+  if (row['is_open'] === false) return null;
+  for (const key of ['longest_open_since', 'open_since']) {
+    const value = row[key];
+    if (typeof value !== 'string') continue;
+    const parsed = Date.parse(value.slice(0, 10));
+    if (!Number.isNaN(parsed)) return parsed;
+  }
+  return null;
+}
+
+/**
+ * Says, from the rows alone, how many open permits are too old to be live jobs. No model involved:
+ * the note is there whether or not the model mentions it.
+ */
+export function staleOpenPermitNote(rows: readonly Row[], today: string): string | null {
+  const todayMs = Date.parse(today);
+  const cutoff = Date.UTC(STALE_OPEN_BEFORE_YEAR, 0, 1);
+  const stale: { permit: string | null; opened: number }[] = [];
+  for (const row of rows) {
+    const opened = openedAt(row, todayMs);
+    if (opened === null || opened >= cutoff) continue;
+    const permit = row['topOpenPermitId'] ?? row['permit_id'] ?? row['top_open_permit_id'];
+    stale.push({ permit: typeof permit === 'string' ? permit : null, opened });
+  }
+  const oldest = stale.reduce<(typeof stale)[number] | null>(
+    (first, item) => (first === null || item.opened < first.opened ? item : first),
+    null,
+  );
+  if (oldest === null) return null;
+  const which = oldest.permit === null ? '' : `permit ${oldest.permit}, `;
+  const count =
+    stale.length === 1
+      ? `1 of the ${rows.length} retrieved rows has an open permit`
+      : `${stale.length} of the ${rows.length} retrieved rows have open permits`;
+  return `${count} opened before ${STALE_OPEN_BEFORE_YEAR} (oldest: ${which}opened ${new Date(oldest.opened).getUTCFullYear()}): ${STALE_OPEN_LABEL}, not active jobs.`;
+}
+
 export function systemPrompt(schema: string, today: string, ask: AgentAsk): string {
   const pin = ask.center
     ? `The user's map pin is at lat ${ask.center.lat}, lon ${ask.center.lon}` +
@@ -100,14 +152,14 @@ export function systemPrompt(schema: string, today: string, ask: AgentAsk): stri
     '- Retrieve before you answer. Never state a property, permit, contractor, count or rating that a tool did not return in this conversation.',
     '- To resolve a city, community or ZIP to coordinates, call locatePlace first. Do not guess coordinates.',
     '- For "within N miles" questions use findRoofingLeads. Use queryData only for questions that tool cannot answer (ownership, counts, contractors).',
-    `- Defaults, and say so when you use them: roof age threshold ${DEFAULT_ROOF_AGE} years; "many years" or "long-open" means open ${LONG_OPEN_YEARS}+ years; radius 5 miles if none is given; maximum radius ${MAX_RADIUS_MILES} miles.`,
+    `- Defaults, and say so when you use them: roof age threshold ${DEFAULT_ROOF_AGE} years; "many years", "long-open" or "long time" means open ${LONG_OPEN_YEARS}+ years, so pass minOpenYears=${LONG_OPEN_YEARS}; a number of years the user states always replaces this default; radius 5 miles if none is given; maximum radius ${MAX_RADIUS_MILES} miles.`,
     '- Ownership: for "has not changed owner in N years" pass minYearsSinceTransfer to findRoofingLeads. For out-of-area or absentee owners pass ownerOccupied="no" and say it is a proxy (the parcel is not flagged owner-occupied); owner names and mailing addresses are not in the public data.',
     '- Roof age is a proxy: the last completed roofing permit when one exists, otherwise the year built. Say which basis applies.',
     '- If a field is missing (BBB rating, contractor, owner name), say it is not available in the source data. Do not fill it in.',
     '- If a tool result carries coverageNote, repeat its substance: part of the area has no permit data.',
     '- Refer to properties by address and APN, and permits by permit number. Name the source dataset when the rows carry one.',
     '- For open-permit questions give the permit number and the listed contractor (topOpenPermitId, topOpenContractor, topOpenLicenseNo). If the contractor is null, say no contractor is listed.',
-    '- Some county permits show as open for decades because the record was never finalled. When open durations look like that, say so in one sentence.',
+    `- An open permit opened before ${STALE_OPEN_BEFORE_YEAR} is ${STALE_OPEN_LABEL}. When a tool result carries staleOpenPermitNote, say so in one sentence and do not present those permits as active jobs.`,
     '- Plain text only: no Markdown, no asterisks, no headings. Start list rows with "- ".',
     '- Keep it short: one or two sentences of result, up to 8 rows, explain in one sentence why these rows match, then a line starting "Assumptions:" listing each default or interpretation you applied, then a line starting "Missing data:" when something asked for was not available.',
     '- A tool result gives `total` (all matches) and `shown` (rows you can see). Report the total, and say how many you are listing; never call `shown` the number of matches.',
@@ -194,6 +246,7 @@ function buildTools(store: Store, trace: Trace, today: string) {
           openPermitCount: found.openPermitCount,
           asOf: found.asOf,
           coverageNote: found.coverageNote,
+          staleOpenPermitNote: staleOpenPermitNote(found.rows, today),
           shown: Math.min(found.rows.length, ROWS_TO_MODEL),
           rows: found.rows.slice(0, ROWS_TO_MODEL),
         };
@@ -297,6 +350,7 @@ export async function askAgent(deps: AgentDeps, ask: AgentAsk): Promise<AgentAns
       answer:
         'The agent is not configured in this environment (no language model key). The MCP tools and the UI work without it.',
       assumptions: [],
+      notes: [],
       evidence: [],
       rows: [],
       points: [],
@@ -341,9 +395,11 @@ export async function askAgent(deps: AgentDeps, ask: AgentAsk): Promise<AgentAns
       answer += `\n\nCheck failed: ${unsupported.length} parcel number(s) in this answer were not in the retrieved rows (${unsupported.slice(0, 5).join(', ')}). Treat those as unverified.`;
     }
   }
+  const stale = staleOpenPermitNote(trace.rows, deps.today);
   return {
     answer,
     assumptions,
+    notes: stale === null ? [] : [stale],
     evidence: trace.evidence,
     rows: trace.rows,
     points: toPoints(trace.rows),
