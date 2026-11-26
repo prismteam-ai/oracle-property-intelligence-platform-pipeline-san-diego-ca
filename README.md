@@ -3,7 +3,7 @@
 **Live explorer UI (public, no login):** https://main.d3ckixhlz7ov75.amplifyapp.com
 **Live data API:** https://mywcppj2yl.execute-api.us-east-2.amazonaws.com/health · MCP at `POST /mcp` · agent at `POST /agent`
 **Credentials:** none needed. Everything is read-only.
-**Demo video:** _link added with the Ready for Review PR_
+**Demo video (4 min 41 s, narrated):** https://github.com/rvadapally-synexar/oracle-property-intelligence-platform-pipeline-san-diego-ca/releases/download/demo/oracle-pipeline-demo.mp4 ([release page](https://github.com/rvadapally-synexar/oracle-property-intelligence-platform-pipeline-san-diego-ca/releases/tag/demo))
 **Companion PR (consumer):** `roofing-crm`, live at https://main.d3dhgfb9bfhbhb.amplifyapp.com, which reads this pipeline only through the MCP endpoint above.
 
 **Latest published snapshot (run 7):** root CID `bafybeievgzncrw5djebyd3zcx2o5cd6guwamfk7l7qo7rfppxtznvmayhi`
@@ -63,7 +63,7 @@ Roofing signals: 25,204 roofing permits (roof-mounted solar classed separately a
 
 Runs 3, 6 and 7 were published (below). Every run and its per-source counts are served live by the `getPipelineRuns` tool and shown in the explorer. Change detection per source: a cursor on the source's own change date where it has one (county permits, status history, contractors), an ETag or layer edit stamp for snapshot sources, and a row hash for everything, so re-reading unchanged data writes nothing.
 
-A scheduled run is defined in [`.github/workflows/ingest.yml`](.github/workflows/ingest.yml) (daily, restores state from the mirror bucket, publishes only if something changed). It has not executed yet: it starts with the first push to GitHub. Until then runs are started by hand.
+A scheduled run is defined in [`.github/workflows/ingest.yml`](.github/workflows/ingest.yml) (daily, restores state from the mirror bucket, publishes only if something changed). It has not executed yet: it needs an AWS role and the pinning keys set as repository secrets, which is not done. All seven runs so far were started by hand.
 
 ## Published snapshots (IPFS)
 
