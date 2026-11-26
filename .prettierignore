@@ -10,3 +10,5 @@ explorer
 publications/san-diego/run-*/coverage.json
 publications/san-diego/run-*/run-history.json
 publications/san-diego/run-*/sources.json
+# Byte-exact elephant-cli outputs and captured source records.
+elephant/san-diego/output
