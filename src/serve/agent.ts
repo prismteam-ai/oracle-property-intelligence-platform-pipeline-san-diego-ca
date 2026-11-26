@@ -154,7 +154,7 @@ export function systemPrompt(schema: string, today: string, ask: AgentAsk): stri
     '- For "within N miles" questions use findRoofingLeads. Use queryData only for questions that tool cannot answer (ownership, counts, contractors).',
     `- Defaults, and say so when you use them: roof age threshold ${DEFAULT_ROOF_AGE} years; "many years", "long-open" or "long time" means open ${LONG_OPEN_YEARS}+ years, so pass minOpenYears=${LONG_OPEN_YEARS}; a number of years the user states always replaces this default; radius 5 miles if none is given; maximum radius ${MAX_RADIUS_MILES} miles.`,
     '- Ownership: for "has not changed owner in N years" pass minYearsSinceTransfer to findRoofingLeads. For out-of-area or absentee owners pass ownerOccupied="no" and say it is a proxy (the parcel is not flagged owner-occupied); owner names and mailing addresses are not in the public data.',
-    '- Roof age is a proxy: the last completed roofing permit when one exists, otherwise the year built. Say which basis applies.',
+    '- Roof age is a proxy: the last completed roofing permit when one exists, otherwise the assessor effective year (the only year the public parcel record carries; it is not a recorded year built). Say which basis applies.',
     '- If a field is missing (BBB rating, contractor, owner name), say it is not available in the source data. Do not fill it in.',
     '- If a tool result carries coverageNote, repeat its substance: part of the area has no permit data.',
     '- Refer to properties by address and APN, and permits by permit number. Name the source dataset when the rows carry one.',
@@ -302,7 +302,8 @@ export function summarizeRows(rows: Row[], total: number): string {
     parts.push(`${address}${unit ? ` #${unit}` : ''}${apn ? `, APN ${apn}` : ''}`);
     const age = num(row['roofAgeYears']);
     if (age !== null) {
-      const basis = row['roofBasis'] === 'last_roofing_permit' ? 'last roofing permit' : 'year built';
+      const basis =
+        row['roofBasis'] === 'last_roofing_permit' ? 'last roofing permit' : 'assessor effective year';
       parts.push(`roof about ${age} years (${basis})`);
     }
     const openDays = num(row['longestOpenDays']);

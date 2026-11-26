@@ -267,7 +267,7 @@ export function PropertyDetail({
           </dd>
         </div>
         <div className="fact">
-          <dt>Roof year / year built</dt>
+          <dt>Roof year / assessor effective year</dt>
           <dd>
             {property.roofYear ?? '—'} / {property.yearBuilt ?? '—'}
           </dd>
@@ -305,7 +305,7 @@ export function PropertyDetail({
       {shown.length === 0 ? (
         <p className="empty-line">
           {roofing.length === 0 && !all
-            ? 'No roofing permit is on record for this parcel, so the roof age rests on the assessor year.'
+            ? 'No roofing permit is on record for this parcel, so the roof age rests on the assessor effective year, which the county does not offer as a year built.'
             : 'No permits on record for this parcel.'}
         </p>
       ) : (

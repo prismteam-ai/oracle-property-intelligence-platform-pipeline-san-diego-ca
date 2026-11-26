@@ -51,7 +51,7 @@ export function shortCid(cid: string, head = 10, tail = 6): string {
 
 export function roofBasisLabel(basis: string): string {
   if (basis === 'last_roofing_permit') return 'Last completed roofing permit';
-  if (basis === 'year_built') return 'Assessor year built (no roofing permit on record)';
+  if (basis === 'year_built') return 'Assessor effective year (no roofing permit on record)';
   return 'Unknown';
 }
 
