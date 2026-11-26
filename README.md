@@ -66,7 +66,7 @@ Run 8 is both a rule fix and a real next-day refresh. Of its 577,590 updated Cit
 
 Runs 3, 6, 7 and 8 were published (below). Every run and its per-source counts are served live by the `getPipelineRuns` tool and shown in the explorer. Change detection per source: a cursor on the source's own change date where it has one (county permits, status history, contractors), an ETag or layer edit stamp for snapshot sources, and a row hash for everything, so re-reading unchanged data writes nothing.
 
-A scheduled run is defined in [`.github/workflows/ingest.yml`](.github/workflows/ingest.yml) (daily, restores state from the mirror bucket, publishes only if something changed). It has not executed yet: it needs an AWS role and the pinning keys set as repository secrets, which is not done. All eight runs so far were started by hand.
+A scheduled run is defined in [`.github/workflows/ingest.yml`](.github/workflows/ingest.yml): it restores the working database from the mirror bucket, runs an incremental window starting two days before the last good run, publishes only if a row changed, and saves the database back. It signs in to AWS with GitHub's short-lived OIDC token, into a role the stack creates for this repository's `build` branch only (`IngestRole` in [`cdk/stack.ts`](cdk/stack.ts)); no AWS key is stored in GitHub. It has executed once, started by hand on 26 Nov at 16:07 UTC: [run 9](https://github.com/rvadapally-synexar/oracle-property-intelligence-platform-pipeline-san-diego-ca/actions/runs/45855782177) took 13 minutes (12 of them the state licence file download), re-read 246,604 rows, found 0 inserted and 0 updated, and so published nothing. That is the intended result 40 minutes after run 8; the publish branch of the workflow has therefore not run in CI yet. The first start, three minutes earlier, was refused at AWS sign-in because GitHub now issues an id-bearing token subject; the role's trust was corrected. The daily timer is off unless the repository variable `INGEST_SCHEDULE` is `on`: each changed run pins about 170 MB and the free pinning plan used here holds 1 GB (666 MB used), so it would fill within two changed days. Runs 1 to 8 were started by hand on a laptop; run 9 is in the working database and will appear in the published run history with the next publication.
 
 ## Published snapshots (IPFS)
 
@@ -177,20 +177,21 @@ Publishing keys (`FILEBASE_ACCESS_KEY`, `FILEBASE_SECRET_KEY`, `FILEBASE_BUCKET`
 
 ## Timeline (UTC)
 
-| Time         | Milestone                                                            |
-| ------------ | -------------------------------------------------------------------- |
-| 25 Nov 14:26 | Assignment received                                                  |
-| 25 Nov 15:36 | Work started                                                         |
-| 25 Nov 16:22 | First full load complete (5.9M records)                              |
-| 25 Nov 16:46 | Data API live on AWS                                                 |
-| 25 Nov 16:58 | First publication (run 3) pinned at two services                     |
-| 25 Nov 17:36 | Run 6 complete: third permit jurisdiction, rule fixes                |
-| 25 Nov 17:41 | Second publication (run 6), linked to the first                      |
-| 25 Nov 18:45 | Independent evaluation of the live sites (kit `slowking` definition) |
-| 25 Nov 19:08 | Run 7 complete: evaluator data-truth findings fixed                  |
-| 25 Nov 19:15 | Third publication (run 7), linked to the second                      |
-| 26 Nov 15:24 | Run 8 complete: next-day refresh, City holder names fixed            |
-| 26 Nov 15:28 | Fourth publication (run 8), linked to the third; IPNS moved to it    |
+| Time         | Milestone                                                               |
+| ------------ | ----------------------------------------------------------------------- |
+| 25 Nov 14:26 | Assignment received                                                     |
+| 25 Nov 15:36 | Work started                                                            |
+| 25 Nov 16:22 | First full load complete (5.9M records)                                 |
+| 25 Nov 16:46 | Data API live on AWS                                                    |
+| 25 Nov 16:58 | First publication (run 3) pinned at two services                        |
+| 25 Nov 17:36 | Run 6 complete: third permit jurisdiction, rule fixes                   |
+| 25 Nov 17:41 | Second publication (run 6), linked to the first                         |
+| 25 Nov 18:45 | Independent evaluation of the live sites (kit `slowking` definition)    |
+| 25 Nov 19:08 | Run 7 complete: evaluator data-truth findings fixed                     |
+| 25 Nov 19:15 | Third publication (run 7), linked to the second                         |
+| 26 Nov 15:24 | Run 8 complete: next-day refresh, City holder names fixed               |
+| 26 Nov 15:28 | Fourth publication (run 8), linked to the third; IPNS moved to it       |
+| 26 Nov 16:07 | Scheduled workflow ran in GitHub Actions (run 9): no change, no publish |
 
 ---
 
