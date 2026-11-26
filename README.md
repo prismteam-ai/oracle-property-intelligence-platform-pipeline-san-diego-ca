@@ -159,7 +159,7 @@ Publishing keys (`FILEBASE_ACCESS_KEY`, `FILEBASE_SECRET_KEY`, `FILEBASE_BUCKET`
 
 ## Kit deviations, each deliberate
 
-- No lexicon records, `elephant-cli` or Atlas PR: those belong to the county-onboarding route this exercise did not take (see "Shortest path"). The slug, query-table shape and gate, CAR, manifest fields and MCP tool names follow the conventions.
+- No lexicon records or Atlas PR for the published data, which did not go through `elephant-cli`: those belong to the county-onboarding route this exercise did not take (see "Shortest path"). The route was tried on a sample only: [`elephant/san-diego/`](elephant/san-diego/README.md) takes five real parcels through `elephant-cli` (seed, prepare, a hand-written scripts transform, validate, hash); all five validate against the live lexicon with 0 errors, nothing was uploaded, and that README lists what the parcel source cannot fill (year built, roof, owner, room counts) and that permits and contractors were not attempted. The slug, query-table shape and gate, CAR, manifest fields and MCP tool names follow the conventions.
 - The Filebase bucket is `oracle-open-data-san-diego-rv` in a personal account, not the organisation's `elephant-oracle-open-data-*`.
 - The loader is TypeScript end to end, per the engineering guidelines; no Python.
 - No custom API domain, PagerDuty service or Lexicon metric registration: those are tied to company accounts. Alarms go to an SNS topic.
