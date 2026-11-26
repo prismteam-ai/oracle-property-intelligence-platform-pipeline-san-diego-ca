@@ -11,12 +11,52 @@ import type { FilebaseNames, IpnsRecord, PinResult, Pinner } from './pin.js';
 
 export const MANIFEST_SCHEMA = 'oracle-artifact-manifest/1';
 
+/** Logical name of the directory root in a manifest: the path every member name is relative to. */
+export const ROOT_NAME = '/';
+
 export interface ManifestObject {
+  /** Logical name: a path inside the directory, or `/` for the directory root itself. */
   name: string;
   cid: string;
   size: number;
   codec: 'file' | 'directory';
+  /**
+   * For a file, SHA-256 of its bytes. A directory is a DAG node and has no byte stream of its own,
+   * so its digest is the SHA-256 of the CAR that carries the whole DAG; `digestOf` says so.
+   */
   sha256: string | null;
+  digestOf?: string;
+}
+
+/** The IPNS pointer as recorded in a manifest. `note` says what happened to it in this run. */
+export interface ManifestIpns extends IpnsRecord {
+  note: string;
+}
+
+/**
+ * What the manifest says about IPNS. The name is moved before the manifest is written, so a moved
+ * name is recorded with the root it now resolves to. When the move did not happen, the name is
+ * still recorded, with the root it was last known to resolve to and a note saying it was not moved.
+ */
+export function manifestIpns(
+  moved: IpnsRecord | null,
+  lastKnown: IpnsRecord | null | undefined,
+  rootCid: string,
+): ManifestIpns | null {
+  if (moved) {
+    return {
+      ...moved,
+      note: 'Moved to the root of this run before the manifest was written. A later publication moves it again; the root CID is the snapshot.',
+    };
+  }
+  if (!lastKnown) return null;
+  return {
+    ...lastKnown,
+    note:
+      lastKnown.resolvedCid === rootCid
+        ? 'Already pointed at the root of this run; not moved again.'
+        : 'NOT moved to the root of this run: the names service did not confirm the update. resolvedCid is the root the name was last known to resolve to.',
+  };
 }
 
 export interface Manifest {
@@ -32,7 +72,7 @@ export interface Manifest {
   objects: ManifestObject[];
   car: { name: string; size: number; sha256: string; rootCid: string };
   /** IPNS pointer as it stood for this run: the name and the CID it resolved to. */
-  ipns: IpnsRecord | null;
+  ipns: ManifestIpns | null;
   origins: string[];
   pins: PinResult[];
   gatewayPattern: string;
@@ -59,7 +99,10 @@ const indexSchema = z.object({
       previousRootCid: z.string().nullable(),
       objects: z.number(),
       bytes: z.number(),
+      /** Fewest gateways of any kind that returned matching bytes for an object of this run. */
       verifiedGateways: z.number(),
+      /** Of those, gateways that are not a pinning vendor's. Absent on records made before run 8. */
+      verifiedIndependentGateways: z.number().optional(),
       /** The run's CAR as its own IPFS object: fetch by CID, check the digest, import anywhere. */
       car: z
         .object({ name: z.string(), cid: z.string().nullable(), size: z.number(), sha256: z.string() })
@@ -183,11 +226,18 @@ export async function publishRun(options: PublishOptions): Promise<PublishResult
     rootCid: packed.rootCid,
     previousRootCid: previous?.rootCid ?? null,
     objects: [
-      { name: '', cid: packed.rootCid, size: totalBytes, codec: 'directory', sha256: null },
+      {
+        name: ROOT_NAME,
+        cid: packed.rootCid,
+        size: totalBytes,
+        codec: 'directory',
+        sha256: packed.car.sha256,
+        digestOf: `${carName}: the CAR of the DAG rooted at this CID (a directory has no byte stream of its own)`,
+      },
       ...packed.files.map((f) => ({ ...f, codec: 'file' as const })),
     ],
     car: { name: carName, size: packed.car.size, sha256: packed.car.sha256, rootCid: packed.rootCid },
-    ipns,
+    ipns: manifestIpns(ipns, index.ipns, packed.rootCid),
     origins: [],
     pins,
     gatewayPattern: 'https://<gateway>/ipfs/<cid>  (directory members: /ipfs/<rootCid>/<name>)',
@@ -217,7 +267,9 @@ export async function publishRun(options: PublishOptions): Promise<PublishResult
       );
     }
     const done = verification.filter((v) => v.verified).length;
-    log(`gateway verification attempt ${attempt}: ${done}/${verification.length} objects on 2+ gateways`);
+    log(
+      `gateway verification attempt ${attempt}: ${done}/${verification.length} objects on 2+ independent gateways`,
+    );
     if (done === verification.length) break;
     if (attempt < attempts) await sleep(options.verifyWaitMs ?? 60_000);
   }
@@ -250,6 +302,8 @@ export async function publishRun(options: PublishOptions): Promise<PublishResult
     objects: packed.files.length,
     bytes: totalBytes,
     verifiedGateways: verification.length === 0 ? 0 : Math.min(...verification.map((v) => v.passed)),
+    verifiedIndependentGateways:
+      verification.length === 0 ? 0 : Math.min(...verification.map((v) => v.independentPassed)),
     car: { name: carName, cid: carCid, size: packed.car.size, sha256: packed.car.sha256 },
   };
   index.runs = [...index.runs.filter((r) => r.rootCid !== packed.rootCid), entry];

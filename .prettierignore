@@ -6,3 +6,7 @@ cdk.out
 cdk-outputs.json
 dist
 explorer
+# Byte-exact copies of published objects: their SHA-256 must keep matching the manifest.
+publications/san-diego/run-*/coverage.json
+publications/san-diego/run-*/run-history.json
+publications/san-diego/run-*/sources.json
