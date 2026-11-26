@@ -1,6 +1,12 @@
 import { createHash } from 'node:crypto';
 import { describe, expect, it } from 'vitest';
-import { GATEWAYS, gatewayKind, verifyArtifact } from '../src/publish/gatewayVerify.js';
+import {
+  GATEWAYS,
+  gatewayKind,
+  recordVerification,
+  verifyArtifact,
+  type VerifyReport,
+} from '../src/publish/gatewayVerify.js';
 import { manifestIpns } from '../src/publish/publishRun.js';
 
 const BODY = 'the bytes of a published object';
@@ -109,5 +115,42 @@ describe('manifestIpns', () => {
   it('is null only when no name has ever been used', () => {
     expect(manifestIpns(null, undefined, 'bafynew')).toBeNull();
     expect(manifestIpns(null, null, 'bafynew')).toBeNull();
+  });
+});
+
+describe('recordVerification', () => {
+  const report = (passed: number, independentPassed: number): VerifyReport => ({
+    cid: 'bafkreitest',
+    passed,
+    independentPassed,
+    vendorPassed: passed - independentPassed,
+    required: 2,
+    verified: independentPassed >= 2,
+    checks: [],
+  });
+  const index = {
+    countySlug: 'san-diego',
+    ipns: { name: 'k51example', resolvedCid: 'bafynew', sequence: 2 },
+    runs: [
+      { runId: 7, rootCid: 'bafyold', verifiedGateways: 5, car: { name: 'run-0007.car' } },
+      { runId: 8, rootCid: 'bafynew', verifiedGateways: 0, verifiedIndependentGateways: 0 },
+    ],
+  };
+
+  it('records the fewest matching gateways for the run and keeps the rest of the index', () => {
+    const out = recordVerification(index, 'bafynew', [report(10, 7), report(9, 6)]);
+    expect(out).toEqual({
+      countySlug: 'san-diego',
+      // The IPNS record must survive: an earlier version of this step dropped it.
+      ipns: { name: 'k51example', resolvedCid: 'bafynew', sequence: 2 },
+      runs: [
+        { runId: 7, rootCid: 'bafyold', verifiedGateways: 5, car: { name: 'run-0007.car' } },
+        { runId: 8, rootCid: 'bafynew', verifiedGateways: 9, verifiedIndependentGateways: 6 },
+      ],
+    });
+  });
+
+  it('changes nothing for a root that is not in the index', () => {
+    expect(recordVerification(index, 'bafyother', [report(3, 2)])).toEqual(index);
   });
 });

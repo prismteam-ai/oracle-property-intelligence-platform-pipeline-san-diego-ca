@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto';
+import { z } from 'zod';
 
 /**
  * Public gateways this project does not operate. Each fetch is anonymous: no key, no login.
@@ -131,6 +132,8 @@ export async function checkGateway(
   }
 }
 
+const UNAVAILABLE_TIMEOUT_MS = 20_000;
+
 export interface VerifyReport {
   cid: string;
   /** Gateways of any kind that returned bytes matching the manifest. */
@@ -154,7 +157,11 @@ export async function verifyArtifact(
   fetchImpl: typeof fetch = fetch,
   timeoutMs?: number,
 ): Promise<VerifyReport> {
-  const checks = await Promise.all(gateways.map((g) => checkGateway(g, expected, timeoutMs, fetchImpl)));
+  // A gateway already known not to serve scripts gets a short budget: its status is still recorded,
+  // but it cannot hold every object up for minutes.
+  const budget = (g: string): number | undefined =>
+    timeoutMs ?? (gatewayKind(g) === 'unavailable' ? UNAVAILABLE_TIMEOUT_MS : undefined);
+  const checks = await Promise.all(gateways.map((g) => checkGateway(g, expected, budget(g), fetchImpl)));
   const matching = checks.filter((c) => c.ok);
   const independentPassed = matching.filter((c) => c.kind === 'independent').length;
   return {
@@ -166,4 +173,40 @@ export async function verifyArtifact(
     verified: independentPassed >= required,
     checks,
   };
+}
+
+/** The run index as this module needs it. Everything else in the file is carried through untouched. */
+const verifiedIndexSchema = z
+  .object({
+    runs: z.array(
+      z
+        .object({
+          rootCid: z.string(),
+          verifiedGateways: z.number().optional(),
+          verifiedIndependentGateways: z.number().optional(),
+        })
+        .loose(),
+    ),
+  })
+  .loose();
+
+/**
+ * Writes a verification result into the run index: for the run with this root, the fewest
+ * gateways (of any kind, and independent) that returned matching bytes for one of its objects.
+ * Every other field of the index, the IPNS record included, comes back exactly as it went in.
+ */
+export function recordVerification(
+  indexJson: unknown,
+  rootCid: string,
+  results: readonly VerifyReport[],
+): z.infer<typeof verifiedIndexSchema> {
+  const index = verifiedIndexSchema.parse(indexJson);
+  const fewest = (pick: (r: VerifyReport) => number): number =>
+    results.length === 0 ? 0 : Math.min(...results.map(pick));
+  for (const run of index.runs) {
+    if (run.rootCid !== rootCid) continue;
+    run.verifiedGateways = fewest((r) => r.passed);
+    run.verifiedIndependentGateways = fewest((r) => r.independentPassed);
+  }
+  return index;
 }

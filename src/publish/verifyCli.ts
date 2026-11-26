@@ -3,7 +3,13 @@ import path from 'node:path';
 import { parseArgs } from 'node:util';
 import { z } from 'zod';
 import { errorMessage } from '../log.js';
-import { DEFAULT_GATEWAYS, GATEWAYS, verifyArtifact, type VerifyReport } from './gatewayVerify.js';
+import {
+  DEFAULT_GATEWAYS,
+  GATEWAYS,
+  recordVerification,
+  verifyArtifact,
+  type VerifyReport,
+} from './gatewayVerify.js';
 
 const manifestSchema = z.object({
   runId: z.number(),
@@ -16,19 +22,6 @@ const manifestSchema = z.object({
       codec: z.enum(['file', 'directory']),
       sha256: z.string().nullable(),
     }),
-  ),
-});
-
-const indexSchema = z.object({
-  countySlug: z.string(),
-  runs: z.array(
-    z
-      .object({
-        rootCid: z.string(),
-        verifiedGateways: z.number(),
-        verifiedIndependentGateways: z.number().optional(),
-      })
-      .loose(),
   ),
 });
 
@@ -88,12 +81,11 @@ async function main(): Promise<void> {
 
     const indexFile = path.join(path.dirname(dir), 'index.json');
     try {
-      const index = indexSchema.parse(JSON.parse(await readFile(indexFile, 'utf8')));
-      for (const run of index.runs) {
-        if (run.rootCid !== manifest.rootCid) continue;
-        run.verifiedGateways = fewest((r) => r.passed);
-        run.verifiedIndependentGateways = fewest((r) => r.independentPassed);
-      }
+      const index = recordVerification(
+        JSON.parse(await readFile(indexFile, 'utf8')),
+        manifest.rootCid,
+        results,
+      );
       await writeFile(indexFile, `${JSON.stringify(index, null, 2)}\n`);
     } catch {
       // No run index next to this manifest: verification still stands on its own.
