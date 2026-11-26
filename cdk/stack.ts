@@ -18,7 +18,11 @@ export interface OraclePipelineStackProps extends cdk.StackProps {
   artifactPrefix: string;
   /** SSM SecureString parameter holding the model API key for the agent endpoint. */
   agentKeyParameter?: string;
-  /** `owner/repo` whose `ingest` workflow may write to the mirror bucket; no role when unset. */
+  /**
+   * Repository whose `ingest` workflow may write to the mirror bucket; no role when unset. It is
+   * the repository part of GitHub's OIDC subject: `owner/repo`, or `owner@id/repo@id` where the
+   * repository uses immutable subjects (`gh api repos/OWNER/REPO/actions/oidc/customization/sub`).
+   */
   ingestRepo?: string;
   /** Branch that workflow runs from. */
   ingestBranch?: string;
