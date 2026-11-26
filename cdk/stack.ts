@@ -18,6 +18,10 @@ export interface OraclePipelineStackProps extends cdk.StackProps {
   artifactPrefix: string;
   /** SSM SecureString parameter holding the model API key for the agent endpoint. */
   agentKeyParameter?: string;
+  /** `owner/repo` whose `ingest` workflow may write to the mirror bucket; no role when unset. */
+  ingestRepo?: string;
+  /** Branch that workflow runs from. */
+  ingestBranch?: string;
 }
 
 /**
@@ -84,6 +88,29 @@ export class OraclePipelineStack extends cdk.Stack {
           ],
         }),
       );
+    }
+
+    // The scheduled run signs in with GitHub's short-lived OIDC token: no AWS key is stored in
+    // GitHub. The role is usable from one repository and one branch only, and can do exactly two
+    // things: keep the working database under state/ and write a published run under san-diego/.
+    if (props.ingestRepo) {
+      const github = new iam.OidcProviderNative(this, 'GitHubOidc', {
+        url: 'https://token.actions.githubusercontent.com',
+        clientIds: ['sts.amazonaws.com'],
+      });
+      const ingestRole = new iam.Role(this, 'IngestRole', {
+        description: 'GitHub Actions ingest workflow: working database and published runs only',
+        maxSessionDuration: cdk.Duration.hours(1),
+        assumedBy: new iam.WebIdentityPrincipal(github.oidcProviderArn, {
+          StringEquals: {
+            'token.actions.githubusercontent.com:aud': 'sts.amazonaws.com',
+            'token.actions.githubusercontent.com:sub': `repo:${props.ingestRepo}:ref:refs/heads/${props.ingestBranch ?? 'main'}`,
+          },
+        }),
+      });
+      mirror.grantReadWrite(ingestRole, 'state/*');
+      mirror.grantPut(ingestRole, 'san-diego/*');
+      new cdk.CfnOutput(this, 'IngestRoleArn', { value: ingestRole.roleArn });
     }
 
     const httpApi = new apigwv2.HttpApi(this, 'HttpApi', {

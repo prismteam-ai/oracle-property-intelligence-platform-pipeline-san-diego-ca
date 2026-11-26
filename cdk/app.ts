@@ -7,6 +7,8 @@ const artifactPrefix =
 
 // The key is left out, not set to undefined, when the account is unknown (exactOptionalPropertyTypes).
 const account = process.env['CDK_DEFAULT_ACCOUNT'];
+const ingestRepo = app.node.tryGetContext('ingestRepo') as string | undefined;
+const ingestBranch = app.node.tryGetContext('ingestBranch') as string | undefined;
 
 new OraclePipelineStack(app, 'OraclePipelineStack', {
   projectName: 'oracle-pipeline-san-diego',
@@ -14,5 +16,7 @@ new OraclePipelineStack(app, 'OraclePipelineStack', {
   agentKeyParameter:
     (app.node.tryGetContext('agentKeyParameter') as string | undefined) ??
     '/oracle-pipeline/anthropic-api-key',
+  ...(ingestRepo === undefined ? {} : { ingestRepo }),
+  ...(ingestBranch === undefined ? {} : { ingestBranch }),
   env: { region: 'us-east-2', ...(account === undefined ? {} : { account }) },
 });

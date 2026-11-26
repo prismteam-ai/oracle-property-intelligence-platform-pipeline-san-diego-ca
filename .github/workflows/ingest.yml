@@ -1,8 +1,11 @@
 name: ingest
 # Scheduled incremental run. Nothing is hosted between runs: the working database lives as one
 # object in the mirror bucket, is pulled at the start and pushed back at the end.
-# NOT YET EXERCISED: this workflow starts running only once the repository is on GitHub with the
-# secrets below. Until then runs are started by hand (see the run history in the README).
+# AWS access is GitHub OIDC into a role limited to this repository and branch (cdk/stack.ts,
+# IngestRole); the pinning keys are repository secrets. The daily timer only fires when the
+# repository variable INGEST_SCHEDULE is 'on': each changed run pins about 170 MB, and the free
+# pinning plan used here holds 1 GB, so the timer stays off until old runs are unpinned or the
+# plan is raised. Starting it by hand always works.
 on:
   schedule:
     - cron: '17 9 * * *' # daily, 09:17 UTC
@@ -19,6 +22,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   run:
+    if: github.event_name == 'workflow_dispatch' || vars.INGEST_SCHEDULE == 'on'
     runs-on: ubuntu-latest
     timeout-minutes: 45
     env:
@@ -57,7 +61,7 @@ jobs:
           changed=$(npm run -s query -- "SELECT coalesce(sum(inserted + updated), 0) AS n FROM run_history WHERE run_id = (SELECT max(run_id) FROM pipeline_run)" | sed -E 's/.*"n":"?([0-9]+).*/\1/')
           echo "changed=$changed" >> "$GITHUB_OUTPUT"
           if [ "$changed" -gt 0 ]; then
-            npm run publish:ipfs -- --mirror-bucket "${{ vars.MIRROR_BUCKET }}"
+            npm run publish:ipfs -- --mirror-bucket "${{ vars.MIRROR_BUCKET }}" --verify-attempts 5 --verify-wait-seconds 60
           else
             echo "No inserted or updated rows: nothing to publish."
           fi
