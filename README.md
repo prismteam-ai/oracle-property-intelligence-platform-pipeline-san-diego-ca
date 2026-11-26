@@ -6,9 +6,9 @@
 **Demo video (4 min 41 s, narrated):** https://github.com/rvadapally-synexar/oracle-property-intelligence-platform-pipeline-san-diego-ca/releases/download/demo/oracle-pipeline-demo.mp4 ([release page](https://github.com/rvadapally-synexar/oracle-property-intelligence-platform-pipeline-san-diego-ca/releases/tag/demo))
 **Companion PR (consumer):** `roofing-crm`, live at https://main.d3dhgfb9bfhbhb.amplifyapp.com, which reads this pipeline only through the MCP endpoint above.
 
-**Latest published snapshot (run 7):** root CID `bafybeievgzncrw5djebyd3zcx2o5cd6guwamfk7l7qo7rfppxtznvmayhi`
-**Earlier snapshots, untouched and still resolvable:** run 6 `bafybeih5vicdja4prbknofmxzln67pu5vg2saifog4qonlknv43nmwxsea` · run 3 `bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy`
-Manifests, digests and gateway checks for all three are in [`publications/san-diego/`](publications/san-diego/).
+**Latest published snapshot (run 8, 26 Nov 2026):** root CID `bafybeid7km7o4pmbmjrgfjcqhtnidciy4ewj5glket3bfodqb454bg42ru`
+**Earlier snapshots, untouched and still resolvable:** run 7 `bafybeievgzncrw5djebyd3zcx2o5cd6guwamfk7l7qo7rfppxtznvmayhi` · run 6 `bafybeih5vicdja4prbknofmxzln67pu5vg2saifog4qonlknv43nmwxsea` · run 3 `bafybeid7p55asvoy3r24wgrqny74akxdnts6kbne2b2k3thbz66ywo46wy`
+Manifests, digests and gateway checks for all four are in [`publications/san-diego/`](publications/san-diego/).
 
 ## Decomposition
 
@@ -33,57 +33,66 @@ Owner:   deterministic code for steps 1-6; a model only in step 7.
 
 Shortest path taken: San Diego is not an onboarded Elephant county, so instead of the multi-day `onboard-county` route (Restate, Postgres, per-county lexicon transforms, portal scraping) this is a direct TypeScript pipeline from bulk open data that follows the Elephant output conventions: county slug, one flat gated `query-table.parquet`, CAR per directory root, Filebase, MCP tool names. Each source sits behind one adapter interface, so an Elephant adapter can replace any of them without touching the rest. What that leaves out is listed under "Kit deviations".
 
-## What is loaded (run 7, real records)
+## What is loaded (run 8, real records)
 
 | Table                                                   |      Rows | Source                                                                                                                                     |
 | ------------------------------------------------------- | --------: | ------------------------------------------------------------------------------------------------------------------------------------------ |
 | property (with coordinates)                             | 1,087,462 | SANDAG / SanGIS parcels (assessor attributes, centroids)                                                                                   |
 | ownership (owner-occupied flag, last recorded transfer) | 1,087,462 | same                                                                                                                                       |
-| permit (one row per permit)                             | 1,726,127 | City of San Diego 1,267,442 · unincorporated county 448,808 · Carlsbad 9,877 (1,756,884 source rows; 30,757 duplicate listings reconciled) |
-| permit status history                                   | 1,128,036 | County of San Diego                                                                                                                        |
-| permit-contractor records                               |   310,314 | County of San Diego (with CSLB licence numbers)                                                                                            |
-| CSLB licences                                           |   246,104 | California Contractors State License Board                                                                                                 |
-| contractor (reconciled)                                 |   256,944 | CSLB + county permits, keyed on licence number                                                                                             |
-| business                                                |    60,261 | City of San Diego active business tax certificates                                                                                         |
-| rejects (kept, with reason)                             |     7,847 | all sources                                                                                                                                |
+| permit (one row per permit)                             | 1,726,394 | City of San Diego 1,267,709 · unincorporated county 448,808 · Carlsbad 9,877 (1,757,151 source rows; 30,757 duplicate listings reconciled) |
+| permit status history                                   | 1,128,203 | County of San Diego                                                                                                                        |
+| permit-contractor records                               |   310,358 | County of San Diego (with CSLB licence numbers)                                                                                            |
+| CSLB licences                                           |   246,230 | California Contractors State License Board                                                                                                 |
+| contractor (reconciled)                                 |   257,069 | CSLB + county permits, keyed on licence number                                                                                             |
+| business                                                |    60,276 | City of San Diego active business tax certificates                                                                                         |
+| rejects (kept, with reason)                             |     8,989 | all sources                                                                                                                                |
 
-Roofing signals: 25,204 roofing permits (roof-mounted solar classed separately and excluded), 1,170 open, 251 open five years or more; 1,026,319 parcels have a roof year, 15,394 of them from a completed roofing permit and the rest from the assessor's effective year. Ownership: 1,077,377 parcels have a usable last-transfer date (93,286 certain, 984,091 resolved by a named rule). Per-source detail, measured speeds, licences and limits: [`SOURCES.md`](SOURCES.md).
+Roofing signals: 25,205 roofing permits (roof-mounted solar classed separately and excluded), 1,169 open, 251 open five years or more; 1,026,319 parcels have a roof year, 15,395 of them from a completed roofing permit and the rest from the assessor's effective year. Contractor identity: 644,509 permits link to a CSLB licence (City of San Diego 349,303, by holder name; county 295,206, by licence number); of the 1,169 open roofing permits, 701 name a contractor and 553 link to a licence. Ownership: 1,077,377 parcels have a usable last-transfer date (93,286 certain, 984,091 resolved by a named rule). Per-source detail, measured speeds, licences and limits: [`SOURCES.md`](SOURCES.md).
 
 ## Continuous and incremental: the run history
 
-| Run | Started (UTC, 25 Nov 2026) | What it was                                                                |      Read |  Inserted |   Updated | Unchanged |
-| --: | -------------------------- | -------------------------------------------------------------------------- | --------: | --------: | --------: | --------: |
-|   1 | 16:15:43                   | initial full load, window up to 15 Nov                                     | 5,922,627 | 5,918,730 |         0 |         0 |
-|   2 | 16:22:28                   | incremental, window from 10 Nov (17 s)                                     |   507,201 |     2,755 |        50 |   504,389 |
-|   3 | 16:22:47                   | forced full re-read: idempotence check                                     | 4,015,979 |         0 |         0 | 4,014,789 |
-|   4 | 17:16:12                   | new source (Carlsbad) + coordinate rule                                    | 5,935,296 |    11,982 |       336 | 5,921,149 |
-|   5 | 17:20:51                   | fresh county download: nothing missed                                      | 2,170,528 |         0 |         0 | 2,169,859 |
-|   6 | 17:29:05                   | classification and status rule fixes                                       | 5,935,296 |         0 |   145,627 | 5,787,840 |
-|   7 | 19:01:13                   | stricter roofing rule, duplicate permits reconciled, transfer dates graded | 5,935,296 |         0 | 1,093,390 | 4,840,077 |
+| Run | Started (UTC)   | What it was                                                                |      Read |  Inserted |   Updated | Unchanged |
+| --: | --------------- | -------------------------------------------------------------------------- | --------: | --------: | --------: | --------: |
+|   1 | 25 Nov 16:15:43 | initial full load, window up to 15 Nov                                     | 5,922,627 | 5,918,730 |         0 |         0 |
+|   2 | 25 Nov 16:22:28 | incremental, window from 10 Nov (17 s)                                     |   507,201 |     2,755 |        50 |   504,389 |
+|   3 | 25 Nov 16:22:47 | forced full re-read: idempotence check                                     | 4,015,979 |         0 |         0 | 4,014,789 |
+|   4 | 25 Nov 17:16:12 | new source (Carlsbad) + coordinate rule                                    | 5,935,296 |    11,982 |       336 | 5,921,149 |
+|   5 | 25 Nov 17:20:51 | fresh county download: nothing missed                                      | 2,170,528 |         0 |         0 | 2,169,859 |
+|   6 | 25 Nov 17:29:05 | classification and status rule fixes                                       | 5,935,296 |         0 |   145,627 | 5,787,840 |
+|   7 | 25 Nov 19:01:13 | stricter roofing rule, duplicate permits reconciled, transfer dates graded | 5,935,296 |         0 | 1,093,390 | 4,840,077 |
+|   8 | 26 Nov 15:06:14 | next day, every source downloaded again; City holder-name rule fix         | 5,936,013 |       744 |   579,892 | 5,353,548 |
 
-Runs 3, 6 and 7 were published (below). Every run and its per-source counts are served live by the `getPipelineRuns` tool and shown in the explorer. Change detection per source: a cursor on the source's own change date where it has one (county permits, status history, contractors), an ETag or layer edit stamp for snapshot sources, and a row hash for everything, so re-reading unchanged data writes nothing.
+Run 8 is both a rule fix and a real next-day refresh. Of its 577,590 updated City permits, 574,836 changed because of the holder-name rule and 2,754 because the City changed the record since the day before. The 744 inserts are records the sources added overnight (267 City permits, 167 county status events, 44 county permit-contractor records, 15 businesses, 126 CSLB licences and the 125 contractors built from them). Parcels, ownership, county permits and Carlsbad came back identical: 0 inserted, 0 updated.
 
-A scheduled run is defined in [`.github/workflows/ingest.yml`](.github/workflows/ingest.yml) (daily, restores state from the mirror bucket, publishes only if something changed). It has not executed yet: it needs an AWS role and the pinning keys set as repository secrets, which is not done. All seven runs so far were started by hand.
+Runs 3, 6, 7 and 8 were published (below). Every run and its per-source counts are served live by the `getPipelineRuns` tool and shown in the explorer. Change detection per source: a cursor on the source's own change date where it has one (county permits, status history, contractors), an ETag or layer edit stamp for snapshot sources, and a row hash for everything, so re-reading unchanged data writes nothing.
+
+A scheduled run is defined in [`.github/workflows/ingest.yml`](.github/workflows/ingest.yml) (daily, restores state from the mirror bucket, publishes only if something changed). It has not executed yet: it needs an AWS role and the pinning keys set as repository secrets, which is not done. All eight runs so far were started by hand.
 
 ## Published snapshots (IPFS)
 
 - The CAR and every CID are computed here, with the reference (Kubo) chunking, not by a vendor. Identity is the CID; URLs are locators.
-- **Filebase** imports the CAR and must report our root CID. **Pinata** receives the ten files individually and must report our ten file CIDs. Both did, for both runs.
-- Each run has a `manifest.json` (root CID, previous root CID, and for every object: CID, logical name, size, codec, SHA-256; pins; CAR name, size and digest) and a `verification.json`.
-- **IPNS:** the name `k51qzi5uqu5dh1gc755a3y657z3u4xk3v2ytqn82wjjbn9hzzavi7uzgsilcur` (label `oracle-query-table-san-diego`) points at the latest root, currently run 7's. It is a pointer only: the run index records the CID it resolved to, and the publish step moves it after each successful pin. It resolves through public gateways, for example `https://latam.orbitor.dev/ipns/<name>/coverage.json`.
-- Each publication names the previous root: run 7 points to run 6, run 6 to run 3. Earlier CIDs were not touched and still resolve.
-- `npm run verify:ipfs -- --manifest publications/san-diego/run-0007/manifest.json` needs no credentials: it fetches every object from public gateways and compares size and SHA-256.
+- **Filebase** imports the CAR and must report our root CID. **Pinata** receives the ten files individually and must report our ten file CIDs. Both did, for all four publications.
+- Each run has a `manifest.json` (root CID, previous root CID, and for every object: CID, logical name, size, codec, SHA-256; pins; CAR name, size and digest) and a `verification.json`. From run 8 the directory root is an object like the others: its name is `/` and its digest is the SHA-256 of its CAR (a directory has no byte stream of its own; the entry says which file the digest is of). In the manifests of runs 3, 6 and 7 the root has an empty name and no digest; they are published and stay as they are.
+- **IPNS:** the name `k51qzi5uqu5dh1gc755a3y657z3u4xk3v2ytqn82wjjbn9hzzavi7uzgsilcur` (label `oracle-query-table-san-diego`) points at the latest root, currently run 8's (sequence 2). It is a pointer only. The publish step moves it after each successful pin and before the manifest is written, so the run 8 manifest records the name, the root it resolved to and the time; the run index records the same. The name was first used after run 7 was published, so the run 7 manifest says `ipns: null` and only the index carries it for that run. It resolves through public gateways, for example `https://latam.orbitor.dev/ipns/<name>/coverage.json`.
+- Each publication names the previous root: run 8 points to run 7, run 7 to run 6, run 6 to run 3. Earlier CIDs were not touched and still resolve.
+- `npm run verify:ipfs -- --manifest publications/san-diego/run-0008/manifest.json` needs no credentials: it fetches every object from public gateways and compares size and SHA-256. An object passes when two independent gateways return matching bytes. Add `--dry-run` to check without rewriting `verification.json`.
 
-**About `ipfs.io` and `dweb.link`** (the story's example gateways): since September 2026 they answer scripts with HTTP 429 ("switching to a service worker gateway only") and put automated browsers through a bot challenge; they are meant for interactive use. Scripted checks therefore use other public, anonymous gateways and record each one's real status. Matching bytes were fetched from three independent gateways (`latam.orbitor.dev`, `ipfs.raribleuserdata.com`, `ipfs.hypha.coop`) and from the public gateways of the two pinning services (`gateway.pinata.cloud`, `ipfs.filebase.io`). `4everland.io` and `storry.tv` are also tried; at the time of writing they did not find this content.
+**Which gateways, and what "independent" means here.** `ipfs.io` and `dweb.link` (the story's example gateways) have answered scripts with HTTP 429 since September 2026 ("switching to a service worker gateway only") and put automated browsers through a bot challenge; `w3s.link` also answers scripts with 429. Scripted checks therefore use other public, anonymous gateways and record each one's real status. They are listed in [`src/publish/gatewayVerify.ts`](src/publish/gatewayVerify.ts) in three groups:
 
-The CAR of each run is about 172 MB, above GitHub's per-file limit, so the CARs are not in git. Each one is published to IPFS as an object of its own, and `publications/san-diego/index.json` records its CID, size and SHA-256 (run 7: `bafybeihotboun4o2gowa646vwnd7p6y7ivrr65negjowibe3bs7nz4pwvq`, fetched back with a matching digest from two independent gateways). Download it by CID and `ipfs dag import` it into any node. They will also be attached to the GitHub Release that accompanies this PR.
+- **Independent** (run by a party this project has no account with; only these count towards the two required): `latam.orbitor.dev`, `gateway.pinit.io`, `ipfs.aleph.cloud`, `ipfs.thegraph.com`, `ipfs.unique.network`, `ipfs.euc.li`, `ipfs.hypha.coop`. On 26 Nov 2026 each of them returned every object of run 8 to a plain script with the manifest digest (the 129 MB permits file included), and every object up to 40 MB of runs 3, 6 and 7.
+- **Pinning vendor** (fetched and reported, not counted): `gateway.pinata.cloud` and `ipfs.filebase.io`, the public gateways of the two services that pin the data, and `ipfs.raribleuserdata.com`. The last one was listed as independent until run 8. It is Rarible's gateway but a DNS alias of `s3.filebase.com` that answers with `Server: Filebase`, so it shows nothing about retrieval without the vendor. The `verification.json` files of runs 3, 6 and 7 were written before this was noticed and still label it independent.
+- **Unavailable to scripts** (tried so the status is on record): `ipfs.io`, `dweb.link`, `w3s.link` (HTTP 429), `4everland.io` (HTTP 504), `storry.tv` (HTTP 500).
+
+Run 8 was checked at 15:35 UTC on 26 Nov, seven minutes after it was pinned: all 10 objects matched on all 7 independent gateways and on the 3 vendor ones ([`verification.json`](publications/san-diego/run-0008/verification.json) holds every fetch, the five failing gateways included). The explorer's in-browser check uses five of the independent gateways and the three vendor ones, with the same rule: verified means two independent gateways returned matching bytes.
+
+The CAR of each run is about 172 MB, above GitHub's per-file limit, so the CARs are not in git. Each one is published to IPFS as an object of its own, and `publications/san-diego/index.json` records its CID, size and SHA-256 (run 8: `bafybeibgred3ysexyy4e2g2ntpmvsgug26qcujpjhqfbatla72yu5qwbvy`; run 7: `bafybeihotboun4o2gowa646vwnd7p6y7ivrr65negjowibe3bs7nz4pwvq`, fetched back with a matching digest from two independent gateways). Download it by CID and `ipfs dag import` it into any node. They will also be attached to the GitHub Release that accompanies this PR.
 
 ## Query layer, MCP and agent
 
 - **DuckDB with no database server.** The serving function is an in-memory DuckDB whose only contents are views over the published Parquet files. On a cold start it copies one run from a private mirror bucket and checks each file against the manifest digest; bytes that do not match are refused. The mirror is a cache of content-addressed data, not a source of truth.
 - **MCP** (`POST /mcp`, stateless streamable HTTP): `findRoofingLeads`, `getOracleProperty`, `getAtlasDatasetInfo`, `getAtlasSchema`, `queryAtlas`, `getPipelineRuns`, `getCoverage`, `getArtifactManifest`, `getPublicationHistory`. The roofing CRM uses the first five; nothing else reaches the data.
-- **Story queries.** Radius search around a point; roofs older than N years (default 15, any N); open roofing permits, longest open first, with contractor, CSLB licence, and BBB rating or the stated reason it is missing; ownership unchanged for N years (`minYearsSinceTransfer`); out-of-area owners by the available proxy (`ownerOccupied: "no"`). Every row carries its source, source record id, source URL and fetch time.
-- **Agent** (`POST /agent`): Vercel AI SDK, four Zod-typed tools, answers only from rows the tools returned, lists its assumptions and what is missing. A deterministic check flags any parcel number in the answer that no tool returned.
+- **Story queries.** Radius search around a point; roofs older than N years (default 15, any N; at equal age a roof dated by a permit ranks ahead of a year-built proxy); open roofing permits, longest open first, with contractor, CSLB licence, and BBB rating or the stated reason it is missing; ownership unchanged for N years (`minYearsSinceTransfer`); out-of-area owners by the available proxy (`ownerOccupied: "no"`). Every row carries its source, source record id, source URL and fetch time.
+- **Agent** (`POST /agent`): Vercel AI SDK, four Zod-typed tools, answers only from rows the tools returned, lists its assumptions and what is missing. "Open for many years" means five years or more unless the question gives a number. A deterministic check flags any parcel number in the answer that no tool returned, and a second one adds a note (`notes` in the response) when retrieved open permits were opened before 2005: those are probably never finalled in the source system, not active jobs.
 - **`queryAtlas` guard**: exactly one read-only SELECT, no file or network functions, 1,000-row cap applied from outside, 15-second interrupt, memory cap, and the engine's own external access switched off.
 
 Example MCP call:
@@ -103,8 +112,8 @@ curl -s https://mywcppj2yl.execute-api.us-east-2.amazonaws.com/mcp \
 | Pipeline run summary: run, sources, coverage, counts, timestamps, limitations | Explorer, "Run summary"                                                                 |
 | Total uploaded records by source, with timestamps and provenance              | Explorer, "Records by source"                                                           |
 | DuckDB-backed query layer, no Oracle-hosted database                          | Explorer, "Query layer (DuckDB)"                                                        |
-| Published artifact manifest                                                   | Explorer, "Published artifacts (IPFS)"; `publications/san-diego/run-0007/manifest.json` |
-| Retrieve an artifact by CID from two public gateways, bytes match             | Explorer "Verify now"; `npm run verify:ipfs`; `verification.json`                       |
+| Published artifact manifest                                                   | Explorer, "Published artifacts (IPFS)"; `publications/san-diego/run-0008/manifest.json` |
+| Retrieve an artifact by CID from two independent gateways, bytes match        | Explorer "Verify now"; `npm run verify:ipfs`; `verification.json`                       |
 | A later publish produced a new CID without mutating the previous one          | Explorer "Publication history"; `publications/san-diego/index.json`                     |
 | UI: properties in a radius with roofs older than 15 years                     | Explorer, "Explore map"                                                                 |
 | Open roofing permits, long-open first, with contractor and BBB                | Explorer, "Explore map", open-permit tab and row detail                                 |
@@ -121,14 +130,14 @@ Requires Node 24 for the pipeline and tools (the deployed function runs on the N
 
 ```bash
 npm ci
-npm run check                                   # typecheck, lint, format, 218 tests (offline, recorded real rows)
+npm run check                                   # typecheck, lint, format, 240 tests (offline, recorded real rows)
 npm run pipeline                                # full load into data/oracle.duckdb (about 7 minutes)
 npm run pipeline -- --window 2026-11-10..       # incremental window
 npm run query -- "SELECT * FROM run_history"    # ad-hoc SQL on the working database
 npm run publish:ipfs                            # export, CAR, pins, manifest (keys from the environment)
-npm run verify:ipfs -- --manifest publications/san-diego/run-0007/manifest.json
-npm run serve -- --artifacts data/artifacts/publish/san-diego/run-0007   # local MCP on :8790
-npm run build:lambda && npx cdk deploy -c artifactPrefix=san-diego/run-0007
+npm run verify:ipfs -- --manifest publications/san-diego/run-0008/manifest.json
+npm run serve -- --artifacts data/artifacts/publish/san-diego/run-0008   # local MCP on :8790
+npm run build:lambda && npx cdk deploy -c artifactPrefix=san-diego/run-0008
 cd explorer && npm ci && npm run dev            # explorer UI against the live API
 ```
 
@@ -137,13 +146,15 @@ Publishing keys (`FILEBASE_ACCESS_KEY`, `FILEBASE_SECRET_KEY`, `FILEBASE_BUCKET`
 ## Known limits, stated plainly
 
 - **Permit coverage is 3 of 19 jurisdictions.** City of San Diego, the unincorporated county and Carlsbad (a frozen 2022-2023 snapshot) publish bulk permit data. The other cities checked expose only interactive portals or token-gated layers, which this pipeline does not scrape; `SOURCES.md` records what was found for each. Search results say so explicitly instead of returning a silent zero.
-- **Ownership is partial.** No county-wide public source carries owner names or mailing addresses. The data has an owner-occupied flag and the last recorded transfer document. "Out-of-area owner" is therefore a proxy (not flagged owner-occupied) and over-counts. Two cities (Oceanside, El Cajon) expose owner name and mailing address on open parcel layers; they were deliberately not loaded, because that is homeowner personal data and its exposure looks unintended. The three published snapshots carry an earlier, looser wording of this limit ("not in any public San Diego source"); published snapshots are immutable, so the corrected wording appears from the next publication.
+- **Ownership is partial.** No county-wide public source carries owner names or mailing addresses. The data has an owner-occupied flag and the last recorded transfer document. "Out-of-area owner" is therefore a proxy (not flagged owner-occupied) and over-counts. Two cities (Oceanside, El Cajon) expose owner name and mailing address on open parcel layers; they were deliberately not loaded, because that is homeowner personal data and its exposure looks unintended. The snapshots of runs 3, 6 and 7 carry an earlier, looser wording of this limit ("not in any public San Diego source"); published snapshots are immutable, so the corrected wording appears from run 8.
 - **Ownership dates.** Most last-transfer dates arrive with two-digit years. 93,286 are certain; 984,091 are resolved to this century by two named rules (an owner-occupied exemption on the parcel, or a typed recorder document on a taxable parcel: only 58 last documents fall in 1927-1939 against tens of thousands a year for 2000-2026); 7,494 stay ambiguous and are left out of the "unchanged for N years" filter. Each row carries its confidence and rule.
+- **Contractor identity on City permits is a name match.** The City publishes a permit holder, not a licence number. The holder field is two names joined by a comma: usually the firm twice, otherwise the firm and a contact person. Until run 8 the match key was built from the whole string, so most City permits could not link. Now a doubled name is kept once and the key is the firm (the first part: where only one of two different parts was a licensed contractor's name, it was the first for 149,312 rows against 6,271). Permits linked to a licence went from 120,235 to 349,303 of 1,267,709 City permits; of the 225 open City roofing permits that name a holder, 77 link (38 before). The rest are mostly individuals or firms whose name is not exactly a CSLB business name; 80,373 of the links are to a name shared by more than one licence and are marked `name_norm_exact_ambiguous`. Carlsbad publishes no holder at all. County permits link by licence number.
 - **BBB ratings are not collected.** There is no bulk source and BBB's terms limit copying. Every contractor row carries the reason, and the UI shows it.
 - **Roof age is a proxy**: the last completed roofing permit where one exists (high confidence), otherwise the assessor's effective year (medium, or low when a two-digit year is ambiguous). Each row says which.
 - **Roofing class comes from rules** over approval type and description, unit-tested on recorded real rows but not measured against a labelled set. A permit counts as roofing only when its type is building work and the text is about the roof itself; a re-roof inside a solar job counts only when the text says it is a full re-roof, which will miss some real ones.
 - **The same permit can be listed twice by a source** (City "N" and "PMT-N"; county legacy "...1" and "...999"). 30,757 such pairs are reconciled to one permit, with the other id kept as an alias; 15 City pairs failed the date-or-parcel check and were left separate.
-- **Decades-open county permits** are probably permits never finalled in the record, not active jobs.
+- **Decades-open county permits** are probably permits never finalled in the record, not active jobs. The agent says so for any open permit opened before 2005.
+- **Repository copies of three small published files were reformatted for runs 3, 6 and 7.** `coverage.json`, `run-history.json` and `sources.json` under `publications/san-diego/run-000{3,6,7}/` went through the code formatter, so their bytes differ from the published objects; the digests in those manifests are of the published bytes, which the gateways return. From run 8 the copies are byte-exact.
 - **Deletes are not tombstoned**: a record that disappears from a source keeps its last state, with `last_seen_run` showing when it was last present.
 
 ## Kit deviations, each deliberate
@@ -161,22 +172,25 @@ Publishing keys (`FILEBASE_ACCESS_KEY`, `FILEBASE_SECRET_KEY`, `FILEBASE_BUCKET`
 - **Kit agents used as reviewers.** The kit's `oracle`, `machamp` and `metagross` agent definitions were run as read-only reviewers over both repositories (under Claude, not the model the definitions name). They scored the pipeline 35 (oracle) and 55 (machamp) before fixes, mostly for not using the lexicon / elephant-cli path. From their findings I fixed: publishing only runs that ended `ok`; a time and memory limit on `queryAtlas` (a three-way cross join had returned a 503); ownership filters for the "10 years" and "out-of-area" questions; a second publication with the run index and manifests committed; limitations text built from the data instead of hard-coded.
 - **Rejected or corrected:** a Python loader (standard is TypeScript); a first "open permit" rule that counted applied-but-never-issued permits as open (141,190 rows moved to `pending`); a roofing rule that matched text before approval type and classed agreements and construction-change records as roofing (1,070 rows stopped being roofing); a publish step that looped on slow gateway downloads (verification is now a separate, credential-free command); a manifest schema mismatch that took the live API down for four minutes after a deploy (found by calling the live endpoint, fixed, and the serving layer is now tested locally against each new run before deploy).
 - **From the independent evaluation of the live sites** (kit `slowking` definition, read-only): a planning review topped the long-open roofing list (roofing rule tightened: 1,471 open roofing permits became 1,170); the same permit appeared under two ids (30,757 pairs reconciled); the "unchanged 10 years" filter could use 9% of parcels (transfer dates graded: now 99%); a crafted statement could close the row-cap wrapper of `queryAtlas` (parentheses must balance; test added); gateway verification took 63 seconds (12-second budget per gateway, three independent gateways found).
+- **From the scoring of the submission** (26 Nov): contractor names on City permits were doubled and did not link to licences (holder rule above; run 8); only one of the "independent" gateways really was (list rebuilt from gateways tested that day, vendor-hosted ones relabelled, verdict now needs two independent); the manifest had no IPNS record and an unnamed root (fixed in the publisher, visible from run 8); the agent read "many years" as two (now five, with the pre-2005 note).
 - **Found by testing, not by reading:** the story's two example gateways no longer serve scripts; Pinata's free plan refuses CAR uploads but its plain uploads produce our CIDs once the chunking matches Kubo's.
 
-## Timeline (UTC, 25 Nov 2026)
+## Timeline (UTC)
 
-| Time  | Milestone                                                            |
-| ----- | -------------------------------------------------------------------- |
-| 14:26 | Assignment received                                                  |
-| 15:36 | Work started                                                         |
-| 16:22 | First full load complete (5.9M records)                              |
-| 16:46 | Data API live on AWS                                                 |
-| 16:58 | First publication (run 3) pinned at two services                     |
-| 17:36 | Run 6 complete: third permit jurisdiction, rule fixes                |
-| 17:41 | Second publication (run 6), linked to the first                      |
-| 18:45 | Independent evaluation of the live sites (kit `slowking` definition) |
-| 19:08 | Run 7 complete: evaluator data-truth findings fixed                  |
-| 19:15 | Third publication (run 7), linked to the second                      |
+| Time         | Milestone                                                            |
+| ------------ | -------------------------------------------------------------------- |
+| 25 Nov 14:26 | Assignment received                                                  |
+| 25 Nov 15:36 | Work started                                                         |
+| 25 Nov 16:22 | First full load complete (5.9M records)                              |
+| 25 Nov 16:46 | Data API live on AWS                                                 |
+| 25 Nov 16:58 | First publication (run 3) pinned at two services                     |
+| 25 Nov 17:36 | Run 6 complete: third permit jurisdiction, rule fixes                |
+| 25 Nov 17:41 | Second publication (run 6), linked to the first                      |
+| 25 Nov 18:45 | Independent evaluation of the live sites (kit `slowking` definition) |
+| 25 Nov 19:08 | Run 7 complete: evaluator data-truth findings fixed                  |
+| 25 Nov 19:15 | Third publication (run 7), linked to the second                      |
+| 26 Nov 15:24 | Run 8 complete: next-day refresh, City holder names fixed            |
+| 26 Nov 15:28 | Fourth publication (run 8), linked to the third; IPNS moved to it    |
 
 ---
 
