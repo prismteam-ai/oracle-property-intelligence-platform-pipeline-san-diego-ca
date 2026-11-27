@@ -1,0 +1,378 @@
+import { Card, ResourceView, SourceLink } from '../components/ui';
+import { getCoverage, getDatasetInfo, getPipelineRuns, queryAtlas } from '../lib/api';
+import { fmtInt, fmtTimestamp, hasZone } from '../lib/format';
+import type { Coverage, DatasetInfo, PipelineRuns } from '../lib/schemas';
+import { useResource } from '../lib/useResource';
+import { licenceFor } from './RunSummary';
+
+export const DERIVED_COUNTS_SQL = `SELECT
+  (SELECT count(*) FROM parcel WHERE lat IS NOT NULL AND lon IS NOT NULL) AS parcels_with_coordinates,
+  (SELECT count(*) FROM business WHERE lat IS NOT NULL AND lon IS NOT NULL) AS businesses_with_coordinates,
+  (SELECT count(*) FROM contractor) AS contractors,
+  (SELECT count(bbb_rating) FROM contractor) AS contractors_with_bbb_rating,
+  (SELECT any_value(bbb_note) FROM contractor WHERE bbb_note IS NOT NULL) AS bbb_note`;
+
+interface Derived {
+  parcelsWithCoordinates: number | null;
+  businessesWithCoordinates: number | null;
+  contractorsWithBbb: number | null;
+  bbbNote: string | null;
+}
+
+async function loadDerived(): Promise<Derived> {
+  const result = await queryAtlas(DERIVED_COUNTS_SQL);
+  const row = result.rows[0] ?? {};
+  const n = (key: string): number | null => {
+    const value = Number(row[key]);
+    return row[key] === null || row[key] === undefined || Number.isNaN(value) ? null : value;
+  };
+  return {
+    parcelsWithCoordinates: n('parcels_with_coordinates'),
+    businessesWithCoordinates: n('businesses_with_coordinates'),
+    contractorsWithBbb: n('contractors_with_bbb_rating'),
+    bbbNote: typeof row.bbb_note === 'string' ? row.bbb_note : null,
+  };
+}
+
+const HEADLINE: readonly { table: string; label: string; what: string }[] = [
+  { table: 'property', label: 'Property', what: 'Parcels with assessor attributes' },
+  { table: 'ownership', label: 'Ownership', what: 'Owner-occupancy and last transfer per parcel' },
+  { table: 'permit', label: 'Permits', what: 'Building permits from every loaded jurisdiction' },
+  { table: 'contractor', label: 'Contractor', what: 'Reconciled on CSLB licence number' },
+  { table: 'business', label: 'Business', what: 'Active business tax certificates' },
+];
+
+const OTHER_LABEL: Record<string, string> = {
+  permit_status_history: 'Permit status history',
+  permit_contractor_record: 'Permit contractor records',
+  cslb_license: 'CSLB licences',
+  rejects: 'Rejected rows (kept, not loaded)',
+};
+
+const PUBLISHED_PERMITS = /^permit \(one row per permit/i;
+
+/**
+ * The permit figure to show. The coverage counts may carry both the raw source rows (`permit`)
+ * and the published one-row-per-permit count; the published count is the total, and the gap
+ * between the two is the number of duplicate listings that were reconciled.
+ */
+export function permitTotals(counts: Coverage['counts']): {
+  permits: number | null;
+  sourceRows: number | null;
+  duplicates: number | null;
+} {
+  const sourceRows = counts.find((c) => c.table === 'permit')?.rows ?? null;
+  const published = counts.find((c) => PUBLISHED_PERMITS.test(c.table))?.rows ?? null;
+  if (published === null) return { permits: sourceRows, sourceRows, duplicates: null };
+  return {
+    permits: published,
+    sourceRows,
+    duplicates: sourceRows === null ? null : sourceRows - published,
+  };
+}
+
+function Totals({ coverage, derived }: { coverage: Coverage; derived: Derived | null }) {
+  const count = (table: string): number | null =>
+    coverage.counts.find((c) => c.table === table)?.rows ?? null;
+  const permits = permitTotals(coverage.counts);
+  const headline = new Set(HEADLINE.map((h) => h.table));
+  const others = coverage.counts.filter(
+    (c) => !headline.has(c.table) && !PUBLISHED_PERMITS.test(c.table),
+  );
+  return (
+    <>
+      <dl className="stat-grid" data-testid="record-totals">
+        {HEADLINE.map((h) => (
+          <div className="stat" key={h.table} data-testid={`total-${h.table}`}>
+            <dt>{h.label}</dt>
+            <dd className="stat-value">
+              {fmtInt(h.table === 'permit' ? permits.permits : count(h.table))}
+            </dd>
+            <dd className="muted small">{h.what}</dd>
+            {h.table === 'permit' && permits.duplicates !== null ? (
+              <dd className="muted small" data-testid="permit-source-rows">
+                One row per permit. {fmtInt(permits.sourceRows)} source rows before reconciling{' '}
+                {fmtInt(permits.duplicates)} duplicate listings.
+              </dd>
+            ) : null}
+            {h.table === 'contractor' ? (
+              <dd className="small bbb-note" data-testid="bbb-note">
+                BBB rating:{' '}
+                {derived
+                  ? `${fmtInt(derived.contractorsWithBbb)} of ${fmtInt(count('contractor'))} rows carry one. `
+                  : ''}
+                {derived?.bbbNote ??
+                  'Not collected: there is no bulk source and BBB terms limit copying. Each contractor row carries the reason.'}
+              </dd>
+            ) : null}
+          </div>
+        ))}
+        <div className="stat" data-testid="total-coordinates">
+          <dt>Coordinates</dt>
+          <dd className="stat-value">{derived ? fmtInt(derived.parcelsWithCoordinates) : '…'}</dd>
+          <dd className="muted small">
+            Parcels with latitude and longitude
+            {derived?.businessesWithCoordinates !== null &&
+            derived?.businessesWithCoordinates !== undefined
+              ? `; plus ${fmtInt(derived.businessesWithCoordinates)} businesses with coordinates`
+              : ''}
+          </dd>
+        </div>
+      </dl>
+      {others.length > 0 ? (
+        <div className="table-scroll table-narrow">
+          <table className="mini-table">
+            <caption className="sr-only">Supporting tables</caption>
+            <thead>
+              <tr>
+                <th scope="col">Supporting table</th>
+                <th scope="col" className="num">
+                  Rows
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {others.map((c) => (
+                <tr key={c.table} data-testid={`total-${c.table}`}>
+                  <td>{OTHER_LABEL[c.table] ?? c.table}</td>
+                  <td className="num">{fmtInt(c.rows)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : null}
+    </>
+  );
+}
+
+/**
+ * The run that last fetched rows from a source, found through the run history. The dataset tool
+ * reports each source's row count as its largest `fetched` value, so that value identifies the
+ * source's id in the history; an ambiguous or missing match returns null.
+ */
+export function lastRunForSource(
+  rows: number | null,
+  runs: PipelineRuns | null,
+): { runId: number; finishedAt: string | null } | null {
+  if (rows === null || !runs) return null;
+  const maxFetched = new Map<string, number>();
+  for (const s of runs.stats) {
+    maxFetched.set(s.source_id, Math.max(maxFetched.get(s.source_id) ?? 0, s.fetched ?? 0));
+  }
+  const ids = [...maxFetched].filter(([, fetched]) => fetched === rows).map(([id]) => id);
+  if (ids.length !== 1) return null;
+  const runIds = runs.stats
+    .filter((s) => s.source_id === ids[0] && (s.fetched ?? 0) > 0)
+    .map((s) => s.run_id);
+  if (runIds.length === 0) return null;
+  const runId = Math.max(...runIds);
+  const run = runs.runs.find((r) => r.run_id === runId);
+  return { runId, finishedAt: run?.finished_at ?? null };
+}
+
+type SourceRow = DatasetInfo['sources'][number];
+
+/** When the loader fetched the source, exactly as the API states it. */
+function Fetched({ source }: { source: SourceRow }) {
+  const utc =
+    source.fetchedAtUtc ??
+    (source.fetchedAt && hasZone(source.fetchedAt) ? source.fetchedAt : null);
+  if (utc) return <>{fmtTimestamp(utc)}</>;
+  if (source.fetchedAt) {
+    return (
+      <>
+        {source.fetchedAt.slice(0, 19)}
+        <div className="muted small">loader local time; no zone recorded</div>
+      </>
+    );
+  }
+  return <span className="muted">not recorded</span>;
+}
+
+function SourceModified({ source }: { source: SourceRow }) {
+  const value = source.sourceLastModified ?? source.sourceUpdatedAt ?? source.lastModified ?? null;
+  if (!value) return <span className="muted">not recorded</span>;
+  return <>{hasZone(value) ? fmtTimestamp(value) : value}</>;
+}
+
+function RunFinished({ source, runs }: { source: SourceRow; runs: PipelineRuns | null }) {
+  const run = lastRunForSource(source.rows, runs);
+  if (!run?.finishedAt) return <span className="muted">not recorded</span>;
+  return (
+    <>
+      {fmtTimestamp(run.finishedAt)}
+      <div className="muted small">run {run.runId}, the last run that fetched rows</div>
+    </>
+  );
+}
+
+function SourceTable({ info, runs }: { info: DatasetInfo; runs: PipelineRuns | null }) {
+  return (
+    <div className="table-scroll" tabIndex={0} role="group" aria-label="Records fetched per source">
+      <table className="mini-table" data-testid="source-table">
+        <caption className="sr-only">Records fetched per source</caption>
+        <thead>
+          <tr>
+            <th scope="col">Source</th>
+            <th scope="col" className="num">
+              Rows fetched
+            </th>
+            <th scope="col" className="col-time">
+              Fetched
+            </th>
+            <th scope="col" className="col-time">
+              Run finished (UTC)
+            </th>
+            <th scope="col">Source last modified</th>
+            <th scope="col">Provenance</th>
+            <th scope="col">Licence</th>
+          </tr>
+        </thead>
+        <tbody>
+          {info.sources.map((s) => (
+            <tr key={s.name}>
+              <td>{s.name}</td>
+              <td className="num">{fmtInt(s.rows)}</td>
+              <td data-testid="source-fetched">
+                <Fetched source={s} />
+              </td>
+              <td data-testid="source-run-finished">
+                <RunFinished source={s} runs={runs} />
+              </td>
+              <td data-testid="source-modified">
+                <SourceModified source={s} />
+              </td>
+              <td>
+                <SourceLink url={s.url} />
+              </td>
+              <td className="note-cell">{licenceFor(s.url)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export default function Records() {
+  const coverage = useResource('coverage', () => getCoverage());
+  const info = useResource('datasetInfo', () => getDatasetInfo());
+  const runs = useResource('pipelineRuns', () => getPipelineRuns());
+  const derived = useResource('derivedCounts', loadDerived);
+
+  return (
+    <div className="page" data-testid="section-records">
+      <div className="page-head">
+        <div>
+          <h2>Records by source</h2>
+          <p className="muted">
+            Totals per table, what each source delivered and when, and the rows that were refused.
+          </p>
+        </div>
+      </div>
+
+      <Card title="Total uploaded records" testId="card-totals">
+        <ResourceView
+          state={coverage.state}
+          reload={coverage.reload}
+          label="Loading totals…"
+          testId="totals"
+        >
+          {(data) => (
+            <Totals
+              coverage={data}
+              derived={derived.state.status === 'ok' ? derived.state.data : null}
+            />
+          )}
+        </ResourceView>
+        {derived.state.status === 'error' ? (
+          <p className="muted small" role="status">
+            The coordinate and BBB counts could not be computed live ({derived.state.error.message}
+            ).
+          </p>
+        ) : null}
+        <details className="disclosure">
+          <summary>How the coordinate and BBB counts are computed</summary>
+          <p className="small muted">
+            Counted live through the queryAtlas tool with this statement:
+          </p>
+          <pre className="code">{DERIVED_COUNTS_SQL}</pre>
+        </details>
+      </Card>
+
+      <Card title="Per source: rows fetched, times, provenance" testId="card-per-source">
+        <ResourceView
+          state={info.state}
+          reload={info.reload}
+          label="Loading sources…"
+          testId="per-source"
+        >
+          {(data) => (
+            <SourceTable info={data} runs={runs.state.status === 'ok' ? runs.state.data : null} />
+          )}
+        </ResourceView>
+        <p className="muted small" data-testid="source-time-note">
+          Three different times, each labelled for what it is: when the loader fetched the source,
+          when the run that fetched it finished (from the run history, UTC), and when the publisher
+          last modified the source. “Not recorded” means the API does not return that value.
+        </p>
+        <p className="muted small">
+          Every loaded row also carries its own <code>source_id</code>,{' '}
+          <code>source_record_id</code>, <code>source_url</code> and <code>fetched_at</code>; they
+          are shown per property in the Explore map and are selectable in the query layer.
+        </p>
+      </Card>
+
+      <Card title="Rejected rows by reason" testId="card-rejects">
+        <ResourceView
+          state={coverage.state}
+          reload={coverage.reload}
+          label="Loading rejects…"
+          testId="rejects"
+        >
+          {(data) =>
+            data.rejects.length === 0 ? (
+              <p className="empty-line">No rows were rejected.</p>
+            ) : (
+              <div
+                className="table-scroll"
+                tabIndex={0}
+                role="group"
+                aria-label="Rejected rows by reason"
+              >
+                <table className="mini-table" data-testid="rejects-table">
+                  <caption className="sr-only">Rejected rows by reason</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Source</th>
+                      <th scope="col">Entity</th>
+                      <th scope="col">Reason</th>
+                      <th scope="col" className="num">
+                        Rows
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data.rejects.map((r) => (
+                      <tr key={`${r.source}/${r.entity}/${r.reason}`}>
+                        <td>
+                          <code>{r.source}</code>
+                        </td>
+                        <td>{r.entity}</td>
+                        <td>
+                          <code>{r.reason}</code>
+                        </td>
+                        <td className="num">{fmtInt(r.rows)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )
+          }
+        </ResourceView>
+      </Card>
+    </div>
+  );
+}

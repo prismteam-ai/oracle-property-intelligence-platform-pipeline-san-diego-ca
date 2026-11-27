@@ -1,0 +1,69 @@
+
+run 1: ok
+source                       entity                    fetched  rejected  dupes  inserted  updated  unchanged  MB     sec  
+---------------------------  ------------------------  -------  --------  -----  --------  -------  ---------  -----  -----
+sandag_parcels               property                  1088570  1103      5      1087462   0        0          0.0    25.4 
+sandag_parcels               ownership                 1087467  0         5      1087462   0        0          0.0    0.0  
+sdcounty_permit_status       permit_status             1126464  0         0      1126464   0        0          176.4  81.3 
+sdcounty_permits             permit                    474319   2074      604    471641    0        0          477.3  124.5
+sdcounty_permit_contractors  permit_contractor_record  310019   20        16     309983    0        0          134.7  32.5 
+sdcity_permits               permit                    1272476  46        20     1272410   0        0          0.0    97.4 
+sdcity_businesses            business                  60265    4         0      60261     0        0          0.0    15.1 
+cslb_license_master          cslb_license              246104   0         0      246104    0        0          0.0    13.4 
+reconciled                   contractor                256943   0         0      256943    0        0          0.0    4.5  
+  sandag_parcels/property: resumed: reused 545 of 545 page files already on disk; fetch 0.3s, validate 21.8s
+  sandag_parcels/ownership: resumed: reused 545 of 545 page files already on disk; fetch 0.3s, validate 21.8s
+  sdcounty_permit_status/permit_status: fetch 72.4s, validate 6.6s; 2.43 MB/s
+  sdcounty_permits/permit: fetch 102.8s, validate 15.1s; 4.64 MB/s
+  sdcounty_permit_contractors/permit_contractor_record: fetch 26.2s, validate 3.8s; 5.14 MB/s
+  sdcity_permits/permit: reused approvals_active_datasd.csv from an earlier attempt today; reused approvals_closed_datasd.csv from an earlier attempt today; fetch 0.3s, validate 78.1s
+  sdcity_businesses/business: reused sd_businesses_active_datasd.csv from an earlier attempt today; fetch 0.3s, validate 3.8s
+  cslb_license_master/cslb_license: reused MasterLicenseData.csv from an earlier attempt today; fetch 0.3s, validate 10.7s
+  reconciled/contractor: built in SQL from cslb_license and permit_contractor_record
+exit 0
+
+run 2: ok
+source                       entity                    fetched  rejected  dupes  inserted  updated  unchanged  MB   sec 
+---------------------------  ------------------------  -------  --------  -----  --------  -------  ---------  ---  ----
+sandag_parcels               property                  0        0         0      0         0        0          0.0  0.2 
+sandag_parcels               ownership                 0        0         0      0         0        0          0.0  0.2 
+sdcounty_permit_status       permit_status             2292     0         0      1572      0        720        0.4  1.4 
+sdcounty_permits             permit                    1364     0         7      851       34       472        1.6  0.7 
+sdcounty_permit_contractors  permit_contractor_record  497      0         0      331       0        166        0.2  0.3 
+sdcity_permits               permit                    0        0         0      0         0        0          0.0  0.2 
+sdcity_businesses            business                  0        0         0      0         0        0          0.0  0.2 
+cslb_license_master          cslb_license              246104   0         0      0         0        246104     0.0  10.5
+reconciled                   contractor                256944   0         0      1         16       256927     0.0  3.0 
+  sandag_parcels/property: skipped: layer not edited since last load (same lastEditDate)
+  sandag_parcels/ownership: skipped: layer not edited since last load (same lastEditDate)
+  sdcounty_permit_status/permit_status: fetch 1.3s, validate 0.0s; 0.29 MB/s
+  sdcounty_permits/permit: fetch 0.4s, validate 0.1s; 3.80 MB/s
+  sdcounty_permit_contractors/permit_contractor_record: fetch 0.2s, validate 0.0s; 1.15 MB/s
+  sdcity_permits/permit: skipped: not modified since last load (same ETag)
+  sdcity_businesses/business: skipped: not modified since last load (same ETag)
+  cslb_license_master/cslb_license: reused MasterLicenseData.csv from an earlier attempt today; fetch 0.4s, validate 9.5s
+  reconciled/contractor: built in SQL from cslb_license and permit_contractor_record
+exit 0
+
+run 3: ok
+source                       entity                    fetched  rejected  dupes  inserted  updated  unchanged  MB   sec 
+---------------------------  ------------------------  -------  --------  -----  --------  -------  ---------  ---  ----
+sandag_parcels               property                  1088570  1103      5      0         0        1087462    0.0  29.7
+sandag_parcels               ownership                 1087467  0         5      0         0        1087462    0.0  0.0 
+sdcounty_permit_status       permit_status             2292     0         0      0         0        2292       0.0  0.1 
+sdcounty_permits             permit                    1364     0         7      0         0        1357       0.0  0.3 
+sdcounty_permit_contractors  permit_contractor_record  497      0         0      0         0        497        0.0  0.1 
+sdcity_permits               permit                    1272476  46        20     0         0        1272410    0.0  74.9
+sdcity_businesses            business                  60265    4         0      0         0        60261      0.0  2.4 
+cslb_license_master          cslb_license              246104   0         0      0         0        246104     0.0  11.0
+reconciled                   contractor                256944   0         0      0         0        256944     0.0  5.3 
+  sandag_parcels/property: resumed: reused 545 of 545 page files already on disk; fetch 0.3s, validate 27.0s
+  sandag_parcels/ownership: resumed: reused 545 of 545 page files already on disk; fetch 0.3s, validate 27.0s
+  sdcounty_permit_status/permit_status: reused 1 page file(s) from an earlier attempt today; fetch 0.0s, validate 0.0s
+  sdcounty_permits/permit: reused 1 page file(s) from an earlier attempt today; fetch 0.0s, validate 0.1s
+  sdcounty_permit_contractors/permit_contractor_record: reused 1 page file(s) from an earlier attempt today; fetch 0.0s, validate 0.0s
+  sdcity_permits/permit: reused approvals_active_datasd.csv from an earlier attempt today; reused approvals_closed_datasd.csv from an earlier attempt today; fetch 0.3s, validate 70.1s
+  sdcity_businesses/business: reused sd_businesses_active_datasd.csv from an earlier attempt today; fetch 0.3s, validate 1.7s
+  cslb_license_master/cslb_license: reused MasterLicenseData.csv from an earlier attempt today; fetch 0.4s, validate 9.1s
+  reconciled/contractor: built in SQL from cslb_license and permit_contractor_record
+exit 0

@@ -1,0 +1,4 @@
+{
+  "app": "tsx cdk/app.ts",
+  "context": { "@aws-cdk/core:target-partitions": ["aws"] }
+}

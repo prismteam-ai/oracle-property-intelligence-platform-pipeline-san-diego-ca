@@ -1,0 +1,254 @@
+{
+  "mapped": {
+    "SHAPE__Area": {
+      "value": 6850.912948594612,
+      "to": [
+        "lot.lot_area_sqft"
+      ]
+    },
+    "apn": {
+      "value": "4500440300",
+      "to": [
+        "property.parcel_identifier",
+        "parcel.parcel_identifier"
+      ]
+    },
+    "asr_impr": {
+      "value": 530604,
+      "to": [
+        "tax_1.property_building_amount"
+      ]
+    },
+    "asr_land": {
+      "value": 1591812,
+      "to": [
+        "tax_1.property_land_amount"
+      ]
+    },
+    "asr_total": {
+      "value": 2122416,
+      "to": [
+        "tax_1.property_assessed_value_amount"
+      ]
+    },
+    "docnmbr": {
+      "value": "072901",
+      "to": [
+        "deed_1.instrument_number"
+      ]
+    },
+    "doctype": {
+      "value": "1",
+      "to": [
+        "deed_1.deed_type"
+      ]
+    },
+    "legldesc": {
+      "value": "BLK 196*LOTS 5 & 6*SWLY 70 FT*",
+      "to": [
+        "property.property_legal_description_text"
+      ]
+    },
+    "nucleus_use_cd": {
+      "value": "111",
+      "to": [
+        "property.property_type",
+        "property.property_usage_type"
+      ],
+      "note": "mapped through the code table in sd_common.js; the raw code itself has no lexicon field"
+    },
+    "qual_class_shape": {
+      "value": "D075D",
+      "to": [
+        "structure.primary_framing_material"
+      ],
+      "note": "only the first character (framing) maps; quality class and shape have no lexicon field"
+    },
+    "situs_address": {
+      "value": 3210,
+      "to": [
+        "address.street_number"
+      ]
+    },
+    "situs_community": {
+      "value": "SAN DIEGO",
+      "to": [
+        "address.city_name"
+      ]
+    },
+    "situs_juris": {
+      "value": "SD",
+      "to": [
+        "address.municipality_name"
+      ]
+    },
+    "situs_street": {
+      "value": "XENOPHON",
+      "to": [
+        "address.street_name"
+      ]
+    },
+    "situs_suffix": {
+      "value": "ST",
+      "to": [
+        "address.street_suffix_type"
+      ]
+    },
+    "situs_zip": {
+      "value": "92106-1540",
+      "to": [
+        "address.postal_code"
+      ]
+    },
+    "subname": {
+      "value": "ROSEVILLE REFILED",
+      "to": [
+        "property.subdivision"
+      ]
+    },
+    "total_lvg_area": {
+      "value": 3573,
+      "to": [
+        "property.livable_floor_area"
+      ]
+    },
+    "unitqty": {
+      "value": 1,
+      "to": [
+        "property.number_of_units"
+      ]
+    }
+  },
+  "not_filled": {
+    "docdate": {
+      "value": "032223",
+      "reason": "MMDDYY with a two-digit year that fits two centuries; left null"
+    }
+  },
+  "gap": {
+    "SHAPE__Length": {
+      "value": 334.9776984601249,
+      "reason": "polygon perimeter; no lexicon field"
+    },
+    "addition_area": {
+      "value": 0,
+      "reason": "no lexicon field for added area"
+    },
+    "apn_8": {
+      "value": "45004403",
+      "reason": "first eight digits of the APN; derivable, no lexicon field"
+    },
+    "asr_landuse": {
+      "value": 11,
+      "reason": "legacy two-digit copy of nucleus_use_cd"
+    },
+    "asr_zone": {
+      "value": 1,
+      "reason": "legacy copy of nucleus_zone_cd"
+    },
+    "baths": {
+      "value": "040",
+      "reason": "count only; same layout limitation as bedrooms"
+    },
+    "bedrooms": {
+      "value": "006",
+      "reason": "count only; lexicon needs one layout record per room with non-null is_finished / is_exterior"
+    },
+    "carport_stalls": {
+      "value": "000",
+      "reason": "count only; same layout limitation"
+    },
+    "fractint": {
+      "value": 1,
+      "reason": "fractional-interest code; no lexicon field"
+    },
+    "garage_conversion": {
+      "value": "N",
+      "reason": "no lexicon field"
+    },
+    "garage_stalls": {
+      "value": "002",
+      "reason": "count only; same layout limitation"
+    },
+    "multi": {
+      "value": "N",
+      "reason": "assessor mapping flag; no lexicon field"
+    },
+    "nucleus_situs_from_nbr": {
+      "value": 3210,
+      "reason": "address range start; duplicates situs_address"
+    },
+    "nucleus_situs_thru_nbr": {
+      "value": 0,
+      "reason": "address range end; no lexicon field"
+    },
+    "nucleus_zone_cd": {
+      "value": "10",
+      "reason": "assessor generalized zone, not a zoning designation; property.zoning left null"
+    },
+    "objectid": {
+      "value": 369294,
+      "reason": "layer row id"
+    },
+    "overlay_juris": {
+      "value": "SD",
+      "reason": "jurisdiction by map overlay; duplicates situs_juris"
+    },
+    "par_view": {
+      "value": "N",
+      "reason": "Y/N flag; lexicon lot.view needs the kind of view"
+    },
+    "parcelid": {
+      "value": 426206,
+      "reason": "SanGIS internal polygon id"
+    },
+    "pool": {
+      "value": "N",
+      "reason": "Y/N flag; a lexicon pool is a layout record with required fields the source lacks"
+    },
+    "sub_type": {
+      "value": 1,
+      "reason": "SanGIS parcel sub-type code; no lexicon field"
+    },
+    "submap": {
+      "value": "000305",
+      "reason": "subdivision / parcel map number; no lexicon field"
+    },
+    "taxstat": {
+      "value": "T",
+      "reason": "taxable / non-taxable flag; no field in the lexicon tax class"
+    },
+    "tranum": {
+      "value": "08001",
+      "reason": "tax rate area number; no lexicon field in the classes used"
+    },
+    "usable_sq_feet": {
+      "value": "07000",
+      "reason": "level pad area; no lexicon field"
+    },
+    "x_coord": {
+      "value": 6262846.65664473,
+      "reason": "State Plane centroid; the WGS84 centroid is written instead"
+    },
+    "y_coord": {
+      "value": 1849452.25482882,
+      "reason": "State Plane centroid; the WGS84 centroid is written instead"
+    },
+    "year_effective": {
+      "value": "43",
+      "reason": "two-digit year; layer metadata: \"Do Not use the effective date to determine the age of the property\". Not written to property_structure_built_year or property_effective_built_year"
+    }
+  },
+  "unlisted": {},
+  "geometry": {
+    "source_rings": 1,
+    "geometry_records_written": 1,
+    "centroid_written_to_address": true
+  },
+  "counts": {
+    "mapped": 19,
+    "not_filled": 1,
+    "gap": 28,
+    "unlisted": 0
+  }
+}

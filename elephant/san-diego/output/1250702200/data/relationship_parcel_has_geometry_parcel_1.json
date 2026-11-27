@@ -1,0 +1,8 @@
+{
+  "from": {
+    "/": "./parcel.json"
+  },
+  "to": {
+    "/": "./geometry_parcel_1.json"
+  }
+}

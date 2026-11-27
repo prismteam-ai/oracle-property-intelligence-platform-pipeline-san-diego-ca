@@ -1,0 +1,57 @@
+{
+  "name": "oracle-pipeline",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Incremental San Diego County property, permit and contractor loader into DuckDB",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "pipeline": "tsx src/cli.ts",
+    "query": "tsx src/query.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "npm run typecheck && npm run lint && npm run format:check && npm test",
+    "serve": "tsx src/serve/devServer.ts",
+    "build:lambda": "tsx scripts/build-lambda.ts",
+    "cdk": "cdk",
+    "publish:ipfs": "tsx src/publish/cli.ts",
+    "verify:ipfs": "tsx src/publish/verifyCli.ts"
+  },
+  "dependencies": {
+    "@ai-sdk/anthropic": "^4.0.108",
+    "@aws-lambda-powertools/logger": "^2.37.0",
+    "@aws-lambda-powertools/metrics": "^2.37.0",
+    "@aws-lambda-powertools/tracer": "^2.37.0",
+    "@aws-sdk/client-s3": "^3.1177.0",
+    "@aws-sdk/client-ssm": "^3.1177.0",
+    "@duckdb/node-api": "^2.0.1-r.1",
+    "@ipld/car": "^6.2.1",
+    "@ipld/unixfs": "^3.0.0",
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "ai": "^7.0.181",
+    "csv-parse": "^7.0.3",
+    "ipfs-car": "^3.1.0",
+    "multiformats": "^14.0.8",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/aws-lambda": "^8.10.164",
+    "@types/node": "^26.6.10",
+    "aws-cdk": "^2.1149.0",
+    "aws-cdk-lib": "^2.278.0",
+    "constructs": "^10.8.1",
+    "esbuild": "^0.28.2",
+    "eslint": "^10.15.0",
+    "prettier": "^3.10.1",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.74.0",
+    "vitest": "^5.1.2"
+  }
+}

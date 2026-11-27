@@ -1,0 +1,24 @@
+import js from '@eslint/js';
+import tseslint from 'typescript-eslint';
+
+export default tseslint.config(
+  { ignores: ['node_modules', 'data', 'dist', 'coverage', 'cdk.out', 'explorer', 'elephant'] },
+  js.configs.recommended,
+  ...tseslint.configs.strictTypeChecked,
+  {
+    languageOptions: {
+      parserOptions: {
+        projectService: { allowDefaultProject: ['eslint.config.js'] },
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/restrict-template-expressions': [
+        'error',
+        { allowNumber: true, allowBoolean: true },
+      ],
+    },
+  },
+  { files: ['eslint.config.js'], ...tseslint.configs.disableTypeChecked },
+);

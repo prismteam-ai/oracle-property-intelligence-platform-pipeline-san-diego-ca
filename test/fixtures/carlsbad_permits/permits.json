@@ -1,0 +1,2422 @@
+{
+ "features": [
+  {
+   "attributes": {
+    "OBJECTID": 101,
+    "PermitNum": "CBR2022-0850",
+    "Description": "REROOF: LIFT & RELAY (E-REVIEW)",
+    "AppliedDate": "2022-03-15",
+    "IssuedDate": "2022-03-18",
+    "CompletedDate": "2022-03-29",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "3447 PASEO ANCHO",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9518",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6260114.729001015,
+    "POINT_Y": 1968720.234098956,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.2343050213346,
+    "y": 33.065059076315734
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 192,
+    "PermitNum": "CBR2023-1681",
+    "Description": "REROOF - TILE LIFT/RELAY (E-REVIEW)",
+    "AppliedDate": "2023-04-06",
+    "IssuedDate": "2023-04-29",
+    "CompletedDate": "2023-08-25",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "3217 CALLE VALLARTA",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9310",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6257394.18749848,
+    "POINT_Y": 1969763.9377999157,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.24321703502906,
+    "y": 33.06785654143313
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 215,
+    "PermitNum": "CBR2023-1089",
+    "Description": "RE-ROOF: REMOVE EXISTING TILE  REPLACE UNDERLAYMENT  RE-INSTALL NEW TILE (E-REVIEW)",
+    "AppliedDate": "2023-03-07",
+    "IssuedDate": "2023-03-16",
+    "CompletedDate": "2023-05-23",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "3259 AVENIDA ANACAPA",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9301",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6258508.3542995155,
+    "POINT_Y": 1969858.0626000017,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23958331021402,
+    "y": 33.06814433652105
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 256,
+    "PermitNum": "CBR2022-0692",
+    "Description": "LIFT AND LAY TILE FULL REROOF. 3 000SF. 30 SQUARES. 6 ROOF FACES. CONCRETE TILE. (E-REVIEW)",
+    "AppliedDate": "2022-03-02",
+    "IssuedDate": "2022-03-18",
+    "CompletedDate": "2022-04-15",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "3270 AVENIDA ANACAPA",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9301",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6258850.333599836,
+    "POINT_Y": 1970026.6042001694,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23847230130349,
+    "y": 33.068616448154465
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 319,
+    "PermitNum": "CBR2022-2611",
+    "Description": "LIFT AND LAY TILE FULL REROOF. 3 200SF. 32 SQUARES. 14 ROOF FACES. NEX/MALARKEY (E-REVIEW)",
+    "AppliedDate": "2022-07-19",
+    "IssuedDate": "2022-07-21",
+    "CompletedDate": "2022-08-25",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "3324 CALLE SAN BLAS",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9325",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6260142.145901039,
+    "POINT_Y": 1970291.1247004122,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23426393726338,
+    "y": 33.06937700597159
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 523,
+    "PermitNum": "CBR2022-3186",
+    "Description": "RESIDENTIAL REROOF  30 SQRS  CONCRETE TILE. (E-REVIEW)",
+    "AppliedDate": "2022-08-31",
+    "IssuedDate": "2022-09-08",
+    "CompletedDate": "2023-11-03",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "3332 CAMINO CORONADO",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9326",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6260008.833200917,
+    "POINT_Y": 1971208.463401273,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23472735737957,
+    "y": 33.071894632580765
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 555,
+    "PermitNum": "CBR2022-3280",
+    "Description": "LIFT AND LAY TILE FULL REROOF. 3 500SF. 35 SQUARES. NEX/ MALARKEY. (E-REVIEW)",
+    "AppliedDate": "2022-09-09",
+    "IssuedDate": "2022-09-14",
+    "CompletedDate": "2022-12-15",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "3324 AVENIDA OBERTURA",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9328",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6259099.791700065,
+    "POINT_Y": 1971307.4996013641,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23769766858558,
+    "y": 33.07214317890425
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 593,
+    "PermitNum": "CBR2022-2847",
+    "Description": "LIFT AND LAY TILE FULL REROOF. 3 00SF. 30 SQUARES. 6 ROOF FACES. NEX/ MALARKEY. (E-REVIEW)",
+    "AppliedDate": "2022-08-09",
+    "IssuedDate": "2022-08-16",
+    "CompletedDate": "2022-12-08",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "3329 CORTE ESPLENDOR",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9322",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6259871.43750079,
+    "POINT_Y": 1971518.8542015553,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.2351854112988,
+    "y": 33.07274410015646
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 608,
+    "PermitNum": "CBR2023-1165",
+    "Description": "BEAUCHANE; 32 SQUARES. CONCRETE TILE. FULL LIFT & LAY REROOF (E-REVIEW)",
+    "AppliedDate": "2023-03-09",
+    "IssuedDate": "2023-03-24",
+    "CompletedDate": "2023-05-25",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "3333 CORTE ESPLENDOR",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9322",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6259946.229300857,
+    "POINT_Y": 1971557.2550015897,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23494246110677,
+    "y": 33.07285157764929
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 809,
+    "PermitNum": "CBR2022-0628",
+    "Description": "DAVEE: REROOF  LIFT AND RELAY 14 SQRS COMP SHINGLE (E-REVIEW)",
+    "AppliedDate": "2022-02-28",
+    "IssuedDate": "2022-03-14",
+    "CompletedDate": "2022-05-13",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "7890 SITIO ABETO",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-2903",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6256725.999901861,
+    "POINT_Y": 1972968.879798904,
+    "TRACT": 20035,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.24549787901788,
+    "y": 33.0766470359875
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 885,
+    "PermitNum": "CBR2023-0204",
+    "Description": "COMPOSITE SHINGLE REMOVE AND REPLACE FULL REROOF. 2 900SQFT. 29 SQUARES. COASTAL SLATE. CRRC:0676-0131A. (E-REVIEW)",
+    "AppliedDate": "2023-01-13",
+    "IssuedDate": "2023-01-17",
+    "CompletedDate": "2023-12-13",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "3107 QUEBRADA CIR",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-8340",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6258160.499999195,
+    "POINT_Y": 1973223.0626991391,
+    "TRACT": 20035,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.24082308680305,
+    "y": 33.07738314917886
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 1024,
+    "PermitNum": "CBR2022-0386",
+    "Description": "28 SQ COMP SHINGLE REROOF",
+    "AppliedDate": "2022-02-08",
+    "IssuedDate": "2022-02-08",
+    "CompletedDate": "2022-03-29",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "3006 SEGOVIA WAY",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-8354",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6257151.309098259,
+    "POINT_Y": 1973703.1959995925,
+    "TRACT": 20035,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.24413238667933,
+    "y": 33.078676277734296
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 1104,
+    "PermitNum": "CBR2022-3621",
+    "Description": "COMPOSITE SHINGLE REMOVE AND REPLACE FULL REROOF. 2 700SQFT. 27 SQUARES. GAF/TIMBERLINE (E-REVIEW)",
+    "AppliedDate": "2022-09-30",
+    "IssuedDate": "2022-10-07",
+    "CompletedDate": "2023-01-19",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "7813 GABACHO ST",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-8210",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6256256.626801416,
+    "POINT_Y": 1974054.744799912,
+    "TRACT": 20035,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.24706396239134,
+    "y": 33.07961894498119
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 1132,
+    "PermitNum": "CBR2022-4290",
+    "Description": "REROOF - TILE LIFT/LAY  30 SQ CONCRETE TILE (E-REVIEW)(SELF-CERT)",
+    "AppliedDate": "2022-11-16",
+    "IssuedDate": "2022-11-17",
+    "CompletedDate": "2023-03-21",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "2296 CAMINO ROBLEDO",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9354",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6253407.770598769,
+    "POINT_Y": 1974153.2758000046,
+    "TRACT": 20035,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.25636696659579,
+    "y": 33.0798145116979
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 1253,
+    "PermitNum": "CBR2022-0237",
+    "Description": "7723 CALLE MADERO; RE-ROOF (32 SQUARES) REMOVING EXISTING CONCRETE TILE INSTALLING ASPHALT SHINGLES (E-REVIEW)",
+    "AppliedDate": "2022-01-25",
+    "IssuedDate": "2022-01-26",
+    "CompletedDate": "2022-03-18",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "7723 CALLE MADERO",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-8204",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6255762.062500954,
+    "POINT_Y": 1974736.0833005458,
+    "TRACT": 20035,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.2486997401776,
+    "y": 33.08147842865091
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 1299,
+    "PermitNum": "CBR2022-1944",
+    "Description": "LIFT AND LAY TILE FULL REROOF. CONCRETE TILE. 1955SF. 19 SQUARES. 4 ROOF FACES. (E-REVIEW)",
+    "AppliedDate": "2022-06-06",
+    "IssuedDate": "2022-06-15",
+    "CompletedDate": "2022-10-28",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "7710 CALLE MADERO",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-8203",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6255897.888001084,
+    "POINT_Y": 1974909.6141007096,
+    "TRACT": 20035,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.24826176103942,
+    "y": 33.08195891034057
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 1337,
+    "PermitNum": "CBR2023-0051",
+    "Description": "COMPOSITE SHINGLE REMOVE AND REPLACE FULL REROOF. 2 100SQFT. 21 SQUARES. (E-REVIEW)",
+    "AppliedDate": "2023-01-03",
+    "IssuedDate": "2023-01-06",
+    "CompletedDate": "2023-05-17",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "3341 CUESTA PL",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-7715",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6259220.073000178,
+    "POINT_Y": 1975052.6093008518,
+    "TRACT": 20015,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23742082441686,
+    "y": 33.08243883974738
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 1374,
+    "PermitNum": "CBR2022-1051",
+    "Description": "44 SQ COMP SHINGLE REROOF (E-REVIEW)",
+    "AppliedDate": "2022-03-28",
+    "IssuedDate": "2022-04-28",
+    "CompletedDate": "2022-05-10",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "7637 CORTINA CT",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-8206",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6256328.423901483,
+    "POINT_Y": 1975188.0952009708,
+    "TRACT": 20035,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.24686495891098,
+    "y": 33.08273556810713
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 1388,
+    "PermitNum": "CBR2022-1252",
+    "Description": "22 SQ CONCRETE TILE REROOF (E-REVIEW)",
+    "AppliedDate": "2022-04-12",
+    "IssuedDate": "2022-05-04",
+    "CompletedDate": "2022-12-08",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "3316 AZAHAR PL",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-8305",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6258576.145799577,
+    "POINT_Y": 1975234.859201014,
+    "TRACT": 20035,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23952859885277,
+    "y": 33.08292293193425
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 1407,
+    "PermitNum": "CBR2022-0299",
+    "Description": "GENTILE: RE-ROOF 31 SQ COMP SHINGLE (E-REVIEW)",
+    "AppliedDate": "2022-01-29",
+    "IssuedDate": "2022-01-31",
+    "CompletedDate": "2022-03-03",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "7722 ROCIO ST",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-8039",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6253394.343798757,
+    "POINT_Y": 1975324.678301096,
+    "TRACT": 20035,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.25644771034267,
+    "y": 33.083033465884725
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 39,
+    "PermitNum": "CBR2023-1700",
+    "Description": "1 100SQFT PARTIAL LIFT & LAY REROOF (E-REVIEW)",
+    "AppliedDate": "2023-04-08",
+    "IssuedDate": "2023-04-28",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "3218 AVENIDA DE SUENO",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9537",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6258231.229099259,
+    "POINT_Y": 1967935.5207982212,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.2404282394473,
+    "y": 33.06285345898161
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 126,
+    "PermitNum": "CBR2023-1417",
+    "Description": "900SQFT LIFT & LAY PARTIAL REROOF (E-REVIEW)",
+    "AppliedDate": "2023-03-24",
+    "IssuedDate": "2023-05-13",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "3518 AVENIDA PANTERA",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-8939",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6261202.87479803,
+    "POINT_Y": 1968924.4584991336,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23075969342896,
+    "y": 33.065648519721535
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 205,
+    "PermitNum": "CBR2023-3495",
+    "Description": "RE-ROOF DURATION OWEN'S CORNING COMPOSITE SHINGLE 23 SQ (E-REVIEW)",
+    "AppliedDate": "2023-07-17",
+    "IssuedDate": "2023-07-19",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "2506 JACARANDA AVE",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9113",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6253605.500198945,
+    "POINT_Y": 1969816.7496999651,
+    "TRACT": 20034,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.25558495654917,
+    "y": 33.06790187632898
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 243,
+    "PermitNum": "CBR2022-0031",
+    "Description": "REROOF; PARTIAL COMP UNDER ARRAY/PICTURE FRAME TILE (20 SQUARES)  (E-REVIEW)",
+    "AppliedDate": "2022-01-04",
+    "IssuedDate": "2022-01-04",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "2816 JACARANDA AVE",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9216",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6255365.000000596,
+    "POINT_Y": 1969957.8800000995,
+    "TRACT": 20034,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.24984636840458,
+    "y": 33.068336243058795
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 269,
+    "PermitNum": "CBR2022-2095",
+    "Description": "LIFT AND LAY TILE FULL REROOF. 3 300SF. 33 SQUARES. 11 ROOF FACES. CONCRETE TILE. (E-REVIEW)",
+    "AppliedDate": "2022-06-15",
+    "IssuedDate": "2022-06-20",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "3301 CALLE SAN BLAS",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9325",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6259470.937600419,
+    "POINT_Y": 1970093.9423002303,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23644871070884,
+    "y": 33.06881766417396
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 323,
+    "PermitNum": "CBR2022-0589",
+    "Description": "3330 CALLE SAN BLAS; REROOF LIFT AND RELAY (33 SQUARES) CONCRETE TILE (E-REVIEW)",
+    "AppliedDate": "2022-02-25",
+    "IssuedDate": "2022-02-28",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "3330 CALLE SAN BLAS",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9325",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6260364.604501247,
+    "POINT_Y": 1970296.1873004138,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23353797537892,
+    "y": 33.06939668883133
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 396,
+    "PermitNum": "CBR2023-3694",
+    "Description": "REROOF /TILE RELAY 19.5 SQ  (E-REVIEW)",
+    "AppliedDate": "2023-07-31",
+    "IssuedDate": "2023-08-02",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "7914 CALLE POSADA",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9304",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6258345.208299369,
+    "POINT_Y": 1970653.9790007472,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.24014049147814,
+    "y": 33.07032746481716
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 524,
+    "PermitNum": "CBR2022-1009",
+    "Description": "PICTURE FRAME RE-ROOF.  215 SF UL790. ASTM-1561. (E-REVIEW)",
+    "AppliedDate": "2022-03-25",
+    "IssuedDate": "2022-04-20",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "2417 LA PLANCHA LN",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9128",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6253500.500098854,
+    "POINT_Y": 1971214.1297012717,
+    "TRACT": 20034,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.25597168348223,
+    "y": 33.07173945042091
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 612,
+    "PermitNum": "CBR2023-0682",
+    "Description": "ELDERS; RE-ROOF (E-REVIEW)",
+    "AppliedDate": "2023-02-15",
+    "IssuedDate": "2023-02-25",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "2610 LA DUELA LN",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9219",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6254418.000199705,
+    "POINT_Y": 1971590.6300016195,
+    "TRACT": 20034,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.25298865609074,
+    "y": 33.07279846188343
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 701,
+    "PermitNum": "CBR2023-3597",
+    "Description": "MITCHELL / PICTURE FRAME TILE FULL REROOF. 700SQFT. 7 SQUARES ROOF MOUNTED INSTALLATION / 4.92KW W// 12 MODULES AND 12 MICRO INVERTERS (E-REVIEW)",
+    "AppliedDate": "2023-07-24",
+    "IssuedDate": "2023-07-27",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "3479 SITIO BORDE",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-8926",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6262991.791499689,
+    "POINT_Y": 1972278.6665982604,
+    "TRACT": 17113,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.22502318740227,
+    "y": 33.074912876000354
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 816,
+    "PermitNum": "CBR2022-1836",
+    "Description": "LIFT AND LAY TILE FULL REROOF. 1 700SF. 17 SQUARES  6 ROOF FACES. INITIAL AND FINAL: CONCRETE TILE. (E-REVIEW)",
+    "AppliedDate": "2022-05-26",
+    "IssuedDate": "2022-06-01",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "7804 CALLE LOMAS",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-8679",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6259137.916600108,
+    "POINT_Y": 1973021.754698962,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23762622677432,
+    "y": 33.07685538882716
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 825,
+    "PermitNum": "CBR2023-1127",
+    "Description": "LIBER; 47 SQRS. CONCRETE FLAT TILE.  FULL LIFT & RELAY REROOF (E-REVIEW)",
+    "AppliedDate": "2023-03-08",
+    "IssuedDate": "2023-03-22",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "2984 CAMINO SERBAL",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-2900",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6257153.499998257,
+    "POINT_Y": 1973037.3796989769,
+    "TRACT": 20035,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.24410451123111,
+    "y": 33.076846501055876
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 913,
+    "PermitNum": "CBR2022-0360",
+    "Description": "MOCK: REROOF 44 SQRS SHINGLE (E-REVIEW)",
+    "AppliedDate": "2022-02-04",
+    "IssuedDate": "2022-02-09",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "2899 CAMINO SERBAL",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-6996",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6255653.000100851,
+    "POINT_Y": 1973282.2498991936,
+    "TRACT": 20035,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.2490103000933,
+    "y": 33.07748005192433
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 1070,
+    "PermitNum": "CBR2022-0421",
+    "Description": "GINN: REROOF 26 SQRS CONCRETE TILE (E-REVIEW)",
+    "AppliedDate": "2022-02-11",
+    "IssuedDate": "2022-02-12",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "3541 CALLE GAVANZO",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-8638",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6262139.666498899,
+    "POINT_Y": 1973861.8750997335,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.22785321939982,
+    "y": 33.0792420148515
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 1188,
+    "PermitNum": "CBR2023-3861",
+    "Description": "HERFURTH; REROOF; COMP UNDER ARRAY 7 SQUARES (E-REVIEW)",
+    "AppliedDate": "2023-08-09",
+    "IssuedDate": "2023-08-15",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "2120 VUELTA CT",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-8532",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6251748.416701227,
+    "POINT_Y": 1974487.7712003142,
+    "TRACT": 20035,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.26179442193279,
+    "y": 33.080689653628255
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 1372,
+    "PermitNum": "CBR2023-4094",
+    "Description": "1 100SQFT PARTIAL LIFT & RELAY REROOF (E-REVIEW)",
+    "AppliedDate": "2023-08-29",
+    "IssuedDate": "2023-08-30",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "7646 PRIMAVERA WAY",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-8236",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6256176.203701347,
+    "POINT_Y": 1975183.336700961,
+    "TRACT": 20035,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.24736174087826,
+    "y": 33.082718489709244
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 1445,
+    "PermitNum": "CBR2023-3877",
+    "Description": "REMOVE SHINGLE  APPLY NEW SHINGLE REROOF 25 SQ (E-REVIEW)",
+    "AppliedDate": "2023-08-10",
+    "IssuedDate": "2023-08-22",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "3319 VIVIENDA CIR",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-7713",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6259239.245200202,
+    "POINT_Y": 1975463.4733012319,
+    "TRACT": 20015,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23737093787032,
+    "y": 33.083568498760414
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 1552,
+    "PermitNum": "CBR2023-1510",
+    "Description": "EASTON; 23.66 SQRS. COMP SHINGLE. REROOF. RE-FLASH PIPES  VENT TO CODE. (E-REVIEW)",
+    "AppliedDate": "2023-03-30",
+    "IssuedDate": "2023-04-28",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "3212 AZAHAR PL",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-8302",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6258605.916999608,
+    "POINT_Y": 1975848.4426015913,
+    "TRACT": 20035,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23945041786608,
+    "y": 33.084609993126776
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 1615,
+    "PermitNum": "CBR2023-3575",
+    "Description": "PASARELL RE-ROOF44 SQ. FULL HOME REROOF REMOVE AND REPLACE TILE WITH TILE.REMOVE EXISTING TILE ROOFING DOWN TO DECK AND INSPECT FOR DRY ROT. INSTALL NEW SYNTHETIC UNDERLAYMENT AND CONCRETE TILE. (E-REVIEW)",
+    "AppliedDate": "2023-07-21",
+    "IssuedDate": "2023-07-25",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "7634 NUEVA CASTILLA WAY",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-8137",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6254092.77059941,
+    "POINT_Y": 1976202.5417019129,
+    "TRACT": 20035,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.25419525594046,
+    "y": 33.08546456390623
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 1696,
+    "PermitNum": "CBR2023-4051",
+    "Description": "1 800SQFT PARTIAL COMP SHINGLE REROOF (E-REVIEW)",
+    "AppliedDate": "2023-08-24",
+    "IssuedDate": "2023-08-26",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "3206 CARVALLO CT",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-7702",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6258965.980999947,
+    "POINT_Y": 1976557.841798246,
+    "TRACT": 20015,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23829689697145,
+    "y": 33.08656898919662
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 34,
+    "PermitNum": "CBR2023-3997",
+    "Description": "15SQRS PICTURE FRAME PARTIAL REROOF FOR 14.35KW ROOF-MOUNT PV W// 35MODULES & 35MICRO-INVERTERS (E-REVIEW)",
+    "AppliedDate": "2023-08-21",
+    "IssuedDate": "2023-08-24",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "8007 PASEO ESMERADO",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9805",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6262250.311999008,
+    "POINT_Y": 1967836.916998133,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.22730766752436,
+    "y": 33.062686699508475
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 35,
+    "PermitNum": "CBR2023-4332",
+    "Description": "1300SQ FT PARTIAL LIFT & RELAY REROOF FOR 6.48KW ROOF-MOUNT PV ADDER W// 16MODULES  16MICRO-INVERTERS; 3.84KW ENERGY STORAGE (E-REVIEW)",
+    "AppliedDate": "2023-09-18",
+    "IssuedDate": "2023-10-03",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "8115 PASEO TAXCO",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9504",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6259905.937400818,
+    "POINT_Y": 1967862.3962981552,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23496004545649,
+    "y": 33.06269609392182
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 186,
+    "PermitNum": "CBR2023-4152",
+    "Description": "11SQRS PARTIAL LIFT & RELAY REROOF FOR 9.84KW ROOF-MOUNT PV W// 24MODULES & 24MICRO-INVERTERS (E-REVIEW)",
+    "AppliedDate": "2023-09-01",
+    "IssuedDate": "2023-09-06",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "7952 SITIO REDONDA",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9511",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6261390.305798203,
+    "POINT_Y": 1969752.4357999116,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23017333889251,
+    "y": 33.06792886297683
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 191,
+    "PermitNum": "CBR2023-3359",
+    "Description": "CHEN / 14SQRS PARTIAL LIFT & RELAY REROOF FOR ROOF-MOUNT PV / 10.66KW W// 26 MODULES & 26 MICRO-INVERTERS (E-REVIEW)",
+    "AppliedDate": "2023-07-06",
+    "IssuedDate": "2023-07-11",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "3600 CORTE CASTILLO",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9523",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6263054.3050997555,
+    "POINT_Y": 1969755.861299917,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.22474213718654,
+    "y": 33.06798114969191
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 313,
+    "PermitNum": "CBR2023-3645",
+    "Description": "PLATT / 20SQRS FULL LIFT & RELAY REROOF FOR ROOF-MOUNT PV / 4.92KW W// 12 MODULES & 12 MICRO-INVERTERS (E-REVIEW)",
+    "AppliedDate": "2023-07-26",
+    "IssuedDate": "2023-08-01",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "7951 CALLE MADRID",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9303",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6257089.270798191,
+    "POINT_Y": 1970260.4584003836,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.24422773697285,
+    "y": 33.06921312200813
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 328,
+    "PermitNum": "CBR2023-3005",
+    "Description": "KONG / 5SQRS PARTIAL LIFT & RELAY REROOF FOR ROOF-MOUNT PV / 6.56KW W// 16 MODULES & 16MICRO-INVERTERS (E-REVIEW)",
+    "AppliedDate": "2023-06-13",
+    "IssuedDate": "2023-06-15",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "7935 CALLE POSADA",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9305",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6257945.06269899,
+    "POINT_Y": 1970342.317200467,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.2414369297649,
+    "y": 33.06946048714079
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 380,
+    "PermitNum": "CBR2023-4695",
+    "Description": "5SQRS PICTURE FRAME + 18SQRSSQFT LIFT & RELAY REROOF FOR 4.10KW ROOF-MOUNT PV ADDER W// 10MODULES  10MICRO-INVERTERS; 200A SOLAR READY MSP (E-REVIEW)",
+    "AppliedDate": "2023-10-23",
+    "IssuedDate": "2023-10-28",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "8097 PASEO ARRAYAN",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-6963",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6256485.999701634,
+    "POINT_Y": 1970575.6300006807,
+    "TRACT": 20034,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.24620667267861,
+    "y": 33.07006346953739
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 408,
+    "PermitNum": "CBR2022-0242",
+    "Description": "RUSSELL: ROOF MOUNT SOLAR WITH 20 MODULES  7.30 KW.  AND REROOF 15 SQUARES COMP SHINGLE (E-REVIEW)",
+    "AppliedDate": "2022-01-25",
+    "IssuedDate": "2022-01-26",
+    "CompletedDate": "2022-11-16",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "7917 VIA ENSENADA",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9331",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6260368.020801246,
+    "POINT_Y": 1970718.0257008076,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23353981296454,
+    "y": 33.07055609951969
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 550,
+    "PermitNum": "CBR2023-3006",
+    "Description": "KANJI / 7SQRS PICTURE FRAME PARTIAL REROOF FOR ROOF-MOUNT PV / 6.56KW W// 16 MODULES & 16 MICRO-INVERTERS (E-REVIEW)",
+    "AppliedDate": "2023-06-13",
+    "IssuedDate": "2023-06-15",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "8015 CALLE PINON",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-6969",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6257074.499798179,
+    "POINT_Y": 1971303.6299013495,
+    "TRACT": 20034,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.24430842171314,
+    "y": 33.07207963967955
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 648,
+    "PermitNum": "CBR2023-1405",
+    "Description": "PARTIAL RE-ROOF FOR FUTURE SOLAR. REMOVE EXISTING TILE. INSTALL 30# FELT  INSTALL COMPOSITION SHINGLES. BACKFILL TILE AROUND SOLAR ARRAY. (E-REVIEW)",
+    "AppliedDate": "2023-03-23",
+    "IssuedDate": "2023-05-03",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "3018 CORTE BALDRE",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-6960",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6256857.49990198,
+    "POINT_Y": 1971862.6301018745,
+    "TRACT": 20034,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.24503415687009,
+    "y": 33.07361022694674
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 982,
+    "PermitNum": "CBR2023-4407",
+    "Description": "28SQRS FULL COMP SHINGLE REROOF FOR 6.48KW ROOF-MOUNT PV W// 16MODULES & 16MICRO-INVERTERS (E-REVIEW)",
+    "AppliedDate": "2023-09-22",
+    "IssuedDate": "2023-09-27",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "3113 SEGOVIA WAY",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-8358",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6258249.354099274,
+    "POINT_Y": 1973508.109399408,
+    "TRACT": 20035,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.24054187542787,
+    "y": 33.07816885117627
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 1134,
+    "PermitNum": "CBR2023-3433",
+    "Description": "OSBURN / 12SQRS PICTURE FRAME PARTIAL REROOF FOR ROOF-MOUNT PV / 5.67KW W// 14MODULES & 14 MICRO-INVERTERS + 50A/240V EV OUTLET (E-REVIEW)",
+    "AppliedDate": "2023-07-11",
+    "IssuedDate": "2023-07-14",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "2861 SEGOVIA WAY",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-8243",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6255248.052000478,
+    "POINT_Y": 1974168.1494000256,
+    "TRACT": 20035,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.25035994067235,
+    "y": 33.079904059190724
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 3,
+    "PermitNum": "CBR2022-3935",
+    "Description": "NEW 3.597DC KW ROOF MOUNTED PHOTOVOLTAIC SYSTEM W/ 11 MODS AND 11 MICRO INV (E-REVIEW)",
+    "AppliedDate": "2022-10-19",
+    "IssuedDate": "2022-10-26",
+    "CompletedDate": "2023-01-10",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "3457 CAMINO ALEGRE",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9513",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6260401.978701279,
+    "POINT_Y": 1967265.2968015969,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23332268092352,
+    "y": 33.061067975218386
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 4,
+    "PermitNum": "CBR2022-4029",
+    "Description": "NEW 7.885DC KW  ROOF MOUNTED PHOTOVOLTAIC SYSTEM W/ 19 MODS AND 19 MICRO INV (E-REVIEW)",
+    "AppliedDate": "2022-10-26",
+    "IssuedDate": "2022-11-01",
+    "CompletedDate": "2023-01-10",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "3459 CAMINO ALEGRE",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9513",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6260468.666601345,
+    "POINT_Y": 1967267.9011015892,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23310510856996,
+    "y": 33.06107686090408
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 7,
+    "PermitNum": "CBR2022-1644",
+    "Description": "SO; 14.4 KW SOLAR ROOF MOUNT  36 MODULES  2 BATTERIES (E-REVIEW)",
+    "AppliedDate": "2022-05-11",
+    "IssuedDate": "2022-05-13",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "3479 CORTE CLARITA",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9502",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6260717.145401582,
+    "POINT_Y": 1967371.0830016881,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23229730836051,
+    "y": 33.061366868221924
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 9,
+    "PermitNum": "CBR2023-2302",
+    "Description": "REES / ROOF TOP SOLAR / 4.74KW W// 12 MODULES & 1 INVERTER (E-REVIEW)",
+    "AppliedDate": "2023-05-04",
+    "IssuedDate": "2023-05-06",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "8141 CALLE CATALONIA",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-8955",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6259277.875300229,
+    "POINT_Y": 1967432.2967017442,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23699663172127,
+    "y": 33.06149774464486
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 10,
+    "PermitNum": "CBR2023-4457",
+    "Description": "INSTALL SECOND PV SYSTEM (9) MODULES AT 440 WATTS 3.960 KW-DC / 3.579 KW-AC (9) OPTIMIZERS ROOF MOUNTED (1) INVERTER DE-RATED MAIN BREAKER FROM 225 AMPS TO 200 AMPS (E-REVIEW)",
+    "AppliedDate": "2023-09-27",
+    "IssuedDate": "2023-10-05",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "8153 CALLE CATALONIA",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-8955",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6259058.187800035,
+    "POINT_Y": 1967435.999801755,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23771375467717,
+    "y": 33.06150220416504
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 11,
+    "PermitNum": "CBR2022-4440",
+    "Description": "HEIDGER; ROOF MOUNT SOLAR 8.8 KW  22 SOLAR MODULES  22 INVERTERS  1 125A ENPHASE COMBINER PANEL (E-REVIEW)",
+    "AppliedDate": "2022-11-29",
+    "IssuedDate": "2022-12-02",
+    "CompletedDate": "2023-01-26",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "8128 CALLE CATALONIA",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-8954",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6259420.458700374,
+    "POINT_Y": 1967448.479501769,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23653177284017,
+    "y": 33.06154592757768
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 17,
+    "PermitNum": "CBR2023-1235",
+    "Description": "KAKADELA: 15 ROOF MOUNTED PV SOLAR PANELS  1 INVERTER  1 NEW SUB PANEL  SYSTEM SIZE 6 KW DC (E-REVIEW)",
+    "AppliedDate": "2023-03-14",
+    "IssuedDate": "2023-03-30",
+    "CompletedDate": "2023-10-10",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "3428 CORTE CLARITA",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9500",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6260105.145701006,
+    "POINT_Y": 1967585.5415018946,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23430133700172,
+    "y": 33.06194039453098
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 19,
+    "PermitNum": "CBR2023-1995",
+    "Description": "GAZDA; ROOF TOP SOLAR; 7.50 KW  19 MODULES & 1 INVERTER  DE-RATE MAIN BREAKER (E-REVIEW)",
+    "AppliedDate": "2023-04-20",
+    "IssuedDate": "2023-05-19",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "8116 CALLE CATALONIA",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-8954",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6259372.395800322,
+    "POINT_Y": 1967618.8384019285,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23669390073951,
+    "y": 33.06201286862226
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 24,
+    "PermitNum": "CBR2023-4941",
+    "Description": "19.68KW ROOF-MOUNT PV W// 48MODULES  15.2KW INVERTER/ENERGY STORAGE (E-REVIEW)",
+    "AppliedDate": "2023-11-06",
+    "IssuedDate": "2023-11-16",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "8004 PASEO ESMERADO",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9800",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6262686.854399413,
+    "POINT_Y": 1967705.6298979968,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.22587886432677,
+    "y": 33.06233712516499
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 30,
+    "PermitNum": "CBR2022-0122",
+    "Description": "24 ROOF MOUNT SOLAR MODULES  8.64KW  BATTERY STORAGE (E-REVIEW)",
+    "AppliedDate": "2022-01-13",
+    "IssuedDate": "2022-01-13",
+    "CompletedDate": "2022-03-17",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "8085 CAMINO MONTEGO",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9545",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6257961.312699005,
+    "POINT_Y": 1967777.0256980658,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.24130427820653,
+    "y": 33.062410823379
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 32,
+    "PermitNum": "CBR2023-1502",
+    "Description": "ENGLE / ROOF MOUNTED SOLAR SYSTEM / 5.25 KW CONSISTING OF 15 PANELS AND 15 MICROINVERTERS. NO BATTERY NO PANEL UPGRADE (E-REVIEW)",
+    "AppliedDate": "2023-03-29",
+    "IssuedDate": "2023-04-08",
+    "CompletedDate": "2023-05-22",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "3411 CAMINO ALEGRE",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9513",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6259579.3541005105,
+    "POINT_Y": 1967820.98429811,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23602467307947,
+    "y": 33.06257379940783
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 38,
+    "PermitNum": "CBR2023-1701",
+    "Description": "MILLER: 9.32KW ROOF-MOUNT PV W// 23MODULES  23MICRO-INVERTERS; 4.8KW ENERGY STORAGE (E-REVIEW)",
+    "AppliedDate": "2023-04-08",
+    "IssuedDate": "2023-04-13",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "3218 AVENIDA DE SUENO",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9537",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6258231.229099259,
+    "POINT_Y": 1967935.5207982212,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.2404282394473,
+    "y": 33.06285345898161
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 47,
+    "PermitNum": "CBR2022-3939",
+    "Description": "ROOF MOUNT  SOLAR INSTALL  8.51 KW  23 MODULES  MAIN BREAKER DOWNSIZE-175A (E-REVIEW)",
+    "AppliedDate": "2022-10-20",
+    "IssuedDate": "2022-10-22",
+    "CompletedDate": "2023-01-19",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "3285 AVENIDA DE SUENO",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9539",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6259300.145600259,
+    "POINT_Y": 1968104.588398382,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23694471682562,
+    "y": 33.06334595760798
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 48,
+    "PermitNum": "CBR2023-3371",
+    "Description": "ROOF MOUNTED PV SOLAR WITH BATTERY BACKUP - WOOLDRIDGE - 20 MODULES - 20 MICROINVERTERS - 1 TESLA POWERWALL-2 - 8.10 KW DC / 7.40 KW CEC AC SYSTEM SIZE (E-REVIEW)",
+    "AppliedDate": "2023-07-06",
+    "IssuedDate": "2023-07-18",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "3281 AVENIDA DE SUENO",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9539",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6259237.166800201,
+    "POINT_Y": 1968108.7966983765,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23715039943662,
+    "y": 33.06335588463328
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 52,
+    "PermitNum": "CBR2022-2428",
+    "Description": "6.4 KW ROOF-MOUNT PV  (16) MODULES  (1) INVERTER  (3) STRINGS (E-REVIEW)",
+    "AppliedDate": "2022-07-07",
+    "IssuedDate": "2022-07-14",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "3261 AVENIDA DE SUENO",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9539",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6258929.7496999055,
+    "POINT_Y": 1968165.7082984298,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.2381555179281,
+    "y": 33.06350428955797
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 1,
+    "PermitNum": "CBR2023-4560",
+    "Description": "REPLACE CONDENSER AND FURNACE (E-REVIEW)",
+    "AppliedDate": "2023-10-09",
+    "IssuedDate": "2023-10-12",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "8149 PASEO TAXCO",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9504",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6259655.208600581,
+    "POINT_Y": 1967246.7135015726,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23575937802349,
+    "y": 33.06099752366852
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 2,
+    "PermitNum": "CBR2023-2751",
+    "Description": "REPLACE HEAT PUMP (E-REVIEW)",
+    "AppliedDate": "2023-05-30",
+    "IssuedDate": "2023-06-01",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "8145 PASEO TAXCO",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9504",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6259749.000100672,
+    "POINT_Y": 1967265.1301015913,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.2354538345036,
+    "y": 33.0610505740641
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 5,
+    "PermitNum": "CBR2023-5117",
+    "Description": "SOLAR - · (10.0) KW DC RATED PV ARRAY· (1) 125A ENPHASE IQ COMBINER 4C· (25) SILFAB SIL-400 HC+ MODULES· (25) ENPHASE IQ8M-72-2-US MICRO-INVERTERSTHE MAIN BREAKER IN THE MSP WILL BE DERATED TO 175ACOMPLY WITH CEC 705.12. (E-REVIEW)",
+    "AppliedDate": "2023-11-25",
+    "IssuedDate": "2023-11-27",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "3451 CAMINO ALEGRE",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9513",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6260236.7294011265,
+    "POINT_Y": 1967282.3384016156,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.2338625382718,
+    "y": 33.061110525781544
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 6,
+    "PermitNum": "CBR2022-0312",
+    "Description": "REPLACE HEAT PUMP AND AIR HANDLER (E-REVIEW)",
+    "AppliedDate": "2022-01-31",
+    "IssuedDate": "2022-01-31",
+    "CompletedDate": "2022-02-10",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "3462 CAMINO ALEGRE",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9512",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6260495.228901371,
+    "POINT_Y": 1967358.7500016838,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23302121147029,
+    "y": 33.061327225895155
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 8,
+    "PermitNum": "CBR2022-2614",
+    "Description": "GAS LINE TO 6' FIREPLACE (CODE CASE CC2020-0701  E-REVIEW)",
+    "AppliedDate": "2022-07-19",
+    "IssuedDate": "2022-07-20",
+    "CompletedDate": "2023-01-19",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "3435 CAMINO ALEGRE",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9513",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6259679.229200602,
+    "POINT_Y": 1967420.354201734,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23568633847565,
+    "y": 33.061475358111664
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 12,
+    "PermitNum": "CBR2022-4285",
+    "Description": "HARABEDIAN; REPLACE 50 GAL W/H (E-REVIEW)",
+    "AppliedDate": "2022-11-15",
+    "IssuedDate": "2022-11-17",
+    "CompletedDate": "2023-12-06",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "3428 CAMINO ALEGRE",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9512",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6259885.229100794,
+    "POINT_Y": 1967451.5831017643,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23501496616056,
+    "y": 33.06156653383319
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 13,
+    "PermitNum": "CBR2022-3609",
+    "Description": "REPLACE AC  FURNACE  AND COIL (E-REVIEW)",
+    "AppliedDate": "2022-09-30",
+    "IssuedDate": "2022-10-06",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "3472 CORTE CLARITA",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9500",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6260620.416601479,
+    "POINT_Y": 1967509.8957018256,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23261727784076,
+    "y": 33.061745857180505
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 14,
+    "PermitNum": "CBR2023-3438",
+    "Description": "CAPOVILLA: TANKLESS WATER HEATER (E-REVIEW)",
+    "AppliedDate": "2023-07-11",
+    "IssuedDate": "2023-07-13",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "3472 CORTE CLARITA",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9500",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6260620.416601479,
+    "POINT_Y": 1967509.8957018256,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23261727784076,
+    "y": 33.061745857180505
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 15,
+    "PermitNum": "CBR2023-3018",
+    "Description": "REPLACE FURNACE  ADD ON AC WITH COIL (E-REVIEW)",
+    "AppliedDate": "2023-06-13",
+    "IssuedDate": "2023-06-15",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "8135 PASEO TAXCO",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9504",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6259904.062700823,
+    "POINT_Y": 1967551.1092018634,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23495656619843,
+    "y": 33.06184054653891
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 16,
+    "PermitNum": "CBR2023-3797",
+    "Description": "KNUTSON: REPLACE WATER HEATER (E-REVIEW)",
+    "AppliedDate": "2023-08-07",
+    "IssuedDate": "2023-08-10",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "3464 CORTE CLARITA",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9500",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6260515.5832013935,
+    "POINT_Y": 1967578.3591018915,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23296153727969,
+    "y": 33.06193129701136
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 18,
+    "PermitNum": "CBR2022-2018",
+    "Description": "REPLACE AC AND FURNACE (E-REVIEW)",
+    "AppliedDate": "2022-06-09",
+    "IssuedDate": "2022-06-17",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "3460 CORTE CLARITA",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9500",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6260439.916701317,
+    "POINT_Y": 1967613.7757019252,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.2332095863383,
+    "y": 33.06202667038308
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 20,
+    "PermitNum": "CBR2023-3019",
+    "Description": "INSTALL DUCTLESS MINI SPLIT SYSTEM  (E-REVIEW)",
+    "AppliedDate": "2023-06-13",
+    "IssuedDate": "2023-06-15",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "8129 PASEO TAXCO",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9504",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6259913.499700829,
+    "POINT_Y": 1967629.9794019312,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23492819764776,
+    "y": 33.06205754770319
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 21,
+    "PermitNum": "CBR2023-0744",
+    "Description": "LIZERBRAM: REPLACE WATER HEATER (E-REVIEW)",
+    "AppliedDate": "2023-02-17",
+    "IssuedDate": "2023-03-09",
+    "CompletedDate": "2023-08-31",
+    "StatusCurrent": "Closed - Finaled",
+    "OriginalAddress1": "8016 PASEO ESMERADO",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9800",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6262237.416698992,
+    "POINT_Y": 1967660.6457019597,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.22734436249281,
+    "y": 33.06220192715908
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 22,
+    "PermitNum": "CBR2022-3578",
+    "Description": "CONVERT GARAGE TO JR ADU (462 SF)",
+    "AppliedDate": "2022-09-28",
+    "IssuedDate": "2023-01-12",
+    "CompletedDate": null,
+    "StatusCurrent": "Issued - Active",
+    "OriginalAddress1": "8012 PASEO ESMERADO",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9800",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6262404.145699143,
+    "POINT_Y": 1967682.3799019754,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.22680085796104,
+    "y": 33.06226595255071
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 23,
+    "PermitNum": "CBR2022-3075",
+    "Description": "8014 PASEO ESMERADO: CONVERT GARAGE TO JR ADU (462 SF)",
+    "AppliedDate": "2022-08-24",
+    "IssuedDate": null,
+    "CompletedDate": null,
+    "StatusCurrent": "Closed - Error",
+    "OriginalAddress1": "8012 PASEO ESMERADO",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9800",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6262404.145699143,
+    "POINT_Y": 1967682.3799019754,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.22680085796104,
+    "y": 33.06226595255071
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 49,
+    "PermitNum": "CBR2023-5347",
+    "Description": "X2 FURNACE REPLACEMENT (E-REVIEW)",
+    "AppliedDate": "2023-12-20",
+    "IssuedDate": null,
+    "CompletedDate": null,
+    "StatusCurrent": "Pending - Incomplete",
+    "OriginalAddress1": "3249 AVENIDA DE SUENO",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9539",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6258736.395799726,
+    "POINT_Y": 1968120.6923983842,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.2387852006792,
+    "y": 33.063375536018995
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 56,
+    "PermitNum": "CBR2022-1995",
+    "Description": "REPLACE AC AND FAU (E-REVIEW)",
+    "AppliedDate": "2022-06-08",
+    "IssuedDate": "2022-06-16",
+    "CompletedDate": null,
+    "StatusCurrent": "Closed - Withdrawn",
+    "OriginalAddress1": "3412 CAMINO LARGO",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-8930",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6259614.375000551,
+    "POINT_Y": 1968183.437598452,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23592155794088,
+    "y": 33.063570826383874
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 70,
+    "PermitNum": "CBR2023-3919",
+    "Description": "REPLACE EXISTING HVAC SYSTEMS CONDENSERS AND FURNACES (E-REVIEW)",
+    "AppliedDate": "2023-08-14",
+    "IssuedDate": null,
+    "CompletedDate": null,
+    "StatusCurrent": "Closed - Withdrawn",
+    "OriginalAddress1": "3463 CORTE SONRISA",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9341",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6260497.270901367,
+    "POINT_Y": 1968286.3960985392,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23304309271974,
+    "y": 33.06387669428897
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 99,
+    "PermitNum": "CBR2023-2782",
+    "Description": "REMOVE EXISTING ROOF SYSTEM DOWN TO THE SHEETING. SHEETING WILL BE REPLACED AS NEEDED. INSTALL NEW ROOF COMPONENTS  UNDERLAYMENT  AND ROOF SHINGLES. (E-REVIEW)",
+    "AppliedDate": "2023-05-31",
+    "IssuedDate": null,
+    "CompletedDate": null,
+    "StatusCurrent": "Closed - Error",
+    "OriginalAddress1": "2962 LAS OLAS CT",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9534",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6256434.729101583,
+    "POINT_Y": 1968708.2288989425,
+    "TRACT": 17107,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.24631577804728,
+    "y": 33.0649300219199
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 105,
+    "PermitNum": "CBR2022-2515",
+    "Description": "3500 AVENIDA PANTERA: NEW STRUCTURAL PPLANS NOT ACCEPTED  PROPSED OUTDOOR BATHROOM",
+    "AppliedDate": "2022-07-12",
+    "IssuedDate": null,
+    "CompletedDate": null,
+    "StatusCurrent": "Closed - Withdrawn",
+    "OriginalAddress1": "3500 AVENIDA PANTERA",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-8939",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6260894.562701747,
+    "POINT_Y": 1968746.6874989718,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.231760535943,
+    "y": 33.06515198389405
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 120,
+    "PermitNum": "CBR2022-0350",
+    "Description": "",
+    "AppliedDate": "2022-02-04",
+    "IssuedDate": null,
+    "CompletedDate": null,
+    "StatusCurrent": "Closed - Error",
+    "OriginalAddress1": "3477 PASEO ANCHO",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9518",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6260383.374801263,
+    "POINT_Y": 1968861.609199077,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23343254115407,
+    "y": 33.0654545789953
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 173,
+    "PermitNum": "CBR2023-2672",
+    "Description": "312 SF SINGLE STORY ROOM ADDITION",
+    "AppliedDate": "2023-05-24",
+    "IssuedDate": null,
+    "CompletedDate": null,
+    "StatusCurrent": "Under Review - Active",
+    "OriginalAddress1": "2505 JACARANDA AVE",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9114",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6253618.00019896,
+    "POINT_Y": 1969629.1299998015,
+    "TRACT": 20034,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.25553825061661,
+    "y": 33.0673865806264
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 228,
+    "PermitNum": "CBR2022-1998",
+    "Description": "INSTALLATION OF (1) 18KW HOME BACKUP STANDBY GENERATOR WITH WHOLE HOUSE TRANSFER SWITCH. (E-REVIEW)",
+    "AppliedDate": "2022-06-08",
+    "IssuedDate": null,
+    "CompletedDate": null,
+    "StatusCurrent": "Closed - Withdrawn",
+    "OriginalAddress1": "3279 AVENIDA ANACAPA",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9301",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6259066.895800039,
+    "POINT_Y": 1969916.5467000604,
+    "TRACT": 17109,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.23776203258171,
+    "y": 33.068319621930335
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 234,
+    "PermitNum": "CBR2022-1303",
+    "Description": "CLOSED-WITHDRAWN (E-REVIEW)",
+    "AppliedDate": "2022-04-14",
+    "IssuedDate": null,
+    "CompletedDate": null,
+    "StatusCurrent": "Closed - Withdrawn",
+    "OriginalAddress1": "2904 VIA PEPITA",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9238",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6255468.500100687,
+    "POINT_Y": 1969927.6300000697,
+    "TRACT": 20034,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.24950759589586,
+    "y": 33.06825583570146
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 235,
+    "PermitNum": "CBR2022-1481",
+    "Description": "DUPLICATE: SEE CBR2022-1480 (E-REVIEW)",
+    "AppliedDate": "2022-04-29",
+    "IssuedDate": null,
+    "CompletedDate": null,
+    "StatusCurrent": "Closed - Withdrawn",
+    "OriginalAddress1": "2904 VIA PEPITA",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9238",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6255468.500100687,
+    "POINT_Y": 1969927.6300000697,
+    "TRACT": 20034,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.24950759589586,
+    "y": 33.06825583570146
+   }
+  },
+  {
+   "attributes": {
+    "OBJECTID": 237,
+    "PermitNum": "CBR2023-2099",
+    "Description": "MAIN PANEL UPGRADE. HOUSE WAS REMODELED. (E-REVIEW)",
+    "AppliedDate": "2023-04-25",
+    "IssuedDate": null,
+    "CompletedDate": null,
+    "StatusCurrent": "Pending - Incomplete",
+    "OriginalAddress1": "2507 LA MACARENA AVE",
+    "OriginalCity": "Carlsbad",
+    "OriginalState": "CA",
+    "OriginalZip": "92009-9126",
+    "Jurisdiction": "Carlsbad",
+    "PermitClass": "BLDG-Residential",
+    "PermitClassMapped": "Residential",
+    "POINT_X": 6253672.000099018,
+    "POINT_Y": 1969932.1300000846,
+    "TRACT": 20034,
+    "DISTRICTID": "4"
+   },
+   "geometry": {
+    "x": -117.25537153258996,
+    "y": 33.068220733544315
+   }
+  }
+ ]
+}
