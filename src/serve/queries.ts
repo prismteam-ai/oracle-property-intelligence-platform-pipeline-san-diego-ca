@@ -136,7 +136,7 @@ export function coverageNote(coverage: JurisdictionCoverage[]): string | null {
   if (withFeed.length === 0) {
     return `No permit data is published for ${listNames(without)}, so open-permit filters return nothing here. Roof-age results are complete.`;
   }
-  return `Permit data in this area covers ${listNames(withFeed)} only. ${listNames(without)} (${share}% of parcels in this radius) publish no bulk permit feed, so open permits there are not shown. Roof-age results are complete.`;
+  return `The permits shown here are on land covered by ${listNames(withFeed)}, which publish permits. Parcels inside the city limits of ${listNames(without)} (${share}% of parcels in this radius) can never show an open permit, because those cities publish no permit feed. A row may still carry one of those city names: that is its mailing address, not the city that issued the permit. Roof-age results are complete.`;
 }
 
 const columnCache = new WeakMap<Store, Map<string, Promise<Set<string>>>>();
