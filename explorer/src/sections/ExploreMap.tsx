@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Fragment, Suspense, lazy, useEffect, useId, useMemo, useRef, useState } from 'react';
+import { Fragment, Suspense, lazy, useId, useMemo, useState } from 'react';
 import { MARKER_COLORS, type MapPoint } from '../components/mapColors';
 import { ErrorNotice, Loading, ResourceView, SourceLink } from '../components/ui';
 import {
@@ -686,19 +686,11 @@ export default function ExploreMap() {
   const [expanded, setExpanded] = useState<string | null>(null);
   const [formError, setFormError] = useState<string | null>(null);
   const formId = useId();
-  const autoExpanded = useRef<string | null>(null);
   const spec = TABS.find((t) => t.id === tab) ?? (TABS[0] as TabSpec);
 
   const args = leadArgs(tab, search);
   const key = `leads:${JSON.stringify(args)}`;
   const { state, reload } = useResource(key, () => findLeads(args));
-
-  // Open the first row once per search so provenance is visible without an extra click.
-  useEffect(() => {
-    if (state.status !== 'ok' || autoExpanded.current === key) return;
-    autoExpanded.current = key;
-    setExpanded(state.data.rows[0]?.apn ?? null);
-  }, [state, key]);
 
   const mapGap =
     tab === 'permits' && state.status === 'ok' && formError === null
