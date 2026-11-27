@@ -1144,6 +1144,14 @@ tfoot td {
   box-shadow: 0 0 0 1px rgb(0 0 0 / 25%);
 }
 
+.legend-swatch-nodata {
+  flex: none;
+  width: 14px;
+  height: 11px;
+  border: 1.2px dashed #374151;
+  background: rgb(75 85 99 / 28%);
+}
+
 .maplibregl-popup-content {
   padding: 6px 9px;
   color: #16202b;

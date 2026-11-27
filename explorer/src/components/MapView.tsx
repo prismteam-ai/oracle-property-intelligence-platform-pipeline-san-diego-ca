@@ -17,6 +17,8 @@ export interface MapViewProps {
   selectedId?: string | null;
   onPinChange?: (point: Point) => void;
   onSelect?: (id: string) => void;
+  /** Jurisdiction codes whose city limits are shaded as having no permit data. */
+  noDataCodes?: readonly string[];
   testId: string;
   ariaLabel: string;
 }
@@ -41,6 +43,16 @@ const RASTER_FALLBACK: StyleSpecification = {
 
 const SRC = { radius: 'ox-radius', points: 'ox-points', selected: 'ox-selected' } as const;
 const POINT_LAYER = 'ox-points-dot';
+/** City limits from SANDAG Municipal_Boundaries (scripts/fetch-city-limits.ts), served beside the page. */
+const CITIES_URL = `${import.meta.env.BASE_URL}cities.geojson`;
+const CITIES_SRC = 'ox-cities';
+const NO_DATA_LAYERS = ['ox-nodata-fill', 'ox-nodata-line'] as const;
+
+const codeFilter = (codes: readonly string[]): maplibregl.FilterSpecification => [
+  'in',
+  ['get', 'code'],
+  ['literal', [...codes]],
+];
 const COUNTY_CENTER: [number, number] = [-117.0, 32.95];
 
 type Features = FeatureCollection<Geometry>;
@@ -68,6 +80,21 @@ function addLayers(map: MapLibreMap): void {
   const dark = prefersDark();
   const accent = dark ? '#3cc2b0' : '#0f6e64';
   for (const id of Object.values(SRC)) map.addSource(id, { type: 'geojson', data: EMPTY });
+  map.addSource(CITIES_SRC, { type: 'geojson', data: CITIES_URL });
+  map.addLayer({
+    id: NO_DATA_LAYERS[0],
+    type: 'fill',
+    source: CITIES_SRC,
+    filter: codeFilter([]),
+    paint: { 'fill-color': dark ? '#9ca3af' : '#4b5563', 'fill-opacity': 0.28 },
+  });
+  map.addLayer({
+    id: NO_DATA_LAYERS[1],
+    type: 'line',
+    source: CITIES_SRC,
+    filter: codeFilter([]),
+    paint: { 'line-color': dark ? '#d1d5db' : '#374151', 'line-width': 1.2, 'line-dasharray': [2, 2] },
+  });
   map.addLayer({
     id: 'ox-radius-fill',
     type: 'fill',
@@ -117,7 +144,8 @@ function pointsToFeatures(points: readonly MapPoint[]): Features {
 
 /** MapLibre map with a search pin, a radius ring and result dots. No API key is needed. */
 export default function MapView(props: MapViewProps) {
-  const { pin, radiusMiles, points, selectedId, testId, ariaLabel } = props;
+  const { pin, radiusMiles, points, selectedId, testId, ariaLabel, noDataCodes } = props;
+  const noDataKey = (noDataCodes ?? []).join(',');
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<MapLibreMap | null>(null);
   const markerRef = useRef<Marker | null>(null);
@@ -245,6 +273,15 @@ export default function MapView(props: MapViewProps) {
   useEffect(() => {
     const map = mapRef.current;
     if (!ready || !map) return;
+    const codes = noDataKey ? noDataKey.split(',') : [];
+    for (const layer of NO_DATA_LAYERS) {
+      if (map.getLayer(layer)) map.setFilter(layer, codeFilter(codes));
+    }
+  }, [ready, noDataKey]);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!ready || !map) return;
     const selected = points.find((p) => p.id === selectedId);
     setData(map, SRC.selected, selected ? pointsToFeatures([selected]) : EMPTY);
   }, [ready, points, selectedId]);
@@ -255,6 +292,7 @@ export default function MapView(props: MapViewProps) {
       data-testid={testId}
       data-map-ready={ready ? 'true' : 'false'}
       data-point-count={points.length}
+      data-no-data-codes={noDataKey}
     >
       <div ref={containerRef} className="map-canvas" role="application" aria-label={ariaLabel} />
       {failed ? (

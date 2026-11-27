@@ -10,6 +10,7 @@ import {
   type LeadSearchArgs,
 } from '../lib/api';
 import { fmtInt, fmtOpenDuration, fmtTimestamp, fullAddress, roofBasisLabel } from '../lib/format';
+import { coverageGap, permitGapNote } from '../lib/coverageGap';
 import { DEFAULT_PLACE, MAX_RADIUS_MILES, PLACES, inCounty, type Point } from '../lib/places';
 import type { LeadRow, LeadSearch, Permit, Property, Provenance } from '../lib/schemas';
 import { useResource } from '../lib/useResource';
@@ -574,11 +575,15 @@ export function ResultsBody({
 }) {
   const [shown, setShown] = useState(PAGE_SIZE);
   const spec = TABS.find((t) => t.id === tab) ?? (TABS[0] as TabSpec);
+  const gap = tab === 'permits' ? coverageGap(data.coverage) : null;
   return (
     <div className="stack-tight">
       <p className="result-meta" data-testid="results-meta">
         <strong data-testid="results-total">
           {fmtInt(data.total)} {spec.total(search)}
+          {gap
+            ? ` where permits are published (${gap.publishedShare}% of parcels in this radius)`
+            : ''}
         </strong>
         <span className="muted">
           within {search.radiusMiles} mi · showing {fmtInt(Math.min(shown, data.rows.length))} ·{' '}
@@ -594,7 +599,11 @@ export function ResultsBody({
         </p>
       ) : null}
       {extraNote}
-      {data.coverageNote ? (
+      {gap ? (
+        <p className="notice notice-warn" data-testid="coverage-note">
+          {permitGapNote(gap)}
+        </p>
+      ) : data.coverageNote ? (
         <p className="notice notice-warn" data-testid="coverage-note">
           {data.coverageNote}
         </p>
@@ -691,6 +700,10 @@ export default function ExploreMap() {
     setExpanded(state.data.rows[0]?.apn ?? null);
   }, [state, key]);
 
+  const mapGap =
+    tab === 'permits' && state.status === 'ok' && formError === null
+      ? coverageGap(state.data.coverage)
+      : null;
   const points = useMemo<MapPoint[]>(() => {
     if (state.status !== 'ok' || formError !== null) return [];
     const asOf = state.data.asOf;
@@ -896,6 +909,7 @@ export default function ExploreMap() {
               radiusMiles={search.radiusMiles}
               points={points}
               selectedId={expanded}
+              noDataCodes={mapGap?.codes ?? []}
               onPinChange={(p) => commit(round(p), false)}
               onSelect={(apn) => {
                 setExpanded(apn);
@@ -909,6 +923,11 @@ export default function ExploreMap() {
             <li>
               <span className="legend-dot" style={{ background: spec.color }} /> {spec.legend}
             </li>
+            {mapGap ? (
+              <li data-testid="legend-no-data">
+                <span className="legend-swatch-nodata" /> City limits with no permit data
+              </li>
+            ) : null}
           </ul>
         </div>
 
