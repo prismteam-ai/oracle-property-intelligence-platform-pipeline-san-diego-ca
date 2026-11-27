@@ -3,7 +3,7 @@
 **Live explorer UI (public, no login):** https://main.d3ckixhlz7ov75.amplifyapp.com
 **Live data API:** https://mywcppj2yl.execute-api.us-east-2.amazonaws.com/health · MCP at `POST /mcp` · agent at `POST /agent`
 **Credentials:** none needed. Everything is read-only.
-**Demo video (4 min 41 s, narrated, plays in the browser):** https://main.d3ckixhlz7ov75.amplifyapp.com/demo.html ([file download](https://github.com/rvadapally-synexar/oracle-property-intelligence-platform-pipeline-san-diego-ca/releases/tag/demo)). Recorded at the third publication (run 7); the live site is now on the fourth (run 8).
+**Demo video (14 min 18 s, narrated, plays in the browser):** https://main.d3ckixhlz7ov75.amplifyapp.com/demo.html ([file download](https://github.com/rvadapally-synexar/oracle-property-intelligence-platform-pipeline-san-diego-ca/releases/tag/demo)). Recorded on 26 Nov at the fourth publication (run 8), following the assignment's presenter transcript line by line.
 **Companion PR (consumer):** `roofing-crm`, live at https://main.d3dhgfb9bfhbhb.amplifyapp.com, which reads this pipeline only through the MCP endpoint above.
 
 **Latest published snapshot (run 8, 26 Nov 2026):** root CID `bafybeid7km7o4pmbmjrgfjcqhtnidciy4ewj5glket3bfodqb454bg42ru`
